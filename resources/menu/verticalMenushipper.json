@@ -1,0 +1,10 @@
+{
+  "menu": [
+    {
+      "name": "trucker list",
+      "icon": "menu-icon tf-icons mdi mdi-file-document-plus",
+      "slug": "layouts",
+      "url": "/dash"
+    }
+  ]
+}
