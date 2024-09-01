@@ -91,10 +91,10 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
   Route::get('/admin-download-certificate/{file}', [AdminController::class, 'download_certificate'])->name('admin.download.certificate');
 });
 Livewire::setScriptRoute(function ($handle) {
-  return Route::get('/accord/public/livewire/livewire.js', $handle);
+  return Route::get('/public/livewire/livewire.js', $handle);
 });
 Livewire::setUpdateRoute(function ($handle) {
-  return Route::post('/accord/public/livewire/update', $handle);
+  return Route::post('/public/livewire/update', $handle);
 });
 
 // NOW
