@@ -60,7 +60,15 @@ class AgentController extends Controller
   public function formlist()
   {
     $driver = User::with('agents')->find(Auth::user()->id);
-    return view('agent.formlist', compact('driver'));
+    $drive=[];
+    foreach ($driver->agents as $value) {
+      $drive[] = $value->id;
+    }
+
+    // dd($drive);
+    $drivername = DriverDetail::WhereIn('user_id', $drive)->get();
+//  dd($drivername);
+    return view('agent.formlist', compact('driver','drivername'));
   }
 
   /**
@@ -472,14 +480,14 @@ $r=0;
       'suffix' => 'required',
       'salutation' => 'required',
       'prefix' => 'required',
-      'websit' => 'required',
+      'websit' => 'sometimes',
       'tax' => 'required',
       'password1' => 'required',
       'email' => 'required|email|unique:users',
       'Addss' => 'sometimes',
       'Addss2' => 'sometimes',
       'fullname' => 'sometimes',
-      'city' => 'sometimes',
+      'city' => 'required',
       'state' => 'sometimes',
       'zip' => 'sometimes',
       'phone' => 'sometimes',
@@ -532,6 +540,7 @@ $r=0;
         'address2' => $request->address2,
         'zip' => $request->zip,
         'websit' => $request->websit,
+        'city' => $request->city,
         'tax' => $request->tax,
         'scac' => $request->scac,
         'usdot' => $request->usdot,
@@ -568,7 +577,7 @@ $r=0;
       $data = [
         'name' => $names,
         'email' => $email,
-         'password' => $password
+        'password' => $password
     ];
 
     Mail::send('email.login', $data, function ($message) use ($email, $names,$password) {
@@ -613,6 +622,7 @@ $r=0;
         'zip' => $request->zip,
         'websit' => $request->websit,
         'tax' => $request->tax,
+        'city' => $request->city,
         'license_number' => $request->license_number,
         'license_expiry_date' => $request->license_expiry_date,
         'license_type' => $request->license_type,

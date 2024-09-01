@@ -205,11 +205,11 @@
                                         <tr class="ng-tns-c268-42" style="border:1px solid black; line-height: 2;">
                                           <td
                                             class="lable_title ng-tns-c268-42"><span class="ng-tns-c268-42">&nbsp;&nbsp; PHONE (A/C, No, Ext): </span>
-                                            {{ $agent->agencies[0]->agency_cellphone }}
+                                            {{ $agent->agencies[0]->cellphone }}
                                           </td>
 
                                           <td class="lable_title ng-tns-c268-42"><span class="ng-tns-c268-42">&nbsp;&nbsp; FAX (A/C, No):</span>
-                                            {{ $agent->agencies[0]->agency_fax }}
+                                            {{ $agent->agencies[0]->fax }}
                                           </td>
                                         </tr>
                                         <tr class="ng-tns-c268-42" style="border:1px solid black; line-height: 2;">
@@ -217,7 +217,7 @@
                                             <span class="ng-tns-c268-42">&nbsp;&nbsp; E-MAIL ADDRESS:</span>
                                           </td>
                                           <td class="lable_title ng-tns-c268-42" style="" >
-                                            {{ $agent->agencies[0]->agency_extra_email }} </td></tr></tbody></table></td></tr>
+                                            {{ $agent->email }} </td></tr></tbody></table></td></tr>
                                 <tr class="ng-tns-c268-42" style="border:1px solid black;">
                                   <td width="50%" valign="top" class="p-0 ng-tns-c268-42">
                                     <table width="100%" cellpadding="0" cellspacing="0" style="min-height:10px;"
@@ -227,13 +227,13 @@
                                           <td width="100%" valign="middle" class="lable_title ng-tns-c268-42">
                                             INSURED
                                             <br />
-                                            &nbsp;&nbsp;&nbsp;&nbsp;  {{ $driver->name }}<br class="ng-tns-c268-42">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;  {{ $driver->truckers[0]->name }}<br class="ng-tns-c268-42">
                                             &nbsp;&nbsp;&nbsp;&nbsp; {{ $driver->truckers[0]->address }} <br class="ng-tns-c268-42">
                                             &nbsp;&nbsp;&nbsp;&nbsp; {{ $driver->truckers[0]->city }}
-                                            &nbsp;&nbsp;&nbsp;&nbsp; {{ $driver->truckers[0]->state }} , <br class="ng-tns-c268-42">
+                                            &nbsp;&nbsp;&nbsp;&nbsp; {{ $driver->truckers[0]->state }} , 
                                             &nbsp;&nbsp;&nbsp;&nbsp; {{ $driver->truckers[0]->zip }}
                                             <br class="ng-tns-c268-42">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;  {{ $driver->truckers[0]->contact_info }}
+                                            &nbsp;&nbsp;&nbsp;&nbsp;  {{ $driver->truckers[0]->cellphone }}
                                           </td> <td></td>  <td></td> </tr></tbody></table></td>
                                   <td width="50%" valign="top" class="p-0 ng-tns-c268-42">
                                     <table width="100%" style="" cellpadding="0" cellspacing="0" formgroupname="iaInsurerForm"

@@ -10,8 +10,9 @@ $navbarHideToggle = false;
 @endpush
 
 @section('content')
-<form method="post" action="{{ route('update_cert') }}" id="form">
+<form method="post" action="{{ route('update_certt') }}" id="form">
     @csrf
+  
 <div id="acordPage" fxlayout="row" class="page-layout simple right-sidebar ng-tns-c268-42"
     style="flex-direction: row; box-sizing: border-box; display: flex;">
 <input type="hidden" name="cert_id" value="{{request()->id}}">
@@ -265,7 +266,7 @@ $navbarHideToggle = false;
                                                                                                     @php
                                                                                                     $values = "";
                                                                                                 @endphp
-                                                                                                    <select id="insurA" class="selecter">
+                                                                                                    <select id="insurA"  disabled class="selecter">
                                                                                                       <option value="">-Select-</option>
                                                                                                       @foreach ($insurProviders as $ip)
                                                                                                       @php
@@ -358,7 +359,7 @@ $navbarHideToggle = false;
                                                                                             </div>
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-50">
-                                                                                                <input matinput=""
+                                                                                                <input matinput=""disabled
                                                                                                     placeholder="Enter Insurer A Details"
                                                                                                     formcontrolname="insNaicNoA"
                                                                                                     value="@if (isset(  $certPolicy ) ){{ $certPolicy->first()->insuranceProvider->naic_number }} @endif"
@@ -425,7 +426,7 @@ $navbarHideToggle = false;
                                                                                             </div>
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-51">
-                                                                                                <input
+                                                                                                <input disabled
                                                                                                     autocomplete="off"
                                                                                                     matinput=""
                                                                                                     formcontrolname="insBestRatingA"
@@ -503,7 +504,7 @@ $navbarHideToggle = false;
                                                                                                     aria-expanded="false"
                                                                                                     aria-haspopup="listbox"> --}}
 
-                                                                                                    <select id="insurB" class="selecter">
+                                                                                                    <select id="insurB" disabled class="selecter">
                                                                                                       <option value="">-Select-</option>
                                                                                                       @foreach ($insurProviders as $ip)
                                                                                                       @php
@@ -588,7 +589,7 @@ $navbarHideToggle = false;
                                                                                             </div>
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-53">
-                                                                                                <input matinput=""
+                                                                                                <input matinput="" disabled
                                                                                                         placeholder="Enter Insurer B Details"
                                                                                                         formcontrolname="insNaicNoB"
                                                                                                         @foreach ($insurProviders as $ip)
@@ -662,7 +663,7 @@ $navbarHideToggle = false;
                                                                                             </div>
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-54">
-                                                                                                <input
+                                                                                                <input disabled
                                                                                                     autocomplete="off"
                                                                                                     matinput=""
                                                                                                     formcontrolname="insBestRatingB"
@@ -727,7 +728,7 @@ $navbarHideToggle = false;
                                                                                             </div>
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-55">
-                                                                                                <select id="insurC" class="selecter">
+                                                                                                <select id="insurC" disabled class="selecter">
                                                                                                   <option value="">-Select-</option>
                                                                                                   @foreach ($insurProviders as $ip)
                                                                                                   @php
@@ -813,7 +814,7 @@ $navbarHideToggle = false;
                                                                                             </div>
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-56">
-                                                                                                <input matinput=""
+                                                                                                <input matinput="" disabled
                                                                                                         placeholder="Enter Insurer C Details"
                                                                                                         formcontrolname="insNaicNoC"
                                                                                                         @foreach ($insurProviders as $ip)
@@ -888,7 +889,7 @@ $navbarHideToggle = false;
                                                                                             </div>
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-57">
-                                                                                                <input
+                                                                                                <input disabled
                                                                                                     autocomplete="off"
                                                                                                     matinput=""
                                                                                                     formcontrolname="insBestRatingC"
@@ -952,7 +953,7 @@ $navbarHideToggle = false;
                                                                                             </div>
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-58">
-                                                                                                <select id="insurD" class="selecter">
+                                                                                                <select id="insurD" disabled class="selecter">
                                                                                                   <option value="">-Select-</option>
                                                                                                   @foreach ($insurProviders as $ip)
                                                                                                   @php
@@ -1037,7 +1038,7 @@ $navbarHideToggle = false;
                                                                                             </div>
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-59">
-                                                                                                <input matinput=""
+                                                                                                <input matinput="" disabled
                                                                                                       placeholder="Enter Insurer D Details"
                                                                                                       formcontrolname="insNaicNoD"
                                                                                                       @foreach ($insurProviders as $ip)
@@ -1111,7 +1112,7 @@ $navbarHideToggle = false;
                                                                                             </div>
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-60">
-                                                                                                <input
+                                                                                                <input disabled
                                                                                                       autocomplete="off"
                                                                                                       matinput=""
                                                                                                       formcontrolname="insBestRatingD"
@@ -1175,7 +1176,7 @@ $navbarHideToggle = false;
                                                                                             </div>
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-61">
-                                                                                                <select id="insurE" class="selecter">
+                                                                                                <select id="insurE" disabled class="selecter">
                                                                                                   <option value="">-Select-</option>
                                                                                                   @foreach ($insurProviders as $ip)
                                                                                                   @php
@@ -1260,7 +1261,7 @@ $navbarHideToggle = false;
                                                                                             </div>
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-62">
-                                                                                                <input matinput=""
+                                                                                                <input matinput="" disabled
                                                                                                         placeholder="Enter Insurer E Details"
                                                                                                         formcontrolname="insNaicNoE"
                                                                                                         @foreach ($insurProviders as $ip)
@@ -1335,7 +1336,7 @@ $navbarHideToggle = false;
                                                                                             </div>
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-63">
-                                                                                                <input
+                                                                                                <input disabled
                                                                                                       autocomplete="off"
                                                                                                       matinput=""
                                                                                                       formcontrolname="insBestRatingE"
@@ -1399,7 +1400,7 @@ $navbarHideToggle = false;
                                                                                           </div>
                                                                                           <div
                                                                                               class="mat-form-field-infix ng-tns-c70-61">
-                                                                                              <select id="insurF" class="selecter">
+                                                                                              <select id="insurF"  disabled class="selecter">
                                                                                                 <option value="">-Select-</option>
                                                                                                 @foreach ($insurProviders as $ip)
                                                                                                 @php
@@ -1484,7 +1485,7 @@ $navbarHideToggle = false;
                                                                                           </div>
                                                                                           <div
                                                                                               class="mat-form-field-infix ng-tns-c70-62">
-                                                                                              <input matinput=""
+                                                                                              <input matinput="" disabled
                                                                                                       placeholder="Enter Insurer F Details"
                                                                                                       formcontrolname="insNaicNoF"
                                                                                                       @foreach ($insurProviders as $ip)
@@ -1560,7 +1561,7 @@ $navbarHideToggle = false;
                                                                                           </div>
                                                                                           <div
                                                                                               class="mat-form-field-infix ng-tns-c70-63">
-                                                                                              <input
+                                                                                              <input disabled
                                                                                                     autocomplete="off"
                                                                                                     matinput=""
                                                                                                     formcontrolname="insBestRatingF"
@@ -1600,7 +1601,7 @@ $navbarHideToggle = false;
                                                             style="font-family: Arial; font-size: 12px; font-weight: bold; margin-right: 10px;"
                                                             class="ng-tns-c268-42">Currency</span><span
                                                             style="font-family: Arial; font-size: 12px;"
-                                                            class="ng-tns-c268-42"><select formcontrolname="currency"
+                                                            class="ng-tns-c268-42"><select  disabled formcontrolname="currency"
                                                                 id="currency"
                                                                 class="drop_box ng-tns-c268-42 ng-untouched ng-pristine ng-valid">
                                                                 <option value="CND" class="ng-tns-c268-42">Canadian
@@ -1669,7 +1670,7 @@ $navbarHideToggle = false;
                                                                 <mat-checkbox
                                                                     class="mat-checkbox ng-tns-c268-42 mat-accent mat-checkbox-checked"
                                                                     id="mat-checkbox-28">
-                                                                      <input class="form-check-input" type="checkbox" value="{{ $pt->id }}"
+                                                                      <input class="form-check-input"  disabled type="checkbox" value="{{ $pt->id }}"
                                                                     name=""
                                                                     />
                                                                 </mat-checkbox> {{$pt->type_name}}
@@ -1705,7 +1706,7 @@ $navbarHideToggle = false;
                                                                             </div>
                                                                             <div
                                                                                 class="mat-form-field-infix ng-tns-c70-64">
-                                                                                <input autocomplete="off" matinput=""
+                                                                                <input autocomplete="off" matinput="" disabled
                                                                                     formcontrolname="insrLtrGL" name="insurance_provider_code[{{ $pt->id }}]"
                                                                                     maxlength="1" minlength="1" value="@if(!empty($certPolicy->where('policy_type_id', $pt->id)->first())){{$certPolicy->where('policy_type_id', $pt->id)->first()->insurance_provider_code}}@endif"
                                                                                     oninput="this.value = this.value.toUpperCase()"
@@ -1756,7 +1757,7 @@ $navbarHideToggle = false;
                                                                             </div>
                                                                             <div
                                                                                 class="mat-form-field-infix ng-tns-c70-65">
-                                                                                <input autocomplete="off" matinput=""
+                                                                                <input autocomplete="off" matinput="" disabled
                                                                                     value="" disabled=""
                                                                                     class="mat-input-element mat-form-field-autofill-control ng-tns-c70-65 cdk-text-field-autofill-monitored"
                                                                                     id="mat-input-21"
@@ -1793,7 +1794,7 @@ $navbarHideToggle = false;
                                                                                     formcontrolname="glLiability"
                                                                                     class="mat-checkbox ng-tns-c268-42 mat-accent ng-untouched ng-pristine ng-valid"
                                                                                     id="mat-checkbox-29">
-                                                                                    <input class="form-check-input" type="checkbox" value="{{ $pp->id }}"
+                                                                                    <input class="form-check-input" disabled type="checkbox" value="{{ $pp->id }}"
                                                                                     name="main_policy_sub[{{ str_replace(' ', '_', $pt->id) }}][{{ $pp->id }}]"
                                                                                     id="{{ $pp->policy_title }}"
 
@@ -1851,7 +1852,7 @@ $navbarHideToggle = false;
                                                                                             </div>
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-67">
-                                                                                                <input
+                                                                                                <input disabled
                                                                                                     autocomplete="off"
                                                                                                     matinput=""
                                                                                                     formcontrolname="policyNumberGL"
@@ -1892,7 +1893,7 @@ $navbarHideToggle = false;
                                                                                     id="mat-slide-toggle-10"><label
                                                                                         class="mat-slide-toggle-label"
                                                                                         for="mat-slide-toggle-10-input"><span
-                                                                                            class="mat-slide-toggle-bar"><input
+                                                                                            class="mat-slide-toggle-bar"> <input disabled
                                                                                                 type="checkbox"
                                                                                                 role="switch"
                                                                                                 class="mat-slide-toggle-input cdk-visually-hidden"
@@ -1940,7 +1941,7 @@ $navbarHideToggle = false;
                                                                             </div>
                                                                             <div
                                                                                 class="mat-form-field-infix ng-tns-c70-68">
-                                                                                <input
+                                                                                 <input disabled
                                                                                 @if ($r==1)
                                                                                 type="text"
                                                                                 @else
@@ -2012,7 +2013,7 @@ $navbarHideToggle = false;
                                                                             </div>
                                                                             <div
                                                                                 class="mat-form-field-infix ng-tns-c70-69">
-                                                                                <input  @if ($r==1)
+                                                                                 <input disabled  @if ($r==1)
                                                                                 type="text"
                                                                                 @else
                                                                                 type="date"
@@ -2102,7 +2103,7 @@ $navbarHideToggle = false;
                                                                                             </div>
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-70">
-                                                                                                <input type="number" class="form-control" id="{{ $pl->coverage_item }}"
+                                                                                                 <input disabled type="number" class="form-control" id="{{ $pl->coverage_item }}"
                                                                                                 name="main_policy_coverage[{{ str_replace(' ', '_', $pt->id) }}][{{ $pl->id }}]"
                                                                                                 placeholder=""
                                                                                                 value="@if(isset($certPolimit)){{$certPolimit->where('policy_limit_id', $pl->id)->first()->amount??0}}@endif"
@@ -2140,7 +2141,7 @@ $navbarHideToggle = false;
                                                                 <mat-checkbox
                                                                     class="mat-checkbox ng-tns-c268-42 mat-accent mat-checkbox-checked"
                                                                     id="mat-checkbox-28">
-                                                                      <input class="form-check-input" type="checkbox" value="{{ $pt->id }}" disabled
+                                                                       <input disabled class="form-check-input" type="checkbox" value="{{ $pt->id }}" disabled
                                                                     name=""
                                                                     />
                                                                 </mat-checkbox> {{$pt->type_name}}
@@ -2177,7 +2178,7 @@ $navbarHideToggle = false;
                                                                             </div>
                                                                             <div
                                                                                 class="mat-form-field-infix ng-tns-c70-64">
-                                                                                <input autocomplete="off" oninput="validateInput(event)" disabled
+                                                                                 <input disabled autocomplete="off" oninput="validateInput(event)" 
                                                                                     formcontrolname="insrLtrGL" name="insurance_provider_code[{{ $pt->id }}]"
                                                                                     maxlength="1" minlength="1" value="@if(!empty($certPolicy->where('policy_type_id', $pt->id)->first()))
                                                                                    {{$certPolicy->where('policy_type_id', $pt->id)->first()->insurance_provider_code}}@endif"
@@ -2229,7 +2230,7 @@ $navbarHideToggle = false;
                                                                             <div
                                                                                 class="mat-form-field-infix ng-tns-c70-65">
                                                                                 <input autocomplete="off" matinput=""
-                                                                                    value="" disabled=""
+                                                                                    value="" 
                                                                                     class="mat-input-element mat-form-field-autofill-control ng-tns-c70-65 cdk-text-field-autofill-monitored"
                                                                                     id="mat-input-21"
                                                                                     aria-invalid="false"
@@ -2265,7 +2266,7 @@ $navbarHideToggle = false;
                                                                                     formcontrolname="glLiability"
                                                                                     class="mat-checkbox ng-tns-c268-42 mat-accent ng-untouched ng-pristine ng-valid"
                                                                                     id="mat-checkbox-29">
-                                                                                    <input class="form-check-input" type="checkbox" value="{{ $pp->id }}"
+                                                                                     <input disabled class="form-check-input" type="checkbox" value="{{ $pp->id }}"
                                                                                     name="main_policy_sub[{{ str_replace(' ', '_', $pt->id) }}][{{ $pp->id }}]"
                                                                                     id="{{ $pp->policy_title }}"
 
@@ -2365,7 +2366,7 @@ $navbarHideToggle = false;
                                                                                     id="mat-slide-toggle-10"><label
                                                                                         class="mat-slide-toggle-label"
                                                                                         for="mat-slide-toggle-10-input"><span
-                                                                                            class="mat-slide-toggle-bar"><input
+                                                                                            class="mat-slide-toggle-bar"> <input disabled
                                                                                                 type="checkbox"
                                                                                                 role="switch"
                                                                                                 class="mat-slide-toggle-input cdk-visually-hidden"
@@ -2699,13 +2700,10 @@ $navbarHideToggle = false;
 
                             <div fxlayout="row" fxlayoutalign="center center" class="acord-button-row ng-tns-c268-42"
                                 style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center; align-items: center;">
-                                <button mat-flat-button="" color="accent" id="btnsub"  type="submit"
+                                <input mat-flat-button="" color="accent" id="btnsub" name="btnsub" type="submit" value="update"
                                     class="mat-focus-indicator action-buttion ng-tns-c268-42 mat-flat-button mat-button-base mat-accent">
 
-                                    <span
-                                        class="mat-button-wrapper"> Update
-                                        </span><span matripple="" class="mat-ripple mat-button-ripple"></span><span
-                                        class="mat-button-focus-overlay"></span></button>
+                                  
 
                                         <a mat-flat-button="" href="{{ route('formlist') }}"
                                     color="warn"

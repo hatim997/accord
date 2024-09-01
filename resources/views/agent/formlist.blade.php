@@ -23,7 +23,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- {{ dd($insurance_data) ;}} --}}
+                            {{-- {{ dd($driver) ;}} --}}
                             @foreach ($driver->agents as $data)
                                 <tr>
                                     <td>

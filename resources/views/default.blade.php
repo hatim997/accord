@@ -39,18 +39,37 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.9/jquery.inputmask.min.js"></script>
 
 <script>
-  // $(document).ready(function() {
-  //     $('#phone').inputmask({"mask": '+1 (999) 999-9999'});
-  // });
-//   $('#phone').on('blur', function() { // Validate on blur
-//     var value = $(this).val();
-//     var pattern = /^\d{3}-\d{2}-\d{4}$/; // Example pattern (adjust for your needs)
 
-//     if (!pattern.test(value)) {
-//         $(this).val(''); // Clear invalid input or display an error message
-//         alert('Invalid format! Please enter data in XXX-XX-XXXX format.');
-//     }
-// });
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        var passwordField = document.getElementById('passwordConfirmation');
+        var toggleIcon = this.querySelector('i');
+        
+        // Toggle the password field type
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            toggleIcon.classList.remove('mdi-eye-off-outline');
+            toggleIcon.classList.add('mdi-eye-outline');
+        } else {
+            passwordField.type = 'password';
+            toggleIcon.classList.remove('mdi-eye-outline');
+            toggleIcon.classList.add('mdi-eye-off-outline');
+        }
+    });
+    document.getElementById('togglePasswordd').addEventListener('click', function () {
+        var passwordField = document.getElementById('passwordConfirmatiodn');
+        var toggleIcon = this.querySelector('i');
+        
+        // Toggle the password field type
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            toggleIcon.classList.remove('mdi-eye-off-outline');
+            toggleIcon.classList.add('mdi-eye-outline');
+        } else {
+            passwordField.type = 'password';
+            toggleIcon.classList.remove('mdi-eye-outline');
+            toggleIcon.classList.add('mdi-eye-off-outline');
+        }
+    });
 
 document.getElementById('customCloseButton').addEventListener('click', function() {
     // Assuming you are using Bootstrap's modal and the modal has an ID of 'exampleModal'

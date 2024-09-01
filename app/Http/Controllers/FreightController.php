@@ -10,6 +10,7 @@ use App\Models\DriverDetail;
 use App\Models\Subscription;
 use App\Models\Notice;
 use App\Models\UploadShipper;
+use App\Models\Certificate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -119,5 +120,18 @@ class FreightController extends Controller
     }
 
     return 'nothing';
+  }
+
+  public function update(Request $request )
+  {
+    $certificate = Certificate::find($request->cert_id);
+
+    if ($certificate) {
+        // Update the ch column
+        $certificate->ch = $request->ch;
+        $certificate->save();
+    }
+   
+     return Redirect::back();
   }
 }

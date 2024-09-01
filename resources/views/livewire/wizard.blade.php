@@ -63,7 +63,7 @@
                         </select>
                     </div>
                     <div class="form-group py-3">
-                        <label for="description">First Name:</label>
+                        <label for="description" class="required">First Name:</label>
                         <input type="text" wire:model="fname" class="form-control" id="productAmount" />
                         @error('fname') <span class="error">{{ $message }}</span> @enderror
                     </div>
@@ -73,30 +73,30 @@
                         @error('mname') <span class="error">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group py-3">
-                        <label for="description">Last Name:</label>
+                        <label for="description"class="required">Last Name:</label>
                         <input type="text" wire:model="lname" class="form-control" id="productAmount" />
                         @error('lname') <span class="error">{{ $message }}</span> @enderror
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group p-3">
-                        <label for="title">Company Name:</label>
+                        <label for="title" class="required">Company Name:</label>
                         <input type="text" wire:model="name" class="form-control" id="taskTitle">
                         @error('name') <span class="error">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group p-3">
-                        <label for="description">
+                        <label for="description" class="required">
                             Insurance Agency License Number</label>
                         <input type="text" wire:model="ialn" class="form-control" id="productAmount" />
                         @error('ialn') <span class="error">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group py-3">
-                        <label for="description">Suffix</label>
+                        <label for="description" class="required">Suffix</label>
                         <input type="text" wire:model="suffix" class="form-control" id="productAmount" />
                         @error('suffix') <span class="error">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group py-3">
-                        <label for="description">Title:</label>
+                        <label for="description"class="required">Title:</label>
                         <input type="text" wire:model="title" class="form-control" id="productAmount" />
                         @error('title') <span class="error">{{ $message }}</span> @enderror
                     </div>
@@ -114,22 +114,22 @@
 
                 <div class="col-md-4">
                     <div class="form-group py-3">
-                        <label for="description">Address:</label>
+                        <label for="description" class="required">Address 1:</label>
                         <input type="text" wire:model="address" class="form-control" id="productAmount" />
                         @error('address') <span class="error">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group py-3">
-                        <label for="description">City:</label>
+                        <label for="description" class="required">City:</label>
                         <input type="text" wire:model="city" class="form-control" id="productAmount" />
                         @error('city') <span class="error">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group py-3">
-                        <label for="description">Phone No:</label>
+                        <label for="description" class="required">Phone No:</label>
                         <input type="text" wire:model="phone" class="form-control" id="phone" />
                         @error('phone') <span class="error">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group p-3">
-                        <label for="description">Company Website address:</label>
+                        <label for="description" >Company Website address:</label>
                         <input type="text" wire:model="websit" class="form-control" id="productAmount" />
                         @error('websit') <span class="error">{{ $message }}</span> @enderror
 
@@ -143,7 +143,7 @@
                         @error('address2') <span class="error">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group py-3">
-                        <label for="description">State:</label>
+                        <label for="description"class="required">State:</label>
                          @error('state') <span class="error">{{ $message }}</span> @enderror
                          <select class="form-control" id="productAmount"  wire:model="state" >
 
@@ -222,7 +222,7 @@
 
                 <div class="col-md-4">
                     <div class="form-group py-3">
-                        <label for="description">Zip Code:</label>
+                        <label for="description"class="required">Zip Code:</label>
                         <input type="number" oninput="this.value=this.value.slice(0,5)" maxlength="5" wire:model="zip"
                             class="form-control" id="productAmount" />
                         @error('zip') <span class="error">{{ $message }}</span> @enderror
@@ -234,7 +234,7 @@
                         @error('country') <span class="error">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group py-3">
-                        <label for="description">Email:</label>
+                        <label for="description"class="required">Email:</label>
                         <input type="email" wire:model="email" class="form-control" id="productAmount" />
                         @error('email') <span class="error">{{ $message }}</span> @enderror
                     </div>
@@ -252,21 +252,22 @@
                 <div class="col-xs-6  col-md-6">
                     <div class="form-group my-5">
 
-                        <label class="form-label" for="basic-default-password42">Password</label>
+                        <label class="form-label required" for="basic-default-password42">Password</label>
                         <div class="input-group">
-                            <input type="text" wire:model="password" class="form-control" />
-                            <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
+                            <input type="password" wire:model="password" class="form-control" id="passwordConfirmation" />
+                            <span class="input-group-text cursor-pointer" id="togglePassword"><i class="mdi mdi-eye-off-outline"></i></span>
 
                             @error('password') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="form-group mb-5">
-                        <label class="form-label" for="basic-default-password42">Password</label>
+                        <label class="form-label required" for="basic-default-password42">Password</label>
                         <div class="input-group">
-                            <input type="text" wire:model="password_confirmation" class="form-control" />
-                            <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
+                            <input type="password" wire:model="password_confirmation" id="passwordConfirmatiodn" class="form-control" />
+                            <span class="input-group-text cursor-pointer" id="togglePasswordd"><i class="mdi mdi-eye-off-outline"></i></span>
                             @error('password') <span class="error">{{ $message }}</span> @enderror
                         </div>
+                       
                     </div>
                 </div>
             </div>
@@ -387,7 +388,7 @@
                 <div class="px-3">
                     <div class="form-check mb-5 pb-5 ">
                         <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" />
-                        <label class="form-check-label" for="defaultCheck2">
+                        <label class="form-check-label required" for="defaultCheck2">
                             I accept the terms and conditions of the COI 360 and submit the following signature page as
                             confirmation of my agreement to this Addendum.
                         </label>

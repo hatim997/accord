@@ -91,10 +91,10 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
   Route::get('/admin-download-certificate/{file}', [AdminController::class, 'download_certificate'])->name('admin.download.certificate');
 });
 Livewire::setScriptRoute(function ($handle) {
-  return Route::get('/public/livewire/livewire.js', $handle);
+  return Route::get('/accord/public/livewire/livewire.js', $handle);
 });
 Livewire::setUpdateRoute(function ($handle) {
-  return Route::post('/public/livewire/update', $handle);
+  return Route::post('/accord/public/livewire/update', $handle);
 });
 
 // NOW
@@ -184,6 +184,7 @@ Route::get('/notice', [AdminController::class, 'notice'])->name('notice');
 Route::group(['middleware' => 'checkRole:freight_driver'], function () {
   Route::get('/fportal', [FreightController::class, 'dashf'])->name('fportals');
 });
+Route::post('freight/update', [FreightController::class, 'update'])->name('update_certt');
 
 // Route::group(['middleware' => 'checkRole:shipper'], function () {
 //   //Route::get('/sdash', [ShipperController::class, 'dash'])->name('truck.dash');

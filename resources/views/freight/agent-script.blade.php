@@ -5,10 +5,10 @@
 
      <script type="text/javascript">
 
-$(document).ready(function () {
-    $(":input").not("[name=ch]")
-        .prop("disabled", true);
-});
+// $(document).ready(function () {
+//     $(":input").not("[name=ch],[name=btnsub],[name=cert_id],[name=_token]")
+//         .prop("disabled", true);
+// });
 
   $(document).ready(function() {
     $('.selecter').select2();
@@ -22,52 +22,7 @@ $(document).ready(function () {
         });
     });
     // Add event listener to the button
-    document.getElementById('btnsub').addEventListener('click', function(e) {
-        validateCheckboxes();
-        var validationStatus = document.getElementById('checkboxValidation').value;
 
-        // Check if at least one checkbox is checked
-        if (validationStatus === 'false') {
-            e.preventDefault();
-            const swalWithBootstrapButtons = Swal.mixin({
-                         customClass: {
-                             confirmButton: "btn btn-danger"
-                         },
-                         buttonsStyling: false
-                     });
-                     swalWithBootstrapButtons.fire({
-                         title: 'Error!',
-                         text: 'Error: Please Check at least one type of insurance',
-                         icon: 'error',
-                         confirmButtonText: 'OK'
-                     });
-
-        }
-
-        var anySelected = false;
-        $('.selecter').each(function(){
-          var selected = $(this).val();
-            if(selected){
-              anySelected = true;
-          }
-        });
-        if(anySelected == false) {
-          e.preventDefault();
-          const swalWithBootstrapButtons = Swal.mixin({
-                         customClass: {
-                             confirmButton: "btn btn-danger"
-                         },
-                         buttonsStyling: false
-                     });
-                     swalWithBootstrapButtons.fire({
-                         title: 'Error!',
-                         text: 'Error: Please select atleast one Insurance Provider.',
-                         icon: 'error',
-                         confirmButtonText: 'OK'
-                     });
-          return false;
-        }
-    });
 
     function validateCheckboxes() {
         var atLeastOneChecked = false;
