@@ -148,7 +148,7 @@
     <ul class="navbar-nav   flex-row align-items-center ms-1">
         @if ($user->role == "agent")
         <li>
-            <a href="{{ route('dash') }}" class="btn btn-light  ">Dasboard</a>
+            <a href="{{ route('dash') }}" class="btn btn-light  ">Dashboard</a>
         </li>
         <li>
             <a href="{{ route('formlist') }}" class="btn btn-light  ">Motor Carrier Insureds</a>

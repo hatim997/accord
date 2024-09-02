@@ -2644,7 +2644,7 @@ $navbarHideToggle = false;
                                                                                 REPRESENTATIVE 
                                                                             
                                                                                 @if(!empty($agent->agencies[0]->image_path))
-                                                                            <img src="{{ '../../storage/app/' .  $agent->agencies[0]->image_path}}" width="91" height="39" alt="">
+                                                                            <img src="{{ '/../../storage/app/' .  $agent->agencies[0]->image_path}}" width="91" height="39" alt="">
                                                                             @else 
                                                                           
                                                                             @endif

@@ -23,7 +23,7 @@
                             <tr>
                                 <th class="text-truncate">Name</th>
                                 <th class="text-truncate">Role</th>
-                                <th class="text-truncate">Action</th>
+                                <th class="text-truncate">Certificate</th>
                             </tr>
                         </thead>
                         <tbody>
