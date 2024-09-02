@@ -283,7 +283,7 @@ class TruckController extends Controller
 
   public function certadmin()
   {
-    $certificate = Certificate::all();
+    $certificate = Certificate::where('client_user_id',Auth::user()->id);
     return view('freight.certifecateturck', compact('certificate'));
   }
 

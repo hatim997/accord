@@ -2669,11 +2669,14 @@ $navbarHideToggle = false;
                                                                         <tr class="ng-tns-c268-42">
                                                                             <td class="fot_titel ng-tns-c268-42">
                                                                                 AUTHORIZED
-                                                                                REPRESENTATIVE <textarea cols="38"
-                                                                                    rows="3" readonly="readonly"
-                                                                                    style="vertical-align: middle; margin-left: 10px;"
-                                                                                    class="ng-tns-c268-42"></textarea>
+                                                                                REPRESENTATIVE 
+                                                                                @if(!empty($agent->agencies[0]->image_path))
+                                                                            <img src="{{ '/../../storage/app/' .  $agent->agencies[0]->image_path}}" width="91" height="39" alt="">
+                                                                            @else 
+                                                                          
+                                                                            @endif
                                                                             </td>
+
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
