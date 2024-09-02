@@ -99,7 +99,7 @@ $navbarHideToggle = false;
                                                                             <td width="100" valign="middle"
                                                                                 class="lable_title ng-tns-c268-42">
                                                                                 PRODUCER</td>
-                                                                            <td valign="top"
+                                                                            <td valign="middle"
                                                                                 class="lable_title_normal ng-tns-c268-42">
                                                                                 {{ $agent->agencies[0]->name }}<br
                                                                                 class="ng-tns-c268-42">
@@ -124,7 +124,7 @@ $navbarHideToggle = false;
                                                                             <td
                                                                                 class="lable_title tab_fild_set ng-tns-c268-42">
                                                                                 CONTACT NAME:</td>
-                                                                            <td colspan="3" class="ng-tns-c268-42"> Nick
+                                                                            <td colspan="3" class="ng-tns-c268-42"> 
                                                                                 {{ $agent->name }}
                                                                             </td>
                                                                         </tr>
@@ -174,16 +174,16 @@ $navbarHideToggle = false;
                                                                             <td width="100" valign="middle"
                                                                                 class="lable_title ng-tns-c268-42">
                                                                                 INSURED</td>
-                                                                            <td valign="top"
+                                                                            <td valign="middle"
                                                                                 class="lable_title_normal pt-30 ng-tns-c268-42">
-                                                                                {{ $driver->name }}<br
+                                                                                {{ $driver->truckers[0]->name }}<br
                                                                                     class="ng-tns-c268-42">
                                                                                     {{ $driver->truckers[0]->address }} <br class="ng-tns-c268-42">
                                                                                     {{ $driver->truckers[0]->city }}
-                                                                                    {{ $driver->truckers[0]->state }} <br class="ng-tns-c268-42"> ,
+                                                                                    {{ $driver->truckers[0]->state }} ,
                                                                                     {{ $driver->truckers[0]->zip }}
                                                                                 <br class="ng-tns-c268-42">
-                                                                                {{ $driver->truckers[0]->contact_info }} ,
+                                                                                {{ $driver->truckers[0]->cellphone }} ,
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
