@@ -101,9 +101,7 @@ Livewire::setUpdateRoute(function ($handle) {
 Route::get('/reg-agency', function () {
   return view('default');
 })->name('reg.trucker');
-
 Route::get('/truckform/{id}', [AuthController::class, 'form'])->name('truck.from');
-
 Route::group(['middleware' => 'checkRole:agent'], function () {
   // Routes accessible only by users with 'admin' role
   Route::get('/formlist', [ac::class, 'formlist'])->name('formlist');
@@ -122,7 +120,9 @@ Route::group(['middleware' => 'checkRole:agent'], function () {
   Route::get('/get_pdf2/{id}', [ac::class, 'showPDF2'])->name('get_pdf2');
   Route::get('/agent-reg-add-form', [ac::class, 'add_trucker'])->name('agent.regs.add.form');
   Route::get('/agent-reg-add-brok-form', [ac::class, 'add_broker'])->name('agent.regs.add.brok.form');
-  Route::post('/agent-reg-adds', [ac::class, 'store_trucker'])->name('agent.regs.store');
+  Route::post('/agent-reg-adds', [ac::class, 'store_trucker'])->name('agent.regs.store'); 
+  Route::get('/get-driver/{id}', [ac::class, 'get_driver'])->name('get_driver');
+  Route::post('/update-driver', [ac::class, 'update_driver'])->name('update_driver');
 });
 Route::post('/register', [AuthController::class, 'registerfrom'])->name('regist');
 Route::post('/reg', [AuthController::class, 'register'])->name('form.reg');
@@ -150,16 +150,10 @@ Route::group(['middleware' => 'checkRole:truck'], function () {
   Route::get('/add-broker', [TruckController::class, 'brokers'])->name('add.broker');
   Route::post('/store-broker', [TruckController::class, 'storeBroker'])->name('store.broker');
 });
-
-Route::get('reboot',function(){
-  Artisan::call('view:clear');
-  Artisan::call('route:clear');
-  Artisan::call('config:clear');
-  Artisan::call('cache:clear');
-  Artisan::call('key:generate');
-});
-
-
+Route::get('reboot',function(){ 
+   Artisan::call('view:clear'); 
+    Artisan::call('route:clear');  Artisan::call('config:clear');
+  Artisan::call('cache:clear');  Artisan::call('key:generate');});
 Route::group(['middleware' => 'checkRole:shipper'], function () {
   Route::get('/sportal', [ShipperController::class, 'dash2'])->name('sdash');
   Route::get('/add-trucks', function () { return view('shipper.add-trucker'); })->name('add.trucks');

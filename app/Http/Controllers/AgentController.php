@@ -11,6 +11,7 @@ use App\Models\PolicyType;
 use App\Models\AgencyInfos;
 use App\Models\PolicyLimit;
 use App\Models\DriverDetail;
+use App\Models\TruckDetail;
 use App\Models\Certificate;
 use App\Models\CertificatePolicy;
 use App\Models\CertificatePolicyLimit;
@@ -59,17 +60,32 @@ class AgentController extends Controller
 
   public function formlist()
   {
-    $driver = User::with('agents')->find(Auth::user()->id);
-    $drive=[];
-    foreach ($driver->agents as $value) {
-      $drive[] = $value->id;
-    }
-
-    // dd($drive);
-    $drivername = DriverDetail::WhereIn('user_id', $drive)->get();
-//  dd($drivername);
-    return view('agent.formlist', compact('driver','drivername'));
+    $driver = AgentDriver::where('agent_id',Auth::user()->id)
+    ->join('driver_details', 'driver_details.user_id', '=', 'agent_driver.driver_id')
+    ->join('users', 'users.id', '=', 'driver_details.user_id')    
+    ->select('agent_driver.*', 'driver_details.*', 'users.name as user_name',  
+    'users.role','users.email')    
+    ->get();
+    return view('agent.formlist', compact('driver'));
   }
+  public function update_driver(Request $request)
+  {
+      // $driver = User::find($request->driver_id);
+      // $driver->user_name = $request->user_name;
+      // // Update other fields as necessary
+      // $driver->save();
+  
+      return redirect()->back()->with('success', 'Driver information updated successfully!');
+  }
+  public function get_driver( $id)
+  {
+    $records = TruckDetail::where('user_id' , $id)->count('truck_details.id'); // Replace 'your_table' with your actual table name
+
+
+      return $records;
+  }
+
+
 
   /**
    * Show the form for creating a new resource.
