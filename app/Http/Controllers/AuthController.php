@@ -518,6 +518,18 @@ $subb = Subscription::create([
 
   public function logout()
   {
+    $role = Auth::user()->role;
+   if ($role == "freight_driver") {
+    Session::flush();
+
+    // Delete all cookies
+    $cookies = Cookie::get();
+    foreach ($cookies as $name => $value) {
+      Cookie::queue(Cookie::forget($name));
+    }  
+    return redirect('/login/freight');
+   }
+   else{
     Session::flush();
 
     // Delete all cookies
@@ -525,7 +537,9 @@ $subb = Subscription::create([
     foreach ($cookies as $name => $value) {
       Cookie::queue(Cookie::forget($name));
     }
+  
     return redirect('/logg');
+  }
   }
 
   public function land()

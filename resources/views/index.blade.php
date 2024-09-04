@@ -65,11 +65,11 @@
                 <ul class="sub-menu" id="submenu-11">
                     <li class="sub-menu--item">
                   <a class='btn-text hidden hover:text-ColorPurple sm:inline-block' 
-                  href='{{ route('auth-login-basic')}}'> Agent Login</a>
+                  href='{{ route('auth-login-basic')}}'> Agency Login</a>
                     </li>
                     <li class="sub-menu--item">
                         <a class='btn-text hidden hover:text-ColorPurple sm:inline-block' 
-                  href='{{ route('auth-login-t')}}'>Trucker Login</a>
+                  href='{{ route('auth-login-t')}}'>Carrier Login</a>
                     </li>
                     <li class="sub-menu--item">
                         <a class='btn-text hidden hover:text-ColorPurple sm:inline-block' 
@@ -77,7 +77,7 @@
                     </li>
                     <li class="sub-menu--item">
                         <a class='btn-text hidden hover:text-ColorPurple sm:inline-block' 
-                        href='{{ route('auth-login-f')}}'>Freight Login</a>
+                        href='{{ route('auth-login-f')}}'> Broker Login</a>
                     </li>
                 </ul>
             </li>

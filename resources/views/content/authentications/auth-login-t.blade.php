@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="col-md-6" style=" border-start-end-radius: 10px;border-end-end-radius: 10px;">
 
-                                <h4 class="mb-2 pt-4 pb-5 text-center">Trucker Login</h4>
+                                <h4 class="mb-2 pt-4 pb-5 text-center">Carrier Login</h4>
 
                                 <form id="formAuthentication" class="mb-3 py-3 px-4" action="{{url('/login')}}" method="post">
                                     @csrf

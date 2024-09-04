@@ -39,6 +39,7 @@
           <thead>
               <tr>
                   <th>Certificate for driver</th>
+                  <th> Download Certificate </th>
               </tr>
           </thead>
           <tbody class="table-border-bottom-0">
@@ -47,10 +48,12 @@
                   <tr>
                       <td>
                           <a href="{{ route('freght_cert', $cert->id) }}" target="blank" class="btn btn-primary">Show Certificate
-                              {{ $cert->id }} Details</a>
+                              {{ $cert->id }}  Edit Certificate</a>
                       </td>
                     
-                      
+                    <td>
+                        <a href="{{ route('get_pdf', $cert->id) }}" class="btn btn-primary rounded-pill">  <i class="mdi mdi-arrow-down-bold mdi-24px lh-0"></i></a>
+                    </td>
                   </tr>
               @endforeach
           </tbody>
