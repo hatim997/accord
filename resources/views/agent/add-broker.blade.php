@@ -319,3 +319,15 @@
 
 
 @endsection
+@push('body-scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var cleave = new Cleave('#cellphone', {
+          phone: true,
+          phoneRegionCode: 'US'
+      });
+  });
+</script>
+@endpush

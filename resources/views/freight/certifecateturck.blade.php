@@ -38,7 +38,8 @@
         <table class="table">
           <thead>
               <tr>
-                  <th>Certificate for driver</th>
+                <th>Certificate Holders</th>
+                  <th>Certificate for drivers</th>
                   <th> Download Certificate </th>
               </tr>
           </thead>
@@ -46,9 +47,16 @@
 
               @foreach ($certificate as $cert)
                   <tr>
+                    <td>
+                        <a href=""  class="btn btn-primary"> @if ($cert->ch)
+                            {{$cert->ch}}
+                        @else
+                            New Certificate Holder
+                        @endif </a>
+                    </td>
                       <td>
                           <a href="{{ route('freght_cert', $cert->id) }}" target="blank" class="btn btn-primary">Show Certificate
-                              {{ $cert->id }}  Edit Certificate</a>
+                                {Edit Certificate}</a>
                       </td>
                     
                     <td>
