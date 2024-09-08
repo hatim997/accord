@@ -22,9 +22,9 @@ class Brokereg extends Component
     public $address ,$address2 , $zip , $city, $state ,$country, $password ,$password_confirmation;
     public $email ,$phone, $fax, $exemail ,$secphone;
     public $websit ,$tax , $scac, $usdot ,$imagePath;
-    public $license_number,    $license_expiry_date,    $license_type,    $years_of_experience;
-    public $vehicle_registration_number,  $validatedData,  $vehicle_make,    $vehicle_model,    $vehicle_year;
-    public $vehicle_capacity,    $vehicle_status;
+    public $license_number, $license_expiry_date, $license_type, $years_of_experience;
+    public $vehicle_registration_number, $validatedData,$vehicle_make, $vehicle_model,$vehicle_year;
+    public $vehicle_capacity, $vehicle_status;
      public $successMessage = '';
 
 
@@ -57,20 +57,19 @@ class Brokereg extends Component
           'fname' => 'required',
           'salutation' => 'required',
           'lname' => 'required',
-          'title' => 'required',
+          'title' => 'nullable',
           'suffix' => 'required',
-          'mname' => 'required',
+          'mname' => 'nullable',
           'address' => 'required',
-          'address2' => 'required',
+          'address2' => 'nullable',
           'state' => 'required',
           'zip' => 'required',
           'city' => 'required',
-          'exemail' => 'required',
           'email' => 'required|email',
           'phone' => [ 'required' ],
-          'fax' => 'required|numeric',
-          'exemail' => 'required|email',
-          'secphone' => ['required'],
+          'fax' => 'nullable',
+          'exemail' => 'nullable',
+          
       ]);
 
     $this->currentStep = 3;
@@ -82,14 +81,14 @@ class Brokereg extends Component
      * @return response()
      */
 
-     public function sechalfStepSubmit()
-     {
-        $validatedData = $this->validate([
-         'license_expiry_date' => 'required|date',
-        ]);
+    //  public function sechalfStepSubmit()
+    //  {
+    //     $validatedData = $this->validate([
+    //      'license_expiry_date' => 'required|date',
+    //     ]);
 
-       $this->currentStep = 4;
-     }
+    //    $this->currentStep = 4;
+    //  }
 
      public function thirdStepSubmit()
      {
@@ -103,7 +102,7 @@ class Brokereg extends Component
                'password_confirmation' => 'The password confirmation does not match.',
            ]);
        }
-       $this->currentStep = 5;
+       $this->currentStep = 4;
      }
 
  /**
@@ -166,38 +165,43 @@ class Brokereg extends Component
                 'address2' => $this->address2,
                 'zip' => $this->zip,
                 'websit' => $this->websit,
-                'tax' => $this->tax,
-                'license_number' => $this->license_number,
-                'license_expiry_date' => $this->license_expiry_date,
-                'license_type' => $this->license_type,
-                'years_of_experience' => $this->years_of_experience,
-                'vehicle_registration_number' => $this->vehicle_registration_number,
-                'vehicle_make' => $this->vehicle_make,
-                'vehicle_model' => $this->vehicle_model,
-                'vehicle_year' => $this->vehicle_year,
-                'vehicle_capacity' => $this->vehicle_capacity,
-                'vehicle_status' => $this->vehicle_status,
+                'tax' => $this->tax,          
+                'fax' => $this->fax,     
                 'scac' => $this->scac,
                 'usdot' => $this->usdot,
                 'state' => $this->state,
                 'cellphone' => $this->phone,
                 'extra_email' => $this->exemail,
+                'city' => $this->city,
                 'fname' => $this->fname,
                 'mc_number' => $this->mc_number,
                 'is_active' => "2",
-                'image_path' => $this->imagePath,
+               
             ]);
             $this->successMessage = 'Broker Created Successfully.';
             $this->clearForm();
           //  return $pdf->stream($cert);
 
-          Mail::send('email.register', ['user' => $validatedData], function ($message) use ($validatedData) {
-            $message->to($this->email, $this->name)
-                    ->subject('register');
-        });
-             return redirect()->to('login/freight');
-        }
+        $data = [
+                'name' => $this->name,
+                'email' => $this->email
+            ];
+            Mail::send('email.register', $data, function ($message) {
+                $message->to($this->email, $this->name)
+                        ->subject('Register');
+            });
 
+            Notice::create([
+                'to' => $lastInsertedId,
+                'from' => $lastInsertedId,
+                'name' => "you have new registering broker pls check",
+              ]);
+             $this->successMessage = 'Created Successfully.';
+             $this->clearForm();
+           //  return $pdf->stream($cert);
+           session()->flash('message', "Thank you for registering with COI360! Please check your email to complete your account setup. You can <a href=" .route('auth-login-f'). ">log in here</a> once your account is activated.");
+            //  return redirect()->to('/logg');
+         }
     /**
      * Write code on Method
      *
@@ -217,9 +221,6 @@ class Brokereg extends Component
     {
         $this->name = '';
         $this->mc_number = '';
-
-
-
    //
     }
 

@@ -43,17 +43,17 @@
                 <div class="row px-5">
                 <div class="col-md-6">             
                     <div class="form-group p-3">
-                        <label for="title">Company Name:</label>
+                        <label class="form-label required"for="title">Company Name:</label>
                         <input type="text" wire:model="name" class="form-control" id="taskTitle">
                         @error('name') <span class="error">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group p-3">
-                        <label for="description">Federal Registration No. (MC Number)</label>
+                        <label class="form-label required"for="description">Federal Registration No. (MC Number)</label>
                         <input type="number" oninput="this.value=this.value.slice(0,8)"  maxlength="8"  wire:model="mc_number" class="form-control" id="productAmount"/>
                         @error('mc_number') <span class="error">{{ $message }}</span> @enderror
                     </div>      
                     <div class="form-group p-3">
-                        <label for="description">US Tax ID / Canadian Business Number</label>
+                        <label class="form-label required"for="description">US Tax ID / Canadian Business Number</label>
                         <input type="text"  class="form-control" id="productAmount"/>
                         {{-- @error('description') <span class="error">{{ $message }}</span> @enderror --}}
                     </div>      
@@ -63,12 +63,12 @@
                    
       
                         <div class="form-group p-3">
-                            <label for="title">SCAC Code</label>
+                            <label class="form-label required"for="title">SCAC Code</label>
                             <input type="text"  maxlength="4" class="form-control" id="taskTitle">
                             {{-- @error('name') <span class="error">{{ $message }}</span> @enderror --}}
                         </div>
                         <div class="form-group p-3">
-                            <label for="description">US DOT #</label>
+                            <label class="form-label required"for="description">US DOT #</label>
                             <input type="number" oninput="this.value=this.value.slice(0,8)"  maxlength="8"  class="form-control" id="productAmount"/>
                             {{-- @error('amount') <span class="error">{{ $message }}</span> @enderror --}}
                         </div>

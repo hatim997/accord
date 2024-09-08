@@ -56,20 +56,19 @@ class Truckreg extends Component
           'fname' => 'required',
           'salutation' => 'required',
           'lname' => 'required',
-          'title' => 'required',
+          'title' => 'nullable',
           'suffix' => 'required',
-          'mname' => 'required',
+          'mname' => 'nullable',
           'address' => 'required',
-          'address2' => 'required',
+          'address2' => 'nullable',
           'state' => 'required',
           'zip' => 'required',
           'city' => 'required',
-          'exemail' => 'required',
+          'exemail' => 'nullable',
           'email' => 'required|email',
           'phone' => 'required',
-          'fax' => 'required',
-          'exemail' => 'required|email',
-          'secphone' =>'required',
+          'fax' => 'nullable',
+          'secphone' =>'nullable',
       ]);
 
     $this->currentStep = 3;
@@ -84,7 +83,7 @@ class Truckreg extends Component
      public function sechalfStepSubmit()
      {
         $validatedData = $this->validate([
-         'license_expiry_date' => 'required|date',
+         'license_number' => 'required',
         ]);
 
        $this->currentStep = 4;
@@ -161,7 +160,7 @@ class Truckreg extends Component
                 'address2' => $this->address2,
                 'zip' => $this->zip,
                 'websit' => $this->websit,
-                'tax' => $this->tax,
+                'tax' => $this->tax,'fax' => $this->fax,
                 'license_number' => $this->license_number,
                 'license_expiry_date' => $this->license_expiry_date,
                 'license_type' => $this->license_type,
@@ -175,12 +174,13 @@ class Truckreg extends Component
                 'scac' => $this->scac,
                 'usdot' => $this->usdot,
                 'state' => $this->state,
+                'city' => $this->city,
                 'cellphone' => $this->phone,
                 'extra_email' => $this->exemail,
                 'fname' => $this->fname,
                 'mc_number' => $this->mc_number,
                 'is_active' => "2",
-                'image_path' => $this->imagePath,
+               
             ]);
 
             $data = [

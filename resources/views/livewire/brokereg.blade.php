@@ -55,18 +55,18 @@
 
 
                     <div class="form-group p-3">
-                        <label for="title">Company Name:</label>
+                        <label class="form-label required" for="title">Company Name:</label>
                         <input type="text" wire:model="name" class="form-control" id="taskTitle">
                         @error('name') <span class="error">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group p-3">
-                        <label for="description">Federal Registration No. (MC Number)</label>
+                        <label class="form-label required" for="description">Federal Registration No. (MC Number)</label>
                         <input type="number" oninput="this.value=this.value.slice(0,8)" maxlength="8"
                             wire:model="mc_number" class="form-control" id="productAmount" />
                         @error('mc_number') <span class="error">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group p-3">
-                        <label for="description">US Tax ID / Canadian Business Number</label>
+                        <label class="form-label required" for="description">US Tax ID / Canadian Business Number</label>
                         <input type="text" wire:model="tax" class="form-control" id="productAmount" />
                         @error('tax') <span class="error">{{ $message }}</span> @enderror
 
@@ -75,13 +75,13 @@
 
                 <div class="col-md-6">
                     <div class="form-group p-3">
-                        <label for="title">SCAC Code</label>
+                        <label class="form-label required" for="title">SCAC Code</label>
                         <input type="text" wire:model="scac" maxlength="4" class="form-control" id="taskTitle">
                         @error('scac') <span class="error">{{ $message }}</span> @enderror
 
                     </div>
                     <div class="form-group p-3">
-                        <label for="description">US DOT #</label>
+                        <label class="form-label required" for="description">US DOT #</label>
                         <input type="number" wire:model="usdot" oninput="this.value=this.value.slice(0,8)" maxlength="8"
                             class="form-control" id="productAmount" />
                         @error('usdot') <span class="error">{{ $message }}</span> @enderror
@@ -124,12 +124,12 @@
                                 @error('mname') <span class="error">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group py-3">
-                                <label for="description">Suffix</label>
+                                <label class="form-label required" for="description">Suffix</label>
                                 <input type="text" wire:model="suffix" class="form-control" id="productAmount" />
                                 @error('suffix') <span class="error">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group py-3">
-                                <label for="description">salutation</label>
+                                <label class="form-label required" for="description">salutation</label>
                                 <input type="text" wire:model="salutation" class="form-control" id="productAmount" />
                                 @error('slutation') <span class="error">{{ $message }}</span> @enderror
                             </div>
@@ -137,19 +137,19 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group py-3">
-                                <label for="description">First Name:</label>
+                                <label class="form-label required" for="description">First Name:</label>
                                 <input type="text" wire:model="fname" class="form-control" id="productAmount" />
                                 @error('fname') <span class="error">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="form-group py-3">
-                                <label for="description">Last Name:</label>
+                                <label class="form-label required" for="description">Last Name:</label>
                                 <input type="text" wire:model="lname" class="form-control" id="productAmount" />
                                 @error('lname') <span class="error">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="form-group py-3">
-                                <label for="description">Title:</label>
+                                <label class="form-label required" for="description">Title:</label>
                                 <input type="text" wire:model="title" class="form-control" id="productAmount" />
                                 @error('title') <span class="error">{{ $message }}</span> @enderror
                             </div>
@@ -160,13 +160,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group py-3">
-                                <label for="description">Email:</label>
+                                <label class="form-label required" for="description">Email:</label>
                                 <input type="email" wire:model="email" class="form-control" id="productAmount" />
                                 @error('email') <span class="error">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="form-group py-3">
-                                <label for="description">Phone No:</label>
+                                <label class="form-label required" for="description">Phone No:</label>
                                 <input type="tel" wire:model="phone"  class="form-control" id="phone" />
                                 @error('phone') <span class="error">{{ $message }}</span> @enderror
                             </div>
@@ -195,7 +195,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group py-3">
-                                <label for="description">Address:</label>
+                                <label class="form-label required" for="description">Address:</label>
                                 <input type="text" wire:model="address" class="form-control" id="productAmount" />
                                 @error('address') <span class="error">{{ $message }}</span> @enderror
                             </div>
@@ -208,20 +208,20 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group py-3">
-                                <label for="description">Zip Code:</label>
+                                <label class="form-label required" for="description">Zip Code:</label>
                                 <input type="number" oninput="this.value=this.value.slice(0,5)" maxlength="5"
                                     wire:model="zip" class="form-control" id="productAmount" />
                                 @error('zip') <span class="error">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group py-3">
-                                <label for="description">City:</label>
+                                <label class="form-label required" for="description">City:</label>
                                 <input type="text" wire:model="city" class="form-control" id="productAmount" />
                                 @error('city') <span class="error">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group py-3">
-                                <label for="description">State:</label>
+                                <label class="form-label required" for="description">State:</label>
                                 <input type="text" wire:model="state" class="form-control" id="productAmount" />
                                 @error('state') <span class="error">{{ $message }}</span> @enderror
                             </div>
@@ -239,93 +239,13 @@
             <button class="btn btn-danger nextBtn btn-lg pull-right" type="button" wire:click="back(1)">Back</button>
         </div>
     </div>
-    <div class="row setup-content {{ $currentStep != 3 ? 'displayNone' : '' }}" id="step-3">
-
-        <div class="col-xs-12">
-            <div class="row px-5">
-                <div class="col-md-6">
-                    <div class="form-group py-3">
-                        <label for="description">license_number :</label>
-                        <input type="text"  wire:model="license_number" class="form-control" id="productAmount" />
-                        @error('country') <span class="error">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div class="form-group py-3">
-                        <label for="description">license_expiry_date:</label>
-                        <input type="date" wire:model="license_expiry_date" class="form-control" id="productAmount" />
-                        @error('license_expiry_date') <span class="error">{{ $message }}</span> @enderror
-                    </div>
-                    <div class="form-group py-3">
-                        <label for="description">vehicle_model :</label>
-                        <input type="text"wire:model="vehicle_model" class="form-control" id="productAmount" />
-                        @error('vehicle_model') <span class="error">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div class="form-group py-3">
-                        <label for="description">vehicle_year:</label>
-                        <input type="text"  wire:model="vehicle_year"class="form-control" id="productAmount" />
-                        @error('vehicle_year') <span class="error">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div class="form-group py-3">
-                        <label for="description">vehicle_capacity:</label>
-                        <input type="text" wire:model="vehicle_capacity" class="form-control" id="productAmount" />
-                        @error('vehicle_capacity') <span class="error">{{ $message }}</span> @enderror
-                    </div>
-
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group py-3">
-                        <label for="description">license_type:</label>
-                        <input type="text" wire:model="license_type" class="form-control" id="productAmount" />
-                        @error('license_type') <span class="error">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div class="form-group py-3">
-                        <label for="description">years_of_experience:</label>
-                        <input type="text" wire:model="years_of_experience" class="form-control" id="productAmount" />
-                        @error('years_of_experience') <span class="error">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div class="form-group py-3">
-                        <label for="description">vehicle_registration_number:</label>
-                        <input type="text" wire:model="vehicle_registration_number" class="form-control" id="productAmount" />
-                        @error('vehicle_registration_number') <span class="error">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div class="form-group py-3">
-                        <label for="description">vehicle_make:</label>
-                        <input type="text" wire:model="vehicle_make" class="form-control" id="productAmount" />
-                        @error('vehicle_make') <span class="error">{{ $message }}</span> @enderror
-                    </div>
-                    <div class="form-group py-3">
-                        <label for="description">vehicle_status:</label>
-                        <input type="text" wire:model="vehicle_status" class="form-control" id="productAmount" />
-                        @error('vehicle_status') <span class="error">{{ $message }}</span> @enderror
-                    </div>
-                </div>
-
-
-            </div>
-            <button class="btn btn-primary nextBtn btn-lg pull-right" type="button"
-            wire:click="sechalfStepSubmit">Next</button>
-        <button class="btn btn-danger nextBtn btn-lg pull-right" type="button" wire:click="back(1)">Back</button>
-
-
-        </div>
-    </div>
-
-
-
-
-
-<div class="row setup-content {{ $currentStep != 4 ? 'displayNone' : '' }}" id="step-4">
+<div class="row setup-content {{ $currentStep != 3 ? 'displayNone' : '' }}" id="step-4">
     <div class="col-xs-12">
         <div class="row justify-content-center">
             <div class="col-xs-6  col-md-6">
                 <div class="form-group my-5">
 
-                    <label class="form-label" for="basic-default-password42">Password</label>
+                    <label class="form-label required" for="basic-default-password42">Password</label>
                     <div class="input-group">
                         <input type="text" wire:model="password" class="form-control" />
                         <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
@@ -334,7 +254,7 @@
                     </div>
                 </div>
                 <div class="form-group mb-5">
-                    <label class="form-label" for="basic-default-password42">Password</label>
+                    <label class="form-label required" for="basic-default-password42">Password</label>
                     <div class="input-group">
                         <input type="text" wire:model="password_confirmation" class="form-control" />
                         <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
@@ -348,7 +268,7 @@
         <button class="btn btn-danger nextBtn btn-lg pull-right" type="button" wire:click="back(2)">Back</button>
     </div>
 </div>
-<div class="row setup-content {{ $currentStep != 5 ? 'displayNone' : '' }}" id="step-5">
+<div class="row setup-content {{ $currentStep != 4 ? 'displayNone' : '' }}" id="step-5">
     <div class="col-xs-12">
         <div class="row justify-content-center">
             <div class="col-md-6">

@@ -173,7 +173,7 @@ class Wizard extends Component
             Notice::create([
                 'to' => $lastInsertedId,
                 'from' => $lastInsertedId,
-                'name' => "you have new registering pls check",
+                'name' => "you have new registering agency pls check",
               ]);
              $this->successMessage = 'Created Successfully.';
              $this->clearForm();
