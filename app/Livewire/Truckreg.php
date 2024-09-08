@@ -5,6 +5,7 @@ use App\Rules\TransparentPNG;
 use Livewire\WithFileUploads;
 use App\Models\DriverDetail;
 use App\Models\User;
+use App\Models\Notice;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
