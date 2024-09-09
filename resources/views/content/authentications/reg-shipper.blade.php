@@ -1,151 +1,75 @@
-@php
-$isMenu = false;
-$navbarHideToggle = false;
-@endphp
-{{-- @extends('layouts/contentNavbarLayout') --}}
-@extends('layouts/commonMaster' )
-
-@section('layoutContent')
-{{-- <form method="POST" action="{{ route('register') }}">
-  @csrf --}}
-
-  <!-- Name -->
-  <form method="POST" action="{{ route('get.regester') }}">
-  @csrf
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html>
+<head>
+    <title>Laravel Livewire Example</title>
+    @livewireStyles
 
 
-  @if(Session::has('success'))
-    <div class="alert alert-success alert-dismissible" role="alert">
-        {{ Session::get('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-        </button>
+
+    <link rel="stylesheet" href="{{ asset(mix('assets/vendor/fonts/materialdesignicons.css')) }}" />
+    <link rel="stylesheet" href="{{ asset(mix('assets/vendor/libs/node-waves/node-waves.css')) }}" />
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ asset(mix('assets/vendor/css/core.css')) }}" />
+    <link rel="stylesheet" href="{{ asset(mix('assets/vendor/css/theme-default.css')) }}" />
+
+    <link rel="stylesheet" href="{{ asset(mix('assets/css/demo.css')) }}" />
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset(mix('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')) }}" />
+
+    <link href="{{ asset('wizard.css') }}" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+    <div class=" " style="background-color: transparent">
+      <div class="card-header text-center">
+        <img src="{{ asset('assets/img/logo.png') }}" alt class="" style="width: 180px">
+        <h1 class="h2 text-center">  Shipper Registration</h1>
       </div>
-@endif
-@if($errors->any())
-   
-            @foreach($errors->all() as $error)
-            <div class="alert alert-danger alert-dismissible" role="alert">
-                {{ $error }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                </button>
-            </div>
-            @endforeach
-      
+      <div class="card-body">
+        <livewire:shippereg />
+      </div>
+    </div>
+</div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.9/jquery.inputmask.min.js"></script>
   
-@endif
-  <input type="hidden" name="role" value="shipper">
-  <!-- Basic Layout -->
-<div class="position-relative">
-<div class="container authentication-wrapper authentication-basic container-p-y" > 
-<div class="authentication-inner py-4">
-  <div class="card" id="cardCenter" >
-    <div style="background-image: url('assets/img/logo.png'); background-repeat: no-repeat; position:absolute; background-size:cover;display:block;  opacity: 0.05;
-    width: 100%;height: 100%;top: 0;left: 0;right: 0;bottom: 0;"> </div>
-      <div class="card-content">
-
-    
-     
-      <!-- Basic Layout -->
- 
-        <div class="card-header">
-          <h4 class="card-title text-center" id="cardCenterTitle"> Register</h4>
-<!-- Logo -->
-                          <div class="app-brand justify-content-center mt-5">
-                              <a href="{{url('/')}}" class="app-brand-link gap-2">
-                              <span class="app-brand-logo demo">@include('_partials.macros',["height"=>20,"withbg"=>'fill:
-                                      #fff;'])</span>
-                              <span class="app-brand-text demo text-heading fw-semibold">{{config('variables.templateName')}}</span>
-                              </a>
-                          </div>
-                          <!-- /Logo -->
-          
-        </div>
-        <div class="card-body">
-  <div class="row">
-    <div class="col-4">
-      <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" name="username" id="username" placeholder="ACME Inc." />
-        <label for="username1">USERNAME</label>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" name="email" id="email1" placeholder="example.com" required />
-        <label for="email1">EMAIL</label>
-      </div>
-    </div>  
-
-    <div class="col-4">
-      <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" name="altemail" id="altemail1" placeholder="Address line1" />
-        <label for="altemail1">ALT EMAIL</label>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" name="phone" id="phone1" placeholder="Address line1" />
-        <label for="phone1">CONTACT #</label>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" name="password1" id="password" placeholder="********" />
-        <label for="password1">PASSWORD</label>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" name="fullname" id="fullname1" placeholder="ACME Inc." />
-        <label for="fullname1">Company Name</label>
-      </div>
-    </div>
-  </div>    
-  <div class="row">   
-    <div class="col-6">
-      <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" name="Addss" id="Addss1" placeholder="" />
-        <label for="Addss1"> Address 1</label>
-      </div>
-    </div>
-    <div class="col-6">
-      <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" name="Addss2" id="Address21" placeholder="" />
-        <label for="Address21"> Address 2</label>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" name="state" id="state1" placeholder="" />
-        <label for="state1">state</label>
-      </div>
-    </div>
-   
-    <div class="col-4">
-      <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" name="city" id="city1" placeholder="" />
-        <label for="city1"> city</label>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" name="zip" id="zip1" placeholder="" />
-        <label for="zip1"> zip code</label>
-      </div>
-    </div>
-
-
-  </div>
-</div>
-</div>
-</div>
-  {{-- card end --}}
-
-
-
-
-
-  <button type="submit" id="saveButton" class="btn btn-primary">Save changes</button>
-</div>
-</form>
-
-@endsection
+  <script>
+   function formatPhoneNumber(phoneNumber) {
+    // Remove non-numeric characters
+    const cleanedNumber = phoneNumber.replace(/\D/g, '');
+  
+    // Handle invalid input (optional)
+    if (cleanedNumber.length < 10) {
+      return phoneNumber; // Or display an error message
+    }
+  
+    // Format based on US phone number format
+    const areaCode = cleanedNumber.slice(0, 3);
+    const firstThreeDigits = cleanedNumber.slice(3, 6);
+    const lastFourDigits = cleanedNumber.slice(6);
+  
+    return `(${areaCode}) ${firstThreeDigits}-${lastFourDigits}`;
+  }
+  const phoneInputs = document.querySelectorAll('#phone');
+  
+  phoneInputs.forEach(function(input) {
+    input.addEventListener('input', function() {
+      const formattedNumber = formatPhoneNumber(this.value);
+      this.value = formattedNumber; // Update input field with formatted value
+    });
+  });
+  </script>
+  @livewireScripts
+  
+    @yield('page-scripts')
+  <script src="{{ asset(mix('assets/vendor/libs/popper/popper.js')) }}"></script>
+  <script src="{{ asset(mix('assets/vendor/js/bootstrap.js')) }}"></script>
+  <script src="{{ asset(mix('assets/vendor/libs/node-waves/node-waves.js')) }}"></script>
+  <script src="{{ asset(mix('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')) }}"></script>
+  <script src="{{ asset(mix('assets/vendor/js/menu.js')) }}"></script>
+  @yield('vendor-script')
+  <!-- END: Page Vendor JS-->
+  <!-- BEGIN: Theme JS-->
+  
+  
+  @stack('scripts')

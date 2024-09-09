@@ -13,7 +13,7 @@
             </div>
             <div class="modal-body" style="color: black">
             {{!! session('message') !!}}
-            <a class="btn btn-primary" href="{{route('auth-login-basic')}} ">Okay</a>
+            <a class="btn btn-primary" href="{{route('auth-login-f')}} ">Okay</a>
 
          </div>
        </div>
