@@ -91,7 +91,7 @@
                 @endphp
                 <div class="flex-grow-1 pt-2 ">
                     <h6 class="mb-0">{{ $user->name }}</h6>
-                    <small class="mb-0">{{ $user->remember_token}}</small>                  
+                    <small class="mb-0">{{ $user->rememberToken}}</small>                  
                     <small class="m-0">{{ $user->role }}</small>
                 </div>
                 </div>
