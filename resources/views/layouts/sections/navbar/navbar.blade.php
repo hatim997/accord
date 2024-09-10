@@ -257,6 +257,9 @@
                 <a class="btn btn-light" href="{{ route('add.driver') }}">Add Carrier</a>
               </li>
               <li>
+                <a class="btn btn-light" href="{{ route('add.shipper') }}">Add Shipper</a>
+              </li>
+              <li>
                 <a class="btn btn-light" href="{{ route('truck_cert') }}">Print Certificates</a>
             </li>
             @endif

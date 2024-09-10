@@ -65,7 +65,7 @@ class User extends Authenticatable
 
   public function drives()
   {
-    return $this->belongsToMany(User::class, 'shipper_driver', 'driver_id', 'shipper_id');
+    return $this->belongsToMany(ShipperInfos::class, 'shipper_driver', 'driver_id', 'shipper_id', 'id', 'user_id');
   }
 
   public function hasRole($role)

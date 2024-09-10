@@ -283,7 +283,10 @@ class TruckController extends Controller
 
   public function certadmin()
   {
-    $certificate = Certificate::where('client_user_id',Auth::user()->id)->get();
+    $certificate = Certificate::where('client_user_id',Auth::user()->id)
+    ->join('shipper_infos', 'shipper_infos.user_id', '=', 'certificates.ch')
+    ->select('certificates.*','shipper_infos.id as shipperid', 'shipper_infos.name as name')->get();
+
     return view('freight.certifecateturck', compact('certificate'));
   }
 

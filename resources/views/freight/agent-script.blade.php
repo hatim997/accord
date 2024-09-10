@@ -3,7 +3,88 @@
 
 
 
-     <script type="text/javascript">
+     <script type="text/javascript">$(document).ready(function() {
+        // Handle dropdown change
+        $('#shipplist').change(function() {
+            if ($(this).val() === 'add-new') {
+                $('#addNewModal').show();
+            }
+        });
+    
+        // Handle modal close
+        $('.close').click(function() {
+            $('#addNewModal').hide();
+        });
+    
+        // Handle form submission
+        $('#addNewDriverForm').submit(function(event) {
+            event.preventDefault();
+            CName
+            // Get form data
+            var name = $('#driverName').val();
+            var email = $('#naicNumber').val();
+            var cname = $('#CName').val();
+            // AJAX request to add new driver
+            $.ajax({
+                url: "{{ route('short.shipper') }}", //
+                type: 'POST',
+                data: {
+                    name: name,
+                    email: email,
+                    Cname: cname,
+                    _token: $('input[name="_token"]').val()  // CSRF token for Laravel
+                },
+                success: function(data) {
+                    console.log(data); 
+    if (data.success) {
+        // Add the new driver to the dropdown
+        $('#shipplist').append(
+            $('<option>', {
+                value: data.newDriverId,
+                text: data.newDriverName  // Use data.newDriverName instead of newDriverName
+            })
+        );
+        
+        // Optionally, set the new driver as selected
+        $('#shipplist').val(data.newDriverId);
+        
+        // Close the modal
+        $('#addNewModal').hide();
+        
+        // Reset the form
+        $('#addNewDriverForm')[0].reset();
+    } else {
+        alert('Error adding driver');
+    }
+},
+                error: function(xhr) {
+        if (xhr.status === 422) {  // 422 is Laravel's validation error status code
+            var errors = xhr.responseJSON.errors;  // Get errors from response
+            // Clear previous errors
+            // alert(errors);
+            // Loop through each error and display it
+            $.each(errors, function(key, value) {
+                // Assuming you have spans with IDs like 'driverName-error', 'naicNumber-error', etc.
+                alert(value[0]);
+                  $('#' + key + '-error').html(value[0]);  // Display the first error message
+            });
+        } else {
+            alert('An unexpected error occurred. Please try again.');
+        }
+    }
+            });
+        });
+    });
+
+
+
+
+
+
+
+
+
+
 
 // $(document).ready(function () {
 //     $(":input").not("[name=ch],[name=btnsub],[name=cert_id],[name=_token]")

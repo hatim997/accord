@@ -7,6 +7,99 @@ $navbarHideToggle = false;
 
 @push('body-css')
   <link rel="stylesheet" href="{{ asset('assets/css/form.css') }}" />
+  <style>
+
+/* The Modal (background) */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 999; 
+    left: 0;
+    top: -100px;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.4); 
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+}
+
+/* Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.containerr {
+width: 50%;
+margin: 0 auto;
+background-color: #fff;
+padding: 20px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+margin-top: 50px;
+border-radius: 8px;
+}
+
+h2 {
+text-align: center;
+color: #333;
+}
+
+.form-group {
+margin-bottom: 15px;
+}
+
+label {
+display: block;
+font-weight: bold;
+margin-bottom: 5px;
+}
+
+input, textarea {
+width: 100%;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 4px;
+font-size: 16px;
+}
+
+#addNewDriverForm input[type=text] {
+    vertical-align: middle;
+    padding: 7px 0 7px 1px !important;
+    font-size: 13px !important;
+    color: #585858;
+}
+button {
+display: block;
+width: 100%;
+background-color: #4CAF50;
+color: white;
+padding: 10px;
+border: none;
+border-radius: 4px;
+font-size: 18px;
+cursor: pointer;
+}
+
+button:hover {
+background-color: #45a049;
+}
+
+</style>
 @endpush
 
 @section('content')
@@ -2652,10 +2745,22 @@ $navbarHideToggle = false;
                                                                         <tr class="ng-tns-c268-42">
                                                                             <td rowspan="2" width="50%"
                                                                                 class="ct_holder ng-tns-c268-42">
-                                                                                <textarea class="form-control h-px-100" required name="ch" style="background-color: rgb(201 196 196 / 15%) !important;width: 100%;height: 90px;color: #000000;" placeholder="Comments here...">
-                                                                                  {{$certificate->ch}}
-                                                                                </textarea>
+                                                                                <div
+                                                                                class="mat-form-field-infix ng-tns-c70-58">
+                                                                                <select id="shipplist" name="ch" class="selecter">
+                                                                                  <option value="">-Select-</option>
+                                                                                  @foreach ($shipper->drives as $ip)                                                                            
 
+                                                                          
+                                                                              <option
+                                                                              {{ $isSelected ? 'selected' : '' }}                                                                                                       data-naic="{{ $ip->naic_number }}"
+                                                                                      data-brn="{{ $ip->best_rating_number }}"
+                                                                                      value="{{ $ip->user_id }}">
+                                                                                      {{ $ip->name }}
+                                                                                  </option>
+                                                                                  @endforeach
+                                                                                  <option value="add-new">+ Add New</option>
+                                                                              </select>
                                                                             </td>
                                                                             <td class="fot_titel ng-tns-c268-42"> SHOULD
                                                                                 ANY OF THE
@@ -2724,6 +2829,33 @@ $navbarHideToggle = false;
     </div>
 </div>
 </form>
+<div id="addNewModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="container">
+        <h2>Add New Shipper</h2>
+        <form id="addNewDriverForm"> <div class="form-group">
+
+            <label  for="driverName"> Name:</label>
+            <input type="text" id="driverName" name="name" required>
+        </div>  <div class="form-group">
+
+            <label  for="driverName">Company Name:</label>
+            <input type="text" id="CName" name="cname" required>
+        </div>  
+        
+        <div class="form-group">
+            <label for="naicNumber">Email</label>
+            <input type="text" id="naicNumber" name="email" required>
+        </div>  
+            <button type="submit">Add Shipper</button>
+        </form>
+    </div></div>
+</div>
+
+
+
+
 @include('freight.agent-script')
 
 @endsection

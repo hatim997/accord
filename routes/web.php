@@ -132,7 +132,7 @@ Route::get('/reg-freights', function () { return view('content.authentications.r
 Route::get('/reg-trucker', function () {
   return view('content.authentications.reg-agency');
 })->name('reg.trucker');
-Route::group(['middleware' => 'checkRole:truck'], function () {
+  Route::group(['middleware' => 'checkRole:truck'], function () {
   Route::get('/portal', [TruckController::class, 'trucker'])->name('dashw');
   Route::post('/upload', [TruckController::class, 'upload'])->name('upload');
   Route::get('/truck/certifecate', [TruckController::class, 'certadmin'])->name('truck_cert');
@@ -151,8 +151,8 @@ Route::group(['middleware' => 'checkRole:truck'], function () {
   Route::post('/store-broker', [TruckController::class, 'storeBroker'])->name('store.broker');
 });
 Route::get('reboot',function(){ 
-   Artisan::call('view:clear'); 
-    Artisan::call('route:clear');  Artisan::call('config:clear');
+  Artisan::call('view:clear'); 
+  Artisan::call('route:clear');  Artisan::call('config:clear');
   Artisan::call('cache:clear');  Artisan::call('key:generate');});
 Route::group(['middleware' => 'checkRole:shipper'], function () {
   Route::get('/sportal', [ShipperController::class, 'dash2'])->name('sdash');
@@ -177,6 +177,12 @@ Route::get('/notice', [AdminController::class, 'notice'])->name('notice');
 
 Route::group(['middleware' => 'checkRole:freight_driver'], function () {
   Route::get('/fportal', [FreightController::class, 'dashf'])->name('fportals');
+  Route::get('/add-shipp', [FreightController::class, 'drivers'])->name('add.shipper');
+  Route::post('/store-shipp', [FreightController::class, 'addshipper'])->name('store.shipper');
+  Route::post('/short-add', [FreightController::class, 'shortaddshipper'])->name('short.shipper');
+  Route::post('/store-driverr', [FreightController::class, 'storeDriverr'])->name('store.driverr');
+
+
 });
 Route::post('freight/update', [FreightController::class, 'update'])->name('update_certt');
 

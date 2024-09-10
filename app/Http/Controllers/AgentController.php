@@ -350,12 +350,12 @@ class AgentController extends Controller
       ->get();
 
      $insurProviders = InsuranceProvider::all();
-
+     $userId = Auth::user()->id;
     $driver = User::with('truckers')->find($certificate->client_user_id);
     $agent = User::with('agencies')->find($certificate->producer_user_id);
-
+    $shipper = User::with('drives','shippers')->find($userId);
      //dd($certPolicy);
-
+      // dd($shipper);
     $data = [
       'certificate' => $certificate,
       'policytypes' => $policytypes,
@@ -379,7 +379,7 @@ $r=0;
 
     return view(
       'freight.form_edited',
-      compact('certificate', 'policytypes', 'certPolicy', 'certPolimit', 'driver', 'agent', 'r', 'allpolicytypes', 'insurProviders')
+      compact('certificate', 'policytypes', 'certPolicy','shipper', 'certPolimit', 'driver', 'agent', 'r', 'allpolicytypes', 'insurProviders')
     );
 
 

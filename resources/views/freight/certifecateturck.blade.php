@@ -49,7 +49,7 @@
                   <tr>
                     <td>
                         <a href=""  class="btn btn-primary"> @if ($cert->ch)
-                            {{$cert->ch}}
+                            {{$cert->name}}
                         @else
                             New Certificate Holder
                         @endif </a>

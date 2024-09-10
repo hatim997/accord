@@ -21,7 +21,7 @@ class ShipperDriver extends Model
     {
       return $this->belongsTo(User::class, 'shipper_id');
     }
-
+    
     public function driver()
     {
       return $this->belongsTo(User::class, 'driver_id');
