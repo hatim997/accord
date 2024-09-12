@@ -1042,14 +1042,18 @@
                             @endif
                             </tbody></table>
                             </td>
-                            <td>
-                              <div>
-                                <span class="mat-form-field-label-wrapper ng-tns-c70-64"></span>
+                            <td valign="middle" style="text-align: center; vertical-align: middle;">
+                              <div>                        
+                             
+                                  {{ !empty($certPolicy) ? $certPolicy->where('policy_type_id',
+                                  $pt->id)->first()->ADDL_INSR ?? '' : '' }}
+                              
                               </div>
                             </td>
-                            <td>
+                            <td valign="middle" style="text-align: center; vertical-align: middle;">
                               <div>
-                                <span class="mat-form-field-label-wrapper ng-tns-c70-64"></span>
+                                 {{ !empty($certPolicy) ? $certPolicy->where('policy_type_id',
+                                  $pt->id)->first()->SUBR_WVD ?? '' : '' }}
                               </div>
                             </td>
                             <td valign="middle" style="text-align: center; vertical-align: middle;">

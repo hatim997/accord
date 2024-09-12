@@ -100,7 +100,7 @@ function validateInput(event) {
         'C': 'insurC',
         'D': 'insurD',
         'E': 'insurE',
-         'F': 'insurF'
+        'F': 'insurF'
     };
 
     // Check if the corresponding insurance input has value
@@ -244,6 +244,41 @@ function validateDates() {
         }
         return true;
     }
+
+
+    document.getElementById('mat-input-27').addEventListener('input', function() {
+            var value = this.value.toUpperCase(); // Get input value and convert to uppercase
+            
+            if (value !== '' && value !== 'X' && value !== 'Y') {
+                // Show SweetAlert error message
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Input',
+                    text: 'Please enter only X or Y!',
+                    confirmButtonText: 'OK'
+                });
+
+                // Clear the textbox
+                this.value = '';
+            }
+        });
+        document.getElementById('mat-input-212').addEventListener('input', function() {
+            var value = this.value.toUpperCase(); // Get input value and convert to uppercase
+            
+            if (value !== '' && value !== 'X' && value !== 'Y') {
+                // Show SweetAlert error message
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Input',
+                    text: 'Please enter only X or Y!',
+                    confirmButtonText: 'OK'
+                });
+
+                // Clear the textbox
+                this.value = '';
+            }
+        });
+
 
 </script>
  @endpush

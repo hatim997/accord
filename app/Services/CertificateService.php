@@ -64,7 +64,8 @@ class CertificateService
         elseif ($certificateData['insurance_provider_code'][$k] == 'F') {
           $certificatePolicy->insurance_provider_id = $certificateData['insurance_provider_id'][5];
         }
-
+        $certificatePolicy->ADDL_INSR = $certificateData['ADDL_INSR'][$k];
+        $certificatePolicy->SUBR_WVD = $certificateData['SUBR_WVD'][$k];
         $certificatePolicy->policy_number = $certificateData['main_policy_polnum'][$k];
         $certificatePolicy->issue_date = Carbon::now()->format('Y-m-d');
         $certificatePolicy->start_date = $certificateData['main_policy_eff_date'][$k];
