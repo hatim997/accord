@@ -105,10 +105,13 @@ Route::get('/truckform/{id}', [AuthController::class, 'form'])->name('truck.from
 Route::group(['middleware' => 'checkRole:agent'], function () {
   // Routes accessible only by users with 'admin' role
   Route::get('/formlist', [ac::class, 'formlist'])->name('formlist');
+  Route::get('/get-certf/{id}', [ac::class, 'getcert'])->name('get-certf');
+
   //Route::get('/formlist/{id}', [ac::class, 'pdf'])->name('agent.pdf');
   Route::get('/cert_1st_step/{id}', [ac::class, 'choosePolicyTypes'])->name('cert_1st_step');
   Route::post('/form2', [ac::class, 'create'])->name('form2');
   Route::get('/dash', [ac::class, 'dash'])->name('dash');
+  Route::get('/insured', [ac::class, 'insured'])->name('insur');
   Route::post('/save_cert', [ac::class, 'store'])->name('save_cert');
   Route::get('/main_cert/{id}', [ac::class, 'MainCertificate'])->name('main_cert');
   Route::get('/list_cert/{id}', [ac::class, 'show'])->name('list_cert');
@@ -244,6 +247,9 @@ Route::get('/login/freight', [LoginBasic::class, 'indexf'])->name('auth-login-f'
 
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logins', [AuthController::class, 'logins'])->name('logins');
+Route::post('/logint', [AuthController::class, 'logint'])->name('logint');
+Route::post('/loginf', [AuthController::class, 'loginf'])->name('loginf');
 Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
 Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

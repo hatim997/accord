@@ -42,19 +42,21 @@ class AgentController extends Controller
     $this->middleware('checkRole:agent');
     $this->agency = $agency;
   }
+  public function getcert($id)
+  {
+     $certificate = Certificate::where('client_user_id', $id)->get() ?? '';
+return $certificate;
+  }
 
   public function dash()
   {
     $users = User::all();
     $userId = Auth::user()->id;
-
     $monthExp = CertificatePolicy::whereDate('expiry_date', '<=', Carbon::now()->addDays(30))->count();
     $weekExp = CertificatePolicy::whereDate('expiry_date', '<=', Carbon::now()->addDays(7))->count();
     $insuredCnt = Certificate::where('producer_user_id', Auth::user()->id)->distinct()->count('client_user_id');
-
     $agencyinfo = $this->agency->getByUserId($userId);
     $brokersinfo = $this->agency->getBrokersByAgency($userId);
-
     return view('dash', compact('users', 'monthExp', 'weekExp', 'insuredCnt', 'agencyinfo', 'brokersinfo'));
   }
 
@@ -168,7 +170,18 @@ class AgentController extends Controller
     $agent = User::with('agencies')->find($certificate->producer_user_id);
     return view('agent.certificate_list', compact('certificate', 'certPolicy', 'driver', 'agent'));
   }
+  
+  public function insured()
+  {
+    $driver = AgentDriver::where('agent_id',Auth::user()->id)
+    ->join('driver_details', 'driver_details.user_id', '=', 'agent_driver.driver_id')
+    ->join('users', 'users.id', '=', 'driver_details.user_id')    
+    ->select('agent_driver.*', 'driver_details.*', 'users.name as user_name',  
+    'users.role','users.email')    
+    ->get();
+    return view('agent.client', compact('driver'));
 
+  }
   public function showCertificate(string $id)
   {
     $certificate = Certificate::with('policies', 'policyLimits', 'certificateUmbrellas')

@@ -34,6 +34,14 @@ class AuthController extends Controller
     if (!Auth::attempt($credentials)) {    
          $message = 'Wrong credentials';
    return Redirect::back()->with('danger' ,$message);
+    }  
+    if ($user->role == 'truck_driver') {
+      $message = 'Wrong credentials';
+   return Redirect::back()->with('danger' ,$message);
+    }
+    if ($user->role == 'shipper') {
+      $message = 'Wrong credentials';
+      return Redirect::back()->with('danger' ,$message);
     }
     Session::put('userRole', $user->role);
     Session::put('userId', $user->id);
@@ -44,14 +52,109 @@ class AuthController extends Controller
     if ($user->role == 'agent') {
       return redirect('/dash');
     }
+   
+    $message = 'Wrong credentials';
+    return Redirect::back()->with('danger' ,$message);
+
+   
+  }
+  public function logins(Request $request)
+  {
+    $fields = $request->validate([
+      'email' => 'required',
+      'password' => 'required',
+    ]);  
+    $user = User::where('email', $fields['email'])->first();
+    $credentials = $request->only('email', 'password');
+    if (!Auth::attempt($credentials)) {    
+         $message = 'Wrong credentials';
+   return Redirect::back()->with('danger' ,$message);
+    }
+    Session::put('userRole', $user->role);
+    Session::put('userId', $user->id);
+    $request->session()->regenerate();
+    if ($user->role == 'admin') {
+      return redirect()->route('dashs');
+    }
+    if ($user->role == 'agent') {
+      $message = 'Wrong credentials';
+   return Redirect::back()->with('danger' ,$message);
+    }
     if ($user->role == 'truck_driver') {
-      return redirect("/portal");
+      $message = 'Wrong credentials';
+      return Redirect::back()->with('danger' ,$message);
     }
     if ($user->role == 'shipper') {
       return redirect("/sportal");
     }
+    $message = 'Wrong credentials';
+    return Redirect::back()->with('danger' ,$message);
+  }
+  public function logint(Request $request)
+  {
+    $fields = $request->validate([
+      'email' => 'required',
+      'password' => 'required',
+    ]);  
+    $user = User::where('email', $fields['email'])->first();
+    $credentials = $request->only('email', 'password');
+    if (!Auth::attempt($credentials)) {    
+         $message = 'Wrong credentials';
+   return Redirect::back()->with('danger' ,$message);
+    }
+    Session::put('userRole', $user->role);
+    Session::put('userId', $user->id);
+    $request->session()->regenerate();
+    if ($user->role == 'admin') {
+      return redirect()->route('dashs');
+    }
+    if ($user->role == 'agent') {
+      $message = 'Wrong credentials';
+      return Redirect::back()->with('danger' ,$message);
+    }
+    if ($user->role == 'truck_driver') {
+      return redirect("/portal");
+    }
+    if ($user->role == 'shipper') {
+      $message = 'Wrong credentials';
+      return Redirect::back()->with('danger' ,$message);
+    }
     return redirect('/fportal');
   }
+  public function loginf(Request $request)
+  {
+    $fields = $request->validate([
+      'email' => 'required',
+      'password' => 'required',
+    ]);  
+    $user = User::where('email', $fields['email'])->first();
+    $credentials = $request->only('email', 'password');
+    if (!Auth::attempt($credentials)) {    
+         $message = 'Wrong credentials';
+   return Redirect::back()->with('danger' ,$message);
+    }
+    Session::put('userRole', $user->role);
+    Session::put('userId', $user->id);
+    $request->session()->regenerate();
+    if ($user->role == 'admin') {
+      return redirect()->route('dashs');
+    }
+    if ($user->role == 'agent') {
+      $message = 'Wrong credentials';
+      return Redirect::back()->with('danger' ,$message);
+    }
+    if ($user->role == 'truck_driver') {
+      $message = 'Wrong credentials';
+      return Redirect::back()->with('danger' ,$message);
+    }
+    if ($user->role == 'shipper') {
+      $message = 'Wrong credentials';
+      return Redirect::back()->with('danger' ,$message);
+    }
+    return redirect('/fportal');
+  }
+
+
 
   public function register(Request $request)
   {

@@ -173,6 +173,8 @@
 
         <li>
             <a class="btn btn-light  ">Company Information</a>
+        </li>   <li>
+            <a class="btn btn-light" href="{{ route('insur') }}">insured</a>
         </li>
 
         @elseif ($user->role == "admin")
@@ -227,6 +229,7 @@
         <li>
             <a class="btn btn-light" href="{{ route('profile.truck') }}">Company Information</a>
         </li>
+     
         @elseif ($user->role == "shipper")
         <li>
             <a class="btn btn-light" href="{{ route('sdash') }}">Dashboard</a>

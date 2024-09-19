@@ -69,7 +69,6 @@ class AdminController extends Controller
     }
     elseif ($users->role == "truck_driver" || $users->role == "freight_driver" ) {
       $userss = DriverDetail::where('user_id', $id)->first();
-
     }
     return view('users', compact('users','userss'));
 
@@ -212,7 +211,6 @@ $customOrder = [
 
       $users = User::find($request->user_id);
       $users->name =  $request->username;
-      $users->password = Hash::make ($request->password);
       $users->email =  $request->email;
       $users->save();
       $message = 'edite done agent';

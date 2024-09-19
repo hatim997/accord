@@ -1411,14 +1411,14 @@ style="flex-direction: row; box-sizing: border-box; display: flex;">
     <tbody>
       <tr style="border:1px solid black;" >
         <td  class="lable_title" colspan="2"><label>&nbsp;&nbsp;NAME INSURED</label>
-          <br class="ng-tns-c268-42">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $driver->name }}<br class="ng-tns-c268-42">
+          <br class="ng-tns-c268-42">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $driver->truckers[0]->name }}<br class="ng-tns-c268-42">
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $driver->truckers[0]->address }}<br class="ng-tns-c268-42">
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $driver->truckers[0]->city }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $driver->truckers[0]->state }},<br class="ng-tns-c268-42">
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $driver->truckers[0]->zip }}<br class="ng-tns-c268-42">
         </td></tr>
       <tr  style="border:1px solid black; ">
 
-        <td class="lable_title" colspan="2"><label>&nbsp;&nbsp; EFFECTIVE DATE:</label>&nbsp;&nbsp;&nbsp;&nbsp;{{  date('m-d-Y', strtotime('2024-07-01')) }}  </td>
+        <td class="lable_title" colspan="2"><label>&nbsp;&nbsp; EFFECTIVE DATE:</label>&nbsp;&nbsp;&nbsp;&nbsp;{{  date('m-d-Y', strtotime($cp->start_date)) }}  </td>
 
       </tr>
     </tbody>

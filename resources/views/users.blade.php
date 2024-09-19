@@ -85,8 +85,8 @@ $navbarHideToggle = false;
                 </div>
                 <div class="col-6">
                   <div class="form-floating form-floating-outline mb-4">
-                    <input type="text" class="form-control" name="password" id="password" placeholder="********" />
-                    <label for="password">PASSWORD</label>
+                    <input type="text" class="form-control" name="atlphone" value="{{$userss->fax??''}}" id="atlphone" />
+                    <label for="password">fax #</label>
                   </div>
                 </div>
                 <div class="col-6">
@@ -94,21 +94,22 @@ $navbarHideToggle = false;
                   <div class="form-floating form-floating-outline mb-4">
                     <input type="text" class="form-control" name="fullname" value="{{$userss->name??''}}" id="fulldname"
                       placeholder="ACME Inc." />
-                    <label for="fulldname"> Name</label>
+                    <label for="fulldname">Company Name</label>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="form-floating form-floating-outline mb-4">
                     <input type="text" class="form-control" value="{{$userss->address??''}}" name="Address" id="Adddress" placeholder="" />
-                    <label for="Adddress"> Address 1</label>
+                    <label for="Adddress">Address 1</label>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="form-floating form-floating-outline mb-4">
                     <input type="text" class="form-control" value="{{$userss->address2??''}}" name="Address2" id="Address2" placeholder="" />
-                    <label for="Address2"> Address 1</label>
+                    <label for="Address2">Address 1</label>
                   </div>
                 </div>
+
                 <div class="col-6">
                   <div class="form-floating form-floating-outline mb-4">
                     <input type="text" class="form-control" value="{{$userss->state??''}}" name="state" id="state" placeholder="" />

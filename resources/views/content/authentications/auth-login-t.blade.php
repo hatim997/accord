@@ -65,7 +65,7 @@
 
                                 <h4 class="mb-2 pt-4 pb-5 text-center">Carrier Login</h4>
 
-                                <form id="formAuthentication" class="mb-3 py-3 px-4" action="{{url('/login')}}" method="post">
+                                <form id="formAuthentication" class="mb-3 py-3 px-4" action="{{url('/logint')}}" method="post">
                                     @csrf
                                     <div class="form-floating form-floating-outline mb-3">
                                         <input type="text" class="form-control" id="email" name="email"
