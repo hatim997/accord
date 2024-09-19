@@ -106,7 +106,7 @@ Route::group(['middleware' => 'checkRole:agent'], function () {
   // Routes accessible only by users with 'admin' role
   Route::get('/formlist', [ac::class, 'formlist'])->name('formlist');
   Route::get('/get-certf/{id}', [ac::class, 'getcert'])->name('get-certf');
-
+  Route::get('/get-agency', [ac::class, 'getagency'])->name('getagency');
   //Route::get('/formlist/{id}', [ac::class, 'pdf'])->name('agent.pdf');
   Route::get('/cert_1st_step/{id}', [ac::class, 'choosePolicyTypes'])->name('cert_1st_step');
   Route::post('/form2', [ac::class, 'create'])->name('form2');

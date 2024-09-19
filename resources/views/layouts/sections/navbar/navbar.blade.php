@@ -194,13 +194,14 @@
           <a class="btn btn-light" href="{{ route('a2t') }}">Assign Driver To Agent</a>
         </li>
         <li>
-          <a class="btn btn-light" href="{{ route('shipper_cert') }}">View Shipper Uploaded Certificate</a>
+          <a class="btn btn-light" href="{{ route('shipper_cert') }}"> Shipper Certificate</a>
         </li>
-
+        <li>
+            <a class="btn btn-light" href="{{ route('getagency') }}">Agency</a>
+          </li>
         @elseif ($user->role == "truck_driver")
 
-       <li>
-           <a class="btn btn-light" href="{{ route('dashw') }}">Dashboard</a>
+       <li><a class="btn btn-light" href="{{ route('dashw') }}">Dashboard</a>
         </li> 
          @if($user->status == "1")
         <li>

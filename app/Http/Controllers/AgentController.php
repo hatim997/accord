@@ -42,6 +42,15 @@ class AgentController extends Controller
     $this->middleware('checkRole:agent');
     $this->agency = $agency;
   }
+
+ 
+  public function getagency()
+  {
+     $certificate = InsuranceProvider::all();
+return view('agent.agency', compact('certificate'));
+  }
+
+
   public function getcert($id)
   {
      $certificate = Certificate::where('client_user_id', $id)->get() ?? '';
