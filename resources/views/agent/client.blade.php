@@ -7,6 +7,12 @@
 @push('body-style')
 <link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/css/datatables-Cl.css') }}" />
+<style>
+  thead, tbody, tfoot, tr, td, th {
+
+    /* border-style: hidden !important; */
+  }
+</style>
 @endpush
 
 @section('content')
@@ -14,7 +20,7 @@
     <div  class="container-xxl flex-grow-1 container-p-y">
         <div class="app-chat card overflow-hidden">
             <div class="row g-0">
-    <div class="col app-chat-contacts app-sidebar flex-grow-0 overflow-hidden border-end" id="app-chat-contacts">
+    <div class="col app-chat-contacts app-sidebar flex-grow-0 overflow-hidden " id="app-chat-contacts">
         <div class="sidebar-header h-px-75 px-5 border-bottom d-flex align-items-center">
           <div class="d-flex align-items-center me-4 me-lg-0">
             
@@ -56,52 +62,25 @@
       </div>
     </div>
 
-    <div class="col app-chat-history">
+    <div class="col app-chat-history  overflow-hidden" id="app-chat-contacts">
       <div class="chat-history-wrapper">
-        <div class="chat-history-header border-bottom">
+        <div class="chat-history-header">
           <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex overflow-hidden align-items-center">
+            <div class="d-flex  align-items-center">
               <i class="ri-menu-line ri-24px cursor-pointer d-lg-none d-block me-4" data-bs-toggle="sidebar" data-overlay="" data-target="#app-chat-contacts"></i>
-              <div class="flex-shrink-0 avatar avatar-online">
-                <img src="https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo/assets/img/avatars/4.png" alt="Avatar" class="rounded-circle" data-bs-toggle="sidebar" data-overlay="" data-target="#app-chat-sidebar-right">
-              </div>
+             
+                <br>  
+                <br>  
             </div>
           </div>
         </div>
       </div>
-      <div class="sidebar-body ps ps--active-y">
-      <div class="card-datatable table-responsive">
-       <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-          <div class="card-header d-flex flex-column flex-md-row align-items-start align-items-md-center py-0 pb-5 pb-md-0">
-            <div>
-              <div id="DataTables_Table_0_filter" class="dataTables_filter"><label><input type="search"
-                    class="form-control form-control-sm ms-0" placeholder="Search Order"
-                    aria-controls="DataTables_Table_0"></label></div>
-            </div>
-            <div class="d-flex align-items-md-baseline justify-content-md-end gap-4">
-              <div class="dataTables_length my-0" id="DataTables_Table_0_length"><label><select name="DataTables_Table_0_length"
-                    aria-controls="DataTables_Table_0" class="form-select form-select-sm">
-                    <option value="10">10</option>
-                    <option value="40">40</option>
-                    <option value="60">60</option>
-                    <option value="80">80</option>
-                    <option value="100">100</option>
-                  </select></label></div>
-              <div class="dt-action-buttons pt-0">
-                <div class="dt-buttons btn-group flex-wrap">
-                  <div class="btn-group"><button
-                      class="btn btn-secondary buttons-collection dropdown-toggle btn-outline-secondary waves-effect waves-light"
-                      tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog"
-                      aria-expanded="false"><span><i class="ri-download-line ri-16px me-2"></i> <span
-                          class="d-none d-sm-inline-block">Export</span></span></button></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <table class="datatables-order table dataTable no-footer dtr-column collapsed" id="DataTables_Table_0"
-            aria-describedby="DataTables_Table_0_info" style="width: 1193px;">
+ 
+      <div class="sidebar-body" style="height: 75vh;overflow: auto;">
+
+          <table class="table dataTable collapsed chat-contact-list" id="contact-list" style="width: 1193px;">
             <thead>
-              <tr>              
+              <tr class="border-bottom">              
                 <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" rowspan="1" colspan="1"
                   style="width: 18px;" data-col="1" aria-label=""></th>
                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 50px;"
@@ -116,12 +95,12 @@
                   style="width: 118px;" aria-label="status: activate to sort column ascending">Edit Certificate</th>
                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 147px;" aria-label="method: activate to sort column ascending">status</th>
-                <th class="sorting_disabled dtr-hidden" rowspan="1" colspan="1" style="width: 0px; display: none;"
-                  aria-label="Actions">Actions</th>
+          
               </tr>
             </thead>
-            <tbody>
-              <tr class="odd parent">
+           
+            <tbody class="tbody">
+              {{-- <tr class="odd parent">
               
                 <td class="dt-checkboxes-cell"> <i style="font-size: 30px;    color: #252458;}" class="mdi mdi-chevron-down"></i> </td>
                 <td><a
@@ -132,7 +111,7 @@
                   <div class="d-flex justify-content-start align-items-center user-name">
                    
                     <div class="d-flex flex-column"><a
-                        href="https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo-1/pages/profile-user"
+                        href="#"
                         class="text-truncate text-heading"><span class="fw-medium">Cristine Easom</span></a><small
                         class="text-truncate">ceasomw@theguardian.com</small></div>
                   </div>
@@ -158,91 +137,22 @@
                     </div>
                   </div>
                 </td>
-              </tr>
-              <tr class="odd parent">
-              
-                <td class="dt-checkboxes-cell"> <i style="font-size: 30px;    color: #252458;}" class="mdi mdi-chevron-down"></i> </td>
-                <td><a
-                    href="#"><span>#6979</span></a>
-                </td>
-                <td class="sorting_1"><i class="mdi mdi-download"></i></td>
-                <td>
-                  <div class="d-flex justify-content-start align-items-center user-name">
-                   
-                    <div class="d-flex flex-column"><a
-                        href="https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo-1/pages/profile-user"
-                        class="text-truncate text-heading"><span class="fw-medium">Cristine Easom</span></a><small
-                        class="text-truncate">ceasomw@theguardian.com</small></div>
-                  </div>
-                </td>
-                <td>
-                  <h6 class="mb-0 w-px-100 d-flex align-items-center" ><i class="mdi mdi-eye"></i>
-                    </h6>
-                </td>
-              
-                <td>
-                  <div class="d-flex align-items-center text-nowrap"><i class="mdi mdi-pencil-box"></i>
-                  </div>
-                </td>
+              </tr> --}}
 
-                <td><span class="badge px-2 rounded-pill bg-label-success" text-capitalized="">Delivered</span></td>
-                <td class="dtr-hidden" style="display: none;">
-                  <div><button
-                      class="btn btn-sm btn-icon btn-text-secondary text-body waves-effect rounded-pill dropdown-toggle hide-arrow"
-                      data-bs-toggle="dropdown"><i class="ri-more-2-line"></i></button>
-                    <div class="dropdown-menu dropdown-menu-end m-0"><a
-                        href=" https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo-1/app/ecommerce/order/details"
-                        class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item delete-record">Delete</a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
             </tbody>
-          </table>
-          <div class="row mx-1">
-            <div class="col-sm-12 col-md-6">
-              <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Displaying 1 to 10 of
-                100 entries</div>
-            </div>
-            <div class="col-sm-12 col-md-6">
-              <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                <ul class="pagination">
-                  <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a
-                      aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="-1"
-                      class="page-link">Previous</a></li>
-                  <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" role="link"
-                      aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a></li>
-                  <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link"
-                      data-dt-idx="1" tabindex="0" class="page-link">2</a></li>
-                  <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link"
-                      data-dt-idx="2" tabindex="0" class="page-link">3</a></li>
-                  <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link"
-                      data-dt-idx="3" tabindex="0" class="page-link">4</a></li>
-                  <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link"
-                      data-dt-idx="4" tabindex="0" class="page-link">5</a></li>
-                  <li class="paginate_button page-item disabled" id="DataTables_Table_0_ellipsis"><a
-                      aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="ellipsis" tabindex="-1"
-                      class="page-link">…</a></li>
-                  <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link"
-                      data-dt-idx="9" tabindex="0" class="page-link">10</a></li>
-                  <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#"
-                      aria-controls="DataTables_Table_0" role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div style="width: 1%;"></div>
-          <div style="width: 1%;"></div>
+                       
+                     
+          </table>    
         </div>
-        </div>
+   
+   
 
 
-    </div>
+ 
 
 
-      
-    </div>
+
+    
       </div>
 
     </div>
@@ -268,16 +178,67 @@
           var id = $(this).attr('id');
 
           // Perform AJAX request
-          $.ajax({
-            url: 'get-certf/' + id,   // Define your Laravel route here
-              type: 'GET',           
-              success: function(response) {
-                  // Handle the response
-                  console.log(response);
-                  // alert('Data sent successfully! ID: ' + id);
-              },
-           
-          });
+         $.ajax({
+    url: 'get-certf/' + id,  // Define your Laravel route here
+    type: 'GET',
+    success: function(response) {
+        // Assuming the response contains an array of data objects for each row
+        // Example: response = [{id: 1, ch: 'Agent1', email: 'email1'}, {id: 2, ch: 'Agent2', email: 'email2'}, ...]
+        console.log(response);
+
+        // Iterate through each row in the table
+        $('.tbody').empty();
+
+// Loop through each data item in the response
+$.each(response, function(index, data) {
+    // Create a new row with the data
+    var newRow = `      
+         <tr class="odd parent" style="border-bottom:1px solid #cdc9d1;">              
+                <td class="dt-checkboxes-cell"> <i style="font-size: 30px;    color: #252458;}" class="mdi mdi-chevron-down"></i> </td>
+                <td><span>#${data.id}</span>
+                </td>
+                <td class="sorting_1"><a
+                        href="get_pdf/${data.id}"><i class="mdi mdi-download"></i> </a></td>
+                <td>
+                  <div class="d-flex justify-content-start align-items-center user-name">
+                   
+                    <div class="d-flex flex-column"><a
+                        href="#"
+                        class="text-truncate text-heading"><span class="fw-medium"></span></a><small
+                        class="text-truncate"></small></div>
+                  </div>
+                </td>
+                <td>
+                  <h6 class="mb-0 w-px-100 d-flex align-items-center" ><a
+                        href="view_cert/${data.id}"><i class="mdi mdi-eye"></i></a>
+                    </h6>
+                </td>
+              
+                <td>
+                  <div class="d-flex align-items-center text-nowrap"><a
+                        href="edit_cert/${data.id}"><i class="mdi mdi-pencil-box"></i></a>
+                  </div>
+                </td>
+
+                <td><span class="badge px-2 rounded-pill bg-label-success" text-capitalized="">Delivered</span></td>
+                <td class="dtr-hidden" style="display: none;">
+                  <div><button
+                      class="btn btn-sm btn-icon btn-text-secondary text-body waves-effect rounded-pill dropdown-toggle hide-arrow"
+                      data-bs-toggle="dropdown"><i class="ri-more-2-line"></i></button>
+                    <div class="dropdown-menu dropdown-menu-end m-0"><a
+                        href=" https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo-1/app/ecommerce/order/details"
+                        class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item delete-record">Delete</a>
+                    </div>
+                  </div>
+                </td>
+              </tr> 
+    `;
+
+    // Append the new row to the table body
+    $('.tbody').append(newRow);
+});
+    }
+});
       });
   });
 </script>

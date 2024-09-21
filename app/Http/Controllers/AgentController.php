@@ -54,6 +54,9 @@ return view('agent.agency', compact('certificate'));
   public function getcert($id)
   {
      $certificate = Certificate::where('client_user_id', $id)->get() ?? '';
+
+
+     
 return $certificate;
   }
 
