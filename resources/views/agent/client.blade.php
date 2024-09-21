@@ -86,13 +86,13 @@
                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 50px;"
                   aria-label="order: activate to sort column ascending">Certificate ID</th>
                 <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                  style="width: 134px;" aria-label="date: activate to sort column descending" aria-sort="ascending">Download</th>
-                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                  style="width: 267px;" aria-label="customers: activate to sort column ascending">customers</th>
+                  style="width: 134px;" aria-label="date: activate to sort column descending" aria-sort="ascending">Download</th>              
                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 101px;" aria-label="payment: activate to sort column ascending">View Certificate</th>
                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 118px;" aria-label="status: activate to sort column ascending">Edit Certificate</th>
+                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                  style="width: 267px;" aria-label="customers: activate to sort column ascending">Add Certificate</th>
                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 147px;" aria-label="method: activate to sort column ascending">status</th>
           
@@ -197,40 +197,27 @@ $.each(response, function(index, data) {
                 <td class="dt-checkboxes-cell"> <i style="font-size: 30px;    color: #252458;}" class="mdi mdi-chevron-down"></i> </td>
                 <td><span>#${data.id}</span>
                 </td>
-                <td class="sorting_1"><a
+                <td class="sorting_1"><a target="_blank"
                         href="get_pdf/${data.id}"><i class="mdi mdi-download"></i> </a></td>
+               
                 <td>
-                  <div class="d-flex justify-content-start align-items-center user-name">
-                   
-                    <div class="d-flex flex-column"><a
-                        href="#"
-                        class="text-truncate text-heading"><span class="fw-medium"></span></a><small
-                        class="text-truncate"></small></div>
-                  </div>
-                </td>
-                <td>
-                  <h6 class="mb-0 w-px-100 d-flex align-items-center" ><a
+                  <h6 class="mb-0 w-px-100 d-flex align-items-center" ><a target="_blank"
                         href="view_cert/${data.id}"><i class="mdi mdi-eye"></i></a>
                     </h6>
                 </td>
               
                 <td>
-                  <div class="d-flex align-items-center text-nowrap"><a
+                  <div class="d-flex align-items-center text-nowrap"><a target="_blank"
                         href="edit_cert/${data.id}"><i class="mdi mdi-pencil-box"></i></a>
                   </div>
                 </td>
-
-                <td><span class="badge px-2 rounded-pill bg-label-success" text-capitalized="">Delivered</span></td>
-                <td class="dtr-hidden" style="display: none;">
-                  <div><button
-                      class="btn btn-sm btn-icon btn-text-secondary text-body waves-effect rounded-pill dropdown-toggle hide-arrow"
-                      data-bs-toggle="dropdown"><i class="ri-more-2-line"></i></button>
-                    <div class="dropdown-menu dropdown-menu-end m-0"><a
-                        href=" https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo-1/app/ecommerce/order/details"
-                        class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item delete-record">Delete</a>
-                    </div>
+ <td>
+                  <div class="d-flex align-items-center text-nowrap"><a target="_blank"
+                        href="cert_1st_step/${data.client_user_id}"><i class="mdi mdi-plus-box"></i></a>
                   </div>
                 </td>
+                <td><span class="badge px-2 rounded-pill bg-label-success" text-capitalized="">Delivered</span></td>
+             
               </tr> 
     `;
 
