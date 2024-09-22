@@ -122,21 +122,15 @@
         <div class="sidebar-header h-px-75 px-5 border-bottom d-flex align-items-center">
           <div class="d-flex align-items-center me-4 me-lg-0">
             
-            <div class="flex-grow-1 input-group input-group-sm input-group-merge rounded-pill">
-              <span class="input-group-text" id="basic-addon-search31"><i class="ri-search-line lh-1 ri-20px"></i></span>
-              <input type="text" class="form-control chat-search-input" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon-search31">
-            </div>
+            <h5 class="text-primary mb-0">Client</h5>
           </div>
-          <i class="ri-close-line ri-20px cursor-pointer position-absolute top-50 end-0 translate-middle fs-4 d-lg-none d-block" data-overlay="" data-bs-toggle="sidebar" data-target="#app-chat-contacts"></i>
         </div>
         <div class="sidebar-body ps ps--active-y">
   
          
           <!-- Contacts -->
           <ul class="list-unstyled chat-contact-list py-2" id="contact-list">
-            <li class="chat-contact-list-item chat-contact-list-item-title mt-0">
-              <h5 class="text-primary mb-0">Client</h5>
-            </li>
+            
             <li class="chat-contact-list-item contact-list-item-0 d-none">
               <h6 class="text-muted mb-0">No Contacts Found</h6>
             </li>
@@ -187,36 +181,27 @@
 
     <div class="col app-chat-history  overflow-hidden" id="app-chat-contacts">
       <div class="chat-history-wrapper">
-        <div class="chat-history-header">
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex  align-items-center">
-              <i class="ri-menu-line ri-24px cursor-pointer d-lg-none d-block me-4" data-bs-toggle="sidebar" data-overlay="" data-target="#app-chat-contacts"></i>
-             
-                <br>  
-                <br>  
-            </div>
-          </div>
-        </div>
+       <br>
       </div>
  
-      <div class="sidebar-body" style="height: 75vh;overflow: auto;">
+      <div class="sidebar-body" style="height: 70vh;overflow: auto;">
 
           <table class="table dataTable collapsed chat-contact-list" id="contact-list" style="width: 1193px;">
             <thead>
               <tr class="border-bottom">              
-                <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" rowspan="1" colspan="1"
+                <th class=" rowspan="1" colspan="1"
                   style="width: 18px;" data-col="1" aria-label=""></th>
-                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 50px;"
+                <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 20px;"
                   aria-label="order: activate to sort column ascending">Certificate ID</th>
-                <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                <th class=" " tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 134px;" aria-label="date: activate to sort column descending" aria-sort="ascending">Download</th>              
-                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 101px;" aria-label="payment: activate to sort column ascending">View Certificate</th>
-                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 118px;" aria-label="status: activate to sort column ascending">Edit Certificate</th>
-                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                  <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 267px;" aria-label="customers: activate to sort column ascending">Add Certificate</th>
-                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 147px;" aria-label="method: activate to sort column ascending">status</th>
           
               </tr>
