@@ -12,11 +12,105 @@
 
     /* border-style: hidden !important; */
   }
+
+
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+ 
 @endpush
 
 @section('content')
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Driver Information</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <form id="editForm" method="POST" action="{{ route('update_driver') }}">
+                  @csrf
+                  <input type="hidden" name="driver_id" id="modalDriverId">
+                 <div class="row">
+                  <div class="col-md-6">
+                  <div class="form-group pb-3">
+                      <label for="userName">Company Name:</label>
+                      <input type="text" class="form-control" id="modalCompanyName" name="user_name" value="" readonly>
+                  </div>
+                  <div class="form-group pb-3">
+                      <label for="userName">USDOT#</label>
+                      <input type="text" class="form-control" id="modalUsdotNumber" name="user_name" value="" readonly>
+                  </div>
+                  <div class="form-group pb-3">
+                      <label for="userName">Email:</label>
+                      <input type="text" class="form-control" id="modalEmail" name="user_name" value="" readonly>
+                  </div>
+                  <div class="form-group pb-4">
+                      <label for="userName">Address:</label>
+                      <input type="text" class="form-control" id="modalAddress" name="user_name" value="" readonly>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group pb-3">
+                      <label for="userName">User Name:</label>
+                      <input type="text" class="form-control" id="modalUserName" name="user_name" value="" readonly>
+                  </div>
+                  <div class="form-group pb-3">
+                      <label for="userName">Federal Registration No. (MC Number):</label>
+                      <input type="text" class="form-control" id="modalMcNumber" name="user_name" value="" readonly>
+                  </div>
+                  <div class="form-group pb-3">
+                      <label for="userName">Phone No:</label>
+                      <input type="text" class="form-control" id="modalCellNumber" name="user_name" value="" readonly>
+                  </div>
+                  <div class="form-group pb-4">
+                      <label for="userName">Address 2:</label>
+                      <input type="text" class="form-control" id="modalAddress2" name="user_name" value="" readonly>
+                  </div>
 
+              </div></div>
+              <div class="row">
+                  <div class="col-md-6">
+                  <div class="form-group pb-3">
+                      <label for="userName">Zip Code:</label>
+                      <input type="text" class="form-control" id="zip" name="user_name" value="" readonly>
+                  </div>
+                  <div class="form-group pb-3">
+                      <label for="userName">City:</label>
+                      <input type="text" class="form-control" id="city" name="user_name" value="" readonly>
+                  </div>                          
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group pb-3">
+                      <label for="userName">State:</label>
+                      <input type="text" class="form-control" id="state" name="user_name" value="" readonly >
+                  </div>
+                   
+                  
+                  <div class="form-group pb-3">
+                      <label for="userName">No. Of Trucks:</label>
+                      <input type="text" class="form-control" id="modalContent" name="modalContent" value="" readonly>
+                  </div>
+                 
+
+              </div></div>
+
+
+
+                  <!-- Add more form fields as needed -->
+                  
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      {{-- <button type="submit" class="btn btn-primary">Save changes</button> --}}
+                  </div>
+              </form>
+          </div>
+          
+      </div>
+  </div>
+</div>
     <div  class="container-xxl flex-grow-1 container-p-y">
         <div class="app-chat card overflow-hidden">
             <div class="row g-0">
@@ -43,13 +137,30 @@
               <h6 class="text-muted mb-0">No Contacts Found</h6>
             </li>
             @foreach ($driver as $data)
-            <li class="chat-contact-list-item"  id="{{ $data->driver_id }}">
-              <a class="d-flex align-items-center"  >               
-                <div class="chat-contact-info flex-grow-1 ms-4">
-                  <h6 class="chat-contact-name text-truncate fw-normal m-0">{{ $data->name }}</h6>
+            <li class="chat-contact-list-item"  >
+              <a class="d-flex align-items-center chat-contact-list-itemm"   id="{{ $data->driver_id }}">               
+                <div class="chat-contact-info flex-grow-1 ms-4"> 
+                <div class="d-flex justify-content-between"> <h6 class="chat-contact-name text-truncate fw-normal m-0">{{ $data->name }}</h6> 
+                
+              </button>  </div>
                   <small class="chat-contact-status text-truncate">{{ str_replace('_', ' ', $data->role) }}</small>
                 </div>
               </a>
+              <button class="btn primary" type="button"  data-toggle="modal" data-target="#exampleModal" id="btn" 
+              data-driver_id="{{ $data->driver_id }}" data-user_name="{{ $data->user_name }}" 
+               data-company_name="{{ $data->name }}"                                             
+              data-cell_number="{{ $data->cellphone }}"
+              data-address="{{ $data->address }}"
+              data-address2="{{ $data->address2 }}"
+              data-email="{{ $data->email }}"
+              data-mc_number="{{ $data->mc_number }}"
+              data-usdot_number="{{ $data->usdot }}"
+              data-state="{{ $data->state }}"
+              data-city="{{ $data->city }}"
+              data-zip="{{ $data->zip }}">
+             
+                <i class="mdi mdi-eye"></i> 
+            </button>
             </li>  
             @endforeach       
           </ul>
@@ -61,6 +172,14 @@
       
       </div>
     </div>
+
+
+
+
+
+
+
+
 
     <div class="col app-chat-history  overflow-hidden" id="app-chat-contacts">
       <div class="chat-history-wrapper">
@@ -183,7 +302,7 @@
 
 
       // When any chat-contact-list-item is clicked
-      $('.chat-contact-list-item').click(function() {
+      $('.chat-contact-list-itemm').click(function() {
         function generatePolicyTable(policies) {
     let policyRows = '';
     let groupedPolicies = {};
@@ -253,7 +372,8 @@
                 <td>
                     <div class="d-flex align-items-center text-nowrap"><a target="_blank" href="cert_1st_step/${data.client_user_id}"><i class="mdi mdi-plus-box"></i></a></div>
                 </td>
-                <td><span class="badge px-2 rounded-pill bg-label-success" text-capitalized="">Delivered</span></td>
+                <td>    <span class="badge px-2 rounded-pill ${        data.status === "0" ? 'bg-label-danger' : 'bg-label-success'
+    }" text-capitalized="">        ${data.status === "0" ? 'Inactive' : 'Active'}    </span></td>
             </tr>
             <tr id="dropdown-${data.id}" class="dropdown-content" style="display: none;">
                 <td colspan="7">
@@ -294,4 +414,61 @@
       
   });
 </script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>   $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var driverId = button.data('driver_id'); // Extract info from data-* attributes
+            var userName = button.data('user_name');
+            var companyName = button.data('company_name');
+            var cellNumber = button.data('cell_number');
+            var address = button.data('address');
+            var address2 = button.data('address2');
+            var email = button.data('email');
+            var mcNumber = button.data('mc_number');
+            var usdotNumber = button.data('usdot_number');
+            var zip = button.data('zip');
+            var state = button.data('state');
+            var city = button.data('city');
+           
+            // Update the modal's content
+            var modal = $(this);
+            modal.find('#modalUserName').val(userName);
+            modal.find('#modalDriverId').val(driverId);
+            modal.find('#modalCompanyName').val(companyName);    
+            modal.find('#modalCellNumber').val(cellNumber);
+            modal.find('#modalAddress').val(address);
+            modal.find('#modalAddress2').val(address2);
+            modal.find('#modalEmail').val(email);
+            modal.find('#modalMcNumber').val(mcNumber);
+            modal.find('#modalUsdotNumber').val(usdotNumber);
+            modal.find('#zip').val(zip);
+            modal.find('#state').val(state);
+            modal.find('#city').val(city);
+            // modal.find('#modalCertLink').attr('href', '/route-to-certificate/' + driverId); // Update link href
+            var userId = button.data('driver_id');
+     
+     // Use AJAX or fetch to get the data from the server (assuming you have an endpoint)
+     $.ajax({
+         url: 'get-driver/' + userId, // Replace with your route
+         method: 'GET',
+         success: function(response) {
+             // Assuming `response` contains the data you want to display
+             modal.find('#modalContent').val(response); // Update the modal content
+             // $('#dataModal').show(); // Show the modal
+             
+
+         }
+     });
+    
+    
+        });
+     
+   
+      
+     
+  
+
+
+
+        </script> 
   @endsection
