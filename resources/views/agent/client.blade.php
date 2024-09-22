@@ -171,9 +171,52 @@
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     
 <script>
+      function toggleDropdown(id) {
+    $(`#dropdown-${id}`).toggle();
+}
+
+
+
+
   $(document).ready(function() {
+
+
+
       // When any chat-contact-list-item is clicked
       $('.chat-contact-list-item').click(function() {
+        function generatePolicyTable(policies) {
+    let policyRows = '';
+    let groupedPolicies = {};
+
+    // Group policies by policy_type_id
+    $.each(policies, function(index, policy) {
+        if (!groupedPolicies[policy.policy_type_id]) {
+            groupedPolicies[policy.policy_type_id] = {
+                type_name: policy.policy_type.type_name,
+                policies: []
+            };
+        }
+        groupedPolicies[policy.policy_type_id].policies.push(policy);
+    });
+
+    // Create table rows for the dropdown
+    $.each(groupedPolicies, function(typeId, group) {
+        const firstPolicy = group.policies[0]; // Only display the first policy's details
+        policyRows += `<tr>
+            <td>${typeId}</td>
+            <td>${group.type_name}</td>
+            <td>${firstPolicy.policy_number}</td>
+            <td>${firstPolicy.start_date}</td>
+            <td>${firstPolicy.expiry_date}</td>
+        </tr>`;
+    });
+
+    return policyRows;
+}
+
+
+
+
           // Get the ID from the clicked list item
           var id = $(this).attr('id');
 
@@ -182,51 +225,68 @@
     url: 'get-certf/' + id,  // Define your Laravel route here
     type: 'GET',
     success: function(response) {
-        // Assuming the response contains an array of data objects for each row
-        // Example: response = [{id: 1, ch: 'Agent1', email: 'email1'}, {id: 2, ch: 'Agent2', email: 'email2'}, ...]
-        console.log(response);
+    console.log(response);
+    $('.tbody').empty();
 
-        // Iterate through each row in the table
-        $('.tbody').empty();
-
-// Loop through each data item in the response
-$.each(response, function(index, data) {
-    // Create a new row with the data
-    var newRow = `      
-         <tr class="odd parent" style="border-bottom:1px solid #cdc9d1;">              
-                <td class="dt-checkboxes-cell"> <i style="font-size: 30px;    color: #252458;}" class="mdi mdi-chevron-down"></i> </td>
-                <td><span>#${data.id}</span>
+    // Loop through each data item in the response
+    $.each(response, function(index, data) {
+        // Create a new row with the data
+        // alert(data.certificate_policies);
+        var newRow = `      
+            <tr class="odd parent" style="border-bottom:1px solid #cdc9d1;">              
+                <td class="dt-checkboxes-cell"> 
+                    <i style="font-size: 30px; color: #252458;" class="mdi mdi-chevron-down" onclick="toggleDropdown(${data.id})"></i>
                 </td>
-                <td class="sorting_1"><a target="_blank"
-                        href="get_pdf/${data.id}"><i class="mdi mdi-download"></i> </a></td>
-               
+                <td><span>#${data.id}</span></td>
+                <td class="sorting_1"><a target="_blank" href="get_pdf/${data.id}"><i class="mdi mdi-download"></i></a></td>
                 <td>
-                  <h6 class="mb-0 w-px-100 d-flex align-items-center" ><a target="_blank"
-                        href="view_cert/${data.id}"><i class="mdi mdi-eye"></i></a>
-                    </h6>
+                    <h6 class="mb-0 w-px-100 d-flex align-items-center"><a target="_blank" href="view_cert/${data.id}"><i class="mdi mdi-eye"></i></a></h6>
                 </td>
-              
                 <td>
-                  <div class="d-flex align-items-center text-nowrap"><a target="_blank"
-                        href="edit_cert/${data.id}"><i class="mdi mdi-pencil-box"></i></a>
-                  </div>
+                    <div class="d-flex align-items-center text-nowrap"><a target="_blank" href="edit_cert/${data.id}"><i class="mdi mdi-pencil-box"></i></a></div>
                 </td>
- <td>
-                  <div class="d-flex align-items-center text-nowrap"><a target="_blank"
-                        href="cert_1st_step/${data.client_user_id}"><i class="mdi mdi-plus-box"></i></a>
-                  </div>
+                <td>
+                    <div class="d-flex align-items-center text-nowrap"><a target="_blank" href="cert_1st_step/${data.client_user_id}"><i class="mdi mdi-plus-box"></i></a></div>
                 </td>
                 <td><span class="badge px-2 rounded-pill bg-label-success" text-capitalized="">Delivered</span></td>
-             
-              </tr> 
-    `;
+            </tr>
+            <tr id="dropdown-${data.id}" class="dropdown-content" style="display: none;">
+                <td colspan="7">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Policy Type ID</th>
+                                <th>Policy Type Name</th>
+                                <th>Policy Number</th>
+                                <th>Start Date</th>
+                                <th>Expiry Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                            ${generatePolicyTable(data.certificate_policies)}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        `;
 
-    // Append the new row to the table body
-    $('.tbody').append(newRow);
+        // Append the new row to the table body
+        $('.tbody').append(newRow);
+    });
+}
+
+// Function to generate the policy table
+
 });
-    }
-});
+
+
+// Function to toggle the dropdown
+// Function to generate the policy table
+
+
       });
+      
   });
 </script>
   @endsection

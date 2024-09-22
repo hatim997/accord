@@ -18,6 +18,12 @@ class Certificate extends Model
         return $this->belongsTo(User::class, 'producer_user_id');
     }
 
+    public function certificatePolicies()
+    {
+        return $this->hasMany(CertificatePolicy::class, 'certificate_id');
+    }
+    
+
     public function driver()
     {
         return $this->belongsTo(User::class, 'client_user_id');

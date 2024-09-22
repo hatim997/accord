@@ -27,6 +27,10 @@ class CertificatePolicy extends Model
     {
         return $this->belongsTo(PolicyType::class);
     }
+    public function policyTypee()
+{
+    return $this->belongsTo(PolicyType::class, 'policy_type_id');
+}
 
     public function policy()
     {

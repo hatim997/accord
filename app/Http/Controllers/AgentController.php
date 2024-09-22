@@ -53,11 +53,40 @@ return view('agent.agency', compact('certificate'));
 
   public function getcert($id)
   {
-     $certificate = Certificate::where('client_user_id', $id)->get() ?? '';
+    $certificates = Certificate::where('client_user_id', $id)
+    ->with(['certificatePolicies.policyType' => function($query) {
+        $query->select('id', 'type_name');
+    }])
+    ->get();
+  //   foreach ($certificates as $certificate) {
+  //     echo 'Certificate ID: ' . $certificate->id . '<br>';
+  //     echo 'Certificate client_user_id: ' . $certificate->client_user_id . '<br>'; 
+  
+  //     if ($certificate->certificatePolicies->isEmpty()) {
+  //         echo 'No policies found for this certificate.<br>';
+  //     } else {
+  //         // Grouping the policies by policy_type_id
+  //         $groupedPolicies = $certificate->certificatePolicies->groupBy('policy_type_id');
+  
+  //         foreach ($groupedPolicies as $policyTypeId => $policies) {
+  //             // Get the name of the policy type
+  //             $policyTypeName = optional($policies->first()->policyType)->type_name ?? 'No Policy Type';
+  //             echo 'Policy Type ID: ' . $policyTypeId . '<br>';
+  //             echo 'Policy Type Name: ' . $policyTypeName . '<br>';
+  
+  //             // Display only one policy from the group
+  //             $firstPolicy = $policies->first(); // Get the first policy in the group
+  //             echo 'Policy Number: ' . $firstPolicy->policy_number . '<br>';
+  //             echo 'Start Date: ' . $firstPolicy->start_date . '<br>';
+  //             echo 'Expiry Date: ' . $firstPolicy->expiry_date . '<br>';
+  //             echo '<br>'; // Add some space between different policy types
+  //         }
+  //     }
+  // }
 
 
-     
-return $certificate;
+    //  dd($certificate);
+return $certificates ;
   }
 
   public function dash()
