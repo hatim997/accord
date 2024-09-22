@@ -12,7 +12,11 @@
 
     /* border-style: hidden !important; */
   }
-
+  .focus {
+    border-radius: 7px;
+  background-color: #f1f1f1; /* Highlight color */
+  border: 1px solid #add5ff; /* Optional: Add a border */
+}
 
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -303,6 +307,13 @@
 
       // When any chat-contact-list-item is clicked
       $('.chat-contact-list-itemm').click(function() {
+
+
+        $('.chat-contact-list-itemm').removeClass('focus'); // Remove focus from other items
+      $(this).addClass('focus'); // Add focus to the clicked item
+ 
+
+
         function generatePolicyTable(policies) {
     let policyRows = '';
     let groupedPolicies = {};
