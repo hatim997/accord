@@ -543,9 +543,9 @@ $r=0;
   {
     $userId = Auth::user()->id;
     $validatedDataa = Validator::make($request->all(), [
-      'name' => 'required',
+      'name' => 'sometimes',
       'fname' => 'required',
-      'mname' => 'required',
+      'mname' => 'sometimes',
       'lname' => 'required',
       'suffix' => 'required',
       'salutation' => 'required',

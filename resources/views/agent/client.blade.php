@@ -227,11 +227,16 @@
     success: function(response) {
     console.log(response);
     $('.tbody').empty();
-
+    if (response.length==0) {
+         var newRow = `<div class="d-flex align-items-center text-nowrap"><a target="_blank" href="cert_1st_step/ ${id}"><i class="mdi mdi-plus-box"></i>Add Certificate </a></div> `;
+      $('.tbody').append(newRow);
+}
     // Loop through each data item in the response
     $.each(response, function(index, data) {
         // Create a new row with the data
         // alert(data.certificate_policies);
+
+
         var newRow = `      
             <tr class="odd parent" style="border-bottom:1px solid #cdc9d1;">              
                 <td class="dt-checkboxes-cell"> 
