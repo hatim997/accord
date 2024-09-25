@@ -13,7 +13,20 @@
             background-color: red;
         }
     </style>
-    </Style>
+   @push('body-style')
+   <link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}" />
+   <link rel="stylesheet" href="{{ asset('assets/css/datatables-Cl.css') }}" />
+   <style>
+   thead, tbody, tfoot, tr, td, th {
+       /* border-style: hidden !important; */
+     }
+   .focus {
+     border-radius: 7px;
+     background-color: #f1f1f1; /* Highlight color */
+     border: 1px solid #add5ff; /* Optional: Add a border */
+   }
+   </style>
+   @endpush
     @php
         $isMenu = false;
         $navbarHideToggle = false;
@@ -102,7 +115,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table dataTable collapsed chat-contact-list" id="contact-list" >
                         <h4 class="mb-1 py-4 px-4">list of Coverages</h4>
                         <thead class="table-light">
                             <tr>
@@ -113,14 +126,14 @@
 
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr class="parent">
                                 @if (isset($policies))
                                     @foreach ($policies as $p)
                                         <td>{{ shout($p->type_name) }}</td>
                                     @endforeach
                                 @endif
                             </tr>
-                            <tr>
+                            <tr class="parent">
                                 @if (isset($certificatePolicies))
                                     @foreach ($policies as $p)
                                         @if ($certificatePolicies->pluck('policy_type_id')->contains($p->id))
@@ -147,11 +160,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="table-responsive">
-                    <div class="form-group">
-                      <label>Search</label>
-                        <input type="text" class="form-controller" id="search" name="search"></input>
-                    </div>
-                    <table class="table">
+                  
+                    <table class="table dataTable collapsed chat-contact-list" id="contact-list" >
                         <h4 class="mb-1 py-4 px-4">list of Shippers</h4>
                         <thead class="table-light">
                             <tr>
@@ -166,20 +176,20 @@
                         </thead>
                         <tbody>
                             @foreach ($ship as $ships)
-                                <tr>
+                                <tr class="parent">
                                     <td>
                                         <div class="d-flex align-items-center">
 
                                             <div>
-                                                <h6 class="mb-0 text-truncate"> {{ $ships->name }}</h6>
+                                                <h6 class="mb-0"> {{ $ships->name }}</h6>
 
                                             </div>
                                         </div>
 
                                     </td>
-                                    <td class="text-truncate">{{ $ships->address }}</td>
-                                    <td class="text-truncate">{{ $ships->cellphone }}</td>
-                                    <td class="text-truncate">{{ $ships->extra_email }}</td>
+                                    <td >{{ $ships->address }}</td>
+                                    <td >{{ $ships->cellphone }}</td>
+                                    <td >{{ $ships->extra_email }}</td>
                                     <td>
                                         <span class="badge bg-label-success rounded-pill">Active</span>
                                     </td>

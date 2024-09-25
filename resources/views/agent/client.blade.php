@@ -171,14 +171,6 @@
       </div>
     </div>
 
-
-
-
-
-
-
-
-
     <div class="col app-chat-history  overflow-hidden" id="app-chat-contacts">
       <div class="chat-history-wrapper">
        <br>

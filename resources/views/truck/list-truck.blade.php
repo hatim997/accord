@@ -5,11 +5,24 @@
     $isMenu = false;
     $navbarHideToggle = false;
 @endphp
-
+@push('body-style')
+<link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/datatables-Cl.css') }}" />
+<style>
+thead, tbody, tfoot, tr, td, th {
+    /* border-style: hidden !important; */
+  }
+.focus {
+  border-radius: 7px;
+  background-color: #f1f1f1; /* Highlight color */
+  border: 1px solid #add5ff; /* Optional: Add a border */
+}
+</style>
+@endpush
 <div class="col-12">
   <div class="card">
     <div class="table-responsive">
-      <table class="table">
+      <table class="table dataTable collapsed chat-contact-list" id="contact-list" >
         <div class=" d-flex  justify-content-between my-5">
 
           <h4 class="mb-1 py-1 px-4 ">list of truck</h4>
@@ -40,7 +53,7 @@
         </thead>
         <tbody>
            @foreach ($truck as $trucks)
-          <tr>
+           <tr class="parent">
             <td><h6 class="mb-0 text-truncate"> {{$trucks->vehicle_registration_number}}</h6> </td>  
             <td class="text-truncate">{{$trucks->vehicle_make}}</td>
             <td class="text-truncate">{{$trucks->vehicle_model}}</td>
