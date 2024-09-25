@@ -184,7 +184,7 @@ return $certificates ;
   {
     $resp = $certificateService->store($request->all());
     // return dd($request);
-    return redirect()->route('formlist');
+    return redirect()->route('insur');
   }
 
   /**

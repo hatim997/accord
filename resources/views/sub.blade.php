@@ -4,6 +4,22 @@ $navbarHideToggle = false;
 @endphp
 @extends('layouts/contentNavbarLayout')
 @section('title', ' Vertical Layouts - Forms')
+
+@push('body-style')
+<link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/datatables-Cl.css') }}" />
+<style>
+thead, tbody, tfoot, tr, td, th {
+    /* border-style: hidden !important; */
+  }
+.focus {
+  border-radius: 7px;
+  background-color: #f1f1f1; /* Highlight color */
+  border: 1px solid #add5ff; /* Optional: Add a border */
+}
+</style>
+@endpush
+
 @section('content')
 
 
@@ -191,7 +207,7 @@ $navbarHideToggle = false;
     </div>
 
       <div class="table-responsive text-nowrap">
-        <table class="table table-striped">
+        <table class="table dataTable collapsed chat-contact-list" id="contact-list" >
          <thead class="table-light">
             <tr>
               <th class="">name</th>
@@ -204,7 +220,7 @@ $navbarHideToggle = false;
           <tbody>
              @foreach ($sub as $subs)
 
-            <tr>
+             <tr class="parent">
               <td>
                 <div class="d-flex align-items-center">
 

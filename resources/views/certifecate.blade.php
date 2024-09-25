@@ -17,7 +17,20 @@
   }
     </style>
 @endsection
-
+@push('body-style')
+<link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/datatables-Cl.css') }}" />
+<style>
+thead, tbody, tfoot, tr, td, th {
+    /* border-style: hidden !important; */
+  }
+.focus {
+  border-radius: 7px;
+  background-color: #f1f1f1; /* Highlight color */
+  border: 1px solid #add5ff; /* Optional: Add a border */
+}
+</style>
+@endpush
 @section('vendor-script')
     <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
 @endsection
@@ -35,16 +48,17 @@
         <div class="col-12">
     <div class="card">
       <div class="table-responsive">
-        <table class="table">
+        <table class="table dataTable collapsed chat-contact-list" id="contact-list" style="width: 1193px;">
           <thead>
               <tr>
+                  <th>Certificate for driver</th>
                   <th>Certificate for driver</th>
               </tr>
           </thead>
           <tbody class="table-border-bottom-0">
 
               @foreach ($certificate as $cert)
-                  <tr>
+            <tr class="parent">
                       <td>
                           <a href="{{ route('list_cert', $cert->id) }}" target="blank" class="btn btn-primary">Show Certificate
                               {{ $cert->id }} Details</a>
