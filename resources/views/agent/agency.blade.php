@@ -18,8 +18,22 @@
     text-decoration: none;
   }
     </style>
+    
 @endsection
-
+@push('body-style')
+<link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/datatables-Cl.css') }}" />
+<style>
+thead, tbody, tfoot, tr, td, th {
+    /* border-style: hidden !important; */
+  }
+.focus {
+  border-radius: 7px;
+  background-color: #f1f1f1; /* Highlight color */
+  border: 1px solid #add5ff; /* Optional: Add a border */
+}
+</style>
+@endpush
 @section('vendor-script')
     <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
     <script src="https://cdn.datatables.net/v/dt/dt-2.1.0/datatables.min.js"></script>
@@ -34,7 +48,7 @@
 @section('content')
 <div class="card">
     <div class="table-responsive">
-      <table id="examples" class="table" >
+      <table class="table dataTable collapsed chat-contact-list" id="contact-list" >
         <thead class="table-light">
           <tr>
             <th class="text-truncate">Campany name</th>
@@ -46,7 +60,7 @@
         <tbody>
            @foreach ($certificate as $user)
         
-           <tr>
+           <tr class="parent">
              <td>
                <div class="d-flex align-items-center">
                

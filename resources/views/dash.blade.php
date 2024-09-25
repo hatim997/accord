@@ -5,7 +5,20 @@
 @extends('layouts/contentNavbarLayout')
 
 @section('title', 'Dashboard - main')
-
+@push('body-style')
+<link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/datatables-Cl.css') }}" />
+<style>
+thead, tbody, tfoot, tr, td, th {
+    /* border-style: hidden !important; */
+  }
+.focus {
+  border-radius: 7px;
+  background-color: #f1f1f1; /* Highlight color */
+  border: 1px solid #add5ff; /* Optional: Add a border */
+}
+</style>
+@endpush
 @section('vendor-style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}">
 @endsection
@@ -80,7 +93,7 @@
                     <label>Search</label>
                       <input type="text" class="form-controller" id="search" name="search"></input>
                   </div>
-                  <table class="table">
+                  <table class="table dataTable collapsed chat-contact-list" id="contact-list" >
                       <h4 class="mb-1 py-4 px-4">List of Truckers/Brokers By Agency</h4>
                       <thead class="table-light">
                           <tr>
@@ -92,7 +105,7 @@
                       </thead>
                       <tbody>
                           @foreach ($brokersinfo as $bi)
-                              <tr>
+                          <tr class="parent">
                                   <td>
                                       <div class="d-flex align-items-center">
 
