@@ -14,7 +14,14 @@
 <!-- BEGIN: Theme JS-->
 <script src="{{ asset(mix('assets/js/main.js')) }}"></script>
 
+<script>
+    const dropdownButton = document.getElementById('dropdownButton');
+    const dropdownMenu = document.getElementById('dropdownMenu');
 
+    dropdownButton.addEventListener('click', function() {
+        dropdownMenu.classList.toggle('show');
+    });
+</script>
 <!-- END: Theme JS-->
 <!-- Pricing Modal JS-->
 @stack('pricing-script')

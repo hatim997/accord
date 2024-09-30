@@ -84,7 +84,7 @@
         </li>
         <!-- User -->
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
-            <a class="nav-link m-5">
+            <a class="nav-link m-5" id="dropdownButton">
                 <div class="avatar avatar-online">
                     @php
                     $user = request()->user();
@@ -96,6 +96,48 @@
                 </div>
                 </div>
             </a>
+            <div class="dropdown-menu py-0" id="dropdownMenu" >
+                <div class="dropdown-menu-header border-bottom py-50">
+                  <div class="dropdown-header d-flex align-items-center py-2">
+                    <h6 class="mb-0 me-auto">Shortcuts</h6>
+                    <a href="javascript:void(0)" class="btn btn-text-secondary rounded-pill btn-icon dropdown-shortcuts-add waves-effect waves-light" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Add shortcuts" data-bs-original-title="Add shortcuts"><i class="mdi mdi-grid-large mdi-24px text-heading"></i></a>
+                  </div>
+                </div>
+                <div class="dropdown-shortcuts-list scrollable-container">
+                  <div class="row row-bordered overflow-visible g-0">
+                    <div class="dropdown-shortcuts-item col">
+                      <span class="dropdown-shortcuts-icon rounded-circle mb-2">
+                        <i class="mdi mdi-account-outline  mdi-26px text-heading"></i>
+                      </span>
+                      <a href="" class="stretched-link">Security</a>
+                      {{-- <small>Appointments</small> --}}
+                    </div>
+                    <div class="dropdown-shortcuts-item col">
+                      <span class="dropdown-shortcuts-icon rounded-circle mb-2">
+                        <i class="mdi mdi-format-align-bottom mdi-26px text-heading"></i>
+                      </span>
+                      <a href="" class="stretched-link"> Billing</a>
+                      {{-- <small>Manage Accounts</small> --}}
+                    </div>
+                  </div>
+                  <div class="row row-bordered overflow-visible g-0">
+                    <div class="dropdown-shortcuts-item col">
+                      <span class="dropdown-shortcuts-icon rounded-circle mb-2">
+                        <i class="mdi mdi-monitor mdi-26px text-heading"></i>
+                      </span>
+                      <a href="" class="stretched-link"> Subscription Plan</a>
+                      {{-- <small>Manage Users</small> --}}
+                    </div>
+                    <div class="dropdown-shortcuts-item col">
+                      <span class="dropdown-shortcuts-icon rounded-circle mb-2">
+                        <i class="mdi mdi-clipboard-account mdi-26px text-heading"></i>
+                      </span>
+                      <a href="" class="stretched-link">Role Management</a>
+                      <small>Permission</small>
+                    </div>
+                  </div>                
+                <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px; height: 412px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 287px;"></div></div></div>
+              </div>
            
         </li>
         <!--/ User -->
