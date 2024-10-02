@@ -112,6 +112,7 @@ Route::group(['middleware' => 'checkRole:agent'], function () {
   Route::post('/form2', [ac::class, 'create'])->name('form2');
   Route::get('/dash', [ac::class, 'dash'])->name('dash');
   Route::get('/insured', [ac::class, 'insured'])->name('insur');
+  Route::get('/insur_broker', [ac::class, 'insurf'])->name('insurf');
   Route::post('/save_cert', [ac::class, 'store'])->name('save_cert');
   Route::get('/main_cert/{id}', [ac::class, 'MainCertificate'])->name('main_cert');
   Route::get('/list_cert/{id}', [ac::class, 'show'])->name('list_cert');

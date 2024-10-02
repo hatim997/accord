@@ -216,7 +216,20 @@ return $certificates ;
   {
     $driver = AgentDriver::where('agent_id',Auth::user()->id)
     ->join('driver_details', 'driver_details.user_id', '=', 'agent_driver.driver_id')
-    ->join('users', 'users.id', '=', 'driver_details.user_id')    
+    ->join('users', 'users.id', '=', 'driver_details.user_id')
+    ->Where('users.role','=','truck_driver')     
+    ->select('agent_driver.*', 'driver_details.*', 'users.name as user_name',  
+    'users.role','users.email')    
+    ->get();
+    return view('agent.client', compact('driver'));
+
+  }    
+  public function insurf()
+  {
+    $driver = AgentDriver::where('agent_id',Auth::user()->id)
+    ->join('driver_details', 'driver_details.user_id', '=', 'agent_driver.driver_id')
+    ->join('users', 'users.id', '=', 'driver_details.user_id')
+    ->Where('users.role','=','freight_driver')    
     ->select('agent_driver.*', 'driver_details.*', 'users.name as user_name',  
     'users.role','users.email')    
     ->get();

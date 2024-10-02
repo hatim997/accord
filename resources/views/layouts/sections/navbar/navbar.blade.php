@@ -188,9 +188,23 @@ margin-top: 1.7rem;
 
         <li>
             <a class="btn btn-light  ">Company Information</a>
-        </li>   <li>
-            <a class="btn btn-light" href="{{ route('insur') }}">insured</a>
-        </li>
+        </li>  
+            <li type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">   <a class="btn btn-light" >Insured List </a></li>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ route('insur') }}"> Truckers List</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li> <li><a class="dropdown-item" href="{{ route('insurf') }}"> Freight/Broker List</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>  <li><a class="dropdown-item disabled" href="javascript:void(0);">Add Business</a></li>
+            </ul>
+      
+       
+          </li>
+
+
+
 
         @elseif ($user->role == "admin")
         <li>
