@@ -97,7 +97,7 @@ Livewire::setUpdateRoute(function ($handle) {
   return Route::post('/public/livewire/update', $handle);
 });
 
-// NOW
+// NOW qywuziryz@example.com
 Route::get('/reg-agency', function () {
   return view('default');
 })->name('reg.trucker');

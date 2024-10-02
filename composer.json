@@ -12,6 +12,7 @@
     "barryvdh/laravel-dompdf": "^2.1",
     "guzzlehttp/guzzle": "^7.2",
     "intervention/image": "^3.6",
+    "johnpbloch/wordpress": "^6.6",
     "laravel/breeze": "^1.27",
     "laravel/framework": "^10.23",
     "laravel/sanctum": "^3.2",
@@ -70,7 +71,8 @@
     "sort-packages": true,
     "allow-plugins": {
       "pestphp/pest-plugin": true,
-      "php-http/discovery": true
+      "php-http/discovery": true,
+      "johnpbloch/wordpress-core-installer": false
     }
   },
   "minimum-stability": "dev",

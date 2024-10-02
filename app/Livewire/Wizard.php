@@ -7,10 +7,14 @@ use Livewire\Component;
 use App\Models\AgencyInfos;
 use App\Models\User;
 use App\Models\Notice;
+use App\Models\Subscription_plan;
+use App\Models\Subscription;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Mail;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 class Wizard extends Component
 {
     use WithFileUploads;
@@ -128,7 +132,9 @@ class Wizard extends Component
       * @return response()
       */
      public function submitForm()
-         {
+         { 
+            $currentDate = Carbon::now();
+            $endDate = $currentDate->copy()->addDays(30);
             $randomNumber = rand(100000, 999999);
 
              // Create record using validated data
@@ -139,9 +145,22 @@ class Wizard extends Component
                 'rememberToken' => 'IA' . $randomNumber,
                 'role' => "agent",
               ]);
+
+              DB::table('wp_users')->insert([
+                'user_nicename' => $this->fname,
+                'user_login' => $this->email,
+                'user_email' =>  $this->email,
+                'user_pass' => Hash::make($this->password), // Ensure to hash passwords
+                'user_url' =>  'null',
+                'user_registered' => $currentDate,
+                'user_activation_key'	 => "agent",
+                'user_status' => 1,
+                'display_name' =>  $this->fname,
+              ]);
+          
               $lastInsertedId = $user->id;
               AgencyInfos::create([
-                  'user_id' =>$lastInsertedId ,
+                  'user_id' =>$lastInsertedId,
                   'name' => $this->name,
                   'title' => $this->title,
                   'ialn' => $this->ialn,
@@ -169,7 +188,7 @@ class Wizard extends Component
                 $message->to($this->email, $this->name)
                         ->subject('Register');
             });
-
+          
             Notice::create([
                 'to' => $lastInsertedId,
                 'from' => $lastInsertedId,
@@ -178,10 +197,10 @@ class Wizard extends Component
              $this->successMessage = 'Created Successfully.';
              $this->clearForm();
            //  return $pdf->stream($cert);
-           session()->flash('message', "Thank you for registering with COI360! Please check your email to complete your account setup. You can <a href=" .route('auth-login-basic'). ">log in here</a> once your account is activated.");
+            session()->flash('message', "Thank you for registering with COI360! Please check your email to complete your account setup. You can <a href=" .route('auth-login-basic'). ">log in here</a> once your account is activated.");
             //  return redirect()->to('/logg');
          }
-
+        
      /**
       * Write code on Method
       *

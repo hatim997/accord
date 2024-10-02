@@ -220,7 +220,7 @@ class AuthController extends Controller
       'user_nicename' => $validatedData['username'],
       'user_login' =>  $validatedData['email'],
       'user_email' =>  $validatedData['email'],
-      'user_pass' => bcrypt($validatedData['password1']), // Ensure to hash passwords
+      'user_pass' => Hash::make($validatedData['password1']), // Ensure to hash passwords
       'user_url' =>  'null',
       'user_registered' => $currentDate,
       'user_activation_key'	 => $validatedData['role'],
@@ -230,13 +230,13 @@ class AuthController extends Controller
 
     $lastInsertedId = $user->id;
 
-$subb = Subscription::create([
-  'user_id' => $lastInsertedId,
-  'plan_id' => $validatedData['subs_id'],
-    'start_date' =>  $currentDate,
-    'end_date' => $endDate,
-  'status'=> 'Active',
-]);
+// $subb = Subscription::create([
+//   'user_id' => $lastInsertedId,
+//   'plan_id' => $validatedData['subs_id'],
+//     'start_date' =>  $currentDate,
+//     'end_date' => $endDate,
+//   'status'=> 'Active',
+// ]);
 $name = $validatedData['username'];
 $email = $validatedData['email'];
       $user = AgencyInfos::create([
@@ -261,10 +261,10 @@ $email = $validatedData['email'];
                 'email' => 'email'
             ];
 
-            Mail::send('email.register', $data, function ($message) use ($email, $name) {
-                $message->to($email, $name)
-                        ->subject('Register');
-            });
+            // Mail::send('email.register', $data, function ($message) use ($email, $name) {
+            //     $message->to($email, $name)
+            //             ->subject('Register');
+            // });
     }
     if ($validatedData['role'] == 'shipper') {
 
@@ -276,6 +276,19 @@ $email = $validatedData['email'];
         'rememberToken' => 'SH' . $randomNumber,
       'role' => $validatedData['role'], // Assuming default role ID for 'user'
     ]);
+    DB::table('wp_users')->insert([
+      'user_nicename' => $validatedData['username'],
+      'user_login' =>  $validatedData['email'],
+      'user_email' =>  $validatedData['email'],
+      'user_pass' => Hash::make($validatedData['password1']), // Ensure to hash passwords
+      'user_url' =>  'null',
+      'user_registered' => $currentDate,
+      'user_activation_key'	 => $validatedData['role'],
+      'user_status' => 1,
+      'display_name' => $validatedData['username'],
+    ]);
+
+
     $lastInsertedId = $user->id;
 
 $subb = Subscription::create([
@@ -328,8 +341,13 @@ $email = $validatedData['email'];
       'user_nicename' => $validatedData['username'],
       'user_login' =>  $validatedData['email'],
       'user_email' =>  $validatedData['email'],
-      'user_pass' => bcrypt($validatedData['password1']) // Ensure to hash passwords
-  ]);
+      'user_pass' => Hash::make($validatedData['password1']), // Ensure to hash passwords
+      'user_url' =>  'null',
+      'user_registered' => $currentDate,
+      'user_activation_key'	 => $validatedData['role'],
+      'user_status' => 1,
+      'display_name' => $validatedData['username'],
+    ]);
 $subb = Subscription::create([
   'user_id' => $lastInsertedId,
   'plan_id' => $validatedData['subs_id'],
@@ -387,6 +405,17 @@ $email = $validatedData['email'];
       'role' => $validatedData['role'], // Assuming default role ID for 'user'
     ]);
     $lastInsertedId = $user->id;
+    DB::table('wp_users')->insert([
+      'user_nicename' => $validatedData['username'],
+      'user_login' =>  $validatedData['email'],
+      'user_email' =>  $validatedData['email'],
+      'user_pass' => Hash::make($validatedData['password1']), // Ensure to hash passwords
+      'user_url' =>  'null',
+      'user_registered' => $currentDate,
+      'user_activation_key'	 => $validatedData['role'],
+      'user_status' => 1,
+      'display_name' => $validatedData['username'],
+    ]);
 
 $subb = Subscription::create([
   'user_id' => $lastInsertedId,
@@ -480,7 +509,6 @@ $email = $validatedData['email'];
     $currentDate = Carbon::now();
     $endDate = $currentDate->copy()->addDays(30);
     $validatedData = $validatedDataa->validated();
-
     $user = User::create([
       'name' => $validatedData['username'],
       'email' => $validatedData['email'],
@@ -492,8 +520,17 @@ $email = $validatedData['email'];
       'user_nicename' => $validatedData['username'],
       'user_login' =>  $validatedData['email'],
       'user_email' =>  $validatedData['email'],
-      'user_pass' => bcrypt($validatedData['password1']) // Ensure to hash passwords
-  ]);
+      'user_pass' => Hash::make($validatedData['password1']), // Ensure to hash passwords
+      'user_url' =>  'null',
+      'user_registered' => $currentDate,
+      'user_activation_key'	 => $validatedData['role'],
+      'user_status' => 1,
+      'display_name' => $validatedData['username'],
+    ]);
+    DB::enableQueryLog();
+    // Your insert code here...
+    dd(DB::getQueryLog());
+    $lastInsertedId = $user->id;
 $subb = Subscription::create([
   'user_id' => $lastInsertedId,
    'plan_id' => '1',

@@ -154,40 +154,13 @@
     </div>
 @endif
 </nav>
-<div class="container-fluid py-4">
+
+<div class="container-fluid bg-black" style="
+margin-top: 1.7rem;
+">
     <!-- Search -->
-    <ul class="navbar-nav flex-row align-items-center ms-auto">
-        <li>
-            <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                    <i class="mdi mdi-magnify mdi-24px lh-0"></i>
-                    <input type="text" id="searched" class="form-control border-0 shadow-none bg-body"
-                        placeholder="LookUp MC Insured " aria-label="Search..."
-                        @if ($user->role != "agent" )
-                        disabled
-                        @endif>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                    <i class="mdi mdi-magnify mdi-24px lh-0"></i>
-                    <input type="text" id="searched" class="form-control border-0 shadow-none bg-body"
-                        placeholder="Certificate Search" aria-label="Search..."
-                        @if ($user->role != "agent" )
-                        disabled
-                        @endif
-                        >
-                </div>
-            </div>
-        </li>
-    </ul>
-    <!-- /Search -->
-</div>
-<div class="container-fluid bg-black ">
-    <!-- Search -->
-    <ul class="navbar-nav   flex-row align-items-center ms-1">
+    <ul class="navbar-nav   flex-row align-items-center ms-1" style="    justify-content: center;
+}">
         @if ($user->role == "agent")
         <li>
             <a href="{{ route('dash') }}" class="btn btn-light  ">Dashboard</a>
