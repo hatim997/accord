@@ -220,8 +220,13 @@ class AuthController extends Controller
       'user_nicename' => $validatedData['username'],
       'user_login' =>  $validatedData['email'],
       'user_email' =>  $validatedData['email'],
-      'user_pass' => bcrypt($validatedData['password1']) // Ensure to hash passwords
-  ]);
+      'user_pass' => bcrypt($validatedData['password1']), // Ensure to hash passwords
+      'user_url' =>  'null',
+      'user_registered' => $currentDate,
+      'user_activation_key'	 => $validatedData['role'],
+      'user_status' => 1,
+      'display_name' => $validatedData['username'],
+    ]);
 
     $lastInsertedId = $user->id;
 
