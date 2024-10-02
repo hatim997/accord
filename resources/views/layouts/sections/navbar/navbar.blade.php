@@ -48,7 +48,7 @@
 
         <!-- Place this tag where you want the button to render. -->
         <li class="nav-item  mx-3">
-            Client
+           <a href="{{ route('insur') }}"> Client</a>
         </li>
         <li class="nav-item  mx-3">
             Pending Approvals
