@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Cookie;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Mail;
 use Illuminate\Validation\ValidationException;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
@@ -214,6 +215,14 @@ class AuthController extends Controller
         'rememberToken' => 'IA' . $randomNumber,
       'role' => $validatedData['role'], // Assuming default role ID for 'user'
     ]);
+
+    DB::table('wp_users')->insert([
+      'user_nicename' => $validatedData['username'],
+      'user_login' =>  $validatedData['email'],
+      'user_email' =>  $validatedData['email'],
+      'user_pass' => bcrypt($validatedData['password1']) // Ensure to hash passwords
+  ]);
+
     $lastInsertedId = $user->id;
 
 $subb = Subscription::create([
@@ -310,7 +319,12 @@ $email = $validatedData['email'];
       'role' => $validatedData['role'], // Assuming default role ID for 'user'
     ]);
     $lastInsertedId = $user->id;
-
+    DB::table('wp_users')->insert([
+      'user_nicename' => $validatedData['username'],
+      'user_login' =>  $validatedData['email'],
+      'user_email' =>  $validatedData['email'],
+      'user_pass' => bcrypt($validatedData['password1']) // Ensure to hash passwords
+  ]);
 $subb = Subscription::create([
   'user_id' => $lastInsertedId,
   'plan_id' => $validatedData['subs_id'],
@@ -469,7 +483,12 @@ $email = $validatedData['email'];
       'role' => $validatedData['role'], // Assuming default role ID for 'user'
     ]);
     $lastInsertedId = $user->id;
-
+    DB::table('wp_users')->insert([
+      'user_nicename' => $validatedData['username'],
+      'user_login' =>  $validatedData['email'],
+      'user_email' =>  $validatedData['email'],
+      'user_pass' => bcrypt($validatedData['password1']) // Ensure to hash passwords
+  ]);
 $subb = Subscription::create([
   'user_id' => $lastInsertedId,
    'plan_id' => '1',
