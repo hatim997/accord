@@ -126,15 +126,18 @@
                         <i class="mdi mdi-monitor mdi-26px text-heading"></i>
                       </span>
                       <a href="" class="stretched-link"> Subscription Plan</a>
-                    @php
-                    $email = Session::get('plans');                    @endphp
-                      <small>
-                        @if($email) 
-                        {{echo $email; }}
-                        @else
-                            
-                        @endif
-                      </small> 
+                      @php
+                      $email = Session::get('plans');
+                  @endphp
+                  
+                  <small>
+                      @if($email)
+                          {{ $email }}  <!-- Directly output the email -->
+                      @else
+                          <!-- Optionally add some message or leave empty -->
+                          No email found.
+                      @endif
+                  </small>
                     </div>
                     <div class="dropdown-shortcuts-item col">
                       <span class="dropdown-shortcuts-icon rounded-circle mb-2">
