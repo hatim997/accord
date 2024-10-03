@@ -587,7 +587,7 @@ $r=0;
     $currentDate = Carbon::now();
     $endDate = $currentDate->copy()->addDays(30);
     $validatedData = $validatedDataa->validated();
-
+    $randomNumber = rand(100000, 999999);
     $names = $validatedData['fname'];
     $email = $validatedData['email'];
     $password = $validatedData['password1']; 
@@ -599,7 +599,8 @@ $r=0;
         'email' => $validatedData['email'],
         'password' => Hash::make($validatedData['password1']),
         'role' => 'freight_driver',
-        'status' => "1"
+        'rememberToken' => 'FB' . $randomNumber,
+       
       ]);
 
       $lastInsertedId = $user->id;
@@ -658,13 +659,10 @@ $r=0;
       ]);
 
       $data = [
-        'name' => $names,
-        'email' => $email,
-        'password' => $password
+           'code' => 'FB' . $randomNumber,
     ];
 
-    Mail::send('email.login', $data, function ($message) use ($email, $names,$password) {
-        $message->to($email, $names)
+  Mail::send('email.register', $data, function ($message) use ($code) {        $message->to($email, $names)
                 ->subject('Register');
     });
 
@@ -674,13 +672,13 @@ $r=0;
     }
 
     if ($validatedData['role'] == 'truck_driver') {
-
+      $randomNumber = rand(100000, 999999);
       $user = User::create([
         'name' => $validatedData['name'],
         'email' => $validatedData['email'],
         'password' => Hash::make('123'),
         'role' => 'truck_driver', // Assuming default role ID for 'user'
-        'status' => "1"
+        'rememberToken' => 'MC' . $randomNumber,
       ]);
 
       $lastInsertedId = $user->id;
@@ -754,8 +752,8 @@ $r=0;
          'password' => $password
     ];
 
-    Mail::send('email.login', $data, function ($message) use ($email, $names,$password) {
-        $message->to($email, $names)
+  Mail::send('email.register', $data, function ($message) use ($code) {  
+          $message->to($email, $names)
                 ->subject('Register');
     });
     return redirect()->route('formlist');

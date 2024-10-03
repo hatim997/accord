@@ -145,7 +145,6 @@ class Wizard extends Component
                 'rememberToken' => 'IA' . $randomNumber,
                 'role' => "agent",
               ]);
-
               DB::table('wp_users')->insert([
                 'user_nicename' => $this->fname,
                 'user_login' => $this->email,
@@ -156,8 +155,7 @@ class Wizard extends Component
                 'user_activation_key'	 => "agent",
                 'user_status' => 1,
                 'display_name' =>  $this->fname,
-              ]);
-          
+              ]);          
               $lastInsertedId = $user->id;
               AgencyInfos::create([
                   'user_id' =>$lastInsertedId,
@@ -181,14 +179,13 @@ class Wizard extends Component
                   'image_path' => $this->imagePath,
              ]);
              $data = [
-                'name' => $this->name,
-                'email' => $this->email
+               
+                'code' => 'IA' . $randomNumber,
             ];
-            Mail::send('email.register', $data, function ($message) {
+            Mail::send('email.register', $data, function ($message) use ($code){
                 $message->to($this->email, $this->name)
                         ->subject('Register');
-            });
-          
+            });          
             Notice::create([
                 'to' => $lastInsertedId,
                 'from' => $lastInsertedId,

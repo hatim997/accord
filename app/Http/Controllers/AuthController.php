@@ -65,6 +65,8 @@ class AuthController extends Controller
 
    
   }
+
+
   public function logins(Request $request)
   {
     $fields = $request->validate([
@@ -160,6 +162,78 @@ class AuthController extends Controller
     }
     return redirect('/fportal');
   }
+
+  // validated
+
+  public function validated()
+  {
+    // return"sds";
+     return view('validate');
+  }
+
+  public function validation(Request $request)
+  {  
+      // Validate the email field
+      $validator = Validator::make($request->all(), [
+        'code' => 'required',
+    ]);
+
+    if ($validator->fails()) {
+        // If validation fails, return back with errors
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    // Assuming $fields['code'] contains the rememberToken value
+    $fields = $request->only(['code']); // Get the relevant input from the request
+
+    // Fetch the user with the given rememberToken
+    $user = User::where('rememberToken', $fields['code'])->first();
+    $result = DB::table('wp_wc_orders')
+    ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+    ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')  // You can select specific columns if needed
+    ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
+    ->first();
+    if (!$user) {
+        // If the user is not found, return back with a message
+        return redirect()->back()->with('error', 'User not found. Please check your token and try again.');
+    }
+    
+    $currentDate = Carbon::now();
+    $endDate = $currentDate->copy()->addDays(30);
+
+    $subb = Subscription::create([
+      'user_id' => $user->id,
+      'plan_id' => 1,
+      'plan_name' => $result->order_item_name,
+      'start_date' =>  $currentDate,
+      'end_date' => $endDate,
+      'status'=> 'Active',
+    ]);
+    $data = [
+      'name' => $user->name ,
+      'email' => $user->email,
+      'password' => $user->password
+  ];
+
+    Mail::send('email.register', $data, function ($message) use ($email, $names,$password) {
+      $message->to($email, $names)
+              ->subject('Register');
+  });         
+  Notice::create([
+      'to' => 1,
+      'from' => $lastInsertedId,
+      'name' => "you have new registering agency pls check",
+    ]);
+
+
+
+
+    // Proceed with your logic if the user is found
+    // Example: return success response or perform further actions
+    return redirect()->route('your.success.route')->with('success', 'User found and action performed successfully.');
+
+  }
+
 
 
 
@@ -263,14 +337,14 @@ $email = $validatedData['email'];
       ]);
 
         $data = [
-                'name' => 'name',
-                'email' => 'email'
+                'code' => 'IA' . $randomNumber,
+                
             ];
 
-            // Mail::send('email.register', $data, function ($message) use ($email, $name) {
-            //     $message->to($email, $name)
-            //             ->subject('Register');
-            // });
+            Mail::send('email.register', $data, function ($message) use ($code) {
+                $message->to($email, $name)
+                        ->subject('Register');
+            });
     }
     if ($validatedData['role'] == 'shipper') {
 
@@ -322,12 +396,12 @@ $email = $validatedData['email'];
         'message' => 'shipper created successfully!',
         'user_id' => $lastInsertedId,
       ]);
-        $data = [
-                'name' => 'name',
-                'email' => 'email'
+       $data = [
+                'code' => 'SH' . $randomNumber,
+                
             ];
 
-            Mail::send('email.register', $data, function ($message) use ($email, $name){
+   Mail::send('email.register', $data, function ($message) use ($code) {    
                 $message->to($email, $name)
                         ->subject('Register');
             });
@@ -340,7 +414,7 @@ $email = $validatedData['email'];
         'email' => $validatedData['email'],
         'password' => Hash::make($validatedData['password1']),
         'rememberToken' => 'MC' . $randomNumber,
-      'role' => $validatedData['role'], // Assuming default role ID for 'user'
+        'role' => $validatedData['role'], // Assuming default role ID for 'user'
     ]);
     $lastInsertedId = $user->id;
     DB::table('wp_users')->insert([
@@ -389,12 +463,12 @@ $email = $validatedData['email'];
         'message' => 'truker created successfully!',
         'user_id' => $lastInsertedId,
       ]);
-        $data = [
-                'name' => 'name',
-                'email' => 'email'
+       $data = [
+                'code' => 'MC' . $randomNumber,
+                
             ];
 
-            Mail::send('email.register', $data, function ($message) use ($email, $name){
+            Mail::send('email.register', $data, function ($message) use ($code) {
                 $message->to($email, $name)
                         ->subject('Register');
             });
@@ -448,12 +522,12 @@ $email = $validatedData['email'];
         'message' => 'freight created successfully!',
         'user_id' => $lastInsertedId,
       ]);
-        $data = [
-                'name' => 'name',
-                'email' => 'email'
+       $data = [
+                'code' => 'FB' . $randomNumber,
+                
             ];
 
-            Mail::send('email.register', $data, function ($message) use ($email, $name) {
+             Mail::send('email.register', $data, function ($message) use ($code) {
                 $message->to($email, $name)
                         ->subject('Register');
             });
@@ -515,11 +589,13 @@ $email = $validatedData['email'];
     $currentDate = Carbon::now();
     $endDate = $currentDate->copy()->addDays(30);
     $validatedData = $validatedDataa->validated();
+    $randomNumber = rand(100000, 999999);
     $user = User::create([
       'name' => $validatedData['username'],
       'email' => $validatedData['email'],
       'password' => Hash::make($validatedData['password1']),
       'role' => $validatedData['role'], // Assuming default role ID for 'user'
+      'rememberToken' => 'MC' . $randomNumber,
     ]);
     $lastInsertedId = $user->id;
     DB::table('wp_users')->insert([
@@ -533,9 +609,7 @@ $email = $validatedData['email'];
       'user_status' => 1,
       'display_name' => $validatedData['username'],
     ]);
-    DB::enableQueryLog();
-    // Your insert code here...
-    dd(DB::getQueryLog());
+ 
     $lastInsertedId = $user->id;
 $subb = Subscription::create([
   'user_id' => $lastInsertedId,
@@ -564,12 +638,12 @@ $subb = Subscription::create([
         'extra_email' => $validatedData['altemail'],
       ]);
       $request->session()->flash('message', 'agent created successfully!');
-        $data = [
-                'name' => 'name',
-                'email' => 'email'
+       $data = [
+                'code' => 'IA' . $randomNumber,
+                
             ];
 
-            Mail::send('email.register', $data, function ($message) use ($email, $name){
+            Mail::send('email.register', $data, function ($message) use ($code) {
                 $message->to($email, $name)
                         ->subject('Register');
             });
@@ -589,12 +663,12 @@ $subb = Subscription::create([
         'extra_email' => $validatedData['altemail'],
       ]);
       $request->session()->flash('message', 'truck_driver created successfully!');
-        $data = [
-                'name' => 'name',
-                'email' => 'email'
+       $data = [
+                'code' => 'IA' . $randomNumber,
+                
             ];
 
-            Mail::send('email.register', $data, function ($message) use ($email, $name){
+            Mail::send('email.register', $data, function ($message) use ($code) {
                 $message->to($email, $name)
                         ->subject('Register');
             });
@@ -624,12 +698,12 @@ $subb = Subscription::create([
         'mc_number'=> $validatedData['mc_number'],
       ]);
       $request->session()->flash('message', 'truck_driver created successfully!');
-        $data = [
-                'name' => 'name',
-                'email' => 'email'
+       $data = [
+                'code' => 'IA' . $randomNumber,
+                
             ];
 
-            Mail::send('email.register', $data, function ($message) use ($email, $name) {
+             Mail::send('email.register', $data, function ($message) use ($code) {
                 $message->to($email, $name)
                         ->subject('Register');
             });
@@ -650,12 +724,12 @@ $subb = Subscription::create([
         'extra_email' => $validatedData['altemail'],
       ]);
       $request->session()->flash('message', 'freight_driver created successfully!');
-        $data = [
-                'name' => 'name',
-                'email' => 'email'
+       $data = [
+                'code' => 'IA' . $randomNumber,
+                
             ];
 
-            Mail::send('email.register', $data, function ($message) use ($email, $name) {
+             Mail::send('email.register', $data, function ($message) use ($code) {
                 $message->to($email, $name)
                         ->subject('Register');
             });
@@ -707,15 +781,13 @@ $subb = Subscription::create([
     foreach ($cookies as $name => $value) {
       Cookie::queue(Cookie::forget($name));
     }
-  
-    return redirect('/logg');
+      return redirect('/logg');
   }
   }
 
   public function land()
-  {
+  { 
     $data=Subscription_plan::All();
-
     return view('index' ,compact('data'));
   }
   public function registerfrom (Request $request)

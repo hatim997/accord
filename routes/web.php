@@ -188,6 +188,8 @@ Route::group(['middleware' => 'checkRole:freight_driver'], function () {
 
 
 });
+Route::get('email-validate', [AuthController::class, 'validated'])->name('validated');
+Route::get('email-validation', [AuthController::class, 'validation'])->name('validation');
 Route::post('freight/update', [FreightController::class, 'update'])->name('update_certt');
 
 // Route::group(['middleware' => 'checkRole:shipper'], function () {
