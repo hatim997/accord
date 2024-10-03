@@ -209,11 +209,11 @@ class AuthController extends Controller
       'end_date' => $endDate,
       'status'=> 'Active',
     ]);
-    $data = [
-      'name' => $user->name ,
-      'email' => $user->email,
-      'password' => $user->password
-  ];
+ 
+      $name = $user->name ;
+      $email = $user->email;
+      $password = $user->password;
+ 
 
     Mail::send('email.register', $data, function ($message) use ($email, $names,$password) {
       $message->to($email, $names)
@@ -340,7 +340,7 @@ $email = $validatedData['email'];
                 'code' => 'IA' . $randomNumber,
                 
             ];
-
+            $code ='IA' . $randomNumber;
             Mail::send('email.register', $data, function ($message) use ($code) {
                 $message->to($email, $name)
                         ->subject('Register');
@@ -400,7 +400,7 @@ $email = $validatedData['email'];
                 'code' => 'SH' . $randomNumber,
                 
             ];
-
+            $code ='SH' . $randomNumber;
    Mail::send('email.register', $data, function ($message) use ($code) {    
                 $message->to($email, $name)
                         ->subject('Register');
@@ -467,7 +467,7 @@ $email = $validatedData['email'];
                 'code' => 'MC' . $randomNumber,
                 
             ];
-
+            $code ='MC' . $randomNumber;
             Mail::send('email.register', $data, function ($message) use ($code) {
                 $message->to($email, $name)
                         ->subject('Register');
@@ -526,7 +526,7 @@ $email = $validatedData['email'];
                 'code' => 'FB' . $randomNumber,
                 
             ];
-
+            $code ='FB' . $randomNumber;
              Mail::send('email.register', $data, function ($message) use ($code) {
                 $message->to($email, $name)
                         ->subject('Register');
@@ -595,7 +595,7 @@ $email = $validatedData['email'];
       'email' => $validatedData['email'],
       'password' => Hash::make($validatedData['password1']),
       'role' => $validatedData['role'], // Assuming default role ID for 'user'
-      'rememberToken' => 'MC' . $randomNumber,
+      'rememberToken' => 'MCS' . $randomNumber,
     ]);
     $lastInsertedId = $user->id;
     DB::table('wp_users')->insert([
@@ -642,7 +642,7 @@ $subb = Subscription::create([
                 'code' => 'IA' . $randomNumber,
                 
             ];
-
+            $code ='IA' . $randomNumber;
             Mail::send('email.register', $data, function ($message) use ($code) {
                 $message->to($email, $name)
                         ->subject('Register');
@@ -667,7 +667,7 @@ $subb = Subscription::create([
                 'code' => 'IA' . $randomNumber,
                 
             ];
-
+            $code ='SH' . $randomNumber;
             Mail::send('email.register', $data, function ($message) use ($code) {
                 $message->to($email, $name)
                         ->subject('Register');
@@ -702,7 +702,7 @@ $subb = Subscription::create([
                 'code' => 'IA' . $randomNumber,
                 
             ];
-
+            $code ='MC' . $randomNumber;
              Mail::send('email.register', $data, function ($message) use ($code) {
                 $message->to($email, $name)
                         ->subject('Register');
@@ -728,7 +728,7 @@ $subb = Subscription::create([
                 'code' => 'IA' . $randomNumber,
                 
             ];
-
+            $code ='FB' . $randomNumber;
              Mail::send('email.register', $data, function ($message) use ($code) {
                 $message->to($email, $name)
                         ->subject('Register');
@@ -784,7 +784,7 @@ $subb = Subscription::create([
       return redirect('/logg');
   }
   }
-
+ 
   public function land()
   { 
     $data=Subscription_plan::All();

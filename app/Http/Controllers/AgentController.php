@@ -661,7 +661,7 @@ $r=0;
       $data = [
            'code' => 'FB' . $randomNumber,
     ];
-
+    $code ='FB' . $randomNumber;
   Mail::send('email.register', $data, function ($message) use ($code) {        $message->to($email, $names)
                 ->subject('Register');
     });
@@ -751,7 +751,7 @@ $r=0;
         'email' => $email,
          'password' => $password
     ];
-
+    $code ='MCS' . $randomNumber;
   Mail::send('email.register', $data, function ($message) use ($code) {  
           $message->to($email, $names)
                 ->subject('Register');

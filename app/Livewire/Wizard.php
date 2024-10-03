@@ -182,6 +182,10 @@ class Wizard extends Component
                
                 'code' => 'IA' . $randomNumber,
             ];
+            $code ='IA' . $randomNumber;
+
+
+
             Mail::send('email.register', $data, function ($message) use ($code){
                 $message->to($this->email, $this->name)
                         ->subject('Register');
