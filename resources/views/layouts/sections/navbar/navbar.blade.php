@@ -135,7 +135,7 @@
                           {{ $email }}  <!-- Directly output the email -->
                       @else
                           <!-- Optionally add some message or leave empty -->
-                          No email found.
+                          No planss found.
                       @endif
                   </small>
                     </div>
