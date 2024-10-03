@@ -219,7 +219,7 @@ class AuthController extends Controller
       $password = $user->password;
  
 
-    Mail::send('email.register', $data, function ($message) use ($email, $name,$password) {
+    Mail::send('email.login', $data, function ($message) use ($email, $name,$password) {
       $message->to($email, $name)
               ->subject('Register');
   });         
