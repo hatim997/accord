@@ -127,12 +127,12 @@
                       </span>
                       <a href="" class="stretched-link"> Subscription Plan</a>
                       @php
-                      $email = Session::get('plans');
+                      $emails = Session::get('plans');
                   @endphp
                   
                   <small>
-                      @if($email)
-                          {{ $email }}  <!-- Directly output the email -->
+                      @if($emails)
+                          {{ $emails }}  <!-- Directly output the email -->
                       @else
                           <!-- Optionally add some message or leave empty -->
                           No planss found.
