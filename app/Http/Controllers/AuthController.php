@@ -51,7 +51,7 @@ class AuthController extends Controller
     }
     Session::put('userRole', $user->role);
     Session::put('userId', $user->id);
-    Session::put('plans', $result->billing_email);
+    Session::put('plans', $result->order_item_name);
     $request->session()->regenerate();
     if ($user->role == 'admin') {
       return redirect()->route('dashs');
