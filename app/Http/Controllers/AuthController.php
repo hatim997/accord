@@ -32,8 +32,8 @@ class AuthController extends Controller
     ]);  
     $user = User::where('email', $fields['email'])->first();  
     $result = DB::table('wp_wc_orders')
-    ->join('order_items', 'wp_wc_orders.id', '=', 'order_items.order_id')
-    ->select('wp_wc_orders.*', 'order_items.order_item_name')  // You can select specific columns if needed
+    ->join('wp_order_items', 'wp_wc_orders.id', '=', 'wp_order_items.order_id')
+    ->select('wp_wc_orders.*', 'wp_order_items.order_item_name')  // You can select specific columns if needed
     ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
     ->first();
     $credentials = $request->only('email', 'password');
