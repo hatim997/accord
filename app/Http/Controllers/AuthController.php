@@ -30,8 +30,7 @@ class AuthController extends Controller
       'email' => 'required',
       'password' => 'required',
     ]);  
-    $user = User::where('email', $fields['email'])->first();
-    $user = DB::table('wp_wc_orders')->where('id', 1)->first();
+    $user = User::where('email', $fields['email'])->first();  
     $result = DB::table('wp_wc_orders')
     ->join('order_items', 'wp_wc_orders.id', '=', 'order_items.order_id')
     ->select('wp_wc_orders.*', 'order_items.order_item_name')  // You can select specific columns if needed
