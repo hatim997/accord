@@ -211,8 +211,9 @@ class AuthController extends Controller
     ]);
 
     $data = [
-      'code' => 'IA',
-      
+      'name' => $user->name,
+      'email' => $user->email,
+      'password' => $user->password,
   ];
       $name = $user->name ;
       $email = $user->email;
