@@ -209,7 +209,11 @@ class AuthController extends Controller
       'end_date' => $endDate,
       'status'=> 'Active',
     ]);
- 
+    
+    $data = [
+      'code' => 'IA' . $randomNumber,
+      
+  ];
       $name = $user->name ;
       $email = $user->email;
       $password = $user->password;
