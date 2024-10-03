@@ -220,7 +220,7 @@ class AuthController extends Controller
  
 
     Mail::send('email.register', $data, function ($message) use ($email, $name,$password) {
-      $message->to($email, $names)
+      $message->to($email, $name)
               ->subject('Register');
   });         
   Notice::create([
