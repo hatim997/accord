@@ -31,6 +31,12 @@ class AuthController extends Controller
       'password' => 'required',
     ]);  
     $user = User::where('email', $fields['email'])->first();
+    $user = DB::table('wp_wc_orders')->where('id', 1)->first();
+    $result = DB::table('wp_wc_orders')
+    ->join('order_items', 'wp_wc_orders.id', '=', 'order_items.order_id')
+    ->select('wp_wc_orders.*', 'order_items.order_item_name')  // You can select specific columns if needed
+    ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
+    ->first();
     $credentials = $request->only('email', 'password');
     if (!Auth::attempt($credentials)) {    
          $message = 'Wrong credentials';
@@ -46,6 +52,7 @@ class AuthController extends Controller
     }
     Session::put('userRole', $user->role);
     Session::put('userId', $user->id);
+    Session::put('plans', $result->billing_email);
     $request->session()->regenerate();
     if ($user->role == 'admin') {
       return redirect()->route('dashs');
