@@ -204,7 +204,7 @@ class AuthController extends Controller
     $subb = Subscription::create([
       'user_id' => $user->id,
       'plan_id' => 1,
-      'plan_name' => $result->order_item_name,
+      'plan_name' => $result->order_item_name ?? null,
       'start_date' =>  $currentDate,
       'end_date' => $endDate,
       'status'=> 'Active',
