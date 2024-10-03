@@ -225,7 +225,7 @@ class AuthController extends Controller
   });         
   Notice::create([
       'to' => 1,
-      'from' => $lastInsertedId,
+      'from' => $user->id,
       'name' => "you have new registering agency pls check",
     ]);
 
