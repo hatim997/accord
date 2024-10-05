@@ -116,7 +116,7 @@
                       <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                         <i class="mdi mdi-format-align-bottom mdi-26px text-heading"></i>
                       </span>
-                      <a href="{{ route('login.agency')}}" class="stretched-link"> Billing</a>
+                      <a href="https://insur.dboss.pk/wp/my-account/orders/" class="stretched-link"> Billing</a>
                       {{-- <small>Manage Accounts</small> --}}
                     </div>
                   </div>
