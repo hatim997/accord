@@ -103,6 +103,11 @@ Route::get('/reg-agency', function () {
 })->name('reg.trucker');
 Route::get('/truckform/{id}', [AuthController::class, 'form'])->name('truck.from');
 Route::group(['middleware' => 'checkRole:agent'], function () {
+Route::get('/profile-agency', [ac::class, 'agentprofiles'])->name('profile.agency');
+Route::get('/login-agency', [AuthController::class, 'loginWordPress'])->name('login.agency');
+Route::get('/login-wordpress', [AuthController::class, 'loginWordPresss'])->name('login.wordpress');
+
+
   // Routes accessible only by users with 'admin' role
   Route::get('/formlist', [ac::class, 'formlist'])->name('formlist');
   Route::get('/get-certf/{id}', [ac::class, 'getcert'])->name('get-certf');

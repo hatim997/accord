@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Cookie;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Mail;
+use GuzzleHttp\Client;
 use Illuminate\Validation\ValidationException;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
@@ -52,18 +53,16 @@ class AuthController extends Controller
     Session::put('userRole', $user->role);
     Session::put('userId', $user->id);
     Session::put('plans', $result->order_item_name);
+    Session::put('order_id', $result->id);
     $request->session()->regenerate();
     if ($user->role == 'admin') {
       return redirect()->route('dashs');
     }
     if ($user->role == 'agent') {
       return redirect('/dash');
-    }
-   
+    }   
     $message = 'Wrong credentials';
-    return Redirect::back()->with('danger' ,$message);
-
-   
+    return Redirect::back()->with('danger' ,$message);   
   }
 
 
@@ -162,6 +161,56 @@ class AuthController extends Controller
     }
     return redirect('/fportal');
   }
+
+
+      public function loginWordPress(Request $request)
+      {
+          // Step 1: Get the current user in Laravel
+          $user = Auth::user();          
+          if (!$user) {
+              return response()->json(['message' => 'User not logged in Laravel'], 401);
+          }
+          $result = DB::table('wp_users')        
+          ->where('user_login', $user->email )  // Assuming you want to get a specific user with ID 1
+          ->first();
+          
+          // Step 2: Prepare data for WordPress login request
+          $wpLoginUrl = 'https://insur.dboss.pk/wp/login-form';
+          $credentials = [
+              'log'      => $user->email,    // WordPress login (typically the email or username)
+              'pwd'      => $result->user_pass, // Pass the user’s password from the request or session
+              'remember' => true
+          ];
+  
+          // Step 3: Make the request to WordPress
+          $client = new Client();
+          $response = $client->post($wpLoginUrl, [
+              'form_params' => $credentials,
+              'allow_redirects' => true,
+          ]);
+  
+          // Step 4: Get the WordPress login cookies from the response
+          $cookies = $response->getHeader('Set-Cookie');
+          
+          // Step 5: Set these cookies in Laravel, so that the user is logged in to WordPress as well
+          foreach ($cookies as $cookie) {
+              setcookie(...explode(';', $cookie)[0]); // Set each WordPress login cookie in the browser
+          }
+  
+          // Optionally, redirect the user to WordPress or another page
+          return redirect('https://insur.dboss.pk/wp/my-account/orders');
+      }
+  
+
+
+
+
+
+
+
+
+
+
 
   // validated
 

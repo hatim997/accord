@@ -109,14 +109,14 @@
                       <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                         <i class="mdi mdi-account-outline  mdi-26px text-heading"></i>
                       </span>
-                      <a href="" class="stretched-link">Security</a>
+                      <a href="{{ route('profile.agency')}}" class="stretched-link">User info </a>
                       {{-- <small>Appointments</small> --}}
                     </div>
                     <div class="dropdown-shortcuts-item col">
                       <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                         <i class="mdi mdi-format-align-bottom mdi-26px text-heading"></i>
                       </span>
-                      <a href="" class="stretched-link"> Billing</a>
+                      <a href="{{ route('login.agency')}}" class="stretched-link"> Billing</a>
                       {{-- <small>Manage Accounts</small> --}}
                     </div>
                   </div>
@@ -125,7 +125,11 @@
                       <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                         <i class="mdi mdi-monitor mdi-26px text-heading"></i>
                       </span>
-                      <a href="" class="stretched-link"> Subscription Plan</a>
+                      @php
+                      $order_id = Session::get('order_id');
+                  @endphp
+
+                      <a href="https://insur.dboss.pk/wp/my-account/view-order/{{$order_id}}" class="stretched-link"> Subscription Plan</a>
                       @php
                       $emails = Session::get('plans');
                   @endphp
@@ -198,7 +202,7 @@ margin-top: 1.7rem;
 
 
         <li>
-            <a class="btn btn-light  ">Company Information</a>
+            <a href="{{ route('profile.agency')}}" class="btn btn-light">Company Information</a>
         </li>  
             <li type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">   <a class="btn btn-light" >Insured List </a></li>
             <ul class="dropdown-menu">

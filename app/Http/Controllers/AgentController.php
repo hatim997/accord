@@ -88,7 +88,14 @@ return view('agent.agency', compact('certificate'));
     //  dd($certificate);
 return $certificates ;
   }
+  public function agentprofiles()
+  {
+    $userId = Auth::user()->id;
 
+    $driverdetail = AgencyInfos::where('user_id', $userId)->get();
+
+    return view('truck.profile' , compact('driverdetail'));
+  }
   public function dash()
   {
     $users = User::all();
