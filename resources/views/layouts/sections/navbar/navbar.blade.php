@@ -100,7 +100,7 @@
                 <div class="dropdown-menu-header border-bottom py-50">
                   <div class="dropdown-header d-flex align-items-center py-2">
                     <h6 class="mb-0 me-auto">Shortcuts</h6>
-                    <a href="javascript:void(0)" class="btn btn-text-secondary rounded-pill btn-icon dropdown-shortcuts-add waves-effect waves-light" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Add shortcuts" data-bs-original-title="Add shortcuts"><i class="mdi mdi-grid-large mdi-24px text-heading"></i></a>
+                     <a href="https://insur.dboss.pk/wp/my-account/orders/" class="btn btn-primary"> Upgrade </a>
                   </div>
                 </div>
                 <div class="dropdown-shortcuts-list scrollable-container">
