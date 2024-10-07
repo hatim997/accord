@@ -100,7 +100,7 @@
                 <div class="dropdown-menu-header border-bottom py-50">
                   <div class="dropdown-header d-flex align-items-center py-2">
                     <h6 class="mb-0 me-auto">Shortcuts</h6>
-                     <a href="https://insur.dboss.pk/wp/my-account/orders/" class="btn btn-primary"> Upgrade </a>
+                     <a href="https://insur.dboss.pk/wp/pricing/" class="btn btn-primary"> Upgrade </a>
                   </div>
                 </div>
                 <div class="dropdown-shortcuts-list scrollable-container">
