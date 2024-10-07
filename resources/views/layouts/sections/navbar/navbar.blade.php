@@ -116,7 +116,16 @@
                       <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                         <i class="mdi mdi-format-align-bottom mdi-26px text-heading"></i>
                       </span>
-                      <a href="https://insur.dboss.pk/wp/my-account/orders/" class="stretched-link"> Billing</a>
+                      @php                   
+                      $emails = Session::get('plans');
+                  @endphp
+  @if($emails =='free')
+  <a  class="stretched-link"> NO Billing</a>
+  @else
+  <a href="https://insur.dboss.pk/wp/my-account/orders/" class="stretched-link"> Billing</a>
+  @endif
+                    
+                     
                       {{-- <small>Manage Accounts</small> --}}
                     </div>
                   </div>
@@ -127,19 +136,24 @@
                       </span>
                       @php
                       $order_id = Session::get('order_id');
+                    
                   @endphp
+  @if($emails =='free')
 
-                      <a href="https://insur.dboss.pk/wp/my-account/view-order/{{$order_id}}" class="stretched-link"> Subscription Plan</a>
-                      @php
-                      $emails = Session::get('plans');
-                  @endphp
+
+  <a class="stretched-link"> Subscription Plan</a>
+
                   
                   <small>
-                      @if($emails)
+                    
                           {{ $emails }}  <!-- Directly output the email -->
                       @else
+            <a href="https://insur.dboss.pk/wp/my-account/view-order/{{$order_id}}" class="stretched-link"> Subscription Plan</a>
+
+                      <small>
+                        
                           <!-- Optionally add some message or leave empty -->
-                          No planss found.
+                          {{ $emails }}  
                       @endif
                   </small>
                     </div>

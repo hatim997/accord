@@ -52,15 +52,25 @@ class AuthController extends Controller
     }
     Session::put('userRole', $user->role);
     Session::put('userId', $user->id);
-    Session::put('plans', $result->order_item_name);
-    Session::put('order_id', $result->id);
-    $request->session()->regenerate();
+
     if ($user->role == 'admin') {
       return redirect()->route('dashs');
     }
     if ($user->role == 'agent') {
+      if ($result && $result->order_item_name != null) {
+        Session::put('plans', $result->order_item_name);
+        Session::put('order_id', $result->id);
+        $request->session()->regenerate();
       return redirect('/dash');
     }   
+    Session::put('plans', 'free');
+    $request->session()->regenerate();
+  return redirect('/dash');
+
+
+    }
+
+    
     $message = 'Wrong credentials';
     return Redirect::back()->with('danger' ,$message);   
   }
@@ -73,6 +83,11 @@ class AuthController extends Controller
       'password' => 'required',
     ]);  
     $user = User::where('email', $fields['email'])->first();
+    $result = DB::table('wp_wc_orders')
+    ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+    ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')  // You can select specific columns if needed
+    ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
+    ->first();
     $credentials = $request->only('email', 'password');
     if (!Auth::attempt($credentials)) {    
          $message = 'Wrong credentials';
@@ -93,7 +108,17 @@ class AuthController extends Controller
       return Redirect::back()->with('danger' ,$message);
     }
     if ($user->role == 'shipper') {
-      return redirect("/sportal");
+      if ($result && $result->order_item_name != null) {
+        Session::put('plans', $result->order_item_name);
+        Session::put('order_id', $result->id);
+        $request->session()->regenerate();
+      return redirect('/sportal');
+    }   
+    Session::put('plans', 'free');
+    $request->session()->regenerate();
+  return redirect('/sportal');
+
+
     }
     $message = 'Wrong credentials';
     return Redirect::back()->with('danger' ,$message);
@@ -105,6 +130,11 @@ class AuthController extends Controller
       'password' => 'required',
     ]);  
     $user = User::where('email', $fields['email'])->first();
+    $result = DB::table('wp_wc_orders')
+    ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+    ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')  // You can select specific columns if needed
+    ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
+    ->first();
     $credentials = $request->only('email', 'password');
     if (!Auth::attempt($credentials)) {    
          $message = 'Wrong credentials';
@@ -121,7 +151,15 @@ class AuthController extends Controller
       return Redirect::back()->with('danger' ,$message);
     }
     if ($user->role == 'truck_driver') {
-      return redirect("/portal");
+      if ($result && $result->order_item_name != null) {
+        Session::put('plans', $result->order_item_name);
+        Session::put('order_id', $result->id);
+        $request->session()->regenerate();
+      return redirect('/portal');
+    }   
+    Session::put('plans', 'free');
+    $request->session()->regenerate();
+  return redirect('/portal');    
     }
     if ($user->role == 'shipper') {
       $message = 'Wrong credentials';
@@ -136,6 +174,11 @@ class AuthController extends Controller
       'password' => 'required',
     ]);  
     $user = User::where('email', $fields['email'])->first();
+    $result = DB::table('wp_wc_orders')
+    ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+    ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')  // You can select specific columns if needed
+    ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
+    ->first();
     $credentials = $request->only('email', 'password');
     if (!Auth::attempt($credentials)) {    
          $message = 'Wrong credentials';
@@ -159,7 +202,16 @@ class AuthController extends Controller
       $message = 'Wrong credentials';
       return Redirect::back()->with('danger' ,$message);
     }
+    if ($result && $result->order_item_name != null) {
+      Session::put('plans', $result->order_item_name);
+      Session::put('order_id', $result->id);
+      $request->session()->regenerate();
     return redirect('/fportal');
+  }   
+  Session::put('plans', 'free');
+  $request->session()->regenerate();
+return redirect('/fportal');
+
   }
 
 
