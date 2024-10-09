@@ -109,7 +109,18 @@
                       <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                         <i class="mdi mdi-account-outline  mdi-26px text-heading"></i>
                       </span>
+                      @if ($user->role == "agent")
                       <a href="{{ route('profile.agency')}}" class="stretched-link">User info </a>
+                      @elseif ($user->role == "truck_driver")
+                      <a href="{{ route('profile.truck')}}" class="stretched-link">User info </a>
+                      @elseif ($user->role == "shipper")         
+                      <a href="{{ route('profile.shipper')}}" class="stretched-link">User info </a>
+                      @elseif ($user->role == "freight_driver")
+                      <a href="{{ route('profile.agency')}}" class="stretched-link">User info </a>
+                      @else
+                      <a href="" class="stretched-link">User info </a>
+                      @endif
+                    
                       {{-- <small>Appointments</small> --}}
                     </div>
                     <div class="dropdown-shortcuts-item col">
@@ -285,9 +296,7 @@ margin-top: 1.7rem;
           <a class="btn btn-light" href="{{ route('lists.truck') }}">List Carrier</a>
 
       </li>
-        <li>
-            <a class="btn btn-light" href="{{ route('profile.truck') }}">Company Information</a>
-        </li>
+   
      
         @elseif ($user->role == "shipper")
         <li>

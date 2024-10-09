@@ -150,7 +150,17 @@ class Brokereg extends Component
                'rememberToken' => 'FB' . $randomNumber,
                'role' => "freight_driver",
              ]);
-
+             DB::table('wp_users')->insert([
+                'user_nicename' => $this->fname,
+                'user_login' => $this->email,
+                'user_email' =>  $this->email,
+                'user_pass' => bcrypt($this->password), // Ensure to hash passwords
+                'user_url' =>  'null',
+                'user_registered' => $currentDate,
+                'user_activation_key'	 => "agent",
+                'user_status' => 1,
+                'display_name' =>  $this->fname,
+              ]);   
              $lastInsertedId = $user->id;
 
             DriverDetail::create([
@@ -183,14 +193,18 @@ class Brokereg extends Component
             $this->clearForm();
           //  return $pdf->stream($cert);
 
-        $data = [
-                'name' => $this->name,
-                'email' => $this->email
-            ];
-            Mail::send('email.register', $data, function ($message) {
-                $message->to($this->email, $this->name)
-                        ->subject('Register');
-            });
+          $data = [
+               
+            'code' => 'FB' . $randomNumber,
+        ];
+        $code ='FB' . $randomNumber;
+
+
+
+        Mail::send('email.register', $data, function ($message) use ($code){
+            $message->to($this->email, $this->name)
+                    ->subject('Register');
+        });    
 
             Notice::create([
                 'to' => $lastInsertedId,

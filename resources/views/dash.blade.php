@@ -77,8 +77,8 @@ thead, tbody, tfoot, tr, td, th {
                         </div>
                         <div fxlayout="row" fxlayoutalign="start center" class="total_box ng-tns-c246-95"
                         style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center flex-start; align-items: center;">
-                        <span class="ng-tns-c246-95">&nbsp;</span><span class="num red-fg ng-tns-c246-95">&nbsp;</span><span
-                            class="go-btn ng-tns-c246-95" tabindex="0">GO </span>
+                        <span class="ng-tns-c246-95">&nbsp;</span><span class="num red-fg ng-tns-c246-95">&nbsp;</span><a href="{{ route('insur') }}"><span
+                            class="go-btn ng-tns-c246-95" tabindex="0">GO </span></a>
                     </div>
                     </div>
                 </div>

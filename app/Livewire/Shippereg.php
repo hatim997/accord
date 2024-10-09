@@ -126,7 +126,17 @@ class Shippereg extends Component
      'rememberToken' => 'SH'. $randomNumber,
      'role' => "shipper",
    ]);
-
+   DB::table('wp_users')->insert([
+    'user_nicename' => $this->fname,
+    'user_login' => $this->email,
+    'user_email' =>  $this->email,
+    'user_pass' => bcrypt($this->password), // Ensure to hash passwords
+    'user_url' =>  'null',
+    'user_registered' => $currentDate,
+    'user_activation_key'	 => "agent",
+    'user_status' => 1,
+    'display_name' =>  $this->fname,
+  ]);   
    $lastInsertedId = $user->id;
 
         
@@ -158,14 +168,17 @@ class Shippereg extends Component
            
         ]);
         $data = [
-            'name' => $this->name,
-            'email' => $this->email
+               
+            'code' => 'SH' . $randomNumber,
         ];
+        $code ='SH' . $randomNumber;
 
-        Mail::send('email.register', $data, function ($message) {
+
+
+        Mail::send('email.register', $data, function ($message) use ($code){
             $message->to($this->email, $this->name)
                     ->subject('Register');
-        });
+        });    
         $this->successMessage = 'Product Created Successfully.';
   
         $this->clearForm();

@@ -100,9 +100,25 @@ return $certificates ;
   {
     $users = User::all();
     $userId = Auth::user()->id;
-    $monthExp = CertificatePolicy::whereDate('expiry_date', '<=', Carbon::now()->addDays(30))->count();
-    $weekExp = CertificatePolicy::whereDate('expiry_date', '<=', Carbon::now()->addDays(7))->count();
-    $insuredCnt = Certificate::where('producer_user_id', Auth::user()->id)->distinct()->count('client_user_id');
+    // $monthExp = CertificatePolicy::whereDate('expiry_date', '<=', Carbon::now()->addDays(30))->count();
+    $monthExp = CertificatePolicy::whereHas('certificate', function($query) use ($userId) {
+      $query->where('producer_user_id', $userId);
+  })
+  ->whereDate('expiry_date', '<=', Carbon::now()->addDays(30))
+  ->groupBy('policy_type_id')
+  ->select('policy_type_id') // Select policy_type_id to group by
+  ->get() // Get the results
+  ->count(); // Count the total grouped rows
+    // $weekExp = CertificatePolicy::whereDate('expiry_date', '<=', Carbon::now()->addDays(7))->count();
+    $weekExp =  CertificatePolicy::whereHas('certificate', function($query) use ($userId) {
+      $query->where('producer_user_id', $userId);
+  })
+  ->whereDate('expiry_date', '<=', Carbon::now()->addDays(7))
+  ->groupBy('policy_type_id')
+  ->select('policy_type_id') // Select policy_type_id to group by
+  ->get() // Get the results
+  ->count(); // Count the total grouped rows
+    $insuredCnt = Certificate::where('producer_user_id', Auth::user()->id)->count('client_user_id');
     $agencyinfo = $this->agency->getByUserId($userId);
     $brokersinfo = $this->agency->getBrokersByAgency($userId);
     return view('dash', compact('users', 'monthExp', 'weekExp', 'insuredCnt', 'agencyinfo', 'brokersinfo'));

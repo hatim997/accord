@@ -102,13 +102,15 @@ Route::get('/reg-agency', function () {
   return view('default');
 })->name('reg.trucker');
 Route::get('/truckform/{id}', [AuthController::class, 'form'])->name('truck.from');
+
+
+
+  // Routes accessible only by users with 'agent' role
+  // Routes accessible only by users with 'agent' role
 Route::group(['middleware' => 'checkRole:agent'], function () {
-Route::get('/profile-agency', [ac::class, 'agentprofiles'])->name('profile.agency');
-Route::get('/login-agency', [AuthController::class, 'loginWordPress'])->name('login.agency');
-Route::get('/login-wordpress', [AuthController::class, 'loginWordPresss'])->name('login.wordpress');
-
-
-  // Routes accessible only by users with 'admin' role
+  Route::get('/profile-agency', [ac::class, 'agentprofiles'])->name('profile.agency');
+  Route::get('/login-agency', [AuthController::class, 'loginWordPress'])->name('login.agency');
+  Route::get('/login-wordpress', [AuthController::class, 'loginWordPresss'])->name('login.wordpress');
   Route::get('/formlist', [ac::class, 'formlist'])->name('formlist');
   Route::get('/get-certf/{id}', [ac::class, 'getcert'])->name('get-certf');
   Route::get('/get-agency', [ac::class, 'getagency'])->name('getagency');
@@ -141,6 +143,10 @@ Route::get('/reg-freights', function () { return view('content.authentications.r
 Route::get('/reg-trucker', function () {
   return view('content.authentications.reg-agency');
 })->name('reg.trucker');
+
+
+
+
   Route::group(['middleware' => 'checkRole:truck'], function () {
   Route::get('/portal', [TruckController::class, 'trucker'])->name('dashw');
   Route::post('/upload', [TruckController::class, 'upload'])->name('upload');
