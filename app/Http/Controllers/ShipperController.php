@@ -56,6 +56,8 @@ class ShipperController extends Controller
 
   public function dash2()
   {
+  
+
 
     $endors=Endorsement::All();
 

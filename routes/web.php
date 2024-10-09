@@ -52,15 +52,7 @@ use App\Http\Controllers\SelectSearchController as ssc;
 use Illuminate\Support\Facades\Artisan;
 
 // Main Page Route
-Route::get('/accord', function () {
-  return view('fromdrop');
-});
 
-Route::get('/form3', function () {
-  return view('agent.form3');
-});
-
-Route::get('/insurSearch', [ssc::class, 'selectSearch'])->name('insurSearch');
 
 // Route::get('/run-migrations', function () {
 //   //Artisan::call('migrate:fresh', ['--force' => true]);
@@ -90,20 +82,72 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
   Route::get('/admin/shipper-certifecate', [AdminController::class, 'view_certificate_by_shipper'])->name('shipper_cert');
   Route::get('/admin-download-certificate/{file}', [AdminController::class, 'download_certificate'])->name('admin.download.certificate');
 });
+
+
 Livewire::setScriptRoute(function ($handle) {
   return Route::get('/public/livewire/livewire.js', $handle);
 });
 Livewire::setUpdateRoute(function ($handle) {
   return Route::post('/public/livewire/update', $handle);
 });
+Route::get('/accord', function () {
+  return view('fromdrop');
+});
+Route::get('/form3', function () {
+  return view('agent.form3');
+});
 
+Route::get('/insurSearch', [ssc::class, 'selectSearch'])->name('insurSearch');
 // NOW qywuziryz@example.com
 Route::get('/reg-agency', function () {
   return view('default');
 })->name('reg.trucker');
 Route::get('/truckform/{id}', [AuthController::class, 'form'])->name('truck.from');
+Route::get('reboot',function(){ 
+  Artisan::call('view:clear'); 
+  Artisan::call('route:clear');  Artisan::call('config:clear');
+  Artisan::call('cache:clear');  Artisan::call('key:generate');
+});
+Route::post('/register', [AuthController::class, 'registerfrom'])->name('regist');
+Route::post('/reg', [AuthController::class, 'register'])->name('form.reg');
+Route::post('/reggg', [AuthController::class, 'getregister'])->name('get.regester');
+Route::get('/reg-shipper', function () { return view('content.authentications.reg-shipper'); })->name('reg.shipper');
+Route::get('/reg-freights', function () { return view('content.authentications.reg-freights'); })->name('reg.freights');
+Route::get('/reg-trucker', function () {
+  return view('content.authentications.reg-agency');
+})->name('reg.trucker');
+
+Route::get('email-validate', [AuthController::class, 'validated'])->name('validated');
+Route::post('email-validation', [AuthController::class, 'validation'])->name('validation');
+Route::post('freight/update', [FreightController::class, 'update'])->name('update_certt');
+
+// Route::group(['middleware' => 'checkRole:shipper'], function () {
+//   //Route::get('/sdash', [ShipperController::class, 'dash'])->name('truck.dash');
+//   //Route::get('/form', [AdminController::class, 'insurform'])->name('form');
+//   // Routes accessible only by users with 'user' role
+//   // Route::get('/user/dashboard', 'UserController@dashboard')->name('user.dashboard');
+//   //Route::get('/formlist/{id}', [ac::class, 'pdf'])->name('agent.pdf');
+// });
+
+Route::get('/exam', [TruckController::class, 'truckers'])->name('truckd');
+Route::get('/exam1', [TruckController::class, 'truckerss'])->name('truckf');
+Route::get('/exam2', [TruckController::class, 'truckersss'])->name('truckfs');
+Route::get('/', [AuthController::class, 'land'])->name('landing');
+
+Route::get('/reg-broker', function () {
+  return view('content.authentications.reg-freights');
+})->name('reg.broker');
+
+Route::fallback(function () {
+  // return view('content.pages.pages-misc-error');
+});
 
 
+Route::get('/mrun', function () {
+  // Artisan::call("migrate:fresh");
+  // Artisan::call("db:seed");
+  return 'Done';
+});
 
   // Routes accessible only by users with 'agent' role
   // Routes accessible only by users with 'agent' role
@@ -135,14 +179,6 @@ Route::group(['middleware' => 'checkRole:agent'], function () {
   Route::get('/get-driver/{id}', [ac::class, 'get_driver'])->name('get_driver');
   Route::post('/update-driver', [ac::class, 'update_driver'])->name('update_driver');
 });
-Route::post('/register', [AuthController::class, 'registerfrom'])->name('regist');
-Route::post('/reg', [AuthController::class, 'register'])->name('form.reg');
-Route::post('/reggg', [AuthController::class, 'getregister'])->name('get.regester');
-Route::get('/reg-shipper', function () { return view('content.authentications.reg-shipper'); })->name('reg.shipper');
-Route::get('/reg-freights', function () { return view('content.authentications.reg-freights'); })->name('reg.freights');
-Route::get('/reg-trucker', function () {
-  return view('content.authentications.reg-agency');
-})->name('reg.trucker');
 
 
 
@@ -165,10 +201,15 @@ Route::get('/reg-trucker', function () {
   Route::get('/add-broker', [TruckController::class, 'brokers'])->name('add.broker');
   Route::post('/store-broker', [TruckController::class, 'storeBroker'])->name('store.broker');
 });
-Route::get('reboot',function(){ 
-  Artisan::call('view:clear'); 
-  Artisan::call('route:clear');  Artisan::call('config:clear');
-  Artisan::call('cache:clear');  Artisan::call('key:generate');});
+
+
+
+
+
+
+
+
+
 Route::group(['middleware' => 'checkRole:shipper'], function () {
   Route::get('/sportal', [ShipperController::class, 'dash2'])->name('sdash');
   Route::get('/add-trucks', function () { return view('shipper.add-trucker'); })->name('add.trucks');
@@ -190,6 +231,11 @@ Route::group(['middleware' => 'checkRole:shipper'], function () {
 });
 Route::get('/notice', [AdminController::class, 'notice'])->name('notice');
 
+
+
+
+
+
 Route::group(['middleware' => 'checkRole:freight_driver'], function () {
   Route::get('/fportal', [FreightController::class, 'dashf'])->name('fportals');
   Route::get('/add-shipp', [FreightController::class, 'drivers'])->name('add.shipper');
@@ -198,37 +244,6 @@ Route::group(['middleware' => 'checkRole:freight_driver'], function () {
   Route::post('/store-driverr', [FreightController::class, 'storeDriverr'])->name('store.driverr');
 
 
-});
-Route::get('email-validate', [AuthController::class, 'validated'])->name('validated');
-Route::post('email-validation', [AuthController::class, 'validation'])->name('validation');
-Route::post('freight/update', [FreightController::class, 'update'])->name('update_certt');
-
-// Route::group(['middleware' => 'checkRole:shipper'], function () {
-//   //Route::get('/sdash', [ShipperController::class, 'dash'])->name('truck.dash');
-//   //Route::get('/form', [AdminController::class, 'insurform'])->name('form');
-//   // Routes accessible only by users with 'user' role
-//   // Route::get('/user/dashboard', 'UserController@dashboard')->name('user.dashboard');
-//   //Route::get('/formlist/{id}', [ac::class, 'pdf'])->name('agent.pdf');
-// });
-
-Route::get('/exam', [TruckController::class, 'truckers'])->name('truckd');
-Route::get('/exam1', [TruckController::class, 'truckerss'])->name('truckf');
-Route::get('/exam2', [TruckController::class, 'truckersss'])->name('truckfs');
-Route::get('/', [AuthController::class, 'land'])->name('landing');
-
-Route::get('/reg-broker', function () {
-  return view('content.authentications.reg-freights');
-})->name('reg.broker');
-
-Route::fallback(function () {
-  // return view('content.pages.pages-misc-error');
-});
-
-
-Route::get('/mrun', function () {
-  // Artisan::call("migrate:fresh");
-  // Artisan::call("db:seed");
-  return 'Done';
 });
 
 // layout

@@ -43,7 +43,7 @@
                         height: 220px;
                     ">
                             <h4 class="mb-1 py-4 text-white">Policy Expiring in a Month !</h4>
-                            <h2 class="py-3 text-white card-title" style="font-size: 72px">0</h2>
+                            <h2 class="py-3 text-white card-title" style="font-size: 72px">{{ isset($monthExp) ? $monthExp : 0 }}</h2>
                         </div>
                         <div fxlayout="row" fxlayoutalign="start center" class="total_box ng-tns-c246-95"
                         style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center flex-start; align-items: center;">
@@ -61,7 +61,7 @@
                         height: 220px;
                     ">
                             <h4 class="mb-1 py-4 text-white">Policy Expiring in a Week !</h4>
-                            <h2 class="py-3 text-white card-title" style="font-size: 72px">0</h2>
+                            <h2 class="py-3 text-white card-title" style="font-size: 72px">{{ isset($weekExp) ? $weekExp : 0 }}</h2>
                         </div>
                         <div fxlayout="row" fxlayoutalign="start center" class="total_box ng-tns-c246-95"
                         style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center flex-start; align-items: center;">

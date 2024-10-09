@@ -39,6 +39,29 @@ class TruckController extends Controller
   public function trucker()
   {
     $userId = Auth::user()->id;
+
+    $users = User::all();
+  
+    // $monthExp = CertificatePolicy::whereDate('expiry_date', '<=', Carbon::now()->addDays(30))->count();
+    $monthExp = CertificatePolicy::whereHas('certificate', function($query) use ($userId) {
+      $query->where('client_user_id', $userId);
+  })
+  ->whereDate('expiry_date', '<=', Carbon::now()->addDays(30))
+  ->groupBy('policy_type_id')
+  ->select('policy_type_id') // Select policy_type_id to group by
+  ->get() // Get the results
+  ->count(); // Count the total grouped rows
+    // $weekExp = CertificatePolicy::whereDate('expiry_date', '<=', Carbon::now()->addDays(7))->count();
+    $weekExp =  CertificatePolicy::whereHas('certificate', function($query) use ($userId) {
+      $query->where('client_user_id', $userId);
+  })
+  ->whereDate('expiry_date', '<=', Carbon::now()->addDays(7))
+  ->groupBy('policy_type_id')
+  ->select('policy_type_id') // Select policy_type_id to group by
+  ->get() // Get the results
+  ->count(); // Count the total grouped rows
+
+
     $certificatePolicies = null;
 
     $driverInfo = $this->driver->getByUserId($userId);
@@ -54,7 +77,7 @@ class TruckController extends Controller
     $policies = PolicyType::get();
     $ship = ShipperInfos::all();
 
-    return view('truck.dash', compact('ship', 'certificatePolicies', 'policies', 'driverInfo'));
+    return view('truck.dash', compact('users', 'monthExp', 'weekExp','ship', 'certificatePolicies', 'policies', 'driverInfo'));
   }
 
   public function shipper()
