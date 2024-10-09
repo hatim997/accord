@@ -106,5 +106,51 @@
           </div>
         @endif --}}
         <!--/ Data Tables -->
+        <div class="col-12">
+            <div class="card">
+                <div class="table-responsive">
+                  
+                    <table class="table dataTable collapsed chat-contact-list" id="contact-list" >
+                        <h4 class="mb-1 py-4 px-4">list of Shippers</h4>
+                        <thead class="table-light">
+                            <tr>
+                                <th class="text-truncate">User</th>
+                                <th class="text-truncate">Address</th>
+                                <th class="text-truncate">Cellphone</th>
+                                <th class="text-truncate">Email</th>
+                                <th class="text-truncate">Status</th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @foreach ($ship as $ships)
+                                <tr class="parent">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+
+                                            <div>
+                                                <h6 class="mb-0"> {{ $ships->name }}</h6>
+
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td >{{ $ships->address }}</td>
+                                    <td >{{ $ships->cellphone }}</td>
+                                    <td >{{ $ships->extra_email }}</td>
+                                    <td>
+                                        <span class="badge bg-label-success rounded-pill">Active</span>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
 @endsection

@@ -110,7 +110,10 @@ class FreightController extends Controller
 
   public function dashf()
   {
-    return view('freight.dash');
+    $ship = ShipperInfos::all();
+
+    return view('freight.dash',  compact('ship'));
+  
   }
 
   public function storeDriverr(Request $reqeust)
