@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Cookie;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 use Mail;
+use Illuminate\Support\Facades\DB;
 
 class TruckController extends Controller
 {
@@ -62,6 +63,37 @@ class TruckController extends Controller
   ->count(); // Count the total grouped rows
 
 
+
+  $query = "
+  SELECT * ,policy_types.type_name as names
+  FROM certificate_policies 
+  JOIN certificates ON certificate_policies.certificate_id = certificates.id 
+  JOIN  policy_types ON certificate_policies.policy_type_id = policy_types.id 
+  WHERE certificates.client_user_id = ? 
+  AND certificate_policies.expiry_date <= DATE_ADD(NOW(), INTERVAL 30 DAY) 
+  GROUP BY policy_type_id
+";
+
+$results = DB::select($query, [$userId]); 
+
+$monthExpolicies = collect($results);
+
+$querys = "
+  SELECT * ,policy_types.type_name as names
+  FROM certificate_policies 
+  JOIN certificates ON certificate_policies.certificate_id = certificates.id 
+  JOIN  policy_types ON certificate_policies.policy_type_id = policy_types.id 
+  WHERE certificates.client_user_id = ? 
+  AND certificate_policies.expiry_date <= DATE_ADD(NOW(), INTERVAL 7 DAY) 
+  GROUP BY policy_type_id
+";
+
+$results = DB::select($querys, [$userId]); 
+
+$weekExpolicies = collect($results);
+
+
+
     $certificatePolicies = null;
 
     $driverInfo = $this->driver->getByUserId($userId);
@@ -77,7 +109,7 @@ class TruckController extends Controller
     $policies = PolicyType::get();
     $ship = ShipperInfos::all();
 
-    return view('truck.dash', compact('users', 'monthExp', 'weekExp','ship', 'certificatePolicies', 'policies', 'driverInfo'));
+    return view('truck.dash', compact('users', 'monthExp', 'weekExp','ship', 'certificatePolicies','monthExpolicies','weekExpolicies', 'policies', 'driverInfo'));
   }
 
   public function shipper()
@@ -237,6 +269,10 @@ class TruckController extends Controller
     $userId = Auth::user()->id;
 
     $driverdetail = DriverDetail::where('user_id', $userId)->get();
+
+
+
+
 
     return view('truck.profile' , compact('driverdetail'));
   }

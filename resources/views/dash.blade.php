@@ -46,7 +46,7 @@ thead, tbody, tfoot, tr, td, th {
                         <div fxlayout="row" fxlayoutalign="start center" class="total_box ng-tns-c246-95"
                         style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center flex-start; align-items: center;">
                         <span class="ng-tns-c246-95">&nbsp;</span><span class="num red-fg ng-tns-c246-95">&nbsp;</span><span
-                            class="go-btn ng-tns-c246-95" tabindex="0">GO </span>
+                            class="go-btn ng-tns-c246-95 open-modal-btn" data-modal="expiringPoliciesModal2" tabindex="0">GO </span>
                     </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@ thead, tbody, tfoot, tr, td, th {
                         <div fxlayout="row" fxlayoutalign="start center" class="total_box ng-tns-c246-95"
                         style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center flex-start; align-items: center;">
                         <span class="ng-tns-c246-95">&nbsp;</span><span class="num red-fg ng-tns-c246-95">&nbsp;</span><span
-                            class="go-btn ng-tns-c246-95" tabindex="0">GO </span>
+                            class="go-btn ng-tns-c246-95 open-modal-btn" data-modal="expiringPoliciesModal1" tabindex="0">GO </span>
                     </div>
                     </div>
                 </div>
@@ -78,13 +78,105 @@ thead, tbody, tfoot, tr, td, th {
                         <div fxlayout="row" fxlayoutalign="start center" class="total_box ng-tns-c246-95"
                         style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center flex-start; align-items: center;">
                         <span class="ng-tns-c246-95">&nbsp;</span><span class="num red-fg ng-tns-c246-95">&nbsp;</span><a href="{{ route('insur') }}"><span
-                            class="go-btn ng-tns-c246-95" tabindex="0">GO </span></a>
+                            class="go-btn ng-tns-c246-95 " tabindex="0">GO </span></a>
                     </div>
                     </div>
                 </div>
                 <!--/ Congratulations card -->
             </div>
         </div>
+
+
+
+        <div class="modal" id="expiringPoliciesModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Week</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  @if($weekExpolicies->isEmpty())
+                    <p>No policies expiring within a week.</p>
+                  @else
+                  <table class="table dataTable collapsed chat-contact-list" id="contact-list" >
+                <thead>
+                    <tr>
+                        <th>Policy Type ID</th>
+                                <th>Policy Type Name</th>
+                                <th>Policy Number</th>
+                                <th>Start Date</th>
+                                <th>Expiry Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($weekExpolicies as $policy)
+                        <tr class="parent"> 
+                            <td>{{ $policy->policy_type_id }}</td>
+                            <td>{{ $policy->names }}</td>
+                            <td>{{ $policy->policy_number }}</td>
+                            <td>{{ $policy->start_date }}</td>
+                            <td>{{ $policy->expiry_date }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+                  @endif
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="modal" id="expiringPoliciesModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Month</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  @if($monthExpolicies->isEmpty())
+                    <p>No policies expiring within a Month.</p>
+                  @else
+                  <table class="table dataTable collapsed chat-contact-list" id="contact-list" >
+                <thead>
+                    <tr>
+                        <th>Policy Type ID</th>
+                                <th>Policy Type Name</th>
+                                <th>Policy Number</th>
+                                <th>Start Date</th>
+                                <th>Expiry Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($monthExpolicies as $policy)
+                        <tr class="parent"> 
+                            <td>{{ $policy->policy_type_id }}</td>
+                            <td>{{ $policy->names }}</td>
+                            <td>{{ $policy->policy_number }}</td>
+                            <td>{{ $policy->start_date }}</td>
+                            <td>{{ $policy->expiry_date }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+                  @endif
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
         @if($agencyinfo->is_active=="1")
         <div class="col-12">
           <div class="card">
@@ -141,3 +233,38 @@ thead, tbody, tfoot, tr, td, th {
 
     </div>
 @endsection
+@push('body-scripts')
+<script>
+  var openModalBtns = document.querySelectorAll(".open-modal-btn");
+var closeModalBtns = document.querySelectorAll(".close-btn");
+
+// Open the modal when a button is clicked
+openModalBtns.forEach(function(btn) {
+    btn.addEventListener("click", function() {
+        var modalId = btn.getAttribute("data-modal");
+        var modal = document.getElementById(modalId);
+        modal.style.display = "flex"; // Show the modal
+    });
+});
+
+// Close the modal when the close button is clicked
+closeModalBtns.forEach(function(btn) {
+    btn.addEventListener("click", function() {
+        var modalId = btn.getAttribute("data-modal");
+        var modal = document.getElementById(modalId);
+        modal.style.display = "none"; // Hide the modal
+    });
+});
+
+// Close the modal when clicking outside the modal content
+window.onclick = function(event) {
+    if (event.target.classList.contains("modal")) {
+        event.target.style.display = "none"; // Hide the modal
+    }
+};
+    
+
+    // Close modal when clicking outside the modal content
+ 
+</script>
+@endpush

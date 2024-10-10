@@ -19,7 +19,7 @@ use App\Models\InsuranceProvider;
 use App\Models\AgentDriver;
 use App\Services\CertificateService;
 use App\Models\Subscription;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -118,10 +118,39 @@ return $certificates ;
   ->select('policy_type_id') // Select policy_type_id to group by
   ->get() // Get the results
   ->count(); // Count the total grouped rows
+
+  $query = "
+  SELECT * ,policy_types.type_name as names
+  FROM certificate_policies 
+  JOIN certificates ON certificate_policies.certificate_id = certificates.id 
+  JOIN  policy_types ON certificate_policies.policy_type_id = policy_types.id 
+  WHERE certificates.producer_user_id = ? 
+  AND certificate_policies.expiry_date <= DATE_ADD(NOW(), INTERVAL 30 DAY) 
+  GROUP BY policy_type_id
+";
+
+$results = DB::select($query, [$userId]); 
+
+$monthExpolicies = collect($results);
+
+$querys = "
+  SELECT * ,policy_types.type_name as names
+  FROM certificate_policies 
+  JOIN certificates ON certificate_policies.certificate_id = certificates.id 
+  JOIN  policy_types ON certificate_policies.policy_type_id = policy_types.id 
+  WHERE certificates.producer_user_id = ? 
+  AND certificate_policies.expiry_date <= DATE_ADD(NOW(), INTERVAL 7 DAY) 
+  GROUP BY policy_type_id
+";
+
+$results = DB::select($querys, [$userId]); 
+
+$weekExpolicies = collect($results);
+// dd($weekExpolicies);
     $insuredCnt = Certificate::where('producer_user_id', Auth::user()->id)->count('client_user_id');
     $agencyinfo = $this->agency->getByUserId($userId);
     $brokersinfo = $this->agency->getBrokersByAgency($userId);
-    return view('dash', compact('users', 'monthExp', 'weekExp', 'insuredCnt', 'agencyinfo', 'brokersinfo'));
+    return view('dash', compact('users', 'monthExp', 'weekExp', 'insuredCnt', 'agencyinfo','monthExpolicies', 'brokersinfo' , 'weekExpolicies'));
   }
 
   public function formlist()
