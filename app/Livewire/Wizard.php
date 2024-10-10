@@ -12,6 +12,8 @@ use App\Models\Subscription;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Illuminate\Support\Facades\Crypt;
+
 use Mail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -141,7 +143,7 @@ class Wizard extends Component
              $user = User::create([
                 'name' => $this->fname,
                 'email' =>$this->email,
-                'password' => Hash::make($this->password),
+                'password' => Crypt::encryptString($this->password),
                 'rememberToken' => 'IA' . $randomNumber,
                 'role' => "agent",
               ]);

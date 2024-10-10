@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Cookie;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Mail;
+use Illuminate\Support\Facades\Crypt;
 use GuzzleHttp\Client;
 use Illuminate\Validation\ValidationException;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
@@ -39,9 +40,9 @@ class AuthController extends Controller
     ->first();
     $credentials = $request->only('email', 'password');
     if (!Auth::attempt($credentials)) {    
-         $message = 'Wrong credentials';
+           $message = 'Wrong credentials';
    return Redirect::back()->with('danger' ,$message);
-    }  
+    }
     if ($user->role == 'truck_driver') {
       $message = 'Wrong credentials';
    return Redirect::back()->with('danger' ,$message);
@@ -311,14 +312,17 @@ return redirect('/fportal');
       'status'=> 'Active',
     ]);
 
+    $decryptedData = Crypt::decryptString($user->password);
+
+
     $data = [
       'name' => $user->name,
       'email' => $user->email,
-      'password' => $user->password,
+      'password' => $decryptedData,
   ];
       $name = $user->name ;
       $email = $user->email;
-      $password = $user->password;
+      $password = $decryptedData;
  
 
     Mail::send('email.login', $data, function ($message) use ($email, $name,$password) {
