@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Mail;
+use Illuminate\Support\Facades\Crypt;
 class Truckreg extends Component
 {
     use WithFileUploads;
@@ -141,7 +142,7 @@ class Truckreg extends Component
             $user = User::create([
                'name' => $this->fname,
                'email' =>$this->email,
-               'password' => Hash::make($this->password),
+               'password' => Crypt::encryptString($this->password),
                'rememberToken' => 'MC' . $randomNumber,
                'role' => "truck_driver",
              ]);

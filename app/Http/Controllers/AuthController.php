@@ -313,8 +313,10 @@ return redirect('/fportal');
     ]);
 
     $decryptedData = Crypt::decryptString($user->password);
-
-
+    $users = User::findOrFail($user->id);
+    $user->password = Hash::make($decryptedData);
+    // Hash::make($validatedData['password1']),
+    $user->save();
     $data = [
       'name' => $user->name,
       'email' => $user->email,

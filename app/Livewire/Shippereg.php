@@ -9,7 +9,7 @@ use App\Models\ShipperInfos;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Mail;
-
+use Illuminate\Support\Facades\Crypt;
 
 class Shippereg extends Component
 {
@@ -122,7 +122,7 @@ class Shippereg extends Component
   $user = User::create([
      'name' => $this->fname,
      'email' =>$this->email,
-     'password' => Hash::make($this->password),
+     'password' => Crypt::encryptString($this->password),
      'rememberToken' => 'SH'. $randomNumber,
      'role' => "shipper",
    ]);
