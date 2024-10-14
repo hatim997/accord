@@ -877,13 +877,13 @@ $r=0;
         'driver_id' => $lastInsertedId,
         'relation_status' => 1
       ]);
-
+      $email = $validatedData['email'];
       $data = [
         'name' => $names,
         'email' => $email,
          'password' => $password
     ];
-    $code ='MCS' . $randomNumber;
+    $code ='MC' . $randomNumber;
   Mail::send('email.register', $data, function ($message) use ($code) {  
           $message->to($email, $names)
                 ->subject('Register');
