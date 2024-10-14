@@ -107,6 +107,7 @@ Route::get('reboot',function(){
   Artisan::call('view:clear'); 
   Artisan::call('route:clear');  Artisan::call('config:clear');
   Artisan::call('cache:clear');  Artisan::call('key:generate');
+  return "done";
 });
 Route::post('/register', [AuthController::class, 'registerfrom'])->name('regist');
 Route::post('/reg', [AuthController::class, 'register'])->name('form.reg');

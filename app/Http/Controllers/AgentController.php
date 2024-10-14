@@ -219,13 +219,14 @@ $weekExpolicies = collect($results);
     $insuredCnt = Certificate::where('producer_user_id', Auth::user()->id)->count('client_user_id');
     $agencyinfo = $this->agency->getByUserId($userId);
   //   $brokersinfo = $this->agency->getBrokersByAgency($userId);
-    // $brokersinfo  = Certificate::with('driver','user')->where('producer_user_id' ,$userId)->get();
-    $brokersinfo = Certificate::with(['driverDetails.user', 'user'])
-    ->where('producer_user_id', $userId)
-    ->whereHas('driverDetails.user', function($query) {
-        $query->whereColumn('driver_details.user_id', 'users.id');
-    })
-    ->get();
+     $brokersinfo  = Certificate::with('driver','user')->where('producer_user_id' ,$userId)->get();
+    // $brokersinfo = Certificate::with(['driverDetails.user', 'user'])
+    // ->where('producer_user_id', $userId)
+    // ->whereHas('driverDetails.user', function($query) {
+    //     $query->whereColumn('driver_details.user_id', 'users.id');
+    // })
+    // ->get();
+ 
     return view('dash', compact('users', 'monthExp', 'weekExp', 'insuredCnt', 'agencyinfo','monthExpolicies', 'brokersinfo' , 'weekExpolicies'));
   }
 

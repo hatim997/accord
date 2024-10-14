@@ -205,16 +205,16 @@ thead, tbody, tfoot, tr, td, th {
                                       <div class="d-flex align-items-center">
 
                                           <div>
-                                              <h6 class="mb-0 text-truncate"> {{ $bi->driverDetails->name }}</h6>
+                                              <h6 class="mb-0 text-truncate"> {{ $bi->driver->name }}</h6>
                                           </div>
                                       </div>
 
                                   </td>
                                   <td class="text-truncate">
-                                    {{ $bi->driverDetails->usdot }}
+                                    {{ $bi->driver->usdot }}
                                   </td>
                                   <td> 
-                                    {{ $bi->driverDetails->mc_number }}
+                                    {{ $bi->driver->mc_number }}
                                   </td>
                                   <td>
                                     @if($bi->driver->status == "1")
@@ -266,19 +266,19 @@ thead, tbody, tfoot, tr, td, th {
                                       <div class="d-flex align-items-center">
 
                                           <div>
-                                              <h6 class="mb-0 text-truncate"> {{ $bi->driverDetails->name }}</h6>
+                                              <h6 class="mb-0 text-truncate"> {{ $bi->driver->name }}</h6>
                                           </div>
                                       </div>
 
                                   </td>
                                   <td class="text-truncate">
-                                    {{ $bi->driverDetails->usdot }}
+                                    {{ $bi->driver->usdot }}
                                   </td>
                                   <td> 
-                                    {{ $bi->driverDetails->mc_number }}
+                                    {{ $bi->driver->mc_number }}
                                   </td>
                                   <td>
-                                    @if($bi->driverDetails->status == "1")
+                                    @if($bi->driver->status == "1")
                                       <span class="badge bg-label-success rounded-pill">Active</span>
                                     @else
                                       <span class="badge bg-label-danger rounded-pill">Inactive</span>
