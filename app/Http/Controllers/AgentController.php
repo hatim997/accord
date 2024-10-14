@@ -817,6 +817,9 @@ $r=0;
         $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
         $file->storeAs('public/uploads_agent_trucker_license', $name);
       }
+      else{
+        $name = "";
+      }
 
       DriverDetail::create([
         'user_id' =>$lastInsertedId ,
