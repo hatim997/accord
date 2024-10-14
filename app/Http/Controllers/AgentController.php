@@ -878,16 +878,17 @@ $r=0;
         'relation_status' => 1
       ]);
       $email = $validatedData['email'];
+      $code ='MC' . $randomNumber;
       $data = [
-        'name' => $names,
-        'email' => $email,
-         'password' => $password
+        'code' =>$code,      
     ];
-    $code ='MC' . $randomNumber;
+ 
   Mail::send('email.register', $data, function ($message) use ($code) {  
           $message->to($email, $names)
                 ->subject('Register');
     });
+
+     
     return redirect()->route('formlist');
   }
 }
