@@ -791,8 +791,9 @@ $r=0;
            'code' => 'FB' . $randomNumber,
     ];
     $code ='FB' . $randomNumber;
-  Mail::send('email.register', $data, function ($message) use ($code) {        $message->to($email, $names)
-                ->subject('Register');
+    Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+      $message->to($email, $names)
+              ->subject('Register');
     });
 
 
@@ -877,16 +878,16 @@ $r=0;
         'driver_id' => $lastInsertedId,
         'relation_status' => 1
       ]);
-      $email = $validatedData['email'];
+      $email = $request->email;
       $code ='MC' . $randomNumber;
       $data = [
-        'code' =>$code,      
+        'code' => $code,      
     ];
- 
-  Mail::send('email.register', $data, function ($message) use ($code) {  
-          $message->to($email, $names)
-                ->subject('Register');
-    });
+
+ Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+  $message->to($email, $names)
+          ->subject('Register');
+});
 
      
     return redirect()->route('formlist');
