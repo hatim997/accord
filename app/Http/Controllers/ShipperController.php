@@ -15,6 +15,7 @@ use App\Models\EndorsementFile;
 use App\Models\ShipperEndorsement;
 use App\Models\ShipperDriver;
 use App\Models\ShipperLimit;
+use App\Models\ShipperInfos;
 use App\Models\PolicyLimit;
 use App\Models\PolicyType;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +54,54 @@ class ShipperController extends Controller
     $Insurance_detail = Insurance_detail::where('id_isu_data_fk', $id)->first();
     return view('shipper.pdf', compact('insuranceData', 'Insurance_detail'));
   }
+  public function profiles()
+  {
+    $userId = Auth::user()->id;
+
+    $driverdetail = User::with('shippers')->where('id', $userId)->get();
+
+
+   return view('shipper.profile' , compact('driverdetail'));
+  }
+  public function proupd(Request $request)
+  {
+    $userId = Auth::user()->id;
+
+    $user =   user::find($userId);
+
+    $user->name = $request->input('username');
+$user->save();
+
+
+    $driver = ShipperInfos::find($request->id);
+
+   
+    if ($driver) {
+        $driver->name = $request->input('name');
+        $driver->mname = $request->input('mname');
+        $driver->lname = $request->input('lname');      
+        $driver->industry = $request->input('industry');
+        $driver->owner = $request->input('owner');
+        $driver->fax = $request->input('fax');
+        $driver->tax = $request->input('tax');
+        $driver->nominal_capital = $request->input('nominal_capital');
+        $driver->title = $request->input('title');
+        $driver->websit = $request->input('website');
+        $driver->extra_email = $request->input('altemail');
+        $driver->cellphone = $request->input('cellphone');
+        $driver->address = $request->input('Addss');
+        $driver->address2 = $request->input('Addss2');
+        $driver->state = $request->input('state');
+        $driver->city = $request->input('city');
+        $driver->zip = $request->input('zip');
+
+        $driver->save();
+    }
+    return redirect()->back()->with('success', 'User  updated successfully!');
+
+
+  }
+
 
   public function dash2()
   {

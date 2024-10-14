@@ -23,9 +23,9 @@ class Truckreg extends Component
     public $address ,$address2 , $zip , $city, $state ,$country, $password ,$password_confirmation;
     public $email ,$phone, $fax, $exemail ,$secphone;
     public $websit ,$tax , $scac, $usdot ,$imagePath;
-    public $license_number,    $license_expiry_date,    $license_type,    $years_of_experience;
-    public $vehicle_registration_number,    $vehicle_make,    $vehicle_model,    $vehicle_year;
-    public $vehicle_capacity,    $vehicle_status;
+    public $license_number,  $license_expiry_date, $license_type, $years_of_experience;
+    public $vehicle_registration_number, $vehicle_make,  $vehicle_model,    $vehicle_year;
+    public $vehicle_capacity,  $vehicle_status;
      public $successMessage = '';
 
 

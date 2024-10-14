@@ -183,33 +183,38 @@ thead, tbody, tfoot, tr, td, th {
               <div class="table-responsive">
                 
                   <table class="table dataTable collapsed chat-contact-list" id="contact-list" >
-                      <h4 class="mb-1 py-4 px-4">List of Truckers/Brokers By Agency</h4>
+                      <h4 class="mb-1 py-4 px-4">List of Truckers By Agency</h4>
                       <thead class="table-light">
                           <tr>
-                              <th class="text-truncate">User</th>
-                              <th class="text-truncate">Role</th>
+                              <th class="text-truncate">Company Name</th>
+                              <th class="text-truncate">UsDot #</th>
+                              <th class="text-truncate">MC#</th>
                               <th class="text-truncate">Status</th>
+                              <th class="text-truncate">view COI</th>
                           </tr>
 
                       </thead>
                       <tbody>
+                       {{-- {{dd($brokersinfo)}} --}}
                           @foreach ($brokersinfo as $bi)
+                          @if ($bi->user->role == 'freight_driver')
+                              
+                      
                           <tr class="parent">
                                   <td>
                                       <div class="d-flex align-items-center">
 
                                           <div>
-                                              <h6 class="mb-0 text-truncate"> {{ $bi->driver->name }}</h6>
+                                              <h6 class="mb-0 text-truncate"> {{ $bi->driverDetails->name }}</h6>
                                           </div>
                                       </div>
 
                                   </td>
                                   <td class="text-truncate">
-                                    @if($bi->driver->role == "truck_driver")
-                                      <h6 class="mb-0 text-truncate"> Trucker </h6>
-                                    @else
-                                      <h6 class="mb-0 text-truncate"> Freight </h6>
-                                    @endif
+                                    {{ $bi->driverDetails->usdot }}
+                                  </td>
+                                  <td> 
+                                    {{ $bi->driverDetails->mc_number }}
                                   </td>
                                   <td>
                                     @if($bi->driver->status == "1")
@@ -218,7 +223,80 @@ thead, tbody, tfoot, tr, td, th {
                                       <span class="badge bg-label-danger rounded-pill">Inactive</span>
                                     @endif
                                   </td>
+                                  <td>
+                                    <div class="d-flex align-items-start flex-column">
+                                    <a target="blank" href="get_pdf/{{$bi->id}}"><span class=""><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 16 16">
+                                      <g fill="#ff4c51"><path d="M5.523 12.424q.21-.124.459-.238a8 8 0 0 1-.45.606c-.28.337-.498.516-.635.572l-.035.012a.3.3 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36c.106-.165.319-.354.647-.548m2.455-1.647q-.178.037-.356.078a21 21 0 0 0 .5-1.05a12 12 0 0 0 .51.858q-.326.048-.654.114m2.525.939a4 4 0 0 1-.435-.41q.344.007.612.054c.317.057.466.147.518.209a.1.1 0 0 1 .026.064a.44.44 0 0 1-.06.2a.3.3 0 0 1-.094.124a.1.1 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256M8.278 6.97c-.04.244-.108.524-.2.829a5 5 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822c.038-.177.11-.248.196-.283a.5.5 0 0 1 .145-.04c.013.03.028.092.032.198q.008.183-.038.465z"></path><path fillRule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2zM4.165 13.668c.09.18.23.343.438.419c.207.075.412.04.58-.03c.318-.13.635-.436.926-.786c.333-.401.683-.927 1.021-1.51a11.7 11.7 0 0 1 1.997-.406c.3.383.61.713.91.95c.28.22.603.403.934.417a.86.86 0 0 0 .51-.138c.155-.101.27-.247.354-.416c.09-.181.145-.37.138-.563a.84.84 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.8 5.8 0 0 0-1.335-.05a11 11 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794c.036-.218.055-.426.048-.614a1.24 1.24 0 0 0-.127-.538a.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077c-.377.15-.576.47-.651.823c-.073.34-.04.736.046 1.136c.088.406.238.848.43 1.295a20 20 0 0 1-1.062 2.227a7.7 7.7 0 0 0-1.482.645c-.37.22-.699.48-.897.787c-.21.326-.275.714-.08 1.103"></path>
+                                      </g></svg></span></a>
+
+                                     <p>
+                                      &nbsp;pdf
+                                      </p> 
+                                    </div>
+                                  </td>
                               </tr>
+                              @endif
+                          @endforeach
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+      <div class="col-12">
+          <div class="card">
+              <div class="table-responsive">
+                
+                  <table class="table dataTable collapsed chat-contact-list" id="contact-list" >
+                      <h4 class="mb-1 py-4 px-4">List of Brokers By Agency</h4>
+                      <thead class="table-light">
+                          <tr>
+                            <th class="text-truncate">Company Name</th>
+                            <th class="text-truncate">UsDot #</th>
+                            <th class="text-truncate">MC#</th>
+                            <th class="text-truncate">Status</th>
+                            <th class="text-truncate">view COI</th>
+                          </tr>
+
+                      </thead>
+                      <tbody>
+                          @foreach ($brokersinfo as $bi)
+                          @if ($bi->user->role == 'truck_driver')
+                            <tr class="parent">
+                                  <td>
+                                      <div class="d-flex align-items-center">
+
+                                          <div>
+                                              <h6 class="mb-0 text-truncate"> {{ $bi->driverDetails->name }}</h6>
+                                          </div>
+                                      </div>
+
+                                  </td>
+                                  <td class="text-truncate">
+                                    {{ $bi->driverDetails->usdot }}
+                                  </td>
+                                  <td> 
+                                    {{ $bi->driverDetails->mc_number }}
+                                  </td>
+                                  <td>
+                                    @if($bi->driverDetails->status == "1")
+                                      <span class="badge bg-label-success rounded-pill">Active</span>
+                                    @else
+                                      <span class="badge bg-label-danger rounded-pill">Inactive</span>
+                                    @endif
+                                  </td>
+                                  <td>
+                                    <div class="d-flex align-items-start flex-column">
+                                    <a target="blank" href="get_pdf/{{$bi->id}}"><span class=""><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 16 16">
+                                      <g fill="#ff4c51"><path d="M5.523 12.424q.21-.124.459-.238a8 8 0 0 1-.45.606c-.28.337-.498.516-.635.572l-.035.012a.3.3 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36c.106-.165.319-.354.647-.548m2.455-1.647q-.178.037-.356.078a21 21 0 0 0 .5-1.05a12 12 0 0 0 .51.858q-.326.048-.654.114m2.525.939a4 4 0 0 1-.435-.41q.344.007.612.054c.317.057.466.147.518.209a.1.1 0 0 1 .026.064a.44.44 0 0 1-.06.2a.3.3 0 0 1-.094.124a.1.1 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256M8.278 6.97c-.04.244-.108.524-.2.829a5 5 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822c.038-.177.11-.248.196-.283a.5.5 0 0 1 .145-.04c.013.03.028.092.032.198q.008.183-.038.465z"></path><path fillRule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2zM4.165 13.668c.09.18.23.343.438.419c.207.075.412.04.58-.03c.318-.13.635-.436.926-.786c.333-.401.683-.927 1.021-1.51a11.7 11.7 0 0 1 1.997-.406c.3.383.61.713.91.95c.28.22.603.403.934.417a.86.86 0 0 0 .51-.138c.155-.101.27-.247.354-.416c.09-.181.145-.37.138-.563a.84.84 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.8 5.8 0 0 0-1.335-.05a11 11 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794c.036-.218.055-.426.048-.614a1.24 1.24 0 0 0-.127-.538a.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077c-.377.15-.576.47-.651.823c-.073.34-.04.736.046 1.136c.088.406.238.848.43 1.295a20 20 0 0 1-1.062 2.227a7.7 7.7 0 0 0-1.482.645c-.37.22-.699.48-.897.787c-.21.326-.275.714-.08 1.103"></path>
+                                      </g></svg></span></a>
+
+                                     <p>
+                                      &nbsp;pdf
+                                      </p> 
+                                    </div>
+                                  </td>
+                              </tr>
+                              @endif
                           @endforeach
                       </tbody>
                   </table>

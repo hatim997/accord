@@ -26,6 +26,8 @@ class AgencyInfos extends Model
     'prefix',
     'fname',
     'suffix',
+    'websit',
+    'title',
     'producer_customer_number',
     'image_path',
     'is_active',

@@ -183,11 +183,7 @@
                                 <input type="email" wire:model="exemail" class="form-control" id="productAmount" />
                                 @error('exemail') <span class="error">{{ $message }}</span> @enderror
                             </div>
-                            <div class="form-group py-3">
-                                <label for="description">Second Phone No:</label>
-                                <input type="tel" wire:model="secphone" class="form-control" id="phone" />
-                                @error('secphone') <span class="error">{{ $message }}</span> @enderror
-                            </div>
+                      
                         </div>
                     </div>
                 </div>

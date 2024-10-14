@@ -178,6 +178,9 @@ Route::group(['middleware' => 'checkRole:agent'], function () {
   Route::post('/agent-reg-adds', [ac::class, 'store_trucker'])->name('agent.regs.store'); 
   Route::get('/get-driver/{id}', [ac::class, 'get_driver'])->name('get_driver');
   Route::post('/update-driver', [ac::class, 'update_driver'])->name('update_driver');
+  Route::post('/password/update', [ac::class, 'checkpass'])->name('password.update');
+  Route::post('/profile/update', [ac::class, 'proupd'])->name('agent.proupd');
+
 });
 
 
@@ -200,6 +203,8 @@ Route::group(['middleware' => 'checkRole:agent'], function () {
   Route::post('/store-driver', [TruckController::class, 'storeDriver'])->name('store.driver');
   Route::get('/add-broker', [TruckController::class, 'brokers'])->name('add.broker');
   Route::post('/store-broker', [TruckController::class, 'storeBroker'])->name('store.broker');
+  Route::post('/profile/updatese', [TruckController::class, 'proupd'])->name('driver.proupd');
+
 });
 
 
@@ -220,13 +225,14 @@ Route::group(['middleware' => 'checkRole:shipper'], function () {
   Route::get('/agent-reg-add-brok-forms', [ShipperController::class, 'brokers'])->name('agent.regs.add.brok.forms');
   Route::post('/store-brokers', [ShipperController::class, 'storeBroker'])->name('store.brokers');
   Route::post('/endorsmenr', [ShipperController::class, 'endors'])->name('endors');
-  Route::get('/profile-shipper', [TruckController::class, 'shipperprofiles'])->name('profile.shipper');
+  Route::get('/profile-shipper', [ShipperController::class, 'profiles'])->name('profile.shipper');
   Route::get('/upload-certificate', [ShipperController::class, 'uploadCertificate'])->name('upload.certificate');
   Route::post('/save-certificate', [ShipperController::class, 'storeCertificate'])->name('save.certificate');
   Route::get('/list-certificate', [ShipperController::class, 'listCertificate'])->name('list.certificate');
   Route::get('/download-certificate/{file}', [ShipperController::class, 'downloadCertificate'])->name('download.certificate');
   Route::post('/shipper-limit', [ShipperController::class, 'shipperLimitForm'])->name('shipper.limit');
   Route::get('/shipper-fromdrop2', [ShipperController::class, 'choosePolicyTypes'])->name('shipper.fromdrop2');
+  Route::post('/profile/updates', [ShipperController::class, 'proupd'])->name('shipper.proupd');
  
 });
 Route::get('/notice', [AdminController::class, 'notice'])->name('notice');
@@ -242,6 +248,8 @@ Route::group(['middleware' => 'checkRole:freight_driver'], function () {
   Route::post('/store-shipp', [FreightController::class, 'addshipper'])->name('store.shipper');
   Route::post('/short-add', [FreightController::class, 'shortaddshipper'])->name('short.shipper');
   Route::post('/store-driverr', [FreightController::class, 'storeDriverr'])->name('store.driverr');
+  Route::get('/profile-freight', [FreightController::class, 'profiles'])->name('profile.freight');
+  Route::post('/profile/updat', [FreightController::class, 'proupd'])->name('freight.proupd');
 
 
 });

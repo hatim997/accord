@@ -165,6 +165,7 @@ class Wizard extends Component
                   'title' => $this->title,
                   'ialn' => $this->ialn,
                   'mname' => $this->mname,
+                  'websit' => $this->websit,                  
                   'lname' => $this->lname,
                   'suffix' => $this->suffix,
                   'prefix' => $this->prefix,

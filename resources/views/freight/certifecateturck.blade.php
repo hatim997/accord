@@ -26,6 +26,7 @@
     <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 @endsection
 
+
 @section('content')
     <div class="row gy-4 justify-content-center">
         <div class="col-md-10 col-lg-10">

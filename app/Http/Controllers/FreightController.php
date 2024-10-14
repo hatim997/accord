@@ -199,6 +199,54 @@ class FreightController extends Controller
 
 
 
+  public function profiles()
+  {
+    $userId = Auth::user()->id;
+
+    $driverdetail = User::with('truckers')->where('id', $userId)->get();
+
+
+   return view('freight.profile' , compact('driverdetail'));
+  }
+  public function proupd(Request $request)
+  {
+    $userId = Auth::user()->id;
+
+    $user =   user::find($userId);
+
+    $user->name = $request->input('username');
+    $user->save();
+
+
+    $driver = ShipperInfos::find($request->id);
+
+   
+    if ($driver) {
+        $driver->name = $request->input('name');
+        $driver->mname = $request->input('mname');
+        $driver->lname = $request->input('lname');      
+        $driver->fax = $request->input('fax');
+        $driver->tax = $request->input('tax');
+        $driver->usdot = $request->input('usdot');
+        $driver->mc_number = $request->input('mc_number');
+        $driver->suffix = $request->input('suffix');
+        $driver->scac = $request->input('scac');
+        $driver->title = $request->input('title');
+        $driver->websit = $request->input('websit');
+        $driver->extra_email = $request->input('altemail');
+        $driver->cellphone = $request->input('cellphone');
+        $driver->address = $request->input('Addss');
+        $driver->address2 = $request->input('Addss2');
+        $driver->state = $request->input('state');
+        $driver->city = $request->input('city');
+        $driver->zip = $request->input('zip');
+
+        $driver->save();
+    }
+    return redirect()->back()->with('success', 'User  updated successfully!');
+
+
+  }
 
 
 

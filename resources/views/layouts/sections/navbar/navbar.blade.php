@@ -116,7 +116,7 @@
                       @elseif ($user->role == "shipper")         
                       <a href="{{ route('profile.shipper')}}" class="stretched-link">User info </a>
                       @elseif ($user->role == "freight_driver")
-                      <a href="{{ route('profile.agency')}}" class="stretched-link">User info </a>
+                      <a href="{{ route('profile.freight')}}" class="stretched-link">User info </a>
                       @else
                       <a href="" class="stretched-link">User info </a>
                       @endif

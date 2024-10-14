@@ -34,7 +34,7 @@ $navbarHideToggle = false;
             </div>
 
             <div class="card-body">
-          <form  method="POST" action="{{route('agent.proupd')}}">
+          <form  method="POST" action="{{route('shipper.proupd')}}">
             @csrf
             <div style="display: flex;justify-content: flex-end;">
 
@@ -49,7 +49,7 @@ $navbarHideToggle = false;
             @foreach ($driverdetail as $item)
                 
            
-            <input type="hidden" class="form-control" value="{{$item->agencies[0]->id}}" name="id"   id="username" placeholder="ACME Inc."  />
+            <input type="hidden" class="form-control" value="{{$item->shippers[0]->id}}" name="id"   id="username" placeholder="ACME Inc."  />
 
               <div class="row">
                 <div class="col-4">
@@ -60,13 +60,13 @@ $navbarHideToggle = false;
                 </div>
                 <div class="col-4">
                   <div class="form-floating form-floating-outline mb-3">
-                    <input type="text" class="form-control" value="{{$item->agencies[0]->mname}}" name="mname"   id="username" placeholder="ACME Inc."  />
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->mname}}" name="mname"   id="username" placeholder="ACME Inc."  />
                     <label for="username1">Middle Name:</label>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-floating form-floating-outline mb-3">
-                    <input type="text" class="form-control" value="{{$item->agencies[0]->lname}}" name="lname"   id="username" placeholder="ACME Inc."  />
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->lname}}" name="lname"   id="username" placeholder="ACME Inc."  />
                     <label for="username1">Last Name:</label>
                   </div>
                 </div>
@@ -81,55 +81,73 @@ $navbarHideToggle = false;
                 </div>
                 <div class="col-4">
                   <div class="form-floating form-floating-outline mb-3">
-                    <input type="text" class="form-control" value="{{$item->agencies[0]->extra_email}}"  name="altemail" id="altemail1"
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->extra_email}}"  name="altemail" id="altemail1"
                       placeholder="Address line1"  />
                     <label for="altemail1">ALT EMAIL</label>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-floating form-floating-outline mb-3">
-                    <input type="text" class="form-control" value="{{$item->agencies[0]->cellphone}}"  name="cellphone" id="phone1" placeholder="Address line1"  />
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->cellphone}}"  name="cellphone" id="phone1" placeholder="Address line1"  />
                     <label for="phone1">CONTACT #</label>
                   </div>
                 </div>
-
+                <div class="col-4">
+                  <div class="form-floating form-floating-outline mb-3">
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->fax}}"  name="fax" id="phone1" placeholder="Address line1"  />
+                    <label for="phone1">fax #</label>
+                  </div>
+                </div>
               </div>
               <hr><br>  
               <div class="row">
                 <div class="col-4">
 
                   <div class="form-floating form-floating-outline mb-3">
-                    <input type="text" class="form-control" value="{{$item->agencies[0]->name}}"  name="name" id="fullname1" placeholder="ACME Inc."  />
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->name}}"  name="name" id="fullname1" placeholder="ACME Inc."  />
                     <label for="fullname1">Campany Name</label>
                   </div>
-                </div>
-                <div class="col-4">
+                </div> <div class="col-4">
                   <div class="form-floating form-floating-outline mb-3">
-                    <input type="text" class="form-control" value="{{$item->agencies[0]->ialn}}"  name="ialn"  id="email1" placeholder="example.com"
-                        />
-                    <label for="email1">Insurance Agency License Number</label>
-                  </div>
-                </div>
-
-                <div class="col-4">
-                  <div class="form-floating form-floating-outline mb-3">
-                    <input type="text" class="form-control" value="{{$item->agencies[0]->suffix}}"  name="suffix"  id="email1" placeholder="example.com"
-                        />
-                    <label for="email1">Suffix</label>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="form-floating form-floating-outline mb-3">
-                    <input type="text" class="form-control" value="{{$item->agencies[0]->title}}"  name="title"  id="email1" placeholder="example.com"
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->title}}"  name="title"  id="email1" placeholder="example.com"
                         />
                     <label for="email1">Title</label>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-floating form-floating-outline mb-3">
-                    <input type="text" class="form-control" value="{{$item->agencies[0]->websit}}"  name="websit"  id="email1" placeholder="example.com"
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->nominal_capital}}"  name="nominal_capital"  id="email1" placeholder="example.com"
+                        />
+                    <label for="email1">Nominal Capital</label>
+                  </div>
+                </div>
+
+                <div class="col-4">
+                  <div class="form-floating form-floating-outline mb-3">
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->owner}}"  name="owner"  id="email1" placeholder="example.com"
+                        />
+                    <label for="email1">Owner</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-floating form-floating-outline mb-3">
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->industry}}"  name="industry"  id="email1" placeholder="example.com"
+                        />
+                    <label for="email1">Industry</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-floating form-floating-outline mb-3">
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->website}}"  name="website"  id="email1" placeholder="example.com"
                         />
                     <label for="email1">Company Website address:</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-floating form-floating-outline mb-3">
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->tax}}"  name="tax"  id="email1" placeholder="example.com"
+                        />
+                    <label for="email1">US Tax ID / Canadian Business Number</label>
                   </div>
                 </div>
               </div>
@@ -137,32 +155,32 @@ $navbarHideToggle = false;
                 <div class="row">
                 <div class="col-6">
                   <div class="form-floating form-floating-outline mb-3">
-                    <input type="text" class="form-control" value="{{$item->agencies[0]->address}}"  name="Addss" id="Addss1" placeholder=""  />
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->address}}"  name="Addss" id="Addss1" placeholder=""  />
                     <label for="Addss1"> Address 1</label>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="form-floating form-floating-outline mb-3">
-                    <input type="text" class="form-control" value="{{$item->agencies[0]->address2}}"  name="Addss2" id="Address21" placeholder=""  />
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->address2}}"  name="Addss2" id="Address21" placeholder=""  />
                     <label for="Address21"> Address 2</label>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-floating form-floating-outline mb-3">
-                    <input type="text" class="form-control" value="{{$item->agencies[0]->state}}"  name="state" id="state1" placeholder=""  />
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->state}}"  name="state" id="state1" placeholder=""  />
                     <label for="state1">state</label>
                   </div>
                 </div>
 
                 <div class="col-4">
                   <div class="form-floating form-floating-outline mb-3">
-                    <input type="text" class="form-control" value="{{$item->agencies[0]->city}}"  name="city" id="city1" placeholder=""  />
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->city}}"  name="city" id="city1" placeholder=""  />
                     <label for="city1">city</label>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-floating form-floating-outline mb-3">
-                    <input type="text" class="form-control" value="{{$item->agencies[0]->zip}}"  name="zip" id="zip1" placeholder=""  />
+                    <input type="text" class="form-control" value="{{$item->shippers[0]->zip}}"  name="zip" id="zip1" placeholder=""  />
                     <label for="zip1">zip</label>
                   </div>
                 </div>

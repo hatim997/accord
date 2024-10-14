@@ -268,13 +268,60 @@ $weekExpolicies = collect($results);
   {
     $userId = Auth::user()->id;
 
-    $driverdetail = DriverDetail::where('user_id', $userId)->get();
+    $driverdetail =  User::with('truckers')->where('id', $userId)->get();
 
 
 
 
 
     return view('truck.profile' , compact('driverdetail'));
+  }
+
+
+  public function proupd(Request $request)
+  {
+    $userId = Auth::user()->id;
+
+    $user =   user::find($userId);
+
+    $user->name = $request->input('username');
+    $user->save();
+
+    $driver = DriverDetail::find($request->id);
+    if ($driver) {
+        $driver->name = $request->input('name');
+        $driver->mname = $request->input('mname');
+        $driver->lname = $request->input('lname');      
+        $driver->suffix = $request->input('suffix');
+        $driver->title = $request->input('title');
+        $driver->websit = $request->input('websit');
+        $driver->extra_email = $request->input('altemail');
+        $driver->cellphone = $request->input('cellphone');
+        $driver->address = $request->input('Addss');
+        $driver->address2 = $request->input('Addss2');
+        $driver->state = $request->input('state');
+        $driver->city = $request->input('city');
+        $driver->zip = $request->input('zip');    
+        $driver->salutation = $request->input('salutation');       
+        $driver->tax = $request->input('tax');
+        $driver->fax = $request->input('fax');
+        $driver->license_number = $request->input('license_number');
+        $driver->license_expiry_date = $request->input('license_expiry_date');
+        $driver->license_type = $request->input('license_type');
+        $driver->years_of_experience = $request->input('years_of_experience');
+        $driver->vehicle_registration_number = $request->input('vehicle_registration_number');
+        $driver->vehicle_make = $request->input('vehicle_make');
+        $driver->vehicle_model = $request->input('vehicle_model');
+        $driver->vehicle_year = $request->input('vehicle_year');
+        $driver->vehicle_capacity = $request->input('vehicle_capacity');
+        $driver->vehicle_status = $request->input('vehicle_status');
+        $driver->scac = $request->input('scac');
+        $driver->usdot = $request->input('usdot');       
+        $driver->mc_number = $request->input('mc_number');
+        $driver->save();
+    }
+    return redirect()->back()->with('success', 'User  updated successfully!');
+
   }
 
   public function addTruck()
@@ -345,7 +392,6 @@ $weekExpolicies = collect($results);
     $certificate = Certificate::where('client_user_id',Auth::user()->id)
     ->join('shipper_infos', 'shipper_infos.user_id', '=', 'certificates.ch')
     ->select('certificates.*','shipper_infos.id as shipperid', 'shipper_infos.name as name')->get();
-
     return view('freight.certifecateturck', compact('certificate'));
   }
 

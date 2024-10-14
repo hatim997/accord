@@ -92,10 +92,79 @@ return $certificates ;
   {
     $userId = Auth::user()->id;
 
-    $driverdetail = AgencyInfos::where('user_id', $userId)->get();
+    $driverdetail = User::with('agencies')->where('id', $userId)->get();
 
-    return view('truck.profile' , compact('driverdetail'));
+
+   return view('agent.profile' , compact('driverdetail'));
   }
+  
+
+  public function proupd(Request $request)
+  {
+    $userId = Auth::user()->id;
+
+    $user =   user::find($userId);
+
+    $user->name = $request->input('username');
+$user->save();
+
+
+    $driver = AgencyInfos::find($request->id);
+
+   
+    if ($driver) {
+        $driver->name = $request->input('name');
+        $driver->mname = $request->input('mname');
+        $driver->lname = $request->input('lname');      
+        $driver->ialn = $request->input('ialn');
+        $driver->suffix = $request->input('suffix');
+        $driver->title = $request->input('title');
+        $driver->websit = $request->input('websit');
+        $driver->extra_email = $request->input('altemail');
+        $driver->cellphone = $request->input('cellphone');
+        $driver->address = $request->input('Addss');
+        $driver->address2 = $request->input('Addss2');
+        $driver->state = $request->input('state');
+        $driver->city = $request->input('city');
+        $driver->zip = $request->input('zip');
+
+        $driver->save();
+    }
+    return redirect()->back()->with('success', 'User  updated successfully!');
+
+
+  }
+
+  public function checkpass(Request $request)
+  {
+    $request->validate([
+      'password' => 'required',
+      'newpass' => 'required|min:8|confirmed',
+  ]);
+
+      // Get the currently authenticated user
+      $user = Auth::user();
+
+      // Check if the provided current password matches the user's actual password
+      if (!Hash::check($request->password, $user->password)) {
+          return response()->json(['status' => 'error', 'message' => 'The current password is incorrect.'], 422);
+      }
+  
+      // Update the user's password
+      $user->password = Hash::make($request->newpass);
+      $user->save();
+  
+      Auth::logout();
+      Session::flush(); // Destroy all sessions
+      $cookies = Cookie::get();
+      foreach ($cookies as $name => $value) {
+        Cookie::queue(Cookie::forget($name));
+      }  
+      // Return a success response
+      return response()->json(['status' => 'success', 'message' => 'Password updated successfully!']);
+  
+  }
+  
   public function dash()
   {
     $users = User::all();
@@ -149,7 +218,14 @@ $weekExpolicies = collect($results);
 // dd($weekExpolicies);
     $insuredCnt = Certificate::where('producer_user_id', Auth::user()->id)->count('client_user_id');
     $agencyinfo = $this->agency->getByUserId($userId);
-    $brokersinfo = $this->agency->getBrokersByAgency($userId);
+  //   $brokersinfo = $this->agency->getBrokersByAgency($userId);
+    // $brokersinfo  = Certificate::with('driver','user')->where('producer_user_id' ,$userId)->get();
+    $brokersinfo = Certificate::with(['driverDetails.user', 'user'])
+    ->where('producer_user_id', $userId)
+    ->whereHas('driverDetails.user', function($query) {
+        $query->whereColumn('driver_details.user_id', 'users.id');
+    })
+    ->get();
     return view('dash', compact('users', 'monthExp', 'weekExp', 'insuredCnt', 'agencyinfo','monthExpolicies', 'brokersinfo' , 'weekExpolicies'));
   }
 
@@ -381,7 +457,7 @@ $weekExpolicies = collect($results);
     $view = 'agent.form_pdf5';
     $cert = 'certificate.pdf';
     $pdf = PDF::loadView($view, $data)->setPaper('a4', 'portrait');
-    return $pdf->stream($cert);
+    return $pdf->download($cert);
     // return view($view , $data);
   }
 

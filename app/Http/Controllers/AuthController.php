@@ -657,6 +657,7 @@ $email = $validatedData['email'];
 
       return 'notthing';
   }
+ 
 
 
   public function getregister(Request $request)

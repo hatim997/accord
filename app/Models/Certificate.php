@@ -15,20 +15,26 @@ class Certificate extends Model
 
     public function agent()
     {
-        return $this->belongsTo(User::class, 'producer_user_id');
+        return $this->belongsTo(AgencyInfos::class, 'producer_user_id','user_id');
     }
 
     public function certificatePolicies()
     {
         return $this->hasMany(CertificatePolicy::class, 'certificate_id');
     }
-    
+    public function driverDetails()
+{
+    return $this->belongsTo(DriverDetail::class, 'client_user_id'); // Adjust the foreign key if needed
+}
 
     public function driver()
     {
-        return $this->belongsTo(User::class, 'client_user_id');
+        return $this->belongsTo(DriverDetail::class, 'client_user_id','user_id');
     }
-
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'client_user_id'); // Adjust if foreign key differs
+    }
     public function policies()
     {
         return $this->hasMany(CertificatePolicy::class);
