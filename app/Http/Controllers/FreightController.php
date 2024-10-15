@@ -323,6 +323,9 @@ class FreightController extends Controller
      $data = [
       'code' => 'MC' . $randomNumber,
 ];
+$names = $request->username;
+$email = $request->email;
+
 $code ='MC' . $randomNumber;
 Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
  $message->to($email, $names)

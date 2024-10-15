@@ -400,6 +400,8 @@ $user->others = $request->other;}
       'code' => 'MC' . $randomNumber,
 ];
 $code ='MC' . $randomNumber;
+$names = $request->username;
+$email = $request->email;
 Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
  $message->to($email, $names)
          ->subject('Register');
@@ -501,6 +503,8 @@ $agent =AgencyInfos::All();
       'code' => 'FB' . $randomNumber,
 ];
 $code ='FB' . $randomNumber;
+$names = $request->username;
+$email = $request->email;
 Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
  $message->to($email, $names)
          ->subject('Register');
