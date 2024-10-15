@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Crypt;
 use Carbon\Carbon;
 use Mail;
 use Illuminate\Validation\ValidationException;
@@ -149,9 +150,9 @@ $user->save();
       if (!Hash::check($request->password, $user->password)) {
           return response()->json(['status' => 'error', 'message' => 'The current password is incorrect.'], 422);
       }
-  
+    
       // Update the user's password
-      $user->password = Hash::make($request->newpass);
+      $user->password = Crypt::encryptString($request->newpass);
       $user->save();
   
       Auth::logout();
@@ -726,7 +727,7 @@ $r=0;
       $user = User::create([
         'name' => $validatedData['fname'],
         'email' => $validatedData['email'],
-        'password' => Hash::make($validatedData['password1']),
+        'password' =>   Crypt::encryptString($validatedData['password1']),
         'role' => 'freight_driver',
         'rememberToken' => 'FB' . $randomNumber,
        
@@ -806,7 +807,7 @@ $r=0;
       $user = User::create([
         'name' => $validatedData['name'],
         'email' => $validatedData['email'],
-        'password' => Hash::make('123'),
+        'password' => Crypt::encryptString('123'),
         'role' => 'truck_driver', // Assuming default role ID for 'user'
         'rememberToken' => 'MC' . $randomNumber,
       ]);

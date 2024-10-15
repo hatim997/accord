@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Crypt;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 use Mail;
@@ -91,8 +92,6 @@ $querys = "
 $results = DB::select($querys, [$userId]); 
 
 $weekExpolicies = collect($results);
-
-
 
     $certificatePolicies = null;
 
@@ -170,7 +169,7 @@ $weekExpolicies = collect($results);
       $user = User::create([
         'name' => $validatedData['username'],
         'email' => $validatedData['email'],
-        'password' => Hash::make($validatedData['password1']),
+        'password' => Crypt::encryptString($validatedData['password1']),
         'rememberToken' => 'IA' . $randomNumber,
         'role' => $validatedData['role'], // Assuming default role ID for 'user'
       ]);
@@ -201,15 +200,14 @@ $weekExpolicies = collect($results);
         'name' => "Agent added by ".$userId,
           ]);
 
-         $data = [
-                'name' => 'name',
-                'email' => 'email'
-            ];
-
-            Mail::send('email.register', $data, function ($message) use($email, $name) {
-                $message->to($email, $name)
-                        ->subject('Register');
-            });
+          $data = [
+            'code' => 'IA' . $randomNumber,
+     ];
+     $code ='IA' . $randomNumber;
+     Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+       $message->to($email, $names)
+               ->subject('Register');
+     });
           return Redirect::back()
           ->with('success' , 'agent created successfully!');
     }
@@ -218,7 +216,7 @@ $weekExpolicies = collect($results);
       $user = User::create([
         'name' => $validatedData['username'],
         'email' => $validatedData['email'],
-        'password' => Hash::make($validatedData['password1']),
+        'password' => Crypt::encryptString($validatedData['password1']),
         'rememberToken' => 'SH' . $randomNumber,
         'role' => $validatedData['role'], // Assuming default role ID for 'user'
       ]);
@@ -246,16 +244,15 @@ $weekExpolicies = collect($results);
         'zip' => $validatedData['zip'],
         'cellphone' => $validatedData['phone'],
         'extra_email' => $validatedData['altemail'],
-      ]);
-        $data = [
-                'name' => 'name',
-                'email' => 'email'
-            ];
-
-            Mail::send('email.register', $data, function ($message) use( $email, $name) {
-                $message->to($email, $name)
-                        ->subject('Register');
-            });
+      ]);      
+            $data = [
+              'code' => 'SH' . $randomNumber,
+       ];
+       $code ='SH' . $randomNumber;
+       Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+         $message->to($email, $names)
+                 ->subject('Register');
+       });
       return Redirect::back()
       ->with('success' ,'shipper created successfully!');
     }
@@ -462,7 +459,7 @@ $weekExpolicies = collect($results);
     $user = User::create([
       'name' => $reqeust->fname,
       'email' =>$reqeust->email,
-      'password' => Hash::make($reqeust->password),
+      'password' => Crypt::encryptString($reqeust->password),
       'role' => "truck_driver",
       'rememberToken' => 'MC'.$randomNumber,
       'status' => "1",
@@ -546,7 +543,7 @@ $weekExpolicies = collect($results);
     $user = User::create([
       'name' => $reqeust->fname,
       'email' =>$reqeust->email,
-      'password' => Hash::make($reqeust->password),
+      'password' => Crypt::encryptString($reqeust->password),
       'role' => "freight_driver",
       'rememberToken' => 'FB'.$randomNumber,
 

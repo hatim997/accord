@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 use Mail;
 
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
@@ -211,7 +212,7 @@ $user->others = $request->other;}
       $user = User::create([
         'name' => $validatedData['username'],
         'email' => $validatedData['email'],
-        'password' => Hash::make('password'),
+        'password' => Crypt::encryptString('password'),
         'rememberToken' => 'FB' . $randomNumber,
         'role' => $validatedData['role'], // Assuming default role ID for 'user'
         'status' => 1
@@ -243,10 +244,15 @@ $user->others = $request->other;}
         'name' => "freight_driver added by".$userId,
           ]);
 
-          Mail::send('emails.welcome', ['user' => $validatedData], function ($message) use ($email, $name) {
-            $message->to($email, $name)
-                    ->subject('Welcome to our website');
-        });
+          $data = [
+            'code' => 'FB' . $randomNumber,
+      ];
+      $code ='FB' . $randomNumber;
+      Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+       $message->to($email, $names)
+               ->subject('Register');
+      });
+      
           return Redirect::back()
           ->with('success' , 'freight_driver created successfully!');
     }
@@ -256,7 +262,7 @@ $user->others = $request->other;}
       $user = User::create([
         'name' => $validatedData['username'],
         'email' => $validatedData['email'],
-        'password' => Hash::make('password'),
+        'password' => Crypt::encryptString('password'),
         'rememberToken' => 'MC' . $randomNumber,
         'role' => $validatedData['role'], // Assuming default role ID for 'user'
         'status' => 1
@@ -298,15 +304,15 @@ $user->others = $request->other;}
       //    'vehicle_status'=> $validatedData['vehicle_status'],
       //    'mc_number'=> $validatedData['mc_number'],
       //  ]);
-
-        $data = [
-                'name' => 'name',
-                'email' => 'email'
-            ];
-
-            Mail::send('email.register', $data, function ($message) use ($email, $name) {
-                $message->to($email, $name)->subject('Register');
-            });
+      $data = [
+        'code' => 'MC' . $randomNumber,
+  ];
+  $code ='MC' . $randomNumber;
+  Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+   $message->to($email, $names)
+           ->subject('Register');
+  });
+  
       return Redirect::back()->with('success' ,'truck_driver created successfully!');
     }
     return 'nothing';
@@ -322,7 +328,7 @@ $user->others = $request->other;}
     $user = User::create([
       'name' => $reqeust->fname,
       'email' =>$reqeust->email,
-      'password' => Hash::make($reqeust->password),
+      'password' => Crypt::encryptString($reqeust->password),
       'role' => "truck_driver",
       'rememberToken' => 'MC'.$randomNumber,
       'status' => "1",
@@ -391,13 +397,14 @@ $user->others = $request->other;}
 
 
     $data = [
-      'name' => 'name',
-      'email' => 'email'
-  ];
+      'code' => 'MC' . $randomNumber,
+];
+$code ='MC' . $randomNumber;
+Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+ $message->to($email, $names)
+         ->subject('Register');
+});
 
-  Mail::send('email.register', $data, function ($message) use ($email, $name) {
-      $message->to($email, $name)->subject('Register');
-  });
 
     return redirect()->to('sportal');
   }
@@ -422,7 +429,7 @@ $agent =AgencyInfos::All();
     $user = User::create([
       'name' => $reqeust->fname,
       'email' =>$reqeust->email,
-      'password' => Hash::make($reqeust->password),
+      'password' => Crypt::encryptString($reqeust->password),
       'role' => "freight_driver",
       'rememberToken' => 'FB'.$randomNumber,
       'status' => "1",
@@ -491,13 +498,13 @@ $agent =AgencyInfos::All();
 
 
     $data = [
-      'name' => 'name',
-      'email' => 'email'
-  ];
-
-  Mail::send('email.register', $data, function ($message) use ($email, $name) {
-      $message->to($email, $name)->subject('Register');
-  });
+      'code' => 'FB' . $randomNumber,
+];
+$code ='FB' . $randomNumber;
+Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+ $message->to($email, $names)
+         ->subject('Register');
+});
 
 
     return redirect()->to('sportal');

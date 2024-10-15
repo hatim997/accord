@@ -174,10 +174,11 @@ thead, tbody, tfoot, tr, td, th {
                            </td>
                            <td class="text-truncate">{{$user->email}}</td> 
                           <td> 
+                        
                             @if ($user->status == '0')
-                            <a href="{{ route('deactive', ['id' => $user->id]) }}" class="badge bg-label-success rounded-pill">Active</a>
+                            <a href="{{ route('active' , ['id' => $user->id]) }} " class="badge bg-label-danger rounded-pill">Inactive</a>
                             @else
-                            <a href="{{ route('active' , ['id' => $user->id]) }}" class="badge bg-label-danger rounded-pill">Inactive</a>
+                            <a href="{{ route('deactive', ['id' => $user->id]) }}" class="badge bg-label-success rounded-pill">Active</a>
                             @endif
                           </td>  
                            <td>
@@ -232,9 +233,9 @@ thead, tbody, tfoot, tr, td, th {
                            <td class="text-truncate">{{$user->email}}</td>           
                            <td> 
                             @if ($user->status == '0')
-                            <a href="{{ route('deactive', ['id' => $user->id]) }}" class="badge bg-label-success rounded-pill">Active</a>
+                            <a href="{{ route('active' , ['id' => $user->id]) }} " class="badge bg-label-danger rounded-pill">Inactive</a>
                             @else
-                            <a href="{{ route('active' , ['id' => $user->id]) }}" class="badge bg-label-danger rounded-pill">Inactive</a>
+                            <a href="{{ route('deactive', ['id' => $user->id]) }}" class="badge bg-label-success rounded-pill">Active</a>
                             @endif
                           </td>  
                            <td>
@@ -287,11 +288,11 @@ thead, tbody, tfoot, tr, td, th {
                           
                            </td>
                            <td class="text-truncate">{{$user->email}}</td>           
-                           <td> 
+                           <td>   
                             @if ($user->status == '0')
-                            <a href="{{ route('deactive', ['id' => $user->id]) }}" class="badge bg-label-success rounded-pill">Active</a>
+                            <a href="{{ route('active' , ['id' => $user->id]) }} " class="badge bg-label-danger rounded-pill">Inactive</a>
                             @else
-                            <a href="{{ route('active' , ['id' => $user->id]) }}" class="badge bg-label-danger rounded-pill">Inactive</a>
+                            <a href="{{ route('deactive', ['id' => $user->id]) }}" class="badge bg-label-success rounded-pill">Active</a>
                             @endif
                           </td>  
                            <td>

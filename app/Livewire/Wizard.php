@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Support\Facades\Crypt;
-
 use Mail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;

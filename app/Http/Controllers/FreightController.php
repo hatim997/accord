@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 use Mail;
 
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
@@ -46,7 +47,7 @@ class FreightController extends Controller
     $user = User::create([
       'name' => $reqeust->fname,
       'email' =>$reqeust->email,
-      'password' => Hash::make($reqeust->password),
+      'password' => Crypt::encryptString($reqeust->password),
       'role' => "shipper",
       'rememberToken' => 'SH'.$randomNumber,
       'status' => "1",
@@ -126,7 +127,7 @@ class FreightController extends Controller
     $user = User::create([
       'name' => $reqeust->fname,
       'email' =>$reqeust->email,
-      'password' => Hash::make($reqeust->password),
+      'password' => Crypt::encryptString($reqeust->password),
       'role' => "truck_driver",
       'rememberToken' => 'MC'.$randomNumber,
       'status' => "1",
@@ -247,12 +248,7 @@ class FreightController extends Controller
 
 
   }
-
-
-
-
-
-  public function addReg(Request $request)
+    public function addReg(Request $request)
   {
     $userId = Auth::user()->id;
     $validatedDataa = Validator::make($request->all(), [
@@ -275,7 +271,7 @@ class FreightController extends Controller
       $user = User::create([
         'name' => $validatedData['username'],
         'email' => $validatedData['email'],
-        'password' => Hash::make('123'),
+        'password' => Crypt::encryptString('123'),
         'role' => 'truck_driver',
         'status' => 1
       ]);
@@ -324,15 +320,15 @@ class FreightController extends Controller
         'image_path' => $name,
         'fax' => $request->fax,
      ]);
-    $data = [
-                'name' => 'name',
-                'email' => 'email'
-            ];
+     $data = [
+      'code' => 'MC' . $randomNumber,
+];
+$code ='MC' . $randomNumber;
+Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+ $message->to($email, $names)
+         ->subject('Register');
+});
 
-            Mail::send('email.register', $data, function ($message) use ($email, $name){
-                $message->to($email, $name)
-                        ->subject('Register');
-            });
 
 
       return Redirect::back()->with('success' ,'truck_driver created successfully!');
@@ -386,7 +382,7 @@ class FreightController extends Controller
       $user = User::create([
         'name' => $request->name,
         'email' => $request->email,
-        'password' => Hash::make('123'),
+        'password' => Crypt::encryptString('123'),
         'role' => 'shipper',
         'status' => 1
       ]);

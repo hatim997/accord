@@ -18,7 +18,7 @@ use App\Models\UploadShipper;
 use App\Models\PolicyLimit;
 use App\Models\PolicyType;
 use App\Models\ShipperLimit;
-
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -245,7 +245,7 @@ $customOrder = [
 
       $users = User::find($request->user_id);
       $users->name =  $request->username;
-      $users->password = Hash::make ($request->password);
+      $users->password = Crypt::encryptString ($request->password);
       $users->email =  $request->email;
       $users->save();
       $message="edite done shipper";
@@ -281,7 +281,7 @@ elseif ($request->role == "truck_driver" || $request->role == "freight_driver" )
 
   $users = User::find($request->user_id);
   $users->name =  $request->username;
-  $users->password = Hash::make ($request->password);
+  $users->password = Crypt::encryptString ($request->password);
   $users->email =  $request->email;
   $users->save();
   $message='edite done truck & freight driver ';
@@ -303,12 +303,13 @@ return back()->with($message);
 
   public function active($id)
   {
+    
     $user = User::find($id);
 
     // Check if user exists
     if ($user) {
         // Update the user's status to 'deactivated'
-        $user->status = '0';
+        $user->status = '1';
         $user->save();
     } else {
         // Handle the case where the user was not found
@@ -323,7 +324,7 @@ return back()->with($message);
     // Check if user exists
     if ($user) {
         // Update the user's status to 'deactivated'
-        $user->status = '1';
+        $user->status = '0';
         $user->save();
     } else {
         // Handle the case where the user was not found

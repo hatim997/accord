@@ -315,7 +315,7 @@ return redirect('/fportal');
     $decryptedData = Crypt::decryptString($user->password);
     $users = User::findOrFail($user->id);
     $user->password = Hash::make($decryptedData);
-    // Hash::make($validatedData['password1']),
+    // Crypt::encryptString($validatedData['password1']),
     $user->save();
     $data = [
       'name' => $user->name,
@@ -403,7 +403,7 @@ return redirect('/fportal');
       $user = User::create([
         'name' => $validatedData['username'],
         'email' => $validatedData['email'],
-        'password' => Hash::make($validatedData['password1']),
+        'password' => Crypt::encryptString($validatedData['password1']),
         'rememberToken' => 'IA' . $randomNumber,
       'role' => $validatedData['role'], // Assuming default role ID for 'user'
     ]);
@@ -412,7 +412,7 @@ return redirect('/fportal');
       'user_nicename' => $validatedData['username'],
       'user_login' =>  $validatedData['email'],
       'user_email' =>  $validatedData['email'],
-      'user_pass' => Hash::make($validatedData['password1']), // Ensure to hash passwords
+      'user_pass' => Crypt::encryptString($validatedData['password1']), // Ensure to hash passwords
       'user_url' =>  'null',
       'user_registered' => $currentDate,
       'user_activation_key'	 => $validatedData['role'],
@@ -464,7 +464,7 @@ $email = $validatedData['email'];
       $user = User::create([
         'name' => $validatedData['username'],
         'email' => $validatedData['email'],
-        'password' => Hash::make($validatedData['password1']),
+        'password' => Crypt::encryptString($validatedData['password1']),
         'rememberToken' => 'SH' . $randomNumber,
       'role' => $validatedData['role'], // Assuming default role ID for 'user'
     ]);
@@ -472,7 +472,7 @@ $email = $validatedData['email'];
       'user_nicename' => $validatedData['username'],
       'user_login' =>  $validatedData['email'],
       'user_email' =>  $validatedData['email'],
-      'user_pass' => Hash::make($validatedData['password1']), // Ensure to hash passwords
+      'user_pass' => Crypt::encryptString($validatedData['password1']), // Ensure to hash passwords
       'user_url' =>  'null',
       'user_registered' => $currentDate,
       'user_activation_key'	 => $validatedData['role'],
@@ -524,7 +524,7 @@ $email = $validatedData['email'];
       $user = User::create([
         'name' => $validatedData['username'],
         'email' => $validatedData['email'],
-        'password' => Hash::make($validatedData['password1']),
+        'password' => Crypt::encryptString($validatedData['password1']),
         'rememberToken' => 'MC' . $randomNumber,
         'role' => $validatedData['role'], // Assuming default role ID for 'user'
     ]);
@@ -533,7 +533,7 @@ $email = $validatedData['email'];
       'user_nicename' => $validatedData['username'],
       'user_login' =>  $validatedData['email'],
       'user_email' =>  $validatedData['email'],
-      'user_pass' => Hash::make($validatedData['password1']), // Ensure to hash passwords
+      'user_pass' => Crypt::encryptString($validatedData['password1']), // Ensure to hash passwords
       'user_url' =>  'null',
       'user_registered' => $currentDate,
       'user_activation_key'	 => $validatedData['role'],
@@ -592,7 +592,7 @@ $email = $validatedData['email'];
       $user = User::create([
         'name' => $validatedData['username'],
         'email' => $validatedData['email'],
-        'password' => Hash::make($validatedData['password1']),
+        'password' => Crypt::encryptString($validatedData['password1']),
         'rememberToken' => 'FB' . $randomNumber,
       'role' => $validatedData['role'], // Assuming default role ID for 'user'
     ]);
@@ -601,7 +601,7 @@ $email = $validatedData['email'];
       'user_nicename' => $validatedData['username'],
       'user_login' =>  $validatedData['email'],
       'user_email' =>  $validatedData['email'],
-      'user_pass' => Hash::make($validatedData['password1']), // Ensure to hash passwords
+      'user_pass' => Crypt::encryptString($validatedData['password1']), // Ensure to hash passwords
       'user_url' =>  'null',
       'user_registered' => $currentDate,
       'user_activation_key'	 => $validatedData['role'],
@@ -706,7 +706,7 @@ $email = $validatedData['email'];
     $user = User::create([
       'name' => $validatedData['username'],
       'email' => $validatedData['email'],
-      'password' => Hash::make($validatedData['password1']),
+      'password' => Crypt::encryptString($validatedData['password1']),
       'role' => $validatedData['role'], // Assuming default role ID for 'user'
       'rememberToken' => 'MCS' . $randomNumber,
     ]);
@@ -715,7 +715,7 @@ $email = $validatedData['email'];
       'user_nicename' => $validatedData['username'],
       'user_login' =>  $validatedData['email'],
       'user_email' =>  $validatedData['email'],
-      'user_pass' => Hash::make($validatedData['password1']), // Ensure to hash passwords
+      'user_pass' => Crypt::encryptString($validatedData['password1']), // Ensure to hash passwords
       'user_url' =>  'null',
       'user_registered' => $currentDate,
       'user_activation_key'	 => $validatedData['role'],
