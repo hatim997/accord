@@ -400,7 +400,7 @@ $user->others = $request->other;}
       'code' => 'MC' . $randomNumber,
 ];
 $code ='MC' . $randomNumber;
-$names = $request->username;
+$names = $request->fname;
 $email = $request->email;
 Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
  $message->to($email, $names)
