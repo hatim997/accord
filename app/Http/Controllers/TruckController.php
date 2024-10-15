@@ -389,8 +389,9 @@ $weekExpolicies = collect($results);
     $certificate = Certificate::where('client_user_id',Auth::user()->id)
     ->join('shipper_infos', 'shipper_infos.user_id', '=', 'certificates.ch')
     ->select('certificates.*','shipper_infos.id as shipperid', 'shipper_infos.name as name')->get();
-if ($certificate = null) {
+if ($certificate->isEmpty()) {
   $certificate = Certificate::where('client_user_id',Auth::user()->id)->get();
+  
 }
 
 
