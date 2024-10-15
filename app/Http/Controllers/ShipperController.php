@@ -369,12 +369,6 @@ $user->others = $request->other;}
       'image_path' => $name,
       'fax' => $reqeust->fax,
    ]);
-
-
-
-
-
-
     $subb = Subscription::create([
       'user_id' => $lastInsertedId,
       'plan_id' => '1',
@@ -387,15 +381,11 @@ $user->others = $request->other;}
       'driver_id' => $lastInsertedId,
       'relation_status' => 1,
     ]);
-
-
     $notice = Notice::create([
       'to' => $parentId,
       'from' => $lastInsertedId,
       'name' => "Driver added by ". $parentId,
     ]);
-
-
     $data = [
       'code' => 'MC' . $randomNumber,
 ];
@@ -406,15 +396,12 @@ Mail::send('email.register', $data, function ($message) use ($email, $names, $co
  $message->to($email, $names)
          ->subject('Register');
 });
-
-
     return redirect()->to('sportal');
   }
   public function drivers()
   {
     return view('shipper.add-driver');
   }
-
   public function brokers()
   {
 $agent =AgencyInfos::All();
@@ -436,16 +423,13 @@ $agent =AgencyInfos::All();
       'rememberToken' => 'FB'.$randomNumber,
       'status' => "1",
     ]);
-
     $lastInsertedId = $user->id;
     $name = '';
-
     if(!empty($reqeust->file('imagePath'))){
       $file  = $reqeust->file('imagePath');
       $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
       $file->storeAs('public/uploads_driver_license', $name);
     }
-
    DriverDetail::create([
       'parent_id' =>$parentId ,
       'user_id' =>$lastInsertedId ,
@@ -472,7 +456,6 @@ $agent =AgencyInfos::All();
       'image_path' => $name,
       'fax' => $reqeust->fax,
    ]);
-
     $subb = Subscription::create([
       'user_id' => $lastInsertedId,
       'plan_id' => '1',
@@ -484,8 +467,7 @@ $agent =AgencyInfos::All();
       'shipper_id' => $parentId,
       'driver_id' => $lastInsertedId,
       'relation_status' => 1,
-    ]);
-    
+    ]);    
     $linkedAgentt = AgentDriver::create([
       'agent_id' => $reqeust->agent_id,
       'driver_id' => $lastInsertedId,
@@ -498,8 +480,7 @@ $agent =AgencyInfos::All();
     ]);
 
 
-
-    $data = [
+  $data = [
       'code' => 'FB' . $randomNumber,
 ];
 $code ='FB' . $randomNumber;
@@ -509,17 +490,12 @@ Mail::send('email.register', $data, function ($message) use ($email, $names, $co
  $message->to($email, $names)
          ->subject('Register');
 });
-
-
     return redirect()->to('sportal');
   }
-
   public function truckprofiles()
   {
     $userId = Auth::user()->id;
-
     $driverdetail = DriverDetail::where('user_id', $userId)->get();
-
     return view('truck.profile' , compact('driverdetail'));
   }
 
@@ -531,11 +507,9 @@ Mail::send('email.register', $data, function ($message) use ($email, $names, $co
   public function storeCertificate(Request $request)
   {
     $userId = Auth::user()->id;
-
     $request->validate([
       'file' => 'required|file|max:10240', // Example: Maximum file size of 10MB
     ]);
-
     // Store the uploaded file
     $file  = $request->file('file');
     $name = Carbon::now()->timestamp . '_' . $userId . '.' . $file->extension();
