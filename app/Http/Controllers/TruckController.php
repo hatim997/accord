@@ -162,7 +162,7 @@ $weekExpolicies = collect($results);
     $currentDate = Carbon::now();
     $endDate = $currentDate->copy()->addDays(30);
     $validatedData = $validatedDataa->validated();
-    $name = $validatedData['username'];
+    $names = $validatedData['username'];
     $email = $validatedData['email'];
     if ($validatedData['role'] == 'agent') {
       $randomNumber = rand(100000, 999999);
@@ -204,6 +204,7 @@ $weekExpolicies = collect($results);
             'code' => 'IA' . $randomNumber,
      ];
      $code ='IA' . $randomNumber;
+
      Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
        $message->to($email, $names)
                ->subject('Register');
