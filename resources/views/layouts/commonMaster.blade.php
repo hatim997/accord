@@ -69,6 +69,53 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js"
         integrity="sha256-O11zcGEd6w4SQFlm8i/Uk5VAB+EhNNmynVLznwS6TJ4=" crossorigin="anonymous"></script>
+     
+     
+     <script>
+     $(document).ready(function () {
+    // Attach click event to all elements with class 'mark-read'
+    $('.mark-read').on('click', function () {
+        var requestId = $(this).data('id');  // Get the request ID from data-id attribute
+        
+        // Fetch the correct route using a hidden input or inline PHP
+        var markReadUrl = "{{ route('mark-read', ':id') }}";  // Use placeholder for ID
+        markReadUrl = markReadUrl.replace(':id', requestId);  // Replace placeholder with actual ID
+
+        // Send an AJAX request to mark the request as read
+        $.ajax({
+            url: markReadUrl,
+            type: 'POST',
+            data: { 
+                id: requestId,
+                _token: $('meta[name="csrf-token"]').attr('content')  // Send the CSRF token
+            },
+            success: function (data) {
+                // Debug: Log response data
+                console.log('Response:', data);
+
+                if (data.success) {
+                    // Remove the dot if no other requests are open
+                    if (data.allRead) {
+                        $('.dot-indicator').remove();  // Remove the notification dot
+                    }
+                    
+                    // Optionally hide or update the clicked item
+                    var clickedItem = $(this).closest('li');
+                    if (clickedItem) {
+                        clickedItem.remove();  // Remove the list item
+                    }
+                } else {
+                    console.error('Failed to mark as read.');
+                }
+            },
+            error: function (error) {
+                console.error('Error in AJAX request:', error);
+            }
+        });
+    });
+});
+      </script>
+       
         @stack('body-scripts')
         @yield('page-scriptt')
 

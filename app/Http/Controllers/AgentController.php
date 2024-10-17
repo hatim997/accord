@@ -17,6 +17,7 @@ use App\Models\CertificatePolicy;
 use App\Models\CertificatePolicyLimit;
 use App\Models\InsuranceProvider;
 use App\Models\AgentDriver;
+use App\Models\Openrequest; 
 use App\Services\CertificateService;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\DB;
@@ -685,6 +686,8 @@ $r=0;
   public function store_trucker(Request $request)
   {
     $userId = Auth::user()->id;
+
+
     $validatedDataa = Validator::make($request->all(), [
       'name' => 'sometimes',
       'fname' => 'required',
@@ -767,6 +770,9 @@ $r=0;
         'image_path' => $name,
         'fax' => $request->fax,
      ]);
+    $driver = AgencyInfos::where('user_id' ,$userId)->get();
+
+
 
       Subscription::create([
         'user_id' => $lastInsertedId,
@@ -775,11 +781,26 @@ $r=0;
         'end_date' => $endDate,
         'status' => 'Active',
       ]);
+      Notice::create([
+        'to' => 1,
+        'from' => $userId,
+        'name' => "Freight Driver added by ".$driver[0]->name,
+      ]);
+      Openrequest::create([
+        'to' => 1,
+        'from' => $userId,
+        'name' => "$request->name {Freight} Driver added Request by ".$driver[0]->name,
+      ]);
+      Openrequest::create([
+        'to' => $lastInsertedId,
+        'from' => $userId,
+        'name' => "$request->name Freight Driver added by ".$driver[0]->name,
+      ]);
 
       Notice::create([
         'to' => $lastInsertedId,
         'from' => $userId,
-        'name' => "Freight Driver added by ".$userId,
+        'name' => "$request->name Freight Driver added by ".$driver[0]->name,
       ]);
 
       AgentDriver::create([
@@ -859,12 +880,29 @@ $r=0;
         'image_path' => $name,
         'fax' => $request->fax,
      ]);
+     $driver = AgencyInfos::where('user_id' ,$userId)->get();
 
-      Notice::create([
-        'to' => $lastInsertedId,
-        'from' => $userId,
-        'name' => "Truck Driver added by ".$userId,
-      ]);
+     Notice::create([
+      'to' => 1,
+      'from' => $userId,
+      'name' => "Freight Driver added by ".$driver[0]->name,
+    ]);
+    Openrequest::create([
+      'to' => 1,
+      'from' => $userId,
+      'name' => "$request->name {Freight} Driver added Request by ".$driver[0]->name,
+    ]);
+    Openrequest::create([
+      'to' => $lastInsertedId,
+      'from' => $userId,
+      'name' => "$request->name Freight Driver added by ".$driver[0]->name,
+    ]);
+
+    Notice::create([
+      'to' => $lastInsertedId,
+      'from' => $userId,
+      'name' => "$request->name Freight Driver added by ".$driver[0]->name,
+    ]);
 
       Subscription::create([
         'user_id' => $lastInsertedId,

@@ -83,6 +83,7 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
   Route::get('/admin-download-certificate/{file}', [AdminController::class, 'download_certificate'])->name('admin.download.certificate');
 });
 
+Route::post('/mark-read/{id}', [AdminController::class, 'markAsRead'])->name('mark-read');
 
 Livewire::setScriptRoute(function ($handle) {
   return Route::get('/public/livewire/livewire.js', $handle);

@@ -53,9 +53,42 @@
         <li class="nav-item  mx-3">
             Pending Approvals
         </li>
-        <li class="nav-item  mx-3">
-            openRequests
+        @php
+            $userId = auth()->user()->id;
+            $noticesExist = \App\Models\Openrequest::where('status', 0)
+                            ->where('to', $userId)
+                            ->get();
+                          
+            @endphp
+        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+          <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
+            Open Requests 
+            <!-- Show the dot if there are open requests -->
+            @if(!$noticesExist->isEmpty())
+              <span class="dot-indicator"></span> <!-- This will be the notification dot -->
+            @endif
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
+         
+        
+            @if ($noticesExist->isEmpty())
+              <li>No notices found.</li>
+            @else
+              @foreach ($noticesExist as $request)
+                <li>
+                  <a class="dropdown-item mark-read" href="javascript:void(0);" data-id="{{ $request->id }}">
+                    <i class="mdi mdi-alert-outline me-1 mdi-20px"></i>
+                    <span class="align-middle">Notice: {{ $request->titel}}</span>
+                  </a>
+                </li>
+                <li>
+                  <div class="dropdown-divider my-1"></div>
+                </li>
+              @endforeach
+            @endif
+          </ul>
         </li>
+
         <li class="nav-item  mx-5  pe-5">
             {{-- <a href="cert_1st_step"> NEW ACCORD Form</a> --}}
         </li>

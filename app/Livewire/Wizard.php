@@ -191,11 +191,16 @@ class Wizard extends Component
             Mail::send('email.register', $data, function ($message) use ($code){
                 $message->to($this->email, $this->name)
                         ->subject('Register');
-            });          
+            });
+            Notice::create([
+                'to' => 1,
+                'from' => $lastInsertedId,
+                'name' => "you have new registering    agency pls check",
+              ]);          
             Notice::create([
                 'to' => $lastInsertedId,
                 'from' => $lastInsertedId,
-                'name' => "you have new registering agency pls check",
+                'name' => "you have new registering" .$this->name." ,agency pls check",
               ]);
              $this->successMessage = 'Created Successfully.';
              $this->clearForm();

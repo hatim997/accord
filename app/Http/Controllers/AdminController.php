@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
 use App\Models\User;
 use App\Models\Notice;
 use App\Models\DriverDetail;
@@ -17,6 +17,7 @@ use App\Models\Subscription;
 use App\Models\UploadShipper;
 use App\Models\PolicyLimit;
 use App\Models\PolicyType;
+use App\Models\Openrequest; 
 use App\Models\ShipperLimit;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Redirect;
@@ -34,7 +35,6 @@ class AdminController extends Controller
   public function dashuser()
   {
     $users = User::all();
-
     return view('admin_user', compact('users'));
     // return view('dash');
   }
@@ -51,6 +51,30 @@ class AdminController extends Controller
     return view('admin_dash', compact('userCount','activeUserCount', 'inactiveUserCount'));
     // return view('dash');
   }
+  public function markAsRead($id)
+  {
+      $request = Openrequest::find($id);
+      if ($request) {
+          $request->status = 1;  // Mark as read
+          $request->save();
+          
+          // Check if there are any other open requests
+          $openRequests = Openrequest::where('status', 0)
+                          ->where('from', auth()->user()->id)
+                          ->exists();
+  
+          return response()->json([
+              'success' => true,
+              'allRead' => !$openRequests  // True if all requests are now read
+          ]);
+      }
+  
+      return response()->json(['success' => false], 400);
+  }
+
+
+
+
   public function certadmin()
   {
     $certificate = Certificate::all();
@@ -352,11 +376,9 @@ return back()->with($message);
     ]);
   }
   public function notice ()
-  {
-    // $notice = new Notice();
-    // Notice::update(['stauts' => 0]);
-    Notice::query()->update(['status' => 0]);
-   $notice = Notice::all();
+  {$userId = Auth::user()->id;
+    Notice::query()->update(['status' => 0]) ;
+    $notice = Notice::where('to', $userId)->orderBy('created_at', 'desc')->get();  // Get all notices ordered by newest first
 
     return view('notice', compact('notice'));
   }
