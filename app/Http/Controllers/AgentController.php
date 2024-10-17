@@ -890,12 +890,12 @@ $r=0;
     Openrequest::create([
       'to' => 1,
       'from' => $userId,
-      'name' => "$request->name {Freight} Driver added Request by ".$driver[0]->name,
+      'titel' => "$request->name {Freight} Driver added Request by ".$driver[0]->name,
     ]);
     Openrequest::create([
       'to' => $lastInsertedId,
       'from' => $userId,
-      'name' => "$request->name Freight Driver added by ".$driver[0]->name,
+      'titel' => "$request->name Freight Driver added by ".$driver[0]->name,
     ]);
 
     Notice::create([
