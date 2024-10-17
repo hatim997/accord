@@ -10,7 +10,7 @@ class Openrequest extends Model
     protected $fillable = [
         'to',
         'from',           
-        'title',
+        'titel',
         'status'
     ];
     protected $table = 'openrequests';
