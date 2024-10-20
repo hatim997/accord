@@ -18,6 +18,7 @@ use App\Models\ShipperLimit;
 use App\Models\ShipperInfos;
 use App\Models\PolicyLimit;
 use App\Models\PolicyType;
+use App\Models\Openrequest; 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -381,17 +382,42 @@ $user->others = $request->other;}
       'driver_id' => $lastInsertedId,
       'relation_status' => 1,
     ]);
-    $notice = Notice::create([
-      'to' => $parentId,
-      'from' => $lastInsertedId,
-      'name' => "Driver added by ". $parentId,
+   
+
+    $driver = ShipperInfos::where('user_id' ,$parentId)->get();
+
+    Notice::create([
+      'to' => 1,
+      'from' => $parentId,
+      'name' => "Trucker Driver added by ".$driver[0]->name,
     ]);
+    Openrequest::create([
+      'to' => 1,
+      'from' => $parentId,
+      'titel' => "$reqeust->name {Trucker} Driver added Request by ".$driver[0]->name,
+    ]);
+    Openrequest::create([
+      'to' => $lastInsertedId,
+      'from' => $parentId,
+      'titel' => "$reqeust->name Trucker Driver added by ".$driver[0]->name,
+    ]);
+    
+    Notice::create([
+      'to' => $lastInsertedId,
+      'from' => $parentId,
+      'name' => "$reqeust->name Trucker Driver added by ".$driver[0]->name,
+    ]);
+
+
+
+
+
     $data = [
       'code' => 'MC' . $randomNumber,
 ];
 $code ='MC' . $randomNumber;
-$names = $request->fname;
-$email = $request->email;
+$names = $reqeust->name;
+$email = $reqeust->email;
 Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
  $message->to($email, $names)
          ->subject('Register');
@@ -473,19 +499,34 @@ $agent =AgencyInfos::All();
       'driver_id' => $lastInsertedId,
       'relation_status' => 1,
     ]);
-    $notice = Notice::create([
-      'to' => $parentId,
-      'from' => $lastInsertedId,
-      'name' => "Driver added by ". $parentId,
+  
+    $driver = ShipperInfos::where('user_id' ,$parentId)->get();
+    Notice::create([
+      'to' => 1,
+      'from' => $parentId,
+      'name' => "Freight Driver added by ".$driver[0]->name,
     ]);
-
-
+    Openrequest::create([
+      'to' => 1,
+      'from' => $parentId,
+      'titel' => "$reqeust->name {Freight} Driver added Request by ".$driver[0]->name,
+    ]);
+    Openrequest::create([
+      'to' => $lastInsertedId,
+      'from' => $parentId,
+      'titel' => "$reqeust->name Freight Driver added by ".$driver[0]->name,
+    ]);    
+    Notice::create([
+      'to' => $lastInsertedId,
+      'from' => $parentId,
+      'name' => "$reqeust->name Freight Driver added by ".$driver[0]->name,
+    ]);
   $data = [
       'code' => 'FB' . $randomNumber,
 ];
 $code ='FB' . $randomNumber;
-$names = $request->username;
-$email = $request->email;
+$names = $reqeust->username;
+$email = $reqeust->email;
 Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
  $message->to($email, $names)
          ->subject('Register');

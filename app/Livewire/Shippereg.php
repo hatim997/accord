@@ -178,7 +178,13 @@ class Shippereg extends Component
         $this->successMessage = 'Product Created Successfully.';
   
         $this->clearForm();
-  
+                
+        Notice::create([
+            'to' => $lastInsertedId,
+            'from' => $lastInsertedId,
+            'name' => "you have new registering" .$this->name." ,Shipper pls check",
+          ]);
+
         Notice::create([
             'to' => $lastInsertedId,
             'from' => $lastInsertedId,

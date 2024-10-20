@@ -192,6 +192,9 @@ class Wizard extends Component
                 $message->to($this->email, $this->name)
                         ->subject('Register');
             });
+
+
+            
             Notice::create([
                 'to' => 1,
                 'from' => $lastInsertedId,

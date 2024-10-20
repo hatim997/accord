@@ -16,6 +16,7 @@ use App\Models\PolicyType;
 use App\Models\Upload;
 use App\Models\AgentDriver;
 use App\Models\TruckDetail;
+use App\Models\Openrequest; 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -189,17 +190,45 @@ class FreightController extends Controller
 
     $linkedAgent = AgentDriver::where('driver_id', $parentId)->first();
 
-    $notice = Notice::create([
-      'to' => $linkedAgent->agent_id,
+    
+    $driver = DriverDetail::where('user_id' ,$parentId)->get();
+
+    Notice::create([
+      'to' => 1,
       'from' => $parentId,
-      'name' => "Driver added by ". $parentId,
+      'name' => "Trucker Driver added by ".$driver[0]->name,
     ]);
+    Openrequest::create([
+      'to' => 1,
+      'from' => $parentId,
+      'titel' => "$request->name {Trucker} Driver added Request by ".$driver[0]->name,
+    ]);
+    Openrequest::create([
+      'to' => $lastInsertedId,
+      'from' => $parentId,
+      'titel' => "$request->name Trucker Driver added by ".$driver[0]->name,
+    ]);
+    
+    Notice::create([
+      'to' => $lastInsertedId,
+      'from' => $parentId,
+      'name' => "$request->name Trucker Driver added by ".$driver[0]->name,
+    ]);
+
+    $data = [
+      'code' => 'MC' . $randomNumber,
+];
+$names = $request->name;
+$email = $request->email;
+
+$code ='MC' . $randomNumber;
+Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+ $message->to($email, $names)
+         ->subject('Register');
+});
 
     return Redirect::back()->with('success' ,'truck_driver created successfully!');
   }
-
-
-
   public function profiles()
   {
     $userId = Auth::user()->id;
@@ -212,16 +241,10 @@ class FreightController extends Controller
   public function proupd(Request $request)
   {
     $userId = Auth::user()->id;
-
     $user =   user::find($userId);
-
     $user->name = $request->input('username');
     $user->save();
-
-
-    $driver = ShipperInfos::find($request->id);
-
-   
+    $driver = ShipperInfos::find($request->id);   
     if ($driver) {
         $driver->name = $request->input('name');
         $driver->mname = $request->input('mname');
@@ -245,124 +268,18 @@ class FreightController extends Controller
         $driver->save();
     }
     return redirect()->back()->with('success', 'User  updated successfully!');
-
-
   }
-    public function addReg(Request $request)
-  {
-    $userId = Auth::user()->id;
-    $validatedDataa = Validator::make($request->all(), [
-      'username' => 'required',
-      'password' => 'sometimes',
-      'email' => 'required|email|unique:users',
-      'phone' => 'sometimes',
-      'role' => 'sometimes',
-    ]);
-
-    if ($validatedDataa->fails()) {
-      return Redirect::back()->withErrors($validatedDataa)->withInput();
-    }
-
-    $currentDate = Carbon::now();
-    $endDate = $currentDate->copy()->addDays(30);
-    $validatedData = $validatedDataa->validated();
-
-    if ($validatedData['role'] == 'truck_driver') {
-      $user = User::create([
-        'name' => $validatedData['username'],
-        'email' => $validatedData['email'],
-        'password' => Crypt::encryptString('123'),
-        'role' => 'truck_driver',
-        'status' => 1
-      ]);
-      $lastInsertedId = $user->id;
-
-      Subscription::create([
-        'user_id' => $lastInsertedId,
-        'plan_id' => '1',
-        'start_date' =>  $currentDate,
-        'end_date' => $endDate,
-        'status' => 'Active',
-      ]);
-
-      DriverDetail::create([
-        'user_id' =>$lastInsertedId ,
-        'name' => $request->name,
-        'title' => $request->title,
-        'mname' => $request->mname,
-        'lname' => $request->lname,
-        'suffix' => $request->suffix,
-        'salutation' => $request->salutation,
-        'prefix' => $request->prefix,
-        'address' => $request->address,
-        'address2' => $request->address2,
-        'zip' => $request->zip,
-        'websit' => $request->websit,
-        'tax' => $request->tax,
-        'license_number' => $request->license_number,
-        'license_expiry_date' => $request->license_expiry_date,
-        'license_type' => $request->license_type,
-        'years_of_experience' => $request->years_of_experience,
-        'vehicle_registration_number' => $request->vehicle_registration_number,
-        'vehicle_make' => $request->vehicle_make,
-        'vehicle_model' => $request->vehicle_model,
-        'vehicle_year' => $request->vehicle_year,
-        'vehicle_capacity' => $request->vehicle_capacity,
-        'vehicle_status' => $request->vehicle_status,
-        'scac' => $request->scac,
-        'usdot' => $request->usdot,
-        'state' => $request->state,
-        'cellphone' => $request->cellphone,
-        'extra_email' => $request->extra_email,
-        'fname' => $request->fname,
-        'mc_number' => $request->mc_number,
-        'is_active' => "1",
-        'image_path' => $name,
-        'fax' => $request->fax,
-     ]);
-     $data = [
-      'code' => 'MC' . $randomNumber,
-];
-$names = $request->username;
-$email = $request->email;
-
-$code ='MC' . $randomNumber;
-Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
- $message->to($email, $names)
-         ->subject('Register');
-});
-
-
-
-      return Redirect::back()->with('success' ,'truck_driver created successfully!');
-    }
-
-    return 'nothing';
-  }
-
-  public function update(Request $request )
+    public function update(Request $request )
   {
     $certificate = Certificate::find($request->cert_id);
-
     if ($certificate) {
-        // Update the ch column
         $certificate->ch = $request->ch;
         $certificate->save();
-    }
-
-
-
-
-
-   
+    }   
      return Redirect::back();
   }
-  
-
   public function shortaddshipper(Request $request)
   {
-
-
     $userId = Auth::user()->id;
     $rules = [
       'name' => 'required',
@@ -372,7 +289,6 @@ Mail::send('email.register', $data, function ($message) use ($email, $names, $co
       'role' => 'sometimes',
   ];
       $validator = Validator::make($request->all(), $rules);
-
       // Check if validation fails
       if ($validator->fails()) {
           return response()->json([
@@ -381,7 +297,6 @@ Mail::send('email.register', $data, function ($message) use ($email, $names, $co
           ], 422); // 422 Unprocessable Entity status code
       }
       $validatedData = $validator->validated();
-
       $user = User::create([
         'name' => $request->name,
         'email' => $request->email,
@@ -389,14 +304,12 @@ Mail::send('email.register', $data, function ($message) use ($email, $names, $co
         'role' => 'shipper',
         'status' => 1
       ]);
-$lastInsertedId = $user->id;
-           
+$lastInsertedId = $user->id;           
         $linkedAgenxt =  ShipperInfos::create([           
           'user_id' => $lastInsertedId,
           'name' => $request->Cname,
           'status' => 0 ,
           ]);
-
         DB::table('shipper_driver')->insert([
           'driver_id' => $userId,
           'shipper_id' => $lastInsertedId,
@@ -404,14 +317,11 @@ $lastInsertedId = $user->id;
           'created_at' => now(),
           'updated_at' => now(),
       ]);
-
-
       return response()->json([
         'success' => true,
         'newDriverId' => $user->id,
         'newDriverName' => $linkedAgenxt->name
     ]);
-
     return 'nothing';
   }
   

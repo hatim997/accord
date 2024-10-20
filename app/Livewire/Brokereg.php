@@ -206,10 +206,17 @@ class Brokereg extends Component
                     ->subject('Register');
         });    
 
+         
+
+              Notice::create([
+                'to' => 1,
+                'from' => $lastInsertedId,
+                'name' => "you have new registering    broker pls check",
+              ]);          
             Notice::create([
                 'to' => $lastInsertedId,
                 'from' => $lastInsertedId,
-                'name' => "you have new registering broker pls check",
+                'name' => "you have new registering" .$this->name." ,broker pls check",
               ]);
              $this->successMessage = 'Created Successfully.';
              $this->clearForm();

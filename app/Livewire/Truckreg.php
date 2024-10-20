@@ -207,6 +207,19 @@ class Truckreg extends Component
                 $message->to($this->email, $this->name)
                         ->subject('Register');
             });    
+            Notice::create([
+                'to' => $lastInsertedId,
+                'from' => $lastInsertedId,
+                'name' => "you have new registering" .$this->name." ,Trucker pls check",
+              ]);
+    
+            Notice::create([
+                'to' => $lastInsertedId,
+                'from' => $lastInsertedId,
+                'name' => "you have new registering Trucker pls check",
+              ]);
+
+
             $this->successMessage = 'Trucker Created Successfully.';
             $this->clearForm();
           session()->flash('message', "Thank you for registering with COI360! Please check your email to complete your account setup. You can <a href=" .route('auth-login-t'). ">log in here</a> once your account is activated.");

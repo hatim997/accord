@@ -16,6 +16,7 @@ use App\Models\PolicyType;
 use App\Models\Upload;
 use App\Models\AgentDriver;
 use App\Models\TruckDetail;
+use App\Models\Openrequest; 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -92,13 +93,9 @@ $querys = "
 $results = DB::select($querys, [$userId]); 
 
 $weekExpolicies = collect($results);
-
     $certificatePolicies = null;
-
     $driverInfo = $this->driver->getByUserId($userId);
-
     $policies = null;
-
     $yourCertificateId = Certificate::select('id')
       ->where('client_user_id', $userId)
       ->first();
@@ -107,14 +104,11 @@ $weekExpolicies = collect($results);
     }
     $policies = PolicyType::get();
     $ship = ShipperInfos::all();
-
     return view('truck.dash', compact('users', 'monthExp', 'weekExp','ship', 'certificatePolicies','monthExpolicies','weekExpolicies', 'policies', 'driverInfo'));
   }
-
   public function shipper()
   {
     $ship = ShipperInfos::all();
-
     return view('truck.list-shipper', compact('ship'));
   }
 
@@ -131,8 +125,6 @@ $weekExpolicies = collect($results);
 
     return redirect()->route('lists.truck')->with('success', 'Truck deleted successfully');
 }
-
-
   public function addReg(Request $request)
   {
     $userId = Auth::user()->id;
@@ -194,17 +186,42 @@ $weekExpolicies = collect($results);
         'cellphone' => $validatedData['phone'],
         'extra_email' => $validatedData['altemail'],
       ]);
-      $user = Notice::create([
-        'to' => $lastInsertedId,
-        'from' => $userId,
-        'name' => "Agent added by ".$userId,
-          ]);
+      $driver = DriverDetail::where('user_id' ,$userId)->get();
+    Notice::create([
+      'to' => 1,
+      'from' => $userId,
+      'name' => "Agency  added by ".$driver[0]->name,
+    ]);
+    Openrequest::create([
+      'to' => 1,
+      'from' => $userId,
+      'titel' => "$names {Agency}  added Request by ".$driver[0]->name,
+    ]);
+    Openrequest::create([
+      'to' => $lastInsertedId,
+      'from' => $userId,
+      'titel' => "$names Agency added by ".$driver[0]->name,
+    ]);    
+    Notice::create([
+      'to' => $lastInsertedId,
+      'from' => $userId,
+      'name' => "$names Agency  added by ".$driver[0]->name,
+    ]);
+
+
+
+
+
+
 
           $data = [
             'code' => 'IA' . $randomNumber,
      ];
      $code ='IA' . $randomNumber;
 
+
+
+     
      Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
        $message->to($email, $names)
                ->subject('Register');
