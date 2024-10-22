@@ -304,10 +304,10 @@
                             <td class="  text-center"><i class="ri-shield-line ri-24px text-danger"></i></td>
                             <td>
                                 <div class="d-flex align-items-center gap-50"><button
-                                        class="btn btn-sm btn-icon edit-record btn-text-secondary rounded-pill waves-effect"
-                                        data-id="244" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><i class="mdi mdi-eye"></i></button><button
+                                        class="btn btn-sm -bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><i class="mdi mdi-eye"></i></button><button
                                         class="btn btn-sm btn-icon delete-record btn-text-secondary rounded-pill waves-effect"
-                                        data-id="244"><i class="mdi mdi-delete"></i></button><button
+                                        data-id="244"><i cbtn-icon edit-record btn-text-secondary rounded-pill waves-effect"
+                                        data-id="244" datalass="mdi mdi-delete"></i></button><button
                                         class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow"
                                         data-bs-toggle="dropdown"><i class="ri-more-2-line ri-20px"></i></button>
                                     <div class="dropdown-menu dropdown-menu-end m-0"><a
