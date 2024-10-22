@@ -1,7 +1,20 @@
 @extends('layouts/contentNavbarLayout')
 @section('title', ' Vertical Layouts - Forms')
 @section('content')
-    <Style>
+  
+   @push('body-style')
+ 
+   <style>
+   thead, tbody, tfoot, tr, td, th {
+       border-style: hidden !important;
+     }
+   .focus {
+     border-radius: 7px;
+     background-color: #f1f1f1; /* Highlight color */
+     border: 1px solid #add5ff; /* Optional: Add a border */
+   }
+
+
         .green-square {
             width: 10px;
             height: 10px;
@@ -12,8 +25,9 @@
             height: 10px;
             background-color: red;
         }
-    </style>
-    </Style>
+ 
+   </style>
+   @endpush
     @php
         $isMenu = false;
         $navbarHideToggle = false;
@@ -110,9 +124,9 @@
             <div class="card">
                 <div class="table-responsive">
                   
-                    <table class="table dataTable collapsed chat-contact-list" id="contact-list" >
+                    <table class="table " id="contact-list" >
                         <h4 class="mb-1 py-4 px-4">list of Shippers</h4>
-                        <thead class="table-light">
+                        <thead class="">
                             <tr>
                                 <th class="text-truncate">User</th>
                                 <th class="text-truncate">Address</th>
@@ -125,7 +139,7 @@
                         </thead>
                         <tbody>
                             @foreach ($ship as $ships)
-                                <tr class="parent">
+                                <tr class="">
                                     <td>
                                         <div class="d-flex align-items-center">
 

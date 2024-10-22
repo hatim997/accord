@@ -18,7 +18,7 @@
    <link rel="stylesheet" href="{{ asset('assets/css/datatables-Cl.css') }}" />
    <style>
    thead, tbody, tfoot, tr, td, th {
-       /* border-style: hidden !important; */
+       border-style: hidden !important;
      }
    .focus {
      border-radius: 7px;
@@ -204,9 +204,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="table-responsive">
-                    <table class="table dataTable collapsed chat-contact-list" id="contact-list" >
+                    <table class="table" id="contact-list" >
                         <h4 class="mb-1 py-4 px-4">list of Coverages</h4>
-                        <thead class="table-light">
+                        <thead class="">
                             <tr>
                                 <th class="text-truncate">User</th>
 
@@ -215,14 +215,14 @@
 
                         </thead>
                         <tbody>
-                            <tr class="parent">
+                            <tr class="">
                                 @if (isset($policies))
                                     @foreach ($policies as $p)
                                         <td>{{ shout($p->type_name) }}</td>
                                     @endforeach
                                 @endif
                             </tr>
-                            <tr class="parent">
+                            <tr class="">
                                 @if (isset($certificatePolicies))
                                     @foreach ($policies as $p)
                                         @if ($certificatePolicies->pluck('policy_type_id')->contains($p->id))
@@ -250,9 +250,9 @@
             <div class="card">
                 <div class="table-responsive">
                   
-                    <table class="table dataTable collapsed chat-contact-list" id="contact-list" >
+                    <table class="table " id="contact-list" >
                         <h4 class="mb-1 py-4 px-4">list of Shippers</h4>
-                        <thead class="table-light">
+                        <thead class="">
                             <tr>
                                 <th class="text-truncate">User</th>
                                 <th class="text-truncate">Address</th>
@@ -265,7 +265,7 @@
                         </thead>
                         <tbody>
                             @foreach ($ship as $ships)
-                                <tr class="parent">
+                                <tr class="">
                                     <td>
                                         <div class="d-flex align-items-center">
 

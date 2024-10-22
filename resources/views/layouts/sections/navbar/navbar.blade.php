@@ -259,9 +259,6 @@ margin-top: 1.7rem;
        
           </li>
 
-
-
-
         @elseif ($user->role == "admin")
         <li>
             <a class="btn btn-light" href="{{ route('dashs') }}">Dashboard</a>
