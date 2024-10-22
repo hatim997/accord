@@ -94,6 +94,14 @@ Livewire::setUpdateRoute(function ($handle) {
 Route::get('/accord', function () {
   return view('fromdrop');
 });
+
+Route::get('/user-list', function () {
+  return view('ul');
+});
+Route::get('/accord', function () {
+  return view('fromdrop');
+});
+
 Route::get('/form3', function () {
   return view('agent.form3');
 });
