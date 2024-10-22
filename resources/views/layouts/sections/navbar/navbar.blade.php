@@ -1,10 +1,7 @@
 @php
     $containerNav = $containerNav ?? 'container-fluid';
     $navbarDetached = $navbarDetached ?? '';
-
 @endphp
-
-<!-- Navbar -->
 @if (isset($navbarDetached) && $navbarDetached == 'navbar-detached')
     <nav class="layout-navbar {{ $containerNav }} navbar navbar-expand-xl {{ $navbarDetached }} align-items-center bg-navbar-theme"
         id="layout-navbar">
@@ -28,8 +25,6 @@
         </a>
     </div>
 @endif
-
-
 <!-- ! Not required for layout-without-menu -->
 @if (!isset($navbarHideToggle))
     <div
@@ -237,15 +232,7 @@ margin-top: 1.7rem;
         @if ($user->role == "agent")
         <li>
             <a href="{{ route('dash') }}" class="btn btn-light  ">Dashboard</a>
-        </li>
-        <li>
-            <a href="{{ route('formlist') }}" class="btn btn-light  ">Motor Carrier Insureds</a>
-        </li>
-
-        <li>
-
-
-        </li>
+        </li>        
         <li type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">          <a href="{{ route('agent.regs.add.form') }}" class="btn btn-light  ">Add Insured</a></li>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="{{ route('agent.regs.add.form') }}">Add Truckers </a></li>
@@ -254,14 +241,10 @@ margin-top: 1.7rem;
           </li> <li><a class="dropdown-item" href="{{ route('agent.regs.add.brok.form') }}"> Add Freight/Broker </a></li>
           <li>
             <hr class="dropdown-divider">
-          </li>  <li><a class="dropdown-item disabled" href="javascript:void(0);">Add Business</a></li>
+          </li> 
+          <li><a class="dropdown-item disabled" href="javascript:void(0);">Add Business</a></li>
          
-        </ul>
-
-
-        <li>
-            <a href="{{ route('profile.agency')}}" class="btn btn-light">Company Information</a>
-        </li>  
+        </ul>        
             <li type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">   <a class="btn btn-light" >Insured List </a></li>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{{ route('insur') }}"> Truckers List</a></li>
@@ -301,6 +284,17 @@ margin-top: 1.7rem;
         <li>
             <a class="btn btn-light" href="{{ route('getagency') }}">Agency</a>
           </li>
+          <li type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">   <a class="btn btn-light" >user DUMMY </a></li>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ route('user.view') }}"> user profile DUMMY</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li> <li><a class="dropdown-item" href="{{ route('user.list') }}">  user lIST DUMMY</a></li>
+            </ul>
+    
+     
+        </li>
+
         @elseif ($user->role == "truck_driver")
 
        <li><a class="btn btn-light" href="{{ route('dashw') }}">Dashboard</a>

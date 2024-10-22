@@ -120,17 +120,8 @@
                                         <option value="100">100</option>
                                     </select></label></div>
                             <div class="dt-buttons btn-group flex-wrap">
-                                <div class="btn-group"><button
-                                        class="btn btn-secondary buttons-collection dropdown-toggle btn-outline-secondary me-4 waves-effect waves-light"
-                                        tabindex="0" aria-controls="DataTables_Table_0" type="button"
-                                        aria-haspopup="dialog" aria-expanded="false"><span><i
-                                                class="ri-upload-2-line ri-16px me-2"></i><span
-                                                class="d-none d-sm-inline-block">Export </span></span></button></div>
-                                <button class="btn btn-secondary add-new btn-primary waves-effect waves-light"
-                                    tabindex="0" aria-controls="DataTables_Table_0" type="button"
-                                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><span><i
-                                            class="ri-add-line ri-16px me-0 me-sm-2 align-baseline"></i><span
-                                            class="d-none d-sm-inline-block">Add New User</span></span></button>
+                             
+                           
                             </div>
                         </div>
                     </div>
@@ -173,7 +164,7 @@
                                 </div>
                             </td>
                             <td><span class="user-email">vipin6456@gmail.com</span></td>
-                            <td class="  text-center"><i class="ri-shield-line ri-24px text-danger"></i></td>
+                            <td class="  text-center"><i class="mdi mdi-security mdi-24px text-danger"></i></td>
                             <td>
                                 <div class="d-flex align-items-center gap-50"><button
                                         class="btn btn-sm btn-icon edit-record btn-text-secondary rounded-pill waves-effect"
@@ -181,7 +172,7 @@
                                         class="btn btn-sm btn-icon delete-record btn-text-secondary rounded-pill waves-effect"
                                         data-id="257"><i class="mdi mdi-delete"></i></button><button
                                         class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown"><i class="ri-more-2-line ri-20px"></i></button>
+                                        data-bs-toggle="dropdown"><i class="mdi mdi-apps"></i></button>
                                     <div class="dropdown-menu dropdown-menu-end m-0"><a
                                             href=""
                                             class="dropdown-item">View</a><a href="javascript:;"
@@ -205,7 +196,7 @@
                                 </div>
                             </td>
                             <td><span class="user-email">fregtr@gmail.com</span></td>
-                            <td class="  text-center"><i class="ri-shield-line ri-24px text-danger"></i></td>
+                            <td class="  text-center"><i class="mdi mdi-security mdi-24px text-danger"></i></td>
                             <td>
                                 <div class="d-flex align-items-center gap-50"><button
                                         class="btn btn-sm btn-icon edit-record btn-text-secondary rounded-pill waves-effect"
@@ -237,7 +228,7 @@
                                 </div>
                             </td>
                             <td><span class="user-email">johndoe@user.com</span></td>
-                            <td class="  text-center"><i class="ri-shield-line ri-24px text-danger"></i></td>
+                            <td class="  text-center"><i class="mdi mdi-security mdi-24px text-danger"></i></td>
                             <td>
                                 <div class="d-flex align-items-center gap-50"><button
                                         class="btn btn-sm btn-icon edit-record btn-text-secondary rounded-pill waves-effect"
@@ -245,7 +236,7 @@
                                         class="btn btn-sm btn-icon delete-record btn-text-secondary rounded-pill waves-effect"
                                         data-id="255"><i class="mdi mdi-delete"></i></button><button
                                         class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown"><i class="ri-more-2-line ri-20px"></i></button>
+                                        data-bs-toggle="dropdown"><i class="mdi mdi-apps"></i></button>
                                     <div class="dropdown-menu dropdown-menu-end m-0"><a
                                             href=""
                                             class="dropdown-item">View</a><a href="javascript:;"
@@ -269,7 +260,7 @@
                                 </div>
                             </td>
                             <td><span class="user-email">guest@guest.com</span></td>
-                            <td class="  text-center"><i class="ri-shield-line ri-24px text-danger"></i></td>
+                            <td class="  text-center"><i class="mdi mdi-security mdi-24px text-danger"></i></td>
                             <td>
                                 <div class="d-flex align-items-center gap-50"><button
                                         class="btn btn-sm btn-icon edit-record btn-text-secondary rounded-pill waves-effect"
@@ -277,7 +268,7 @@
                                         class="btn btn-sm btn-icon delete-record btn-text-secondary rounded-pill waves-effect"
                                         data-id="249"><i class="mdi mdi-delete"></i></button><button
                                         class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown"><i class="ri-more-2-line ri-20px"></i></button>
+                                        data-bs-toggle="dropdown"><i class="mdi mdi-apps"></i></button>
                                     <div class="dropdown-menu dropdown-menu-end m-0"><a
                                             href=""
                                             class="dropdown-item">View</a><a href="javascript:;"
@@ -301,15 +292,17 @@
                                 </div>
                             </td>
                             <td><span class="user-email">admin@admin.com</span></td>
-                            <td class="  text-center"><i class="ri-shield-line ri-24px text-danger"></i></td>
+                            <td class="  text-center"><i class="mdi mdi-security mdi-24px text-danger"></i></td>
                             <td>
-                                <div class="d-flex align-items-center gap-50"><button
-                                        class="btn btn-sm -bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><i class="mdi mdi-eye"></i></button><button
+                                <div class="d-flex align-items-center gap-50">
+                                    <button
+                                        class="btn btn-sm btn-icon edit-record btn-text-secondary rounded-pill waves-effect" -bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser">
+                                        <i class="mdi mdi-eye"></i></button>
+                                        <button
                                         class="btn btn-sm btn-icon delete-record btn-text-secondary rounded-pill waves-effect"
-                                        data-id="244"><i cbtn-icon edit-record btn-text-secondary rounded-pill waves-effect"
-                                        data-id="244" datalass="mdi mdi-delete"></i></button><button
+                                        data-id="244"><i class="mdi mdi-delete"></i></button><button
                                         class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown"><i class="ri-more-2-line ri-20px"></i></button>
+                                        data-bs-toggle="dropdown"><i class="mdi mdi-apps"></i></button>
                                     <div class="dropdown-menu dropdown-menu-end m-0"><a
                                             href=""
                                             class="dropdown-item">View</a><a href="javascript:;"
@@ -342,6 +335,9 @@
                 </div>
             </div>
         </div>
+
+
+
         <!-- Offcanvas to add new user -->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser"
             aria-labelledby="offcanvasAddUserLabel">

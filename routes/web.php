@@ -97,7 +97,11 @@ Route::get('/accord', function () {
 
 Route::get('/user-list', function () {
   return view('ul');
-});
+})->name('user.list');
+
+Route::get('/user-view', function () {
+  return view('uv');
+})->name('user.view');
 Route::get('/accord', function () {
   return view('fromdrop');
 });
