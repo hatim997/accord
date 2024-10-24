@@ -394,11 +394,11 @@ thead, tbody, tfoot, tr, td, th {
       btn.addEventListener("click", function() {
           var modalId = btn.getAttribute("data-modal");
           var modal = document.getElementById(modalId);
-          var backlayout = document.getElementById("#content");
+          
 
           // Display the modal and start the opening animation
           modal.style.display = "flex";
-          backlayout.style.backgroundColor = "black";
+         
 
           setTimeout(function() {
               modal.classList.add("open");
