@@ -18,6 +18,45 @@ thead, tbody, tfoot, tr, td, th {
   background-color: #f1f1f1; /* Highlight color */
   border: 1px solid #add5ff; /* Optional: Add a border */
 }
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black overlay */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-out, display 0s 0.3s; /* Delay removing display until fade-out finishes */
+}
+
+/* Show the modal */
+.modal.open {
+    display: flex; /* Switch to flex layout */
+    opacity: 1;
+    transition: opacity 0.3s ease-in; /* Fade-in effect */
+}
+
+/* Content scaling */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transform: scale(0.8); /* Start small for animation */
+    transition: transform 0.3s ease-out;
+}
+
+/* When the modal is open, scale content to full size */
+.modal.open .modal-content {
+    transform: scale(1);
+}
+
+
 </style>
 @endpush
 @section('vendor-style')
@@ -33,7 +72,7 @@ thead, tbody, tfoot, tr, td, th {
 @endsection
 
 @section('content')
-    <div class="row gy-4 justify-content-center">
+    <div class="row gy-4 justify-content-center " id="content">
         <div class="col-md-10 col-lg-10">
             <div class="row gy-4">
                 <!-- Congratulations card -->
@@ -348,35 +387,50 @@ thead, tbody, tfoot, tr, td, th {
 @push('body-scripts')
 <script>
   var openModalBtns = document.querySelectorAll(".open-modal-btn");
-var closeModalBtns = document.querySelectorAll(".close-btn");
+  var closeModalBtns = document.querySelectorAll(".close-btn");
 
-// Open the modal when a button is clicked
-openModalBtns.forEach(function(btn) {
-    btn.addEventListener("click", function() {
-        var modalId = btn.getAttribute("data-modal");
-        var modal = document.getElementById(modalId);
-        modal.style.display = "flex"; // Show the modal
-    });
-});
+  // Function to open the modal with overlay effect
+  openModalBtns.forEach(function(btn) {
+      btn.addEventListener("click", function() {
+          var modalId = btn.getAttribute("data-modal");
+          var modal = document.getElementById(modalId);
+          var backlayout = document.getElementById("#content");
 
-// Close the modal when the close button is clicked
-closeModalBtns.forEach(function(btn) {
-    btn.addEventListener("click", function() {
-        var modalId = btn.getAttribute("data-modal");
-        var modal = document.getElementById(modalId);
-        modal.style.display = "none"; // Hide the modal
-    });
-});
+          // Display the modal and start the opening animation
+          modal.style.display = "flex";
+          backlayout.style.backgroundColor = "black";
 
-// Close the modal when clicking outside the modal content
-window.onclick = function(event) {
-    if (event.target.classList.contains("modal")) {
-        event.target.style.display = "none"; // Hide the modal
-    }
-};
-    
+          setTimeout(function() {
+              modal.classList.add("open");
+          }, 10); // Slight delay to trigger the CSS transitions
+      });
+  });
 
-    // Close modal when clicking outside the modal content
- 
+  // Function to close the modal with overlay effect
+  closeModalBtns.forEach(function(btn) {
+      btn.addEventListener("click", function() {
+          var modalId = btn.getAttribute("data-modal");
+          var modal = document.getElementById(modalId);
+
+          // Start the closing animation
+          modal.classList.remove("open");
+          setTimeout(function() {
+              modal.style.display = "none"; // Hide the modal after animation
+          }, 300); // Match the transition time in CSS
+      });
+  });
+
+  // Close the modal when clicking outside the modal content
+  window.onclick = function(event) {
+      if (event.target.classList.contains("modal")) {
+          var modal = event.target;
+
+          // Start the closing animation
+          modal.classList.remove("open");
+          setTimeout(function() {
+              modal.style.display = "none"; // Hide the modal after animation
+          }, 300); // Match the transition time in CSS
+      }
+  };
 </script>
 @endpush
