@@ -17,6 +17,10 @@
   background-color: #f1f1f1; /* Highlight color */
   border: 1px solid #add5ff; /* Optional: Add a border */
 }
+.temp:hover{
+                background-color: #f5f6fa;  
+              }
+      
 
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -134,17 +138,18 @@
             <li class="chat-contact-list-item contact-list-item-0 d-none">
               <h6 class="text-muted mb-0">No Contacts Found</h6>
             </li>
+         
             @foreach ($driver as $data)
-            <li class="chat-contact-list-item"  >
-              <a class="d-flex align-items-center chat-contact-list-itemm"   id="{{ $data->driver_id }}">               
+            <li class="chat-contact-list-item "  >
+              <a class=" align-items-center chat-contact-list-itemm temp "   id="{{ $data->driver_id }}">               
                 <div class="chat-contact-info flex-grow-1 ms-4"> 
                 <div class="d-flex justify-content-between"> <h6 class="chat-contact-name text-truncate fw-normal m-0">{{ $data->name }}</h6> 
                 
               </button>  </div>
-                  <small class="chat-contact-status text-truncate">{{ str_replace('_', ' ', $data->role) }}</small>
+                  <small class="chat-contact-status text-truncate ">{{ str_replace('_', ' ', $data->role) }}</small>
                 </div>
               </a>
-              <button class="btn primary" type="button"  data-toggle="modal" data-target="#exampleModal" id="btn" 
+              <button class="btn primary temp" type="button"  data-toggle="modal" data-target="#exampleModal" id="btn" 
               data-driver_id="{{ $data->driver_id }}" data-user_name="{{ $data->user_name }}" 
                data-company_name="{{ $data->name }}"                                             
               data-cell_number="{{ $data->cellphone }}"
@@ -155,9 +160,11 @@
               data-usdot_number="{{ $data->usdot }}"
               data-state="{{ $data->state }}"
               data-city="{{ $data->city }}"
-              data-zip="{{ $data->zip }}">
+              data-zip="{{ $data->zip }}" style="    margin: 0;
+    padding: 0px 0px;" >
              
-                <i class="mdi mdi-eye"></i> 
+                <i class="mdi mdi-eye eye temp" style="    margin: 0;
+    padding: .6rem .6rem;"></i> 
             </button>
             </li> 
             <li>
