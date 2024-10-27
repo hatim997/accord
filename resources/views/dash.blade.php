@@ -596,12 +596,25 @@
         var openModalBtns = document.querySelectorAll(".open-modal-btn");
         var closeModalBtns = document.querySelectorAll(".close-btn");
 
+<<<<<<< HEAD
         // Function to open the modal with overlay effect
         openModalBtns.forEach(function(btn) {
             btn.addEventListener("click", function() {
                 var modalId = btn.getAttribute("data-modal");
                 var modal = document.getElementById(modalId);
 
+=======
+  // Function to open the modal with overlay effect
+  openModalBtns.forEach(function(btn) {
+      btn.addEventListener("click", function() {
+          var modalId = btn.getAttribute("data-modal");
+          var modal = document.getElementById(modalId);
+          
+
+          // Display the modal and start the opening animation
+          modal.style.display = "flex";
+         
+>>>>>>> dc010c0e50ee1a66c9821d96beb70033b7aae1c3
 
                 // Display the modal and start the opening animation
                 modal.style.display = "flex";
