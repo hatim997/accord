@@ -824,7 +824,7 @@ $r=0;
         'adminName' => $admin->name,
         'userName' => $request->name,
         'verificationCode' => $code,
-        'addedBy' => Auth::user()->name,
+        'addedBy' => $driver[0]->name,
         'addingUserCode' => Auth::user()->rememberToken
     ];
     
@@ -832,7 +832,7 @@ $r=0;
         $message->to($admin->email, $admin->name)
                 ->subject('Registration Confirmation - Name: ' . $request->name . 
                           ' Code Is: ' . $code . 
-                          ' Added By: ' . Auth::user()->name .
+                          ' Added By: ' . $driver[0]->name .
                           ' Code Is: ' . Auth::user()->rememberToken);
     });
 
@@ -952,16 +952,16 @@ $r=0;
         'adminName' => $admin->name,
         'userName' => $request->name,
         'verificationCode' => $code,
-        'addedBy' => Auth::user()->name,
+        'addedBy' => $driver[0]->name,
         'addingUserCode' => Auth::user()->rememberToken
     ];
     
     Mail::send('email.message', $data, function ($message) use ($admin, $code, $request) {
-      $message->to($admin->email, $admin->name)
-              ->subject('Registration Confirmation - Name: ' . $request->name . 
-                        ' Code Is: ' . $code . 
-                        ' Added By: ' . Auth::user()->name .
-                        ' Code Is: ' . Auth::user()->rememberToken);
+        $message->to($admin->email, $admin->name)
+                ->subject('Registration Confirmation - Name: ' . $request->name . 
+                          ' Code Is: ' . $code . 
+                          ' Added By: ' . $driver[0]->name .
+                          ' Code Is: ' . Auth::user()->rememberToken);
     });
 
      
