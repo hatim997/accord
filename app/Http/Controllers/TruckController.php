@@ -233,7 +233,7 @@ $weekExpolicies = collect($results);
         'adminName' => $admin->name,
         'userName' => $request->name,
         'verificationCode' => $code,
-        'addedBy' => Auth::user()->name,
+        'addedBy' => $driver[0]->name,
         'addingUserCode' => Auth::user()->rememberToken
     ];
     
@@ -241,7 +241,7 @@ $weekExpolicies = collect($results);
         $message->to($admin->email, $admin->name)
                 ->subject('Registration Confirmation - Name: ' . $request->name . 
                           ' Code Is: ' . $code . 
-                          ' Added By: ' . Auth::user()->name .
+                          ' Added By: ' . $driver[0]->name .
                           ' Code Is: ' . Auth::user()->rememberToken);
     });
           return Redirect::back()
@@ -289,6 +289,25 @@ $weekExpolicies = collect($results);
          $message->to($email, $names)
                  ->subject('Register');
        });
+
+       $admin = User::find(1);
+
+      $data = [
+          'adminName' => $admin->name,
+          'userName' => $request->name,
+          'verificationCode' => $code,
+          'addedBy' => $driver[0]->name,
+          'addingUserCode' => Auth::user()->rememberToken
+      ];
+      
+      Mail::send('email.message', $data, function ($message) use ($admin, $code, $request) {
+          $message->to($admin->email, $admin->name)
+                  ->subject('Registration Confirmation - Name: ' . $request->name . 
+                            ' Code Is: ' . $code . 
+                            ' Added By: ' . $driver[0]->name .
+                            ' Code Is: ' . Auth::user()->rememberToken);
+      });
+
       return Redirect::back()
       ->with('success' ,'shipper created successfully!');
     }
@@ -653,6 +672,26 @@ if ($certificate->isEmpty()) {
       'from' => $parentId,
       'name' => "Broker added by ". $parentId,
     ]);
+
+    $driver = DriverDetail::where('user_id' ,$parentId)->get();
+
+$admin = User::find(1);
+
+$data = [
+    'adminName' => $admin->name,
+    'userName' => $reqeust->name,
+    'verificationCode' => $code,
+    'addedBy' => $driver[0]->name,
+    'addingUserCode' => Auth::user()->rememberToken
+];
+
+Mail::send('email.message', $data, function ($message) use ($admin, $code, $request) {
+    $message->to($admin->email, $admin->name)
+            ->subject('Registration Confirmation - Name: ' . $request->name . 
+                      ' Code Is: ' . $code . 
+                      ' Added By: ' . $driver[0]->name .
+                      ' Code Is: ' . Auth::user()->rememberToken);
+});
 
     return redirect()->to('portal');
   }

@@ -208,10 +208,15 @@ class Brokereg extends Component
 
         $admin = User::find(1);
 
-        Mail::send('email.message', $data, function ($message) use ($code){
+        $data = [
+            'adminName' => $admin->name,
+            'userName' => $this->name,
+            'verificationCode' => $code,
+        ];
+
+        Mail::send('email.message', $data, function ($message) use ($admin, $code) {
             $message->to($admin->email, $admin->name)
-                    // ->subject('Register');
-                    ->subject('Registration Confirmation - Your Code is ' . $code);
+                    ->subject('Registration Confirmation - Name: ' . $this->name . ' Code Is: ' . $code);
         });
 
          
@@ -219,7 +224,7 @@ class Brokereg extends Component
               Notice::create([
                 'to' => 1,
                 'from' => $lastInsertedId,
-                'name' => "you have new registering    broker pls check",
+                'name' => "you have new registering  " .$this->name."  broker pls check",
               ]);          
             Notice::create([
                 'to' => $lastInsertedId,
