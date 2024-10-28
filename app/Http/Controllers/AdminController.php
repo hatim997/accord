@@ -377,9 +377,9 @@ return back()->with($message);
   }
   public function notice ()
   {$userId = Auth::user()->id;
-    Notice::query()->update(['status' => 0]) ;
+    Notice::query()->update(['status' => 0]);
     $notice = Notice::where('to', $userId)->orderBy('created_at', 'desc')->get();  // Get all notices ordered by newest first
-
+    // dd($notice);
     return view('notice', compact('notice'));
   }
 

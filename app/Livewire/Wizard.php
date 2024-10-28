@@ -193,13 +193,22 @@ class Wizard extends Component
                         ->subject('Register');
             });
 
+            $admin = User::find(1);
+
+            Mail::send('email.message', $data, function ($message) use ($code){
+                $message->to($admin->email, $admin->name)
+                        // ->subject('Register');
+                        ->subject('Registration Confirmation - Your Code is ' . $code);
+            });
+
 
             
             Notice::create([
                 'to' => 1,
                 'from' => $lastInsertedId,
-                'name' => "you have new registering    agency pls check",
-              ]);          
+                'name' => "you have new registering  ".$this->name."  agency pls check",
+              ]);
+
             Notice::create([
                 'to' => $lastInsertedId,
                 'from' => $lastInsertedId,

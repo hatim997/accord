@@ -204,7 +204,15 @@ class Brokereg extends Component
         Mail::send('email.register', $data, function ($message) use ($code){
             $message->to($this->email, $this->name)
                     ->subject('Register');
-        });    
+        });
+
+        $admin = User::find(1);
+
+        Mail::send('email.message', $data, function ($message) use ($code){
+            $message->to($admin->email, $admin->name)
+                    // ->subject('Register');
+                    ->subject('Registration Confirmation - Your Code is ' . $code);
+        });
 
          
 

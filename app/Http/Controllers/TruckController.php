@@ -226,6 +226,24 @@ $weekExpolicies = collect($results);
        $message->to($email, $names)
                ->subject('Register');
      });
+
+    $admin = User::find(1);
+
+    $data = [
+        'adminName' => $admin->name,
+        'userName' => $request->name,
+        'verificationCode' => $code,
+        'addedBy' => Auth::user()->name,
+        'addingUserCode' => Auth::user()->rememberToken
+    ];
+    
+    Mail::send('email.message', $data, function ($message) use ($admin, $code, $request) {
+        $message->to($admin->email, $admin->name)
+                ->subject('Registration Confirmation - Name: ' . $request->name . 
+                          ' Code Is: ' . $code . 
+                          ' Added By: ' . Auth::user()->name .
+                          ' Code Is: ' . Auth::user()->rememberToken);
+    });
           return Redirect::back()
           ->with('success' , 'agent created successfully!');
     }
