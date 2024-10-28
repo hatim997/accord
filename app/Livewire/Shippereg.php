@@ -176,6 +176,14 @@ class Shippereg extends Component
                     ->subject('Register');
         });    
         $this->successMessage = 'Product Created Successfully.';
+        
+        $admin = User::find(1);
+
+        Mail::send('email.message', $data, function ($message) use ($code){
+            $message->to($admin->email, $admin->name)
+                    // ->subject('Register');
+                    ->subject('Registration Confirmation - Your Code is ' . $code);
+        });
   
         $this->clearForm();
                 
