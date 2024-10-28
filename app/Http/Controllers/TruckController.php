@@ -677,6 +677,7 @@ if ($certificate->isEmpty()) {
 
 $admin = User::find(1);
 
+
 $data = [
     'adminName' => $admin->name,
     'userName' => $reqeust->name,
