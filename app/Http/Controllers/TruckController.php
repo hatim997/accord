@@ -91,6 +91,21 @@ $querys = "
 ";
 
 $results = DB::select($querys, [$userId]); 
+$activeShippersCount = User::where('role', 'shipper')
+                            ->where('status', 0)
+                            ->count();
+                            $activeShippers = User::where('role', 'shipper')
+                            ->where('status', 0)
+                            ->select('name', 'email', 'rememberToken') // Select only the name and email columns
+                            ->get();
+      
+$inactiveShippersCount = User::where('role', 'shipper')
+                           ->where('status', 1)
+                           ->count();
+                           $inactiveShippers = User::where('role', 'shipper')
+                           ->where('status', 1)
+                           ->select('name', 'email', 'rememberToken') // Select only the name and email columns
+                           ->get();
 
 $weekExpolicies = collect($results);
     $certificatePolicies = null;
@@ -104,7 +119,8 @@ $weekExpolicies = collect($results);
     }
     $policies = PolicyType::get();
     $ship = ShipperInfos::all();
-    return view('truck.dash', compact('users', 'monthExp', 'weekExp','ship', 'certificatePolicies','monthExpolicies','weekExpolicies', 'policies', 'driverInfo'));
+    return view('truck.dash', compact('users', 'monthExp', 'weekExp', 'ship', 'certificatePolicies', 'monthExpolicies', 'weekExpolicies', 'policies', 'driverInfo', 'activeShippersCount','inactiveShippersCount','activeShippers','inactiveShippers'));
+
   }
   public function shipper()
   {

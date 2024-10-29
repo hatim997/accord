@@ -22,54 +22,57 @@
         .focus {
             border-radius: 7px;
             background-color: #f1f1f1;
-            /* Highlight color */
             border: 1px solid #add5ff;
-            /* Optional: Add a border */
         }
 
-        .modal {
-            display: none;
-            /* Hidden by default */
-            position: fixed;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            /* Semi-transparent black overlay */
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease-out, display 0s 0.3s;
-            /* Delay removing display until fade-out finishes */
-        }
+       /* Modal overlay */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Overlay background */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
 
-        /* Show the modal */
-        .modal.open {
-            display: flex;
-            /* Switch to flex layout */
-            opacity: 1;
-            transition: opacity 0.3s ease-in;
-            /* Fade-in effect */
-        }
+/* Modal content styling */
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    text-align: center;
+    transform: scale(0.8); /* Start smaller for zoom-in effect */
+    transition: transform 0.3s ease;
+}
 
-        /* Content scaling */
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            transform: scale(0.8);
-            /* Start small for animation */
-            transition: transform 0.3s ease-out;
-        }
+/* Open class to trigger transitions */
+.modal.open {
+    opacity: 1;
+}
 
-        /* When the modal is open, scale content to full size */
-        .modal.open .modal-content {
-            transform: scale(1);
-        }
+.modal.open .modal-content {
+    transform: scale(1); /* Scale up to full size */
+}
+
+/* Close button */
+.close-btn {
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 10px;
+    display: inline-block;
+    border-radius:3px;
+    background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);"
+}
+.modal-title{
+    font-weight: bold;
+}
     </style>
 @endpush
 @section('vendor-style')
@@ -149,28 +152,21 @@
 
 
 
-        <div class="modal" id="expiringPoliciesModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal" id="expiringPoliciesModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header justify-content-center align-items-center">
                         <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Week</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         @if ($weekExpolicies->isEmpty())
                             <p>No policies expiring within a week.</p>
                         @else
-                            <div class="container mt-5 px-2">
-
-
+                            <div class="container mt-2 px-2">
                                 <div class="table-responsive">
                                     <table class="table table-responsive table-borderless">
-
                                         <thead>
                                             <tr class="bg-light">
-
-
                                                 <th scope="col" width="15%">Policy <br> ID</th>
                                                 <th scope="col" width="20%">Policy <br>Type Name</th>
                                                 <th scope="col" width="20%">Policy<br> Number</th>
@@ -179,50 +175,43 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($monthExpolicies as $policy)
+                                            @foreach ($weekExpolicies as $policy)
                                                 <tr>
-
                                                     <td>{{ $policy->policy_type_id }}</td>
                                                     <td><span class="ms-1">{{ $policy->names }}</span></td>
                                                     <td>{{ $policy->policy_number }}</td>
                                                     <td>{{ $policy->start_date }}</td>
                                                     <td>{{ $policy->expiry_date }}</td>
-
                                                 </tr>
                                             @endforeach
-
                                         </tbody>
                                     </table>
-
                                 </div>
-
                             </div>
-
                         @endif
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary "
-                            style="border:none;border-radius:3px;background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);"
-                            data-bs-dismiss="modal">Close</button>
+                    <div class="modal-footer" style="margin-bottom: 0;">
+                        <button type="button" class="btn btn-secondary close-btn" style="border: none; margin-bottom: 0;" data-bs-dismiss="modal">Close</button>
                     </div>
+                    
                 </div>
             </div>
         </div>
-
+        
 
         <div class="modal" id="expiringPoliciesModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header justify-content-center align-items-center">
                         <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Month</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+                     
+                      </div>
                     <div class="modal-body">
                         @if ($monthExpolicies->isEmpty())
                             <p>No policies expiring within a Month.</p>
                         @else
-                            <div class="container mt-5 px-2">
+                            <div class="container mt-2 px-2">
 
 
                                 <div class="table-responsive">
@@ -276,15 +265,11 @@
         @if ($agencyinfo->is_active == '1')
             <div class="container mt-5 px-2">
 
-                <div class="mb-2 d-flex justify-content-between align-items-center">
-                    <div class="position-relative">
-
+        
+                <div class="mb-2 d-flex justify-content-center align-items-center">
+                    <div class="text-center">
                         <h4 class="mb-0 py-4 px-4 fw-bold">Carrier List</h4>
                     </div>
-
-
-
-
                 </div>
 
                 <div class="table-responsive">
@@ -429,15 +414,12 @@
 
     <div class="container mt-5 px-2">
 
-        <div class="mb-2 d-flex justify-content-between align-items-center">
-            <div class="position-relative">
+   
 
-                <h4 class="mb-0 py-4 px-4 fw-bold">Brocker List</h4>
+        <div class="mb-2 d-flex justify-content-center align-items-center">
+            <div class="text-center">
+                <h4 class="mb-0 py-4 px-4 fw-bold">Broker List</h4>
             </div>
-
-
-
-
         </div>
 
         <div class="table-responsive">
@@ -592,46 +574,30 @@
     </div>
 @endsection
 @push('body-scripts')
-    <script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
         var openModalBtns = document.querySelectorAll(".open-modal-btn");
         var closeModalBtns = document.querySelectorAll(".close-btn");
-
-<<<<<<< HEAD
+    
         // Function to open the modal with overlay effect
         openModalBtns.forEach(function(btn) {
             btn.addEventListener("click", function() {
                 var modalId = btn.getAttribute("data-modal");
                 var modal = document.getElementById(modalId);
-
-=======
-  // Function to open the modal with overlay effect
-  openModalBtns.forEach(function(btn) {
-      btn.addEventListener("click", function() {
-          var modalId = btn.getAttribute("data-modal");
-          var modal = document.getElementById(modalId);
-          
-
-          // Display the modal and start the opening animation
-          modal.style.display = "flex";
-         
->>>>>>> dc010c0e50ee1a66c9821d96beb70033b7aae1c3
-
+    
                 // Display the modal and start the opening animation
                 modal.style.display = "flex";
-
-
                 setTimeout(function() {
                     modal.classList.add("open");
                 }, 10); // Slight delay to trigger the CSS transitions
             });
         });
-
+    
         // Function to close the modal with overlay effect
         closeModalBtns.forEach(function(btn) {
             btn.addEventListener("click", function() {
-                var modalId = btn.getAttribute("data-modal");
-                var modal = document.getElementById(modalId);
-
+                var modal = btn.closest(".modal");
+    
                 // Start the closing animation
                 modal.classList.remove("open");
                 setTimeout(function() {
@@ -639,12 +605,12 @@
                 }, 300); // Match the transition time in CSS
             });
         });
-
+    
         // Close the modal when clicking outside the modal content
         window.onclick = function(event) {
             if (event.target.classList.contains("modal")) {
                 var modal = event.target;
-
+    
                 // Start the closing animation
                 modal.classList.remove("open");
                 setTimeout(function() {
@@ -652,5 +618,7 @@
                 }, 300); // Match the transition time in CSS
             }
         };
+    });
+    
     </script>
 @endpush

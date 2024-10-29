@@ -2,6 +2,20 @@
     $containerNav = $containerNav ?? 'container-fluid';
     $navbarDetached = $navbarDetached ?? '';
 @endphp
+<style>
+  .mdi-20px.mdi-set, .mdi-20px.mdi:before {
+  font-size: 20px;
+  color: red;
+  font-weight: bold;
+  border-radius: 25px;
+}
+.waves-effect:hover{
+background-color: #2684ff !important;
+transition: .4s;
+color: #fff !important;
+  
+}
+</style>
 @if (isset($navbarDetached) && $navbarDetached == 'navbar-detached')
     <nav class="layout-navbar {{ $containerNav }} navbar navbar-expand-xl {{ $navbarDetached }} align-items-center bg-navbar-theme"
         id="layout-navbar">
@@ -212,7 +226,7 @@
         <li class="nav-item  mx-3">
             <a class="dropdown-item" href="{{ route('logout') }}">
                 <i class='mdi mdi-power me-1 mdi-20px'></i>
-                <span class="align-middle">Log Out</span>
+                <span class="align-middle " style="font-weight: bold" >Log Out</span>
             </a>
         </li>
     </ul>
