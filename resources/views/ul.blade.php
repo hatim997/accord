@@ -56,10 +56,10 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="me-1">
-                            <p class="text-heading mb-1">Duplicate Users</p>
+                            <p class="text-heading mb-1">Paid Users</p>
                             <div class="d-flex align-items-center">
-                                <h4 class="mb-1 me-1">0</h4>
-                                <p class="text-danger mb-1">(0%)</p>
+                                <h4 class="mb-1 me-1">{{count($Paidresult)}}</h4>
+                                <p class="text-danger mb-1">({{ $currentMonthPercentage }}%)</p>
                             </div>
                             <small class="mb-0">Recent analytics</small>
                         </div>
