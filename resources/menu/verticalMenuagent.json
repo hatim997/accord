@@ -1,0 +1,38 @@
+{
+  "menu": [
+    {
+      "url": "dash",
+      "name": "Dashboards",
+      "icon": "menu-icon tf-icons mdi mdi-home-outline",
+      "slug": "dashboard",
+      "badge": [
+        "danger",
+        "5"
+      ]
+    },
+    {
+      "name": "Form",
+      "icon": "menu-icon tf-icons mdi mdi-file-document-plus",
+      "slug": "layouts",
+      "url": "/form"
+    },
+    {
+      "name": "list",
+      "icon": "menu-icon tf-icons mdi mdi-file-document-plus",
+      "slug": "layouts",
+      "url": "/truck"
+    },
+    {
+      "name": "Insurance list",
+      "icon": "menu-icon tf-icons mdi mdi-file-document-plus",
+      "slug": "layouts",
+      "url": "/formlist"
+    },
+    {
+      "name": "Form",
+      "icon": "menu-icon tf-icons mdi mdi-file-document-plus",
+      "slug": "layouts",
+      "url": "/truck"
+    }
+  ]
+}
