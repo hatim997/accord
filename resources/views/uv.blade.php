@@ -59,7 +59,7 @@
             </li>
             <li class="mb-2">
               <span class="h6">Status:</span>
-              @if($userviewlist->status == 0)
+              @if($userviewlist->status == 1)
               <span class="badge bg-label-success rounded-pill">Active</span>
               @else
               <span class="badge bg-label-danger rounded-pill">InActive</span>
@@ -106,10 +106,10 @@
     <div class=" card mb-6 border border-2 border-primary rounded">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-start">
-          <span class="badge bg-label-primary rounded-pill">Standard</span>
+          <span class="badge bg-label-primary rounded-pill">{{$result->order_item_name ?? 'NULL'}}</span>
           <div class="d-flex justify-content-center">
             <sub class="h5 pricing-currency mb-auto mt-1 text-primary">$</sub>
-            <h1 class="mb-0 text-primary">99</h1>
+            <h1 class="mb-0 text-primary">{{ round($result->total_amount, 2) }}</h1>
             <sub class="h6 pricing-duration mt-auto mb-3 fw-normal">month</sub>
           </div>
         </div>

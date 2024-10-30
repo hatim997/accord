@@ -440,9 +440,18 @@ return back()->with($message);
 
   public function userview($id)
   {
+    $user = User::find($id);
+
+    $result = DB::table('wp_wc_orders')
+    ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+    ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')  // You can select specific columns if needed
+    ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
+    ->first();
+    // dd($result);
+
     $userviewlist = User::with('truckers')->where('id', $id)->first();
     // dd($userviewlist);
-    return view('uv', compact('userviewlist'));
+    return view('uv', compact('userviewlist', 'result'));
   }
 
   function userlist() {
@@ -489,13 +498,7 @@ return back()->with($message);
 
     $monthPercentageChangeIn = $totalUsers > 0 ? round(($currentMonthUsersIn->count() / $totalUsers) * 100, 2) : 0;
 
-    // $Paidresult = DB::table('wp_wc_orders')
-    // ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
-    // ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')
-    // // ->where('wp_wc_orders.billing_email', $user->email)
-    // ->get();
-    // $result = User::where('email', $result->);
-    // dd($Paidresult);
+    
     $Paidresult = DB::table('wp_wc_orders')
         ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
         ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')

@@ -37,7 +37,7 @@
                         <p class="text-heading mb-1">Verified Users</p>
                         <div class="d-flex align-items-center">
                             <h4 class="mb-1 me-1">{{ $currentMonthUsers->count() }}</h4>
-                            <p class="text-success mb-1">(+{{ $monthPercentageChange }}%)</p>
+                            <p class="text-success mb-1">({{ $monthPercentageChange }}%)</p>
                         </div>
                         <small class="mb-0">Recent analytics</small>
                     </div>
@@ -52,25 +52,25 @@
 
         </div>
         <div class="col-sm-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div class="me-1">
-                            <p class="text-heading mb-1">Paid Users</p>
-                            <div class="d-flex align-items-center">
-                                <h4 class="mb-1 me-1">{{count($Paidresult)}}</h4>
-                                <p class="text-danger mb-1">({{ $currentMonthPercentage }}%)</p>
-                            </div>
-                            <small class="mb-0">Recent analytics</small>
+        <div class="card" data-bs-toggle="modal" data-bs-target="#dataModal">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div class="me-1">
+                        <p class="text-heading mb-1">Paid Users</p>
+                        <div class="d-flex align-items-center">
+                            <h4 class="mb-1 me-1">{{ count($Paidresult) }}</h4>
+                            <p class="text-danger mb-1">({{ $currentMonthPercentage }}%)</p>
                         </div>
-                        <div class="avatar">
-                            <div class="avatar-initial bg-label-danger rounded-3">
-                                <div class="mdi mdi-account ri-26px"></div>
-                            </div>
+                        <small class="mb-0">Recent analytics</small>
+                    </div>
+                    <div class="avatar">
+                        <div class="avatar-initial bg-label-danger rounded-3">
+                            <div class="mdi mdi-account ri-26px"></div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="col-sm-6 col-xl-3">
             <div class="card" data-bs-toggle="modal" data-bs-target="#verifiedUsersModalInactive">
@@ -239,7 +239,7 @@
                             <td><span class="user-role">{{$item->role}}</span></td>
                             <td><span class="user-rememberToken">{{$item->rememberToken}}</span></td>
                             <td>
-                            @if($item->status == 0)
+                            @if($item->status == 1)
                             <span class="text-success">Active</span>
                             @else
                             <span class="text-danger">InActive</span>
@@ -517,6 +517,45 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Paid Users List -->
+<div class="modal fade" id="dataModal" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dataModalLabel">Paid User Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Plan Name</th>
+                            <th>Amount</th>
+                            <th>Billing Email</th>
+                            <th>Date</th>
+                            <!-- Add other headers as needed -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($Paidresult as $result)
+                        <tr>
+                            <td>{{ $result->order_item_name }}</td>
+                            <td>{{ number_format($result->total_amount, 2) }}</td>
+                            <td>{{ $result->billing_email }}</td>
+                            <td>{{ \Carbon\Carbon::parse($result->date_created_gmt)->format('F j, Y, g:i A') }}</td>
+                            <!-- Add other fields as needed -->
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
