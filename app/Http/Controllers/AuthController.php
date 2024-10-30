@@ -32,12 +32,28 @@ class AuthController extends Controller
       'email' => 'required',
       'password' => 'required',
     ]);  
-    $user = User::where('email', $fields['email'])->first();  
-    $result = DB::table('wp_wc_orders')
-    ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
-    ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')  // You can select specific columns if needed
-    ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
-    ->first();
+    $user = User::where('email', $fields['email'])->first();
+
+
+    // $result = DB::table('wp_wc_orders')
+    // ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+    // ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')  // You can select specific columns if needed
+    // ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
+    // ->first();
+      $message = 'Wrong credentials or insufficient permissions';
+
+      if ($user && Hash::check($fields['password'], $user->password) && $user->role == 'agent' || $user->role == 'admin') {
+          $result = DB::table('wp_wc_orders')
+              ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+              ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')
+              ->where('wp_wc_orders.billing_email', $user->email)
+              ->first();
+      
+          // return response()->json(['status' => 'success', 'data' => $result]);
+      } else {
+          return Redirect::back()->with('danger', $message);
+      }
+
     $credentials = $request->only('email', 'password');
     if (!Auth::attempt($credentials)) {    
            $message = 'Wrong credentials';
@@ -84,11 +100,23 @@ class AuthController extends Controller
       'password' => 'required',
     ]);  
     $user = User::where('email', $fields['email'])->first();
-    $result = DB::table('wp_wc_orders')
-    ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
-    ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')  // You can select specific columns if needed
-    ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
-    ->first();
+    // $result = DB::table('wp_wc_orders')
+    // ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+    // ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')  // You can select specific columns if needed
+    // ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
+    // ->first();
+    $message = 'Wrong credentials or insufficient permissions';
+    if ($user && Hash::check($fields['password'], $user->password) && $user->role == 'shipper' || $user->role == 'admin') {
+        $result = DB::table('wp_wc_orders')
+            ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+            ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')
+            ->where('wp_wc_orders.billing_email', $user->email)
+            ->first();
+        // return response()->json(['status' => 'success', 'data' => $result]);
+    } else {
+        return Redirect::back()->with('danger', $message);
+    }
+
     $credentials = $request->only('email', 'password');
     if (!Auth::attempt($credentials)) {    
          $message = 'Wrong credentials';
@@ -131,11 +159,24 @@ class AuthController extends Controller
       'password' => 'required',
     ]);  
     $user = User::where('email', $fields['email'])->first();
-    $result = DB::table('wp_wc_orders')
-    ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
-    ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')  // You can select specific columns if needed
-    ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
-    ->first();
+    // $result = DB::table('wp_wc_orders')
+    // ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+    // ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')  // You can select specific columns if needed
+    // ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
+    // ->first();
+
+    $message = 'Wrong credentials or insufficient permissions';
+    if ($user && Hash::check($fields['password'], $user->password) && $user->role == 'truck_driver' || $user->role == 'admin') {
+        $result = DB::table('wp_wc_orders')
+            ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+            ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')
+            ->where('wp_wc_orders.billing_email', $user->email)
+            ->first();
+        // return response()->json(['status' => 'success', 'data' => $result]);
+    } else {
+        return Redirect::back()->with('danger', $message);
+    }
+
     $credentials = $request->only('email', 'password');
     if (!Auth::attempt($credentials)) {    
          $message = 'Wrong credentials';
@@ -175,11 +216,24 @@ class AuthController extends Controller
       'password' => 'required',
     ]);  
     $user = User::where('email', $fields['email'])->first();
-    $result = DB::table('wp_wc_orders')
-    ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
-    ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')  // You can select specific columns if needed
-    ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
-    ->first();
+    // $result = DB::table('wp_wc_orders')
+    // ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+    // ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')  // You can select specific columns if needed
+    // ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
+    // ->first();
+    
+    $message = 'Wrong credentials or insufficient permissions';
+    if ($user && Hash::check($fields['password'], $user->password) && $user->role == 'freight_driver' || $user->role == 'admin') {
+        $result = DB::table('wp_wc_orders')
+            ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+            ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')
+            ->where('wp_wc_orders.billing_email', $user->email)
+            ->first();
+        // return response()->json(['status' => 'success', 'data' => $result]);
+    } else {
+        return Redirect::back()->with('danger', $message);
+    }
+
     $credentials = $request->only('email', 'password');
     if (!Auth::attempt($credentials)) {    
          $message = 'Wrong credentials';
@@ -339,30 +393,56 @@ return redirect('/fportal');
     return view($view, compact('data'));
   }
 
+  // public function logout()
+  // {
+  //     $role = Auth::user()->role;
+  //   if ($role == "freight_driver") {
+  //     Session::flush();
+
+  //     // Delete all cookies
+  //     $cookies = Cookie::get();
+  //     foreach ($cookies as $name => $value) {
+  //       Cookie::queue(Cookie::forget($name));
+  //     }  
+  //     return redirect('/login/freight');
+  //   }
+  //   else{
+  //     Session::flush();
+
+  //     // Delete all cookies
+  //     $cookies = Cookie::get();
+  //     foreach ($cookies as $name => $value) {
+  //       Cookie::queue(Cookie::forget($name));
+  //     }
+  //       return redirect('/logg');
+  //   }
+  // }
+
   public function logout()
-  {
+{
     $role = Auth::user()->role;
-   if ($role == "freight_driver") {
+
+    Auth::logout();
     Session::flush();
 
-    // Delete all cookies
     $cookies = Cookie::get();
     foreach ($cookies as $name => $value) {
-      Cookie::queue(Cookie::forget($name));
-    }  
-    return redirect('/login/freight');
-   }
-   else{
-    Session::flush();
-
-    // Delete all cookies
-    $cookies = Cookie::get();
-    foreach ($cookies as $name => $value) {
-      Cookie::queue(Cookie::forget($name));
+        Cookie::queue(Cookie::forget($name));
     }
-      return redirect('/logg');
-  }
-  }
+
+    switch ($role) {
+        case "freight_driver":
+            return redirect('/login/freight');
+        case "shipper":
+            return redirect('/login/shipper');
+        case "truck_driver":
+            return redirect('/login/truck');
+        case "agent":
+            return redirect('/logg');
+        default:
+            return redirect('/logg');
+    }
+}
  
   public function land()
   { 

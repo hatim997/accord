@@ -95,6 +95,9 @@
 
     </div>
     <!-- Users List Table -->
+     @php
+     $userlist = App\Models\User::where('role', '!=', 'admin')->get();
+     @endphp
     <div class="card">
         <div class="card-header pb-0">
             <h5 class="card-title mb-0">Search Filter</h5>
@@ -110,15 +113,16 @@
                     <div class="d-flex justify-content-center justify-content-md-end align-items-baseline">
                         <div class="dt-action-buttons d-flex align-items-center justify-content-sm-center gap-4">
                             <div class="dataTables_length" id="DataTables_Table_0_length"><label><select
-                                        name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
-                                        class="form-select form-select-sm">
-                                        <option value="7">7</option>
-                                        <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="50">50</option>
-                                        <option value="70">70</option>
-                                        <option value="100">100</option>
-                                    </select></label></div>
+                                    name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
+                                    class="form-select form-select-sm">
+                                    <option value="7">7</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="70">70</option>
+                                    <option value="100">100</option>
+                                </select></label>
+                            </div>
                             <div class="dt-buttons btn-group flex-wrap">
                              
                            
@@ -140,6 +144,15 @@
                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                 colspan="1" style="width: 233px;"
                                 aria-label="Email: activate to sort column ascending">Email</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                colspan="1" style="width: 233px;"
+                                aria-label="Role: activate to sort column ascending">Role</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                colspan="1" style="width: 233px;"
+                                aria-label="Remember_Token: activate to sort column ascending">Remember Token</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                colspan="1" style="width: 233px;"
+                                aria-label="Status: activate to sort column ascending">Status</th>        
                             <th class="text-center sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                 rowspan="1" colspan="1" style="width: 100px;"
                                 aria-label="Verified: activate to sort column ascending">Verified</th>
@@ -148,22 +161,54 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($userlist as $key => $item)
                         <tr class="odd">
                             <td class="  control" tabindex="0" style="display: none;"></td>
-                            <td><span>1</span></td>
+                            <td><span>{{$key+1}}</span></td>
                             <td class="sorting_1">
                                 <div class="d-flex justify-content-start align-items-center user-name">
-                                    <div class="avatar-wrapper">
+                                    <!-- <div class="avatar-wrapper">
                                         <div class="avatar avatar-sm me-3"><span
-                                                class="avatar-initial rounded-circle bg-label-info">V</span></div>
+                                            class="avatar-initial rounded-circle bg-label-info">V</span>
+                                        </div>
+                                    </div> -->
+                                    <div class="avatar-wrapper">
+                                        <div class="avatar avatar-sm me-3">
+                                            <span class="avatar-initial rounded-circle bg-label-info">
+                                            <?php
+                                                    $fullName = $item->name;
+                                                    $initials = '';
+
+                                                    if (!empty($fullName)) {
+                                                        $words = explode(' ', $fullName);
+
+                                                        foreach ($words as $word) {
+                                                            $initials .= strtoupper(substr($word, 0, 1));
+                                                        }
+                                                    }
+
+                                                    echo $initials;
+                                                    ?>
+                                            </span>
+                                        </div>
                                     </div>
+                                 
                                     <div class="d-flex flex-column"><a
                                             href=""
-                                            class="text-truncate text-heading"><span class="fw-medium">vipin</span></a>
+                                            class="text-truncate text-heading"><span class="fw-medium">{{$item->name}}</span></a>
                                     </div>
                                 </div>
                             </td>
-                            <td><span class="user-email">vipin6456@gmail.com</span></td>
+                            <td><span class="user-email">{{$item->email}}</span></td>
+                            <td><span class="user-role">{{$item->role}}</span></td>
+                            <td><span class="user-rememberToken">{{$item->rememberToken}}</span></td>
+                            <td>
+                            @if($item->status == 0)
+                            <span class="text-success">Active</span>
+                            @else
+                            <span class="text-danger">InActive</span>
+                            @endif
+                            </td>
                             <td class="  text-center"><i class="mdi mdi-security mdi-24px text-danger"></i></td>
                             <td>
                                 <div class="d-flex align-items-center gap-50"><button
@@ -173,14 +218,15 @@
                                         data-id="257"><i class="mdi mdi-delete"></i></button><button
                                         class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow"
                                         data-bs-toggle="dropdown"><i class="mdi mdi-apps"></i></button>
-                                    <div class="dropdown-menu dropdown-menu-end m-0"><a
-                                            href=""
-                                            class="dropdown-item">View</a><a href="javascript:;"
-                                            class="dropdown-item">Suspend</a></div>
+                                    <div class="dropdown-menu dropdown-menu-end m-0">
+                                        <a href="{{ route('user.view', $item->id) }}" class="dropdown-item">View</a>
+                                        <a href="javascript:;" class="dropdown-item">Suspend</a>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
-                        <tr class="even">
+                        @endforeach
+                        <!-- <tr class="even">
                             <td class="  control" tabindex="0" style="display: none;"></td>
                             <td><span>2</span></td>
                             <td class="sorting_1">
@@ -309,7 +355,7 @@
                                             class="dropdown-item">Suspend</a></div>
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
                 <div class="row mx-1">
