@@ -21,7 +21,7 @@
 
     <div class="row gy-4 ">
         <div class="col-md-12 col-lg-12">
-            <div class="row gy-4">
+            <div class="row gy-4 justify-content-center align-item-center">
                 <!-- Congratulations card -->
                 <div class="col-md-3 col-lg-3">
                     <div class="card"

@@ -9,46 +9,47 @@
 
     <div class="row g-6 mb-6 " style="padding-bottom: 20px">
         <div class="col-sm-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div class="me-1">
-                            <p class="text-heading mb-1">Users</p>
-                            <div class="d-flex align-items-center">
-                                <h4 class="mb-1 me-2">5</h4>
-                                <p class="text-success mb-1">(100%)</p>
-                            </div>
-                            <small class="mb-0">Total Users</small>
+        <div class="card" id="recentSubsUsersCard">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div class="me-1">
+                        <p class="text-heading mb-1">Recently Users</p>
+                        <div class="d-flex align-items-center">
+                            <h4 class="mb-1 me-2">{{ $currentWeekUsers->count() }}</h4>
+                            <p class="text-success mb-1">({{ $percentageChange }}%)</p>
                         </div>
-                        <div class="avatar">
-                            <div class="avatar-initial bg-label-primary rounded-3">
-                                <div class="ri-user-line ri-26px"></div>
-                            </div>
+                        <small class="mb-0">Total Users</small>
+                    </div>
+                    <div class="avatar">
+                        <div class="avatar-initial bg-label-primary rounded-3">
+                            <div class="mdi mdi-account ri-26px"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
         <div class="col-sm-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div class="me-1">
-                            <p class="text-heading mb-1">Verified Users</p>
-                            <div class="d-flex align-items-center">
-                                <h4 class="mb-1 me-1">0</h4>
-                                <p class="text-success mb-1">(+95%)</p>
-                            </div>
-                            <small class="mb-0">Recent analytics</small>
+        <div class="card" data-bs-toggle="modal" data-bs-target="#verifiedUsersModal">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div class="me-1">
+                        <p class="text-heading mb-1">Verified Users</p>
+                        <div class="d-flex align-items-center">
+                            <h4 class="mb-1 me-1">{{ $currentMonthUsers->count() }}</h4>
+                            <p class="text-success mb-1">(+{{ $monthPercentageChange }}%)</p>
                         </div>
-                        <div class="avatar">
-                            <div class="avatar-initial bg-label-success rounded-3">
-                                <div class="ri-user-follow-line ri-26px"></div>
-                            </div>
+                        <small class="mb-0">Recent analytics</small>
+                    </div>
+                    <div class="avatar">
+                        <div class="avatar-initial bg-label-success rounded-3">
+                            <div class="mdi mdi-account ri-26px"></div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
         </div>
         <div class="col-sm-6 col-xl-3">
             <div class="card">
@@ -64,7 +65,7 @@
                         </div>
                         <div class="avatar">
                             <div class="avatar-initial bg-label-danger rounded-3">
-                                <div class="ri-group-line ri-26px"></div>
+                                <div class="mdi mdi-account ri-26px"></div>
                             </div>
                         </div>
                     </div>
@@ -72,36 +73,71 @@
             </div>
         </div>
         <div class="col-sm-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div class="me-1">
-                            <p class="text-heading mb-1">Verification Pending</p>
-                            <div class="d-flex align-items-center">
-                                <h4 class="mb-1 me-1">5</h4>
-                                <p class="text-success mb-1">(+6%)</p>
-                            </div>
-                            <small class="mb-0">Recent analytics</small>
+            <div class="card" data-bs-toggle="modal" data-bs-target="#verifiedUsersModalInactive">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div class="me-1">
+                        <p class="text-heading mb-1">Verification Pending</p>
+                        <div class="d-flex align-items-center">
+                            <h4 class="mb-1 me-1">{{ $currentMonthUsersIn->count() }}</h4>
+                            <p class="text-success mb-1">(+{{ $monthPercentageChangeIn }}%)</p>
                         </div>
-                        <div class="avatar">
-                            <div class="avatar-initial bg-label-warning rounded-3">
-                                <div class="ri-user-unfollow-line ri-26px"></div>
-                            </div>
+                        <small class="mb-0">Recent analytics</small>
+                    </div>
+                    <div class="avatar">
+                        <div class="avatar-initial bg-label-success rounded-3">
+                            <div class="mdi mdi-account ri-26px"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
 
     </div>
     <!-- Users List Table -->
-     @php
-     $userlist = App\Models\User::where('role', '!=', 'admin')->get();
-     @endphp
     <div class="card">
-        <div class="card-header pb-0">
+        <!-- <div class="card-header pb-0">
             <h5 class="card-title mb-0">Search Filter</h5>
-        </div>
+        </div> -->
+        <div class="row mt-5">
+  <div class="col-md-4">
+    <div class="form-floating form-floating-outline mb-4">
+      <select class="form-select" id="select1" aria-label="Default select example">
+        <option selected>select Role</option>
+        <option value="1">Broker</option>
+        <option value="2">Shipper</option>
+        <option value="3">Agent</option>
+        <option value="4">Carrier</option>
+      </select>
+      <label for="select1">Select Role</label>
+    </div>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="form-floating form-floating-outline mb-4">
+      <select class="form-select" id="select2" aria-label="Default select example">
+        <option selected>Select Plan</option>
+        <option value="1">Standard</option>
+        <option value="2">Basic plan</option>
+        <option value="3">Premium</option>
+      </select>
+      <label for="select2">Example Plan</label>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="form-floating form-floating-outline mb-4">
+      <select class="form-select" id="select3" aria-label="Default select example">
+        <option selected>Select Status</option>
+        <option value="1">Active</option>
+        <option value="2">Inactive</option>
+        <option value="3">Pending</option>
+      </select>
+      <label for="select3">Select Status</label>
+    </div>
+  </div>
+</div>
         <div class="card-datatable table-responsive">
             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                 <div class="card-header d-block d-md-flex rounded-0 flex-wrap pb-md-0 py-0">
@@ -226,136 +262,6 @@
                             </td>
                         </tr>
                         @endforeach
-                        <!-- <tr class="even">
-                            <td class="  control" tabindex="0" style="display: none;"></td>
-                            <td><span>2</span></td>
-                            <td class="sorting_1">
-                                <div class="d-flex justify-content-start align-items-center user-name">
-                                    <div class="avatar-wrapper">
-                                        <div class="avatar avatar-sm me-3"><span
-                                                class="avatar-initial rounded-circle bg-label-info">T</span></div>
-                                    </div>
-                                    <div class="d-flex flex-column"><a
-                                            href=""
-                                            class="text-truncate text-heading"><span class="fw-medium">t4gy3</span></a>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><span class="user-email">fregtr@gmail.com</span></td>
-                            <td class="  text-center"><i class="mdi mdi-security mdi-24px text-danger"></i></td>
-                            <td>
-                                <div class="d-flex align-items-center gap-50"><button
-                                        class="btn btn-sm btn-icon edit-record btn-text-secondary rounded-pill waves-effect"
-                                        data-id="256" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><i class="mdi mdi-eye"></i></button><button
-                                        class="btn btn-sm btn-icon delete-record btn-text-secondary rounded-pill waves-effect"
-                                        data-id="256"><i class="mdi mdi-delete"></i></button><button
-                                        class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown"><i class="mdi mdi-apps"></i></button>
-                                    <div class="dropdown-menu dropdown-menu-end m-0"><a
-                                            href=""
-                                            class="dropdown-item">View</a><a href="javascript:;"
-                                            class="dropdown-item">Suspend</a></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="odd">
-                            <td class="  control" tabindex="0" style="display: none;"></td>
-                            <td><span>3</span></td>
-                            <td class="sorting_1">
-                                <div class="d-flex justify-content-start align-items-center user-name">
-                                    <div class="avatar-wrapper">
-                                        <div class="avatar avatar-sm me-3"><span
-                                                class="avatar-initial rounded-circle bg-label-warning">JD</span></div>
-                                    </div>
-                                    <div class="d-flex flex-column"><a
-                                            href=""
-                                            class="text-truncate text-heading"><span class="fw-medium">John Doe</span></a>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><span class="user-email">johndoe@user.com</span></td>
-                            <td class="  text-center"><i class="mdi mdi-security mdi-24px text-danger"></i></td>
-                            <td>
-                                <div class="d-flex align-items-center gap-50"><button
-                                        class="btn btn-sm btn-icon edit-record btn-text-secondary rounded-pill waves-effect"
-                                        data-id="255" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><i class="mdi mdi-eye"></i></button><button
-                                        class="btn btn-sm btn-icon delete-record btn-text-secondary rounded-pill waves-effect"
-                                        data-id="255"><i class="mdi mdi-delete"></i></button><button
-                                        class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown"><i class="mdi mdi-apps"></i></button>
-                                    <div class="dropdown-menu dropdown-menu-end m-0"><a
-                                            href=""
-                                            class="dropdown-item">View</a><a href="javascript:;"
-                                            class="dropdown-item">Suspend</a></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="even">
-                            <td class="  control" tabindex="0" style="display: none;"></td>
-                            <td><span>4</span></td>
-                            <td class="sorting_1">
-                                <div class="d-flex justify-content-start align-items-center user-name">
-                                    <div class="avatar-wrapper">
-                                        <div class="avatar avatar-sm me-3"><span
-                                                class="avatar-initial rounded-circle bg-label-warning">GU</span></div>
-                                    </div>
-                                    <div class="d-flex flex-column"><a
-                                            href=""
-                                            class="text-truncate text-heading"><span class="fw-medium">Guest
-                                                Update</span></a></div>
-                                </div>
-                            </td>
-                            <td><span class="user-email">guest@guest.com</span></td>
-                            <td class="  text-center"><i class="mdi mdi-security mdi-24px text-danger"></i></td>
-                            <td>
-                                <div class="d-flex align-items-center gap-50"><button
-                                        class="btn btn-sm btn-icon edit-record btn-text-secondary rounded-pill waves-effect"
-                                        data-id="249" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><i class="mdi mdi-eye"></i></button><button
-                                        class="btn btn-sm btn-icon delete-record btn-text-secondary rounded-pill waves-effect"
-                                        data-id="249"><i class="mdi mdi-delete"></i></button><button
-                                        class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown"><i class="mdi mdi-apps"></i></button>
-                                    <div class="dropdown-menu dropdown-menu-end m-0"><a
-                                            href=""
-                                            class="dropdown-item">View</a><a href="javascript:;"
-                                            class="dropdown-item">Suspend</a></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="odd">
-                            <td class="  control" tabindex="0" style="display: none;"></td>
-                            <td><span>5</span></td>
-                            <td class="sorting_1">
-                                <div class="d-flex justify-content-start align-items-center user-name">
-                                    <div class="avatar-wrapper">
-                                        <div class="avatar avatar-sm me-3"><span
-                                                class="avatar-initial rounded-circle bg-label-dark">A</span></div>
-                                    </div>
-                                    <div class="d-flex flex-column"><a
-                                            href=""
-                                            class="text-truncate text-heading"><span class="fw-medium">Admin</span></a>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><span class="user-email">admin@admin.com</span></td>
-                            <td class="  text-center"><i class="mdi mdi-security mdi-24px text-danger"></i></td>
-                            <td>
-                                <div class="d-flex align-items-center gap-50">
-                                    <button
-                                        class="btn btn-sm btn-icon edit-record btn-text-secondary rounded-pill waves-effect" -bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser">
-                                        <i class="mdi mdi-eye"></i></button>
-                                        <button
-                                        class="btn btn-sm btn-icon delete-record btn-text-secondary rounded-pill waves-effect"
-                                        data-id="244"><i class="mdi mdi-delete"></i></button><button
-                                        class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown"><i class="mdi mdi-apps"></i></button>
-                                    <div class="dropdown-menu dropdown-menu-end m-0"><a
-                                            href=""
-                                            class="dropdown-item">View</a><a href="javascript:;"
-                                            class="dropdown-item">Suspend</a></div>
-                                </div>
-                            </td>
-                        </tr> -->
                     </tbody>
                 </table>
                 <div class="row mx-1">
@@ -497,6 +403,131 @@
 
 
 
+<!-- Recently User List -->
+<div class="modal fade" id="recentSubsUsersModal" tabindex="-1" aria-labelledby="recentUsersModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="recentUsersModalLabel">Recently Subscribed Users</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Subscriptions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($currentWeekUsers as $user)
+                            <tr>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        @foreach ($user->subscription as $subscription)
+                                            <li>Subscribed on: {{ $subscription->created_at->format('d M Y') }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Verified User List -->
+<div class="modal fade" id="verifiedUsersModal" tabindex="-1" aria-labelledby="verifiedUsersModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="verifiedUsersModalLabel">Verified Users Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Subscriptions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($currentMonthUsers as $user)
+                        <tr>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>
+                                <ul class="list-unstyled">
+                                    @foreach ($user->subscription as $subscription)
+                                        <li>Subscribed on: {{ $subscription->created_at->format('d M Y') ?? '' }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Verified User List Inactive -->
+<div class="modal fade" id="verifiedUsersModalInactive" tabindex="-1" aria-labelledby="verifiedUsersModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="verifiedUsersModalLabel">Verification Pending</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Subscriptions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($currentMonthUsersIn as $user)
+                        <tr>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>
+                                <ul class="list-unstyled">
+                                    @foreach ($user->subscription as $subscription)
+                                        <li>Subscribed on: {{ $subscription->created_at->format('d M Y') }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('recentSubsUsersCard').addEventListener('click', function() {
+    var recentUsersModal = new bootstrap.Modal(document.getElementById('recentSubsUsersModal'));
+    recentUsersModal.show();
+});
+</script>
 
 
 

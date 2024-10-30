@@ -83,6 +83,7 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
   Route::get('/admin-download-certificate/{file}', [AdminController::class, 'download_certificate'])->name('admin.download.certificate');
 
   Route::get('/admin/user-view/{id}', [AdminController::class, 'userview'])->name('user.view');
+  Route::get('/admin/user-list', [AdminController::class, 'userlist'])->name('user.list');
 });
 
 Route::post('/mark-read/{id}', [AdminController::class, 'markAsRead'])->name('mark-read');
@@ -97,9 +98,9 @@ Route::get('/accord', function () {
   return view('fromdrop');
 });
 
-Route::get('/user-list', function () {
-  return view('ul');
-})->name('user.list');
+// Route::get('/user-list', function () {
+//   return view('ul');
+// })->name('user.list');
 
 // Route::get('/user-view', function () {
 //   return view('uv');
