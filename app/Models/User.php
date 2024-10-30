@@ -102,4 +102,9 @@ class User extends Authenticatable
   {
     return $this->hasMany(ShipperLimit::class, 'shipper_id');
   }
+
+  public function subscription()
+  {
+    return $this->hasMany(Subscription::class, 'user_id');
+  }
 }

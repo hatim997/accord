@@ -418,31 +418,31 @@ return redirect('/fportal');
   //   }
   // }
 
-  public function logout()
-{
-    $role = Auth::user()->role;
+    public function logout()
+  {
+      $role = Auth::user()->role;
 
-    Auth::logout();
-    Session::flush();
+      Auth::logout();
+      Session::flush();
 
-    $cookies = Cookie::get();
-    foreach ($cookies as $name => $value) {
-        Cookie::queue(Cookie::forget($name));
-    }
+      $cookies = Cookie::get();
+      foreach ($cookies as $name => $value) {
+          Cookie::queue(Cookie::forget($name));
+      }
 
-    switch ($role) {
-        case "freight_driver":
-            return redirect('/login/freight');
-        case "shipper":
-            return redirect('/login/shipper');
-        case "truck_driver":
-            return redirect('/login/truck');
-        case "agent":
-            return redirect('/logg');
-        default:
-            return redirect('/logg');
-    }
-}
+      switch ($role) {
+          case "freight_driver":
+              return redirect('/login/freight');
+          case "shipper":
+              return redirect('/login/shipper');
+          case "truck_driver":
+              return redirect('/login/truck');
+          case "agent":
+              return redirect('/logg');
+          default:
+              return redirect('/logg');
+      }
+  }
  
   public function land()
   { 

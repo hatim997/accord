@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -442,5 +443,63 @@ return back()->with($message);
     $userviewlist = User::with('truckers')->where('id', $id)->first();
     // dd($userviewlist);
     return view('uv', compact('userviewlist'));
+  }
+
+  function userlist() {
+    $currentWeekUsers = User::where('role', '!=', 'admin')
+        ->whereHas('subscription', function ($query) {
+            $query->where('status', 'Active')
+                  ->where('start_date', '>=', Carbon::now()->startOfWeek())
+                  ->where('end_date', '>=', Carbon::now());
+        })
+        ->with('subscription')
+        ->get();
+
+    $totalUsers = User::where('role', '!=', 'admin')->count();
+    $percentageChange = $totalUsers > 0 ? round(($currentWeekUsers->count() / $totalUsers) * 100, 2) : 0;
+
+    // Get current month users Active
+    $currentMonthUsers = User::where('role', '!=', 'admin')
+        ->whereHas('subscription', function ($query) {
+            $query->where('status', 'Active')
+                  ->where('start_date', '>=', Carbon::now()->startOfMonth())
+                  ->where('end_date', '>=', Carbon::now());
+        })
+        ->with('subscription')
+        ->get();
+        // dd($currentMonthUsers);
+
+    $totalUsers = User::where('role', '!=', 'admin')->count();
+
+    $monthPercentageChange = $totalUsers > 0 ? round(($currentMonthUsers->count() / $totalUsers) * 100, 2) : 0;
+
+
+    // Get current month users InActive
+    $currentMonthUsersIn = User::where('role', '!=', 'admin')
+        ->whereHas('subscription', function ($query) {
+            $query->where('status', 'Inactive')
+                  ->where('start_date', '>=', Carbon::now()->startOfMonth())
+                  ->where('end_date', '>=', Carbon::now());
+        })
+        ->with('subscription')
+        ->get();
+        // dd($currentMonthUsersIn);
+
+    $totalUsers = User::where('role', '!=', 'admin')->count();
+
+    $monthPercentageChangeIn = $totalUsers > 0 ? round(($currentMonthUsersIn->count() / $totalUsers) * 100, 2) : 0;
+
+    // $result = DB::table('wp_wc_orders')
+    // ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+    // ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')
+    // // ->where('wp_wc_orders.billing_email', $user->email)
+    // ->first();
+    // $data = User::where()
+    // dd($result);
+
+
+
+    $userlist = User::where('role', '!=', 'admin')->get();
+    return view('ul', compact('userlist' ,'currentWeekUsers', 'percentageChange', 'currentMonthUsers', 'monthPercentageChange', 'currentMonthUsersIn', 'monthPercentageChangeIn'));
   }
 }
