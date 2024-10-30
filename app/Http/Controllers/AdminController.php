@@ -41,6 +41,9 @@ class AdminController extends Controller
   public function dashadmin()
   {
     $users = User::all();
+    $recently = User::where('created_at', '>=', Carbon::now()->subWeek())->get();
+    $activeUser = User::where('status', '0')->get();
+    $inactiveUser = User::where('status', '1')->get();
     $oneWeekAgo = Carbon::now()->subWeek();
     $userCount = User::where('created_at', '>=', $oneWeekAgo)->count();
     $activeUserCount = User::where('status', '0')->count();
@@ -48,7 +51,7 @@ class AdminController extends Controller
 
 
 
-    return view('admin_dash', compact('userCount','activeUserCount', 'inactiveUserCount'));
+    return view('admin_dash', compact('userCount','activeUserCount', 'inactiveUserCount', 'recently', 'activeUser', 'inactiveUser'));
     // return view('dash');
   }
   public function markAsRead($id)
@@ -432,5 +435,12 @@ return back()->with($message);
     $file = $path = storage_path().'/app/public/uploads_shipper/' . $file_name;
     $headers = array('Content-Type: application/pdf',);
     return response()->download($file, 'info.pdf', $headers);
+  }
+
+  public function userview($id)
+  {
+    $userviewlist = User::with('truckers')->where('id', $id)->first();
+    // dd($userviewlist);
+    return view('uv', compact('userviewlist'));
   }
 }

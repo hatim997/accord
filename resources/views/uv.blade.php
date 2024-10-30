@@ -15,8 +15,10 @@
           <div class=" d-flex align-items-center flex-column">
             <img class="img-fluid rounded mb-4" src="{{ asset('assets/img/logo.png') }}" height="120" width="120" alt="User avatar">
             <div class="user-info text-center">
-              <h5>Violet Mendoza</h5>
-              <span class="badge bg-label-danger rounded-pill">Author</span>
+              @foreach($userviewlist->truckers as $item)
+              <h5>{{$item->name}}</h5>
+              @endforeach
+              <span class="badge bg-label-danger rounded-pill">{{$userviewlist->role}}</span>
             </div>
           </div>
         </div>
@@ -49,35 +51,46 @@
           <ul class="list-unstyled mb-6">
             <li class="mb-2">
               <span class="h6">Username:</span>
-              <span>@violet.dev</span>
+              <span>{{$userviewlist->name}}</span>
             </li>
             <li class="mb-2">
               <span class="h6">Email:</span>
-              <span>vafgot@vultukir.org</span>
+              <span>{{$userviewlist->email}}</span>
             </li>
             <li class="mb-2">
               <span class="h6">Status:</span>
+              @if($userviewlist->status == 0)
               <span class="badge bg-label-success rounded-pill">Active</span>
+              @else
+              <span class="badge bg-label-danger rounded-pill">InActive</span>
+              @endif
+              
             </li>
             <li class="mb-2">
               <span class="h6">Role:</span>
-              <span>Author</span>
+              <span>{{$userviewlist->role}}</span>
             </li>
             <li class="mb-2">
               <span class="h6">Tax id:</span>
-              <span>Tax-8965</span>
+              @foreach($userviewlist->truckers as $item)
+              <span>{{$item->tax}}</span>
+              @endforeach
             </li>
             <li class="mb-2">
               <span class="h6">Contact:</span>
-              <span>(123) 456-7890</span>
+              @foreach($userviewlist->truckers as $item)
+              <span>{{$item->fax}}</span>
+              @endforeach
             </li>
-            <li class="mb-2">
+            <!-- <li class="mb-2">
               <span class="h6">Languages:</span>
               <span>French</span>
-            </li>
+            </li> -->
             <li class="mb-2">
-              <span class="h6">Country:</span>
-              <span>England</span>
+              <span class="h6">State-City-ZipCode:</span>
+              @foreach($userviewlist->truckers as $item)
+              <span>{{$item->state}}-{{$item->city}}-{{$item->zip}}</span>
+              @endforeach
             </li>
           </ul>
           <div class="d-flex justify-content-center">

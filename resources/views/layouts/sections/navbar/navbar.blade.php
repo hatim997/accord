@@ -297,7 +297,7 @@ margin-top: 1.7rem;
           </li>
           <li type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">   <a class="btn btn-light" >user DUMMY </a></li>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{ route('user.view') }}"> user profile DUMMY</a></li>
+            {{--<li><a class="dropdown-item" href="{{ route('user.view') }}"> user profile DUMMY</a></li>--}}
             <li>
               <hr class="dropdown-divider">
             </li> <li><a class="dropdown-item" href="{{ route('user.list') }}">  user lIST DUMMY</a></li>
