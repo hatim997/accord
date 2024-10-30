@@ -489,17 +489,42 @@ return back()->with($message);
 
     $monthPercentageChangeIn = $totalUsers > 0 ? round(($currentMonthUsersIn->count() / $totalUsers) * 100, 2) : 0;
 
-    // $result = DB::table('wp_wc_orders')
+    // $Paidresult = DB::table('wp_wc_orders')
     // ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
     // ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')
     // // ->where('wp_wc_orders.billing_email', $user->email)
-    // ->first();
-    // $data = User::where()
-    // dd($result);
+    // ->get();
+    // $result = User::where('email', $result->);
+    // dd($Paidresult);
+    $Paidresult = DB::table('wp_wc_orders')
+        ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+        ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')
+        ->get();
+
+    // Step 1: Count registrations per month
+    $monthlyCounts = [];
+    $totalRegistrations = 0;
+
+    foreach ($Paidresult as $item) {
+        $month = date('Y-m', strtotime($item->date_created_gmt)); // Extract month and year
+        $monthlyCounts[$month] = ($monthlyCounts[$month] ?? 0) + 1;
+        $totalRegistrations++;
+    }
+
+    // Step 2: Calculate monthly percentage ratio
+    $monthlyPercentageRatio = [];
+    foreach ($monthlyCounts as $month => $count) {
+        $monthlyPercentageRatio[$month] = ($count / $totalRegistrations) * 100;
+    }
+
+    // Optionally, you can select a specific month if needed
+    $currentMonth = date('Y-m'); // Change as necessary
+    $currentMonthPercentage = isset($monthlyPercentageRatio[$currentMonth]) ? round($monthlyPercentageRatio[$currentMonth], 2) : 0;
+
 
 
 
     $userlist = User::where('role', '!=', 'admin')->get();
-    return view('ul', compact('userlist' ,'currentWeekUsers', 'percentageChange', 'currentMonthUsers', 'monthPercentageChange', 'currentMonthUsersIn', 'monthPercentageChangeIn'));
+    return view('ul', compact('userlist' ,'currentWeekUsers', 'percentageChange', 'currentMonthUsers', 'monthPercentageChange', 'currentMonthUsersIn', 'monthPercentageChangeIn', 'Paidresult', 'currentMonthPercentage'));
   }
 }
