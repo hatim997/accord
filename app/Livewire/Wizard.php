@@ -195,10 +195,15 @@ class Wizard extends Component
 
             $admin = User::find(1);
 
-            Mail::send('email.message', $data, function ($message) use ($code){
+            $data = [
+                'adminName' => $admin->name,
+                'userName' => $this->name,
+                'verificationCode' => $code,
+            ];
+
+            Mail::send('email.message', $data, function ($message) use ($admin, $code) {
                 $message->to($admin->email, $admin->name)
-                        // ->subject('Register');
-                        ->subject('Registration Confirmation - Your Code is ' . $code);
+                        ->subject('Registration Confirmation - Name: ' . $this->name . ' Code Is: ' . $code);
             });
 
 
