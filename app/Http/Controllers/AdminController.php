@@ -17,7 +17,7 @@ use App\Models\Subscription;
 use App\Models\UploadShipper;
 use App\Models\PolicyLimit;
 use App\Models\PolicyType;
-use App\Models\Openrequest; 
+use App\Models\Openrequest;
 use App\Models\ShipperLimit;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Redirect;
@@ -61,18 +61,18 @@ class AdminController extends Controller
       if ($request) {
           $request->status = 1;  // Mark as read
           $request->save();
-          
+
           // Check if there are any other open requests
           $openRequests = Openrequest::where('status', 0)
                           ->where('from', auth()->user()->id)
                           ->exists();
-  
+
           return response()->json([
               'success' => true,
               'allRead' => !$openRequests  // True if all requests are now read
           ]);
       }
-  
+
       return response()->json(['success' => false], 400);
   }
 
@@ -110,27 +110,27 @@ class AdminController extends Controller
       $userss = AgencyInfos::where('user_id', $id)->delete();
       Notice::where('to',$id)->orWhere('from',$id)->delete();
       AgentDriver::where('driver_id',$id)->orWhere('agent_id',$id)->delete();
-      Subscription::where('user_id', $id)->delete();  
+      Subscription::where('user_id', $id)->delete();
       User::where('id',$id)->delete();
       $message = 'delete done agent';
       return  Redirect::back()->with('success' , $message);
 
     }
     elseif ($users->role == "shipper") {
-      $userss = ShipperInfos::where('user_id', $id)->delete();     
+      $userss = ShipperInfos::where('user_id', $id)->delete();
       ShipperDriver::where('driver_id',$id)->orWhere('shipper_id',$id)->delete();
       Notice::where('to',$id)->orWhere('from',$id)->delete();
-      Subscription::where('user_id', $id)->delete();  
+      Subscription::where('user_id', $id)->delete();
       User::where('id',$id)->delete();
       $message = 'delete done shipper';
       return Redirect::back()->with('success' ,$message);
     }
     elseif ($users->role == "truck_driver" || $users->role == "freight_driver" ) {
-      $userss = DriverDetail::where('user_id', $id)->delete();  
+      $userss = DriverDetail::where('user_id', $id)->delete();
       ShipperDriver::where('driver_id',$id)->orWhere('shipper_id',$id)->delete();
       Notice::where('to',$id)->orWhere('from',$id)->delete();
-      Subscription::where('user_id', $id)->delete(); 
-      AgentDriver::where('driver_id',$id)->orWhere('agent_id',$id)->delete(); 
+      Subscription::where('user_id', $id)->delete();
+      AgentDriver::where('driver_id',$id)->orWhere('agent_id',$id)->delete();
       User::where('id',$id)->delete();
       $message = 'delete done ';
       return Redirect::back()->with('success' ,$message);
@@ -141,7 +141,7 @@ class AdminController extends Controller
     $message = 'First User have to inactive';
    return Redirect::back()->with('success' ,$message);
   }
-    
+
   }
   public function shipperlimits(string $id)
   {
@@ -331,7 +331,7 @@ return back()->with($message);
 
   public function active($id)
   {
-    
+
     $user = User::find($id);
 
     // Check if user exists
@@ -476,7 +476,7 @@ return back()->with($message);
         })
         ->with('subscription')
         ->get();
-        // dd($currentMonthUsers);
+        // dd($currentMonthUsers->toArray());
 
     $totalUsers = User::where('role', '!=', 'admin')->count();
 
@@ -498,7 +498,7 @@ return back()->with($message);
 
     $monthPercentageChangeIn = $totalUsers > 0 ? round(($currentMonthUsersIn->count() / $totalUsers) * 100, 2) : 0;
 
-    
+
     $Paidresult = DB::table('wp_wc_orders')
         ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
         ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')

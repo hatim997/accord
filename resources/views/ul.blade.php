@@ -113,7 +113,7 @@
       <label for="select1">Select Role</label>
     </div>
   </div>
-  
+
   <div class="col-md-4">
     <div class="form-floating form-floating-outline mb-4">
       <select class="form-select" id="select2" aria-label="Default select example">
@@ -160,8 +160,8 @@
                                 </select></label>
                             </div>
                             <div class="dt-buttons btn-group flex-wrap">
-                             
-                           
+
+
                             </div>
                         </div>
                     </div>
@@ -188,7 +188,7 @@
                                 aria-label="Remember_Token: activate to sort column ascending">Remember Token</th>
                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                 colspan="1" style="width: 233px;"
-                                aria-label="Status: activate to sort column ascending">Status</th>        
+                                aria-label="Status: activate to sort column ascending">Status</th>
                             <th class="text-center sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                 rowspan="1" colspan="1" style="width: 100px;"
                                 aria-label="Verified: activate to sort column ascending">Verified</th>
@@ -228,7 +228,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                 
+
                                     <div class="d-flex flex-column"><a
                                             href=""
                                             class="text-truncate text-heading"><span class="fw-medium">{{$item->name}}</span></a>
@@ -418,6 +418,8 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Subscriptions</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -425,13 +427,17 @@
                             <tr>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>Free</td>
                                 <td>
-                                    <ul class="list-unstyled">
-                                        @foreach ($user->subscription as $subscription)
-                                            <li>Subscribed on: {{ $subscription->created_at->format('d M Y') }}</li>
-                                        @endforeach
-                                    </ul>
+                                      @foreach ($user->subscription as $subscription)
+                                          Subscribed on: {{ $subscription->start_date }}
+                                      @endforeach
                                 </td>
+                                <td>
+                                  @foreach ($user->subscription as $subscription)
+                                      Subscribed on: {{ $subscription->end_date }}
+                                  @endforeach
+                            </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -447,40 +453,48 @@
 
 <!-- Verified User List -->
 <div class="modal fade" id="verifiedUsersModal" tabindex="-1" aria-labelledby="verifiedUsersModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="verifiedUsersModalLabel">Verified Users Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Subscriptions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($currentMonthUsers as $user)
-                        <tr>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>
-                                <ul class="list-unstyled">
-                                    @foreach ($user->subscription as $subscription)
-                                        <li>Subscribed on: {{ $subscription->created_at->format('d M Y') ?? '' }}</li>
-                                    @endforeach
-                                </ul>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="verifiedUsersModalLabel">Verified Users Details</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
+              <div class="table-responsive">
+                  <table class="table table-bordered table-hover table-striped">
+                      <thead class="table-light">
+                          <tr>
+                              <th style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">Name</th>
+                              <th style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">Email</th>
+                              <th style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">Subscriptions</th>
+                              <th style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">Start Date</th>
+                              <th style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">End Date</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          @foreach($currentMonthUsers as $user)
+                              <tr>
+                                  <td style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">{{ $user->name }}</td>
+                                  <td style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">{{ $user->email }}</td>
+                                  <td style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">Free</td>
+                                  <td style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">
+                                      @foreach ($user->subscription as $subscription)
+                                          {{ $subscription->start_date ?? '' }}
+                                      @endforeach
+                                  </td>
+                                  <td style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">
+                                      @foreach ($user->subscription as $subscription)
+                                          {{ $subscription->end_date ?? '' }}
+                                      @endforeach
+                                  </td>
+                              </tr>
+                          @endforeach
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
 
 
