@@ -1,6 +1,79 @@
 @extends('layouts/contentNavbarLayout')
 @section('title', ' Vertical Layouts - Forms')
 @section('content')
+@push('body-style')
+
+<style>
+  body {
+    color: #000;
+    overflow-x: hidden;
+    height: 100%;
+    background-image: url("https://i.imgur.com/GMmCQHC.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+  }
+
+  .card {
+    padding: 40px;
+    margin: 60px auto;
+    border: none !important;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background: #f9f9f9;
+    border-radius: 10px; /* Rounded corners */
+  }
+
+  .card-title {
+    font-weight: bold;
+    font-size: 28px;
+    margin-bottom: 20px; /* Space below title */
+    color: #00BCD4; /* Main theme color */
+  }
+
+  .form-control-label {
+    margin-bottom: 5px;
+    font-weight: 600; /* Bold labels */
+  }
+
+  input, textarea, button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin: 10px 0; /* Space between fields */
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-size: 16px; /* Slightly smaller font */
+    transition: border-color 0.3s;
+  }
+
+  input:focus, textarea:focus {
+    border-color: #00BCD4; /* Focus border color */
+    outline: none; /* Remove default outline */
+  }
+
+  .btn-primary {
+    background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);
+    border: none !important;
+    border-radius: 10px !important;
+    color: white;
+    font-weight: bold; /* Bold text */
+  }
+
+
+
+  .alert {
+    margin-bottom: 20px; /* Space below alerts */
+    border-radius: 5px; /* Rounded corners for alerts */
+  }
+
+  .form-group {
+
+    padding: 15px; /* Padding around form groups */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 20px; /* Space between groups */
+  }
+</style>
+@endpush
+
 @php
     $isMenu = false;
     $navbarHideToggle = false;
@@ -26,6 +99,12 @@
   @endforeach
   @endif
 
+
+
+
+
+
+
   <!-- Basic Layout -->
   <div class="position-relative">
     <div class="container authentication-wrapper authentication-basic container-p-y">
@@ -48,7 +127,7 @@
             </div>
             <div class="card-body">
               <div class="row">
-                <div class="container">
+                <div class="container" onsubmit="event.preventDefault()">
 
                   @if(!empty($successMessage))
                   <div class="alert alert-success">
@@ -64,18 +143,18 @@
                         <div class="col-md-6">
                           <div class="form-group p-3">
                             <label class="form-label required" for="name">Company Name:</label>
-                            <input type="text" name="name" class="form-control" id="name">
+                            <input type="text" name="name" class="form-control" id="name" onblur="validate(1)">
                             @error('name') <span class="error">{{ $message }}</span> @enderror
                           </div>
                           <div class="form-group p-3">
                             <label class="form-label required" for="mc_number">Federal Registration No. (MC Number)</label>
                             <input type="number" oninput="this.value=this.value.slice(0,8)" maxlength="8"
-                              name="mc_number" class="form-control" id="mc_number" />
+                              name="mc_number" class="form-control" id="mc_number" onblur="validate(2)" />
                             @error('mc_number') <span class="error">{{ $message }}</span> @enderror
                           </div>
                           <div class="form-group p-3">
                             <label class="form-label required" for="tax">US Tax ID / Canadian Business Number</label>
-                            <input type="text" name="tax" class="form-control" id="tax" />
+                            <input type="text" name="tax" class="form-control" id="tax" onblur="validate(5)"/>
                             @error('tax') <span class="error">{{ $message }}</span> @enderror
 
                           </div>
@@ -84,14 +163,14 @@
                         <div class="col-md-6">
                           <div class="form-group p-3">
                             <label  class="form-label required" for="scac">SCAC Code</label>
-                            <input type="text" name="scac" maxlength="4" class="form-control" id="scac">
+                            <input type="text" name="scac" maxlength="4" class="form-control" id="scac" onblur="validate(3)">
                             @error('scac') <span class="error">{{ $message }}</span> @enderror
 
                           </div>
                           <div class="form-group p-3">
                             <label class="form-label required" for="usdot">US DOT #</label>
                             <input type="number" name="usdot" oninput="this.value=this.value.slice(0,8)" maxlength="8"
-                              class="form-control" id="usdot" />
+                              class="form-control" id="usdot" onblur="validate(4)"/>
                             @error('usdot') <span class="error">{{ $message }}</span> @enderror
 
                           </div>
@@ -111,7 +190,7 @@
                   <div class="row setup-content " id="step-2">
                     <div class="col-xs-12">
                       <div class="row px-5">
-                  
+
                             <div class="col-md-6">
                               <div class="form-group py-3">
                                 <label class="form-label "for="prefix">Prefix</label>
@@ -131,41 +210,41 @@
                               </div>
                               <div class="form-group py-3">
                                 <label class="form-label required" for="suffix">Suffix</label>
-                                <input type="text" name="suffix" class="form-control" id="suffix" />
+                                <input type="text" name="suffix" class="form-control" id="suffix" onblur="validate(8)"/>
                                 @error('suffix') <span class="error">{{ $message }}</span> @enderror
                               </div>
-                           
+
                             </div>
                             <div class="col-md-6">
                               <div class="form-group py-3">
                                 <label class="form-label required" for="fname">First Name:</label>
-                                <input type="text" name="fname" class="form-control" id="fname" />
+                                <input type="text" name="fname" class="form-control" id="fname" onblur="validate(6)"/>
                                 @error('fname') <span class="error">{{ $message }}</span> @enderror
                               </div>
 
                               <div class="form-group py-3">
                                 <label class="form-label required" for="lname">Last Name:</label>
-                                <input type="text" name="lname" class="form-control" id="lname" />
+                                <input type="text" name="lname" class="form-control" id="lname" onblur="validate(7)"/>
                                 @error('lname') <span class="error">{{ $message }}</span> @enderror
                               </div>
 
                               <div class="form-group py-3">
                                 <label class="form-label required" for="title">Title:</label>
-                                <input type="text" name="title" class="form-control" id="title" />
+                                <input type="text" name="title" class="form-control" id="title" onblur="validate(9)"/>
                                 @error('title') <span class="error">{{ $message }}</span> @enderror
                               </div>
-                           
+
                         </div>
-                        <div class="col-md-6">                       
+                        <div class="col-md-6">
                               <div class="form-group py-3">
                                 <label class="form-label required" for="email">Email:</label>
-                                <input type="email" name="email" class="form-control" id="email" />
+                                <input type="email" name="email" class="form-control" id="email" onblur="validate(10)"/>
                                 @error('email') <span class="error">{{ $message }}</span> @enderror
                               </div>
 
                               <div class="form-group py-3">
                                 <label class="form-label required" for="cellphone">Phone No:</label>
-                                <input type="tel" name="cellphone" class="form-control" id="cellphone" />
+                                <input type="tel" name="cellphone" class="form-control" id="cellphone" onblur="validate(12)"/>
                                 @error('cellphone') <span class="error">{{ $message }}</span> @enderror
                               </div>
                               <div class="form-group py-3">
@@ -174,13 +253,13 @@
                                 @error('fax') <span class="error">{{ $message }}</span> @enderror
                               </div>
 
-                    
+
                         </div>
-                      
+
                             <div class="col-md-6">
                               <div class="form-group py-3">
                                 <label class="form-label required" for="address">Address:</label>
-                                <input type="text" name="address" class="form-control" id="address" />
+                                <input type="text" name="address" class="form-control" id="address" onblur="validate(11)"/>
                                 @error('address') <span class="error">{{ $message }}</span> @enderror
                               </div>
                               <div class="form-group py-3">
@@ -190,7 +269,7 @@
                               </div>
                               <div class="form-group py-3">
                                 <label class="form-label required" for="salutation">Salutation</label>
-                                <input type="text" name="salutation" class="form-control" id="salutation" />
+                                <input type="text" name="salutation" class="form-control" id="salutation" onblur="validate(13)"/>
                                 @error('salutation') <span class="error">{{ $message }}</span> @enderror
                               </div>
 
@@ -199,19 +278,19 @@
                               <div class="form-group py-3">
                                 <label class="form-label required" for="zip">Zip Code:</label>
                                 <input type="number" oninput="this.value=this.value.slice(0,5)" maxlength="5" name="zip"
-                                  class="form-control" id="zip" />
+                                  class="form-control" id="zip" onblur="validate(14)"/>
                                 @error('zip') <span class="error">{{ $message }}</span> @enderror
                               </div>
                               <div class="form-group py-3">
                                 <label class="form-label required" for="city">City:</label>
-                                <input type="text" name="city" class="form-control" id="city" />
+                                <input type="text" name="city" class="form-control" id="city" onblur="validate(16)"/>
                                 @error('city') <span class="error">{{ $message }}</span> @enderror
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group py-3">
                                 <label class="form-label required" for="state">State:</label>
-                                <input type="text" name="state" class="form-control" id="state" />
+                                <input type="text" name="state" class="form-control" id="state" onblur="validate(15)"/>
                                 @error('state') <span class="error">{{ $message }}</span> @enderror
                               </div>
                               <div class="form-group py-3">
@@ -220,8 +299,8 @@
                                 @error('country') <span class="error">{{ $message }}</span> @enderror
                               </div>
                             </div>
-                      
-                       
+
+
                       </div>
 
                     </div>
@@ -237,7 +316,7 @@
                           </div>
                           <div class="form-group py-3">
                             <label class="form-label required" for="license_number">license_number :</label>
-                            <input type="text" name="license_number" class="form-control" id="license_number" />
+                            <input type="text" name="license_number" class="form-control" id="license_number" onblur="validate(17)" />
                             @error('license_number') <span class="error">{{ $message }}</span> @enderror
                           </div>
 
@@ -316,7 +395,7 @@
                         <div class="col-md-6">
                           <div class="form-group py-3">
                             <label class="form-label required" for="password">PASSWORD</label>
-                            <input type="text" class="form-control" name="password" id="password" placeholder="********" />
+                            <input type="text" class="form-control" name="password" id="password" onblur="validate(18)" placeholder="********" />
                           </div>
                         </div>
                       </div>
@@ -328,9 +407,56 @@
           </div>
         </div>
         {{-- card end --}}
+        <div class="d-flex justify-content-center align-items-center" >
+          <button type="submit" id="saveButton" class="btn btn-primary" style="width: 15%;">Save changes</button>
 
-        <button type="submit" id="saveButton" class="btn btn-primary">Save changes</button>
+      </div>
+
       </div>
 </form>
 
 @endsection
+@push('body-scripts')
+<script>
+  function validate(val) {
+      const fields = [
+          document.getElementById("name"),
+          document.getElementById("mc_number"),
+          document.getElementById("scac"),
+          document.getElementById("usdot"),
+          document.getElementById("tax"),
+          document.getElementById("fname"),
+          document.getElementById("lname"),
+          document.getElementById("suffix"),
+          document.getElementById("title"),
+          document.getElementById("email"),
+          document.getElementById("address"),
+          document.getElementById("cellphone"),
+          document.getElementById("salutation"),
+          document.getElementById("zip"),
+          document.getElementById("state"),
+          document.getElementById("city"),
+          document.getElementById("license_number"),
+          document.getElementById("password")
+
+      ];
+
+      let isValid = true;
+
+      for (let i = 0; i < fields.length; i++) {
+          if (val >= i + 1 || val === 0) {
+              const field = fields[i];
+              if (field.value === "") {
+                  field.style.borderColor = "red";
+                  isValid = false;
+              } else {
+                  field.style.borderColor = "green";
+              }
+          }
+      }
+
+      return isValid;
+  }
+  </script>
+
+@endpush
