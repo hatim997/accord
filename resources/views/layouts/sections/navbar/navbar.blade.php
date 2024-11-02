@@ -13,8 +13,192 @@
 background-color: #2684ff !important;
 transition: .4s;
 color: #fff !important;
-  
+
 }
+
+/* Modal Dialog */
+.modal-dialog {
+  max-width: 100%;
+}
+
+.section-pricing {
+  padding: 20px;
+  background: #f9f9f9;
+}
+
+.pricing-bg {
+  background-color: #f2f2f7;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* Toggle Button */
+.toggle-wrapper {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.toggle-input {
+  display: none;
+}
+
+.toggle-slider {
+  width: 60px;
+  height: 30px;
+  background: #ddd;
+  border-radius: 30px;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.toggle-slider::before {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #4a3aff;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s;
+}
+
+.toggle-input:checked + .toggle-slider {
+  background: #4a3aff;
+}
+
+.toggle-input:checked + .toggle-slider::before {
+  transform: translateX(30px);
+}
+
+/* Pricing Item */
+/* Increase Modal Width */
+.modal-dialog.modal-lg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Reduce padding around modal content */
+.modal-content {
+  padding: 15px; /* Reduced padding */
+  gap: 15px;
+}
+
+/* Adjust Modal Header and Footer */
+.modal-header {
+  padding: 10px 15px; /* Reduced padding */
+  border: none;
+}
+
+/* Section Pricing Styling with Less Padding */
+.section-pricing {
+  padding: 15px;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Pricing List with Reduced Padding */
+.pricing-list {
+  display: grid;
+  grid-template-columns: 1fr; /* Stacks all items vertically by default */
+  gap: 15px; /* Smaller gap between items */
+}
+
+@media (min-width: 768px) {
+  /* Medium screens: two items per row */
+  .pricing-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 992px) {
+  /* Large screens: three items per row */
+  .pricing-list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* Pricing Item Styling */
+.pricing-item {
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px; /* Reduced padding */
+  text-align: center;
+  transition: box-shadow 0.3s;
+}
+
+.pricing-item:hover {
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-title {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.pricing-amount {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4a3aff;
+}
+
+.pricing-description {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.pricing-features {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feature-item {
+  font-size: 0.9rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.feature-item i {
+  color: #4a3aff;
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: #4a3aff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #3a2be0;
+}
+
+
 </style>
 @if (isset($navbarDetached) && $navbarDetached == 'navbar-detached')
     <nav class="layout-navbar {{ $containerNav }} navbar navbar-expand-xl {{ $navbarDetached }} align-items-center bg-navbar-theme"
@@ -67,19 +251,19 @@ color: #fff !important;
             $noticesExist = \App\Models\Openrequest::where('status', 0)
                             ->where('to', $userId)
                             ->get();
-                          
+
             @endphp
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
           <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
-            Open Requests 
+            Open Requests
             <!-- Show the dot if there are open requests -->
             @if(!$noticesExist->isEmpty())
               <span class="dot-indicator"></span> <!-- This will be the notification dot -->
             @endif
           </a>
           <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
-         
-        
+
+
             @if ($noticesExist->isEmpty())
               <li>No notices found.</li>
             @else
@@ -133,7 +317,7 @@ color: #fff !important;
                 @endphp
                 <div class="flex-grow-1 pt-2 ">
                     <h6 class="mb-0">{{ $user->name }}</h6>
-                    <small class="mb-0">{{ $user->rememberToken}}</small>                  
+                    <small class="mb-0">{{ $user->rememberToken}}</small>
                     <small class="m-0">{{ $user->role }}</small>
                 </div>
                 </div>
@@ -142,7 +326,8 @@ color: #fff !important;
                 <div class="dropdown-menu-header border-bottom py-50">
                   <div class="dropdown-header d-flex align-items-center py-2">
                     <h6 class="mb-0 me-auto">Shortcuts</h6>
-                     <a href="https://insur.dboss.pk/wp/pricing/" class="btn btn-primary"> Upgrade </a>
+                     {{-- <a href="https://insur.dboss.pk/wp/pricing/" class="btn btn-primary"> Upgrade </a> --}}
+                     <a href="#" class="btn btn-primary" data-bs-toggle="modal" id="Upgrade" data-bs-target="#upgradeModal">Upgrade</a>
                   </div>
                 </div>
                 <div class="dropdown-shortcuts-list scrollable-container">
@@ -155,21 +340,21 @@ color: #fff !important;
                       <a href="{{ route('profile.agency')}}" class="stretched-link">User info </a>
                       @elseif ($user->role == "truck_driver")
                       <a href="{{ route('profile.truck')}}" class="stretched-link">User info </a>
-                      @elseif ($user->role == "shipper")         
+                      @elseif ($user->role == "shipper")
                       <a href="{{ route('profile.shipper')}}" class="stretched-link">User info </a>
                       @elseif ($user->role == "freight_driver")
                       <a href="{{ route('profile.freight')}}" class="stretched-link">User info </a>
                       @else
                       <a href="" class="stretched-link">User info </a>
                       @endif
-                    
+
                       {{-- <small>Appointments</small> --}}
                     </div>
                     <div class="dropdown-shortcuts-item col">
                       <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                         <i class="mdi mdi-format-align-bottom mdi-26px text-heading"></i>
                       </span>
-                      @php                   
+                      @php
                       $emails = Session::get('plans');
                   @endphp
   @if($emails =='free')
@@ -177,8 +362,8 @@ color: #fff !important;
   @else
   <a href="https://insur.dboss.pk/wp/my-account/orders/" class="stretched-link"> Billing</a>
   @endif
-                    
-                     
+
+
                       {{-- <small>Manage Accounts</small> --}}
                     </div>
                   </div>
@@ -189,24 +374,24 @@ color: #fff !important;
                       </span>
                       @php
                       $order_id = Session::get('order_id');
-                    
+
                   @endphp
   @if($emails =='free')
 
 
   <a class="stretched-link"> Subscription Plan</a>
 
-                  
+
                   <small>
-                    
+
                           {{ $emails }}  <!-- Directly output the email -->
                       @else
             <a href="https://insur.dboss.pk/wp/my-account/view-order/{{$order_id}}" class="stretched-link"> Subscription Plan</a>
 
                       <small>
-                        
+
                           <!-- Optionally add some message or leave empty -->
-                          {{ $emails }}  
+                          {{ $emails }}
                       @endif
                   </small>
                     </div>
@@ -217,10 +402,11 @@ color: #fff !important;
                       <a href="" class="stretched-link">Role Management</a>
                       <small>Permission</small>
                     </div>
-                  </div>                
+                  </div>
                 <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px; height: 412px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 287px;"></div></div></div>
               </div>
-           
+
+
         </li>
         <!--/ User -->
         <li class="nav-item  mx-3">
@@ -246,7 +432,7 @@ margin-top: 1.7rem;
         @if ($user->role == "agent")
         <li>
             <a href="{{ route('dash') }}" class="btn btn-light  ">Dashboard</a>
-        </li>        
+        </li>
         <li type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">          <a href="{{ route('agent.regs.add.form') }}" class="btn btn-light  ">Add Insured</a></li>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="{{ route('agent.regs.add.form') }}">Add Truckers </a></li>
@@ -255,10 +441,10 @@ margin-top: 1.7rem;
           </li> <li><a class="dropdown-item" href="{{ route('agent.regs.add.brok.form') }}"> Add Freight/Broker </a></li>
           <li>
             <hr class="dropdown-divider">
-          </li> 
+          </li>
           <li><a class="dropdown-item disabled" href="javascript:void(0);">Add Business</a></li>
-         
-        </ul>        
+
+        </ul>
             <li type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">   <a class="btn btn-light" >Insured List </a></li>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{{ route('insur') }}"> Truckers List</a></li>
@@ -269,14 +455,14 @@ margin-top: 1.7rem;
                 <hr class="dropdown-divider">
               </li>  <li><a class="dropdown-item disabled" href="javascript:void(0);">Add Business</a></li>
             </ul>
-      
-       
+
+
           </li>
 
         @elseif ($user->role == "admin")
         <li>
             <a class="btn btn-light" href="{{ route('dashs') }}">Dashboard</a>
-         </li> 
+         </li>
         <li>
             <a class="btn btn-light" href="{{ route('sub') }}" >Subscription Plans</a>
         </li>
@@ -302,14 +488,14 @@ margin-top: 1.7rem;
               <hr class="dropdown-divider">
             </li> <li><a class="dropdown-item" href="{{ route('user.list') }}">  user lIST DUMMY</a></li>
             </ul>
-    
-     
+
+
         </li>
 
         @elseif ($user->role == "truck_driver")
 
        <li><a class="btn btn-light" href="{{ route('dashw') }}">Dashboard</a>
-        </li> 
+        </li>
          @if($user->status == "1")
         <li>
             <a class="btn btn-light" href="{{ route('list.ship') }}">Shipper list</a>
@@ -334,8 +520,8 @@ margin-top: 1.7rem;
           <a class="btn btn-light" href="{{ route('lists.truck') }}">List Carrier</a>
 
       </li>
-   
-     
+
+
         @elseif ($user->role == "shipper")
         <li>
             <a class="btn btn-light" href="{{ route('sdash') }}">Dashboard</a>
@@ -355,7 +541,7 @@ margin-top: 1.7rem;
         <li>
             <a class="btn btn-light" href="{{ route('shipper.fromdrop2') }}">Shipper Limits</a>
           </li>
-      
+
         @elseif ($user->role == "freight_driver")
 
         <li>
@@ -377,5 +563,76 @@ margin-top: 1.7rem;
     </ul>
     <!-- /Search -->
 </div>
+@php
+$data = App\Models\Subscription_plan::All();
+@endphp
+<!-- Upgrade -->
+<div class="modal fade" id="upgradeModal" tabindex="-1" aria-labelledby="upgradeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="upgradeModalLabel">Upgrade Pricing</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <section class="section-pricing">
+          <div class="pricing-bg">
+            <div class="container-default">
+              <div class="section-header text-center mb-4">
+                <h2 class="section-title">Choose the Right Pricing Plan</h2>
+                <p class="section-subtitle">Find the plan that best suits your needs</p>
+              </div>
+              {{-- <div class="toggle-container text-center mb-5">
+                <span class="font-weight-bold">Per Month</span>
+                <label for="toggle" class="toggle-wrapper">
+                  <input id="toggle" type="checkbox" class="toggle-input" onclick="toggleSwitch()" />
+                  <span class="toggle-slider"></span>
+                </label>
+                <span class="font-weight-bold">Per Year</span>
+              </div> --}}
+              <div class="pricing-list grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                @foreach ($data as $item)
+                <div class="pricing-item p-4 rounded shadow">
+                  <div class="pricing-content text-center">
+                    <h3 class="pricing-title">{{ $item->name }}</h3>
+                    <p class="pricing-amount">${{ $item->price }} {{ $item->duration }}</p>
+                    <p class="pricing-description">{{ $item->exdetail }}</p>
+                    <hr class="my-4">
+                    <ul class="pricing-features list-unstyled">
+                      @php
+                      $features = explode(",", $item->description);
+                      @endphp
+                      @foreach($features as $feature)
+                      <li class="feature-item">
+                        <i class="fa-solid fa-star"></i> {{ $feature }}
+                      </li>
+                      @endforeach
+                    </ul>
+                    <form method="POST" action="{{ route('add_to_cart') }}">
+                      @csrf
+                      <input type="hidden" name="sub_id" value="{{ $item->id }}">
+                      <button type="submit" class="btn btn-primary w-100 mt-3">Purchase Now</button>
+                    </form>
+                  </div>
+                </div>
+                @endforeach
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- / Navbar -->
+@push('body-scripts')
+<script>
+$(document).ready(function() {
+  $('#Upgrade').click(function() {
+      $('#upgradeModal').css('opacity', '1');
+  });
+});
+</script>
+@endpush

@@ -120,13 +120,15 @@ Route::get('/reg-agency', function () {
   return view('default');
 })->name('reg.trucker');
 Route::get('/truckform/{id}', [AuthController::class, 'form'])->name('truck.from');
-Route::get('reboot',function(){ 
-  Artisan::call('view:clear'); 
+Route::get('reboot',function(){
+  Artisan::call('view:clear');
   Artisan::call('route:clear');  Artisan::call('config:clear');
   Artisan::call('cache:clear');  Artisan::call('key:generate');
   return "done";
 });
-Route::post('/register', [AuthController::class, 'registerfrom'])->name('regist');
+
+Route::post('/upgrade-plan', [AuthController::class, 'addtocart'])->name('add_to_cart');
+
 Route::post('/reg', [AuthController::class, 'register'])->name('form.reg');
 Route::post('/reggg', [AuthController::class, 'getregister'])->name('get.regester');
 Route::get('/reg-shipper', function () { return view('content.authentications.reg-shipper'); })->name('reg.shipper');
@@ -193,7 +195,7 @@ Route::group(['middleware' => 'checkRole:agent'], function () {
   Route::get('/get_pdf2/{id}', [ac::class, 'showPDF2'])->name('get_pdf2');
   Route::get('/agent-reg-add-form', [ac::class, 'add_trucker'])->name('agent.regs.add.form');
   Route::get('/agent-reg-add-brok-form', [ac::class, 'add_broker'])->name('agent.regs.add.brok.form');
-  Route::post('/agent-reg-adds', [ac::class, 'store_trucker'])->name('agent.regs.store'); 
+  Route::post('/agent-reg-adds', [ac::class, 'store_trucker'])->name('agent.regs.store');
   Route::get('/get-driver/{id}', [ac::class, 'get_driver'])->name('get_driver');
   Route::post('/update-driver', [ac::class, 'update_driver'])->name('update_driver');
   Route::post('/password/update', [ac::class, 'checkpass'])->name('password.update');
@@ -251,7 +253,7 @@ Route::group(['middleware' => 'checkRole:shipper'], function () {
   Route::post('/shipper-limit', [ShipperController::class, 'shipperLimitForm'])->name('shipper.limit');
   Route::get('/shipper-fromdrop2', [ShipperController::class, 'choosePolicyTypes'])->name('shipper.fromdrop2');
   Route::post('/profile/updates', [ShipperController::class, 'proupd'])->name('shipper.proupd');
- 
+
 });
 Route::get('/notice', [AdminController::class, 'notice'])->name('notice');
 

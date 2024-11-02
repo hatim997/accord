@@ -10,6 +10,7 @@ use App\Models\DriverDetail;
 use App\Models\AgencyInfos;
 use App\Models\Subscription_plan;
 use App\Models\Subscription;
+use App\Models\AddToCart;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -31,7 +32,7 @@ class AuthController extends Controller
     $fields = $request->validate([
       'email' => 'required',
       'password' => 'required',
-    ]);  
+    ]);
     $user = User::where('email', $fields['email'])->first();
 
 
@@ -48,14 +49,14 @@ class AuthController extends Controller
               ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')
               ->where('wp_wc_orders.billing_email', $user->email)
               ->first();
-      
+
           // return response()->json(['status' => 'success', 'data' => $result]);
       } else {
           return Redirect::back()->with('danger', $message);
       }
 
     $credentials = $request->only('email', 'password');
-    if (!Auth::attempt($credentials)) {    
+    if (!Auth::attempt($credentials)) {
            $message = 'Wrong credentials';
    return Redirect::back()->with('danger' ,$message);
     }
@@ -79,7 +80,7 @@ class AuthController extends Controller
         Session::put('order_id', $result->id);
         $request->session()->regenerate();
       return redirect('/dash');
-    }   
+    }
     Session::put('plans', 'free');
     $request->session()->regenerate();
   return redirect('/dash');
@@ -87,9 +88,9 @@ class AuthController extends Controller
 
     }
 
-    
+
     $message = 'Wrong credentials';
-    return Redirect::back()->with('danger' ,$message);   
+    return Redirect::back()->with('danger' ,$message);
   }
 
 
@@ -98,7 +99,7 @@ class AuthController extends Controller
     $fields = $request->validate([
       'email' => 'required',
       'password' => 'required',
-    ]);  
+    ]);
     $user = User::where('email', $fields['email'])->first();
     // $result = DB::table('wp_wc_orders')
     // ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
@@ -118,7 +119,7 @@ class AuthController extends Controller
     }
 
     $credentials = $request->only('email', 'password');
-    if (!Auth::attempt($credentials)) {    
+    if (!Auth::attempt($credentials)) {
          $message = 'Wrong credentials';
    return Redirect::back()->with('danger' ,$message);
     }
@@ -142,7 +143,7 @@ class AuthController extends Controller
         Session::put('order_id', $result->id);
         $request->session()->regenerate();
       return redirect('/sportal');
-    }   
+    }
     Session::put('plans', 'free');
     $request->session()->regenerate();
   return redirect('/sportal');
@@ -157,7 +158,7 @@ class AuthController extends Controller
     $fields = $request->validate([
       'email' => 'required',
       'password' => 'required',
-    ]);  
+    ]);
     $user = User::where('email', $fields['email'])->first();
     // $result = DB::table('wp_wc_orders')
     // ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
@@ -178,7 +179,7 @@ class AuthController extends Controller
     }
 
     $credentials = $request->only('email', 'password');
-    if (!Auth::attempt($credentials)) {    
+    if (!Auth::attempt($credentials)) {
          $message = 'Wrong credentials';
    return Redirect::back()->with('danger' ,$message);
     }
@@ -198,10 +199,10 @@ class AuthController extends Controller
         Session::put('order_id', $result->id);
         $request->session()->regenerate();
       return redirect('/portal');
-    }   
+    }
     Session::put('plans', 'free');
     $request->session()->regenerate();
-  return redirect('/portal');    
+  return redirect('/portal');
     }
     if ($user->role == 'shipper') {
       $message = 'Wrong credentials';
@@ -214,14 +215,14 @@ class AuthController extends Controller
     $fields = $request->validate([
       'email' => 'required',
       'password' => 'required',
-    ]);  
+    ]);
     $user = User::where('email', $fields['email'])->first();
     // $result = DB::table('wp_wc_orders')
     // ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
     // ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')  // You can select specific columns if needed
     // ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
     // ->first();
-    
+
     $message = 'Wrong credentials or insufficient permissions';
     if ($user && Hash::check($fields['password'], $user->password) && $user->role == 'freight_driver' || $user->role == 'admin') {
         $result = DB::table('wp_wc_orders')
@@ -235,7 +236,7 @@ class AuthController extends Controller
     }
 
     $credentials = $request->only('email', 'password');
-    if (!Auth::attempt($credentials)) {    
+    if (!Auth::attempt($credentials)) {
          $message = 'Wrong credentials';
    return Redirect::back()->with('danger' ,$message);
     }
@@ -262,7 +263,7 @@ class AuthController extends Controller
       Session::put('order_id', $result->id);
       $request->session()->regenerate();
     return redirect('/fportal');
-  }   
+  }
   Session::put('plans', 'free');
   $request->session()->regenerate();
 return redirect('/fportal');
@@ -273,14 +274,14 @@ return redirect('/fportal');
       public function loginWordPress(Request $request)
       {
           // Step 1: Get the current user in Laravel
-          $user = Auth::user();          
+          $user = Auth::user();
           if (!$user) {
               return response()->json(['message' => 'User not logged in Laravel'], 401);
           }
-          $result = DB::table('wp_users')        
+          $result = DB::table('wp_users')
           ->where('user_login', $user->email )  // Assuming you want to get a specific user with ID 1
           ->first();
-          
+
           // Step 2: Prepare data for WordPress login request
           $wpLoginUrl = 'https://insur.dboss.pk/wp/login-form';
           $credentials = [
@@ -288,22 +289,22 @@ return redirect('/fportal');
               'pwd'      => $result->user_pass, // Pass the user’s password from the request or session
               'remember' => true
           ];
-  
+
           // Step 3: Make the request to WordPress
           $client = new Client();
           $response = $client->post($wpLoginUrl, [
               'form_params' => $credentials,
               'allow_redirects' => true,
           ]);
-  
+
           // Step 4: Get the WordPress login cookies from the response
           $cookies = $response->getHeader('Set-Cookie');
-          
+
           // Step 5: Set these cookies in Laravel, so that the user is logged in to WordPress as well
           foreach ($cookies as $cookie) {
               setcookie(...explode(';', $cookie)[0]); // Set each WordPress login cookie in the browser
           }
-  
+
           // Optionally, redirect the user to WordPress or another page
           return redirect('https://insur.dboss.pk/wp/my-account/orders');
       }
@@ -315,7 +316,7 @@ return redirect('/fportal');
   }
 
   public function validation(Request $request)
-  {  
+  {
       // Validate the email field
       $validator = Validator::make($request->all(), [
         'code' => 'required',
@@ -340,7 +341,7 @@ return redirect('/fportal');
         // If the user is not found, return back with a message
         return redirect()->back()->with('error', 'User not found. Please check your token and try again.');
     }
-    
+
     $currentDate = Carbon::now();
     $endDate = $currentDate->copy()->addDays(30);
 
@@ -366,12 +367,12 @@ return redirect('/fportal');
       $name = $user->name ;
       $email = $user->email;
       $password = $decryptedData;
- 
+
 
     Mail::send('email.login', $data, function ($message) use ($email, $name,$password) {
       $message->to($email, $name)
               ->subject('Register');
-  });         
+  });
   Notice::create([
       'to' => 1,
       'from' => $user->id,
@@ -403,7 +404,7 @@ return redirect('/fportal');
   //     $cookies = Cookie::get();
   //     foreach ($cookies as $name => $value) {
   //       Cookie::queue(Cookie::forget($name));
-  //     }  
+  //     }
   //     return redirect('/login/freight');
   //   }
   //   else{
@@ -422,15 +423,15 @@ return redirect('/fportal');
   {
       if (Auth::check()) {
           $role = Auth::user()->role;
-  
+
           Auth::logout();
           Session::flush();
-  
+
           $cookies = Cookie::get();
           foreach ($cookies as $name => $value) {
               Cookie::queue(Cookie::forget($name));
           }
-  
+
           switch ($role) {
               case "freight_driver":
                   return redirect('/login/freight');
@@ -444,21 +445,34 @@ return redirect('/fportal');
                   return redirect('/logg');
           }
       }
-  
+
       return redirect('/logg')->with('message', 'You have been logged out.');
   }
-  
- 
+
+
   public function land()
-  { 
+  {
     $data=Subscription_plan::All();
     return view('index' ,compact('data'));
   }
-  public function registerfrom (Request $request)
+  public function addtocart (Request $request)
   {
+    // dd( $request->sub_id);
+    AddToCart::create([
+      'user_id' => Auth::id(),
+      'subscription_id' => $request->input('sub_id'),
+      'status' => 'Inactive',
+      'note' => $request->input('note'),
+    ]);
+
+    // $data = User::get()
+
+
+    // dd($request->toArray());
    $subs_id =$request->sub_id;
-    return view('auth.regist' ,compact('subs_id'));
+    return view('auth.addtocart' ,compact('subs_id'));
   }
+
 
 
 }
