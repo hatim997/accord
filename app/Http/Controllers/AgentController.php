@@ -828,7 +828,7 @@ $r=0;
         'addingUserCode' => Auth::user()->rememberToken
     ];
 
-    Mail::send('email.message', $data, function ($message) use ($admin, $code, $request) {
+    Mail::send('email.message', $data, function ($message) use ($admin, $code, $request, $driver) {
         $message->to($admin->email, $admin->name)
                 ->subject('Registration Confirmation - Name: ' . $request->name .
                           ' Code Is: ' . $code .
