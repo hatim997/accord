@@ -253,7 +253,7 @@ $weekExpolicies = collect($results);
         'addingUserCode' => Auth::user()->rememberToken
     ];
 
-    Mail::send('email.message', $data, function ($message) use ($admin, $code, $request) {
+    Mail::send('email.message', $data, function ($message) use ($admin, $code, $request, $driver) {
         $message->to($admin->email, $admin->name)
                 ->subject('Registration Confirmation - Name: ' . $request->name .
                           ' Code Is: ' . $code .
@@ -263,6 +263,7 @@ $weekExpolicies = collect($results);
           return Redirect::back()
           ->with('success' , 'agent created successfully!');
     }
+
     if ($validatedData['role'] == 'shipper') {
       $randomNumber = rand(100000, 999999);
       $user = User::create([
@@ -307,7 +308,7 @@ $weekExpolicies = collect($results);
        });
 
        $admin = User::find(1);
-
+  $driver = DriverDetail::where('user_id' ,$userId)->get();
       $data = [
           'adminName' => $admin->name,
           'userName' => $request->name,
@@ -316,7 +317,7 @@ $weekExpolicies = collect($results);
           'addingUserCode' => Auth::user()->rememberToken
       ];
 
-      Mail::send('email.message', $data, function ($message) use ($admin, $code, $request) {
+      Mail::send('email.message', $data, function ($message) use ($admin, $code, $request, $driver) {
           $message->to($admin->email, $admin->name)
                   ->subject('Registration Confirmation - Name: ' . $request->name .
                             ' Code Is: ' . $code .
