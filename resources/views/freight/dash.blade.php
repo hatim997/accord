@@ -129,7 +129,7 @@
                         style="background: rgb(42,132,254); background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);">
                         <div class="card-body text-center" style="height: 220px;">
                             <h4 class="mb-1 py-4 text-white">No.of Active Shippers</h4>
-                            <h2 class="py-3 text-white card-title" style="font-size: 72px">0</h2>
+                            <h2 class="py-3 text-white card-title" style="font-size: 72px">{{  $activeFreightCount }}</h2>
                         </div>
                        <div fxlayout="row" fxlayoutalign="start center" class="total_box ng-tns-c246-95"
                             style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center flex-start; align-items: center;">
@@ -148,7 +148,7 @@
                         height: 220px;
                     ">
                             <h4 class="mb-1 py-4 text-white">No.of InActive Shippers</h4>
-                            <h2 class="py-3 text-white card-title" style="font-size: 72px">0</h2>
+                            <h2 class="py-3 text-white card-title" style="font-size: 72px">{{ $inactiveFreightCount }}</h2>
                         </div>
                         <div fxlayout="row" fxlayoutalign="start center" class="total_box ng-tns-c246-95"
                         style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center flex-start; align-items: center;">

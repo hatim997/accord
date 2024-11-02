@@ -16,7 +16,7 @@ use App\Models\PolicyType;
 use App\Models\Upload;
 use App\Models\AgentDriver;
 use App\Models\TruckDetail;
-use App\Models\Openrequest; 
+use App\Models\Openrequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -44,7 +44,7 @@ class TruckController extends Controller
     $userId = Auth::user()->id;
 
     $users = User::all();
-  
+
     // $monthExp = CertificatePolicy::whereDate('expiry_date', '<=', Carbon::now()->addDays(30))->count();
     $monthExp = CertificatePolicy::whereHas('certificate', function($query) use ($userId) {
       $query->where('client_user_id', $userId);
@@ -68,29 +68,29 @@ class TruckController extends Controller
 
   $query = "
   SELECT * ,policy_types.type_name as names
-  FROM certificate_policies 
-  JOIN certificates ON certificate_policies.certificate_id = certificates.id 
-  JOIN  policy_types ON certificate_policies.policy_type_id = policy_types.id 
-  WHERE certificates.client_user_id = ? 
-  AND certificate_policies.expiry_date <= DATE_ADD(NOW(), INTERVAL 30 DAY) 
+  FROM certificate_policies
+  JOIN certificates ON certificate_policies.certificate_id = certificates.id
+  JOIN  policy_types ON certificate_policies.policy_type_id = policy_types.id
+  WHERE certificates.client_user_id = ?
+  AND certificate_policies.expiry_date <= DATE_ADD(NOW(), INTERVAL 30 DAY)
   GROUP BY policy_type_id
 ";
 
-$results = DB::select($query, [$userId]); 
+$results = DB::select($query, [$userId]);
 
 $monthExpolicies = collect($results);
 
 $querys = "
   SELECT * ,policy_types.type_name as names
-  FROM certificate_policies 
-  JOIN certificates ON certificate_policies.certificate_id = certificates.id 
-  JOIN  policy_types ON certificate_policies.policy_type_id = policy_types.id 
-  WHERE certificates.client_user_id = ? 
-  AND certificate_policies.expiry_date <= DATE_ADD(NOW(), INTERVAL 7 DAY) 
+  FROM certificate_policies
+  JOIN certificates ON certificate_policies.certificate_id = certificates.id
+  JOIN  policy_types ON certificate_policies.policy_type_id = policy_types.id
+  WHERE certificates.client_user_id = ?
+  AND certificate_policies.expiry_date <= DATE_ADD(NOW(), INTERVAL 7 DAY)
   GROUP BY policy_type_id
 ";
 
-$results = DB::select($querys, [$userId]); 
+$results = DB::select($querys, [$userId]);
 $activeShippersCount = User::where('role', 'shipper')
                             ->where('status', 0)
                             ->count();
@@ -98,7 +98,7 @@ $activeShippersCount = User::where('role', 'shipper')
                             ->where('status', 0)
                             ->select('name', 'email', 'rememberToken') // Select only the name and email columns
                             ->get();
-      
+
 $inactiveShippersCount = User::where('role', 'shipper')
                            ->where('status', 1)
                            ->count();
@@ -217,7 +217,7 @@ $weekExpolicies = collect($results);
       'to' => $lastInsertedId,
       'from' => $userId,
       'titel' => "$names Agency added by ".$driver[0]->name,
-    ]);    
+    ]);
     Notice::create([
       'to' => $lastInsertedId,
       'from' => $userId,
@@ -237,8 +237,8 @@ $weekExpolicies = collect($results);
 
 
 
-     
-     Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+
+     Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
        $message->to($email, $names)
                ->subject('Register');
      });
@@ -252,11 +252,11 @@ $weekExpolicies = collect($results);
         'addedBy' => $driver[0]->name,
         'addingUserCode' => Auth::user()->rememberToken
     ];
-    
+
     Mail::send('email.message', $data, function ($message) use ($admin, $code, $request) {
         $message->to($admin->email, $admin->name)
-                ->subject('Registration Confirmation - Name: ' . $request->name . 
-                          ' Code Is: ' . $code . 
+                ->subject('Registration Confirmation - Name: ' . $request->name .
+                          ' Code Is: ' . $code .
                           ' Added By: ' . $driver[0]->name .
                           ' Code Is: ' . Auth::user()->rememberToken);
     });
@@ -296,12 +296,12 @@ $weekExpolicies = collect($results);
         'zip' => $validatedData['zip'],
         'cellphone' => $validatedData['phone'],
         'extra_email' => $validatedData['altemail'],
-      ]);      
+      ]);
             $data = [
               'code' => 'SH' . $randomNumber,
        ];
        $code ='SH' . $randomNumber;
-       Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+       Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
          $message->to($email, $names)
                  ->subject('Register');
        });
@@ -315,11 +315,11 @@ $weekExpolicies = collect($results);
           'addedBy' => $driver[0]->name,
           'addingUserCode' => Auth::user()->rememberToken
       ];
-      
+
       Mail::send('email.message', $data, function ($message) use ($admin, $code, $request) {
           $message->to($admin->email, $admin->name)
-                  ->subject('Registration Confirmation - Name: ' . $request->name . 
-                            ' Code Is: ' . $code . 
+                  ->subject('Registration Confirmation - Name: ' . $request->name .
+                            ' Code Is: ' . $code .
                             ' Added By: ' . $driver[0]->name .
                             ' Code Is: ' . Auth::user()->rememberToken);
       });
@@ -359,7 +359,7 @@ $weekExpolicies = collect($results);
     if ($driver) {
         $driver->name = $request->input('name');
         $driver->mname = $request->input('mname');
-        $driver->lname = $request->input('lname');      
+        $driver->lname = $request->input('lname');
         $driver->suffix = $request->input('suffix');
         $driver->title = $request->input('title');
         $driver->websit = $request->input('websit');
@@ -369,8 +369,8 @@ $weekExpolicies = collect($results);
         $driver->address2 = $request->input('Addss2');
         $driver->state = $request->input('state');
         $driver->city = $request->input('city');
-        $driver->zip = $request->input('zip');    
-        $driver->salutation = $request->input('salutation');       
+        $driver->zip = $request->input('zip');
+        $driver->salutation = $request->input('salutation');
         $driver->tax = $request->input('tax');
         $driver->fax = $request->input('fax');
         $driver->license_number = $request->input('license_number');
@@ -384,7 +384,7 @@ $weekExpolicies = collect($results);
         $driver->vehicle_capacity = $request->input('vehicle_capacity');
         $driver->vehicle_status = $request->input('vehicle_status');
         $driver->scac = $request->input('scac');
-        $driver->usdot = $request->input('usdot');       
+        $driver->usdot = $request->input('usdot');
         $driver->mc_number = $request->input('mc_number');
         $driver->save();
     }
@@ -462,7 +462,7 @@ $weekExpolicies = collect($results);
     ->select('certificates.*','shipper_infos.id as shipperid', 'shipper_infos.name as name')->get();
 if ($certificate->isEmpty()) {
   $certificate = Certificate::where('client_user_id',Auth::user()->id)->get();
-  
+
 }
 
 
@@ -692,7 +692,7 @@ if ($certificate->isEmpty()) {
     $driver = DriverDetail::where('user_id' ,$parentId)->get();
 
 $admin = User::find(1);
-
+$code='FB' . $randomNumber;
 
 $data = [
     'adminName' => $admin->name,
@@ -702,10 +702,10 @@ $data = [
     'addingUserCode' => Auth::user()->rememberToken
 ];
 
-Mail::send('email.message', $data, function ($message) use ($admin, $code, $request) {
+Mail::send('email.message', $data, function ($message) use ($admin, $code, $reqeust, $driver) {
     $message->to($admin->email, $admin->name)
-            ->subject('Registration Confirmation - Name: ' . $request->name . 
-                      ' Code Is: ' . $code . 
+            ->subject('Registration Confirmation - Name: ' . $reqeust->name .
+                      ' Code Is: ' . $code .
                       ' Added By: ' . $driver[0]->name .
                       ' Code Is: ' . Auth::user()->rememberToken);
 });
