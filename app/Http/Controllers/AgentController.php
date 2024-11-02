@@ -17,7 +17,7 @@ use App\Models\CertificatePolicy;
 use App\Models\CertificatePolicyLimit;
 use App\Models\InsuranceProvider;
 use App\Models\AgentDriver;
-use App\Models\Openrequest; 
+use App\Models\Openrequest;
 use App\Services\CertificateService;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\DB;
@@ -45,7 +45,7 @@ class AgentController extends Controller
     $this->agency = $agency;
   }
 
- 
+
   public function getagency()
   {
      $certificate = InsuranceProvider::all();
@@ -62,20 +62,20 @@ return view('agent.agency', compact('certificate'));
     ->get();
   //   foreach ($certificates as $certificate) {
   //     echo 'Certificate ID: ' . $certificate->id . '<br>';
-  //     echo 'Certificate client_user_id: ' . $certificate->client_user_id . '<br>'; 
-  
+  //     echo 'Certificate client_user_id: ' . $certificate->client_user_id . '<br>';
+
   //     if ($certificate->certificatePolicies->isEmpty()) {
   //         echo 'No policies found for this certificate.<br>';
   //     } else {
   //         // Grouping the policies by policy_type_id
   //         $groupedPolicies = $certificate->certificatePolicies->groupBy('policy_type_id');
-  
+
   //         foreach ($groupedPolicies as $policyTypeId => $policies) {
   //             // Get the name of the policy type
   //             $policyTypeName = optional($policies->first()->policyType)->type_name ?? 'No Policy Type';
   //             echo 'Policy Type ID: ' . $policyTypeId . '<br>';
   //             echo 'Policy Type Name: ' . $policyTypeName . '<br>';
-  
+
   //             // Display only one policy from the group
   //             $firstPolicy = $policies->first(); // Get the first policy in the group
   //             echo 'Policy Number: ' . $firstPolicy->policy_number . '<br>';
@@ -99,7 +99,7 @@ return $certificates ;
 
    return view('agent.profile' , compact('driverdetail'));
   }
-  
+
 
   public function proupd(Request $request)
   {
@@ -113,11 +113,11 @@ $user->save();
 
     $driver = AgencyInfos::find($request->id);
 
-   
+
     if ($driver) {
         $driver->name = $request->input('name');
         $driver->mname = $request->input('mname');
-        $driver->lname = $request->input('lname');      
+        $driver->lname = $request->input('lname');
         $driver->ialn = $request->input('ialn');
         $driver->suffix = $request->input('suffix');
         $driver->title = $request->input('title');
@@ -151,22 +151,22 @@ $user->save();
       if (!Hash::check($request->password, $user->password)) {
           return response()->json(['status' => 'error', 'message' => 'The current password is incorrect.'], 422);
       }
-    
+
       // Update the user's password
       $user->password = Crypt::encryptString($request->newpass);
       $user->save();
-  
+
       Auth::logout();
       Session::flush(); // Destroy all sessions
       $cookies = Cookie::get();
       foreach ($cookies as $name => $value) {
         Cookie::queue(Cookie::forget($name));
-      }  
+      }
       // Return a success response
       return response()->json(['status' => 'success', 'message' => 'Password updated successfully!']);
-  
+
   }
-  
+
   public function dash()
   {
     $users = User::all();
@@ -192,29 +192,29 @@ $user->save();
 
   $query = "
   SELECT * ,policy_types.type_name as names
-  FROM certificate_policies 
-  JOIN certificates ON certificate_policies.certificate_id = certificates.id 
-  JOIN  policy_types ON certificate_policies.policy_type_id = policy_types.id 
-  WHERE certificates.producer_user_id = ? 
-  AND certificate_policies.expiry_date <= DATE_ADD(NOW(), INTERVAL 30 DAY) 
+  FROM certificate_policies
+  JOIN certificates ON certificate_policies.certificate_id = certificates.id
+  JOIN  policy_types ON certificate_policies.policy_type_id = policy_types.id
+  WHERE certificates.producer_user_id = ?
+  AND certificate_policies.expiry_date <= DATE_ADD(NOW(), INTERVAL 30 DAY)
   GROUP BY policy_type_id
 ";
 
-$results = DB::select($query, [$userId]); 
+$results = DB::select($query, [$userId]);
 
 $monthExpolicies = collect($results);
 
 $querys = "
   SELECT * ,policy_types.type_name as names
-  FROM certificate_policies 
-  JOIN certificates ON certificate_policies.certificate_id = certificates.id 
-  JOIN  policy_types ON certificate_policies.policy_type_id = policy_types.id 
-  WHERE certificates.producer_user_id = ? 
-  AND certificate_policies.expiry_date <= DATE_ADD(NOW(), INTERVAL 7 DAY) 
+  FROM certificate_policies
+  JOIN certificates ON certificate_policies.certificate_id = certificates.id
+  JOIN  policy_types ON certificate_policies.policy_type_id = policy_types.id
+  WHERE certificates.producer_user_id = ?
+  AND certificate_policies.expiry_date <= DATE_ADD(NOW(), INTERVAL 7 DAY)
   GROUP BY policy_type_id
 ";
 
-$results = DB::select($querys, [$userId]); 
+$results = DB::select($querys, [$userId]);
 
 $weekExpolicies = collect($results);
 // dd($weekExpolicies);
@@ -228,7 +228,7 @@ $weekExpolicies = collect($results);
     //     $query->whereColumn('driver_details.user_id', 'users.id');
     // })
     // ->get();
- 
+
     return view('dash', compact('users', 'monthExp', 'weekExp', 'insuredCnt', 'agencyinfo','monthExpolicies', 'brokersinfo' , 'weekExpolicies'));
   }
 
@@ -236,9 +236,9 @@ $weekExpolicies = collect($results);
   {
     $driver = AgentDriver::where('agent_id',Auth::user()->id)
     ->join('driver_details', 'driver_details.user_id', '=', 'agent_driver.driver_id')
-    ->join('users', 'users.id', '=', 'driver_details.user_id')    
-    ->select('agent_driver.*', 'driver_details.*', 'users.name as user_name',  
-    'users.role','users.email')    
+    ->join('users', 'users.id', '=', 'driver_details.user_id')
+    ->select('agent_driver.*', 'driver_details.*', 'users.name as user_name',
+    'users.role','users.email')
     ->get();
     return view('agent.formlist', compact('driver'));
   }
@@ -248,7 +248,7 @@ $weekExpolicies = collect($results);
       // $driver->user_name = $request->user_name;
       // // Update other fields as necessary
       // $driver->save();
-  
+
       return redirect()->back()->with('success', 'Driver information updated successfully!');
   }
   public function get_driver( $id)
@@ -342,27 +342,27 @@ $weekExpolicies = collect($results);
     $agent = User::with('agencies')->find($certificate->producer_user_id);
     return view('agent.certificate_list', compact('certificate', 'certPolicy', 'driver', 'agent'));
   }
-  
+
   public function insured()
   {
     $driver = AgentDriver::where('agent_id',Auth::user()->id)
     ->join('driver_details', 'driver_details.user_id', '=', 'agent_driver.driver_id')
     ->join('users', 'users.id', '=', 'driver_details.user_id')
-    ->Where('users.role','=','truck_driver')     
-    ->select('agent_driver.*', 'driver_details.*', 'users.name as user_name',  
-    'users.role','users.email')    
+    ->Where('users.role','=','truck_driver')
+    ->select('agent_driver.*', 'driver_details.*', 'users.name as user_name',
+    'users.role','users.email')
     ->get();
     return view('agent.client', compact('driver'));
 
-  }    
+  }
   public function insurf()
   {
     $driver = AgentDriver::where('agent_id',Auth::user()->id)
     ->join('driver_details', 'driver_details.user_id', '=', 'agent_driver.driver_id')
     ->join('users', 'users.id', '=', 'driver_details.user_id')
-    ->Where('users.role','=','freight_driver')    
-    ->select('agent_driver.*', 'driver_details.*', 'users.name as user_name',  
-    'users.role','users.email')    
+    ->Where('users.role','=','freight_driver')
+    ->select('agent_driver.*', 'driver_details.*', 'users.name as user_name',
+    'users.role','users.email')
     ->get();
     return view('agent.client', compact('driver'));
 
@@ -403,7 +403,7 @@ $weekExpolicies = collect($results);
       'certPolimit' => $certPolimit,
       'driver' => $driver,
       'agent' => $agent,
-    ]; 
+    ];
 
     return view(
       'agent.form23',
@@ -708,7 +708,7 @@ $r=0;
       'zip' => 'sometimes',
       'phone' => 'sometimes',
       'altemail' => 'sometimes',
-      'role' => 'sometimes', 
+      'role' => 'sometimes',
       'subs_id' => 'sometimes',
     ]);
 
@@ -723,7 +723,7 @@ $r=0;
     $randomNumber = rand(100000, 999999);
     $names = $validatedData['fname'];
     $email = $validatedData['email'];
-    $password = $validatedData['password1']; 
+    $password = $validatedData['password1'];
 
     if ($validatedData['role'] == 'freight_driver') {
 
@@ -733,7 +733,7 @@ $r=0;
         'password' =>   Crypt::encryptString($validatedData['password1']),
         'role' => 'freight_driver',
         'rememberToken' => 'FB' . $randomNumber,
-       
+
       ]);
 
       $lastInsertedId = $user->id;
@@ -813,7 +813,7 @@ $r=0;
            'code' => 'FB' . $randomNumber,
     ];
     $code ='FB' . $randomNumber;
-    Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+    Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
       $message->to($email, $names)
               ->subject('Register');
     });
@@ -827,11 +827,11 @@ $r=0;
         'addedBy' => $driver[0]->name,
         'addingUserCode' => Auth::user()->rememberToken
     ];
-    
-    Mail::send('email.message', $data, function ($message) use ($admin, $code, $request) {
+
+    Mail::send('email.message', $data, function ($message) use ($admin, $code, $request, $driver) {
         $message->to($admin->email, $admin->name)
-                ->subject('Registration Confirmation - Name: ' . $request->name . 
-                          ' Code Is: ' . $code . 
+                ->subject('Registration Confirmation - Name: ' . $request->name .
+                          ' Code Is: ' . $code .
                           ' Added By: ' . $driver[0]->name .
                           ' Code Is: ' . Auth::user()->rememberToken);
     });
@@ -938,10 +938,10 @@ $r=0;
       $email = $request->email;
       $code ='MC' . $randomNumber;
       $data = [
-        'code' => $code,      
+        'code' => $code,
     ];
 
-    Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+    Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
       $message->to($email, $names)
               ->subject('Register');
     });
@@ -955,16 +955,16 @@ $r=0;
         'addedBy' => $driver[0]->name,
         'addingUserCode' => Auth::user()->rememberToken
     ];
-    
-    Mail::send('email.message', $data, function ($message) use ($admin, $code, $request) {
+
+    Mail::send('email.message', $data, function ($message) use ($admin, $code, $request,$driver) {
         $message->to($admin->email, $admin->name)
-                ->subject('Registration Confirmation - Name: ' . $request->name . 
-                          ' Code Is: ' . $code . 
+                ->subject('Registration Confirmation - Name: ' . $request->name .
+                          ' Code Is: ' . $code .
                           ' Added By: ' . $driver[0]->name .
                           ' Code Is: ' . Auth::user()->rememberToken);
     });
 
-     
+
     return redirect()->route('formlist');
   }
 }

@@ -16,7 +16,7 @@ use App\Models\PolicyType;
 use App\Models\Upload;
 use App\Models\AgentDriver;
 use App\Models\TruckDetail;
-use App\Models\Openrequest; 
+use App\Models\Openrequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -39,84 +39,153 @@ class FreightController extends Controller
     {
       return view('freight.add-shipper');
     }
-    public function addshipper(Request $reqeust)
+    public function addshipper(Request $request)
     {
-      $parentId = Auth::user()->id;
-    $currentDate = Carbon::now();
-    $endDate = $currentDate->copy()->addDays(30);
-    $randomNumber = rand(100000, 999999);
-    $user = User::create([
-      'name' => $reqeust->fname,
-      'email' =>$reqeust->email,
-      'password' => Crypt::encryptString($reqeust->password),
-      'role' => "shipper",
-      'rememberToken' => 'SH'.$randomNumber,
-      'status' => "1",
-    ]);
+        $parentId = Auth::user()->id;
+        $currentDate = Carbon::now();
+        $endDate = $currentDate->copy()->addDays(30);
+        $randomNumber = rand(100000, 999999);
 
-    $lastInsertedId = $user->id;
-    $name = '';
+        // Create user
+        $user = User::create([
+            'name' => $request->fname,
+            'email' => $request->email,
+            'password' => Crypt::encryptString($request->password),
+            'role' => "shipper",
+            'rememberToken' => 'SH' . $randomNumber,
+            'status' => "1",
+        ]);
 
-    if(!empty($reqeust->file('imagePath'))){
-      $file  = $reqeust->file('imagePath');
-      $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
-      $file->storeAs('public/uploads_broker_license', $name);
+        $lastInsertedId = $user->id;
+        $name = '';
+
+        // Store uploaded image if available
+        if (!empty($request->file('imagePath'))) {
+            $file = $request->file('imagePath');
+            $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
+            $file->storeAs('public/uploads_broker_license', $name);
+        }
+
+        // Create shipper info
+        ShipperInfos::create([
+            'user_id' => $lastInsertedId,
+            'name' => $request->name,
+            'mname' => $request->mname,
+            'lname' => $request->lname,
+            'suffix' => $request->suffix,
+            'nominal_capital' => $request->nominal_capital,
+            'prefix' => $request->prefix,
+            'address' => $request->address,
+            'address2' => $request->address2,
+            'zip' => $request->zip,
+            'websit' => $request->websit,
+            'tax' => $request->tax,
+            'industry' => $request->industry,
+            'state' => $request->state,
+            'cellphone' => $request->cellphone,
+            'extra_email' => $request->extra_email,
+            'fname' => $request->fname,
+            'owner' => $request->owner,
+            'is_active' => "1",
+            'image_path' => $name,
+        ]);
+
+        // Create subscription
+        Subscription::create([
+            'user_id' => $lastInsertedId,
+            'plan_id' => '1',
+            'start_date' => $currentDate,
+            'end_date' => $endDate,
+            'status' => 'Active',
+        ]);
+
+        // Link driver to shipper
+        DB::table('shipper_driver')->insert([
+            'driver_id' => $parentId,
+            'shipper_id' => $lastInsertedId,
+            'relation_status' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Add notice
+        Notice::create([
+            'to' => $lastInsertedId,
+            'from' => $parentId,
+            'name' => "Shipper added by " . $parentId,
+        ]);
+
+        // Prepare email data for the shipper
+        $data = [
+            'code' => 'SH' . $randomNumber,
+        ];
+        $names = $request->name;
+        $email = $request->email;
+
+        // Send email to the new shipper
+        Mail::send('email.register', $data, function ($message) use ($email, $names) {
+            $message->to($email, $names)
+                    ->subject('Shipper Registration Confirmation');
+        });
+
+        // Admin notification
+        $admin = User::find(1);  // Assuming admin has ID 1
+        $data = [
+            'adminName' => $admin->name,
+            'userName' => $request->name,
+            'verificationCode' => 'SH' . $randomNumber,
+            'addedBy' => Auth::user()->name,
+            'addingUserCode' => Auth::user()->rememberToken,
+        ];
+
+        Mail::send('email.message', $data, function ($message) use ($admin, $request) {
+            $message->to($admin->email, $admin->name)
+                    ->subject('New Shipper Added: ' . $request->name);
+        });
+
+        return Redirect::back()->with('success', 'Shipper added successfully!');
     }
 
-    ShipperInfos::create([     
-      'user_id' =>$lastInsertedId,
-      'name' => $reqeust->name,     
-      'mname' => $reqeust->mname,
-      'lname' => $reqeust->lname,
-      'suffix' => $reqeust->suffix,
-      'nominal_capital' => $reqeust->nominal_capital,
-      'prefix' => $reqeust->prefix,
-      'address' => $reqeust->address,
-      'address2' => $reqeust->address2,
-      'zip' => $reqeust->zip,
-      'websit' => $reqeust->websit,
-      'tax' => $reqeust->tax,     
-      'industry' => $reqeust->industry,
-      'state' => $reqeust->state,
-      'cellphone' => $reqeust->cellphone,
-      'extra_email' => $reqeust->extra_email,
-      'fname' => $reqeust->fname,
-      'owner' => $reqeust->owner,    
-      'is_active' => "1",
-      'image_path' => $name,      
-   ]);
-   $subb = Subscription::create([
-      'user_id' => $lastInsertedId,
-      'plan_id' => '1',
-      'start_date' =>  $currentDate,
-      'end_date' => $endDate,
-      'status' => 'Active',
-    ]);
 
-    // $linkedAgent = DriverDetail::create(['driver_id' => $parentId, 'shipper_driver' => $lastInsertedId, 'relation_status' => '1',]);
-    DB::table('shipper_driver')->insert([
-      'driver_id' => $parentId,
-      'shipper_id' => $lastInsertedId,
-      'relation_status' => 1,
-      'created_at' => now(),
-      'updated_at' => now(),
-  ]);
-    $notice = Notice::create([
-      'to' =>  $lastInsertedId,
-      'from' => $parentId,
-      'name' => "shipper added by ". $parentId,
-    ]);  
-    return Redirect::back()->with('success' ,'Shipper Added  successfully!');
+
+    public function dashf()
+    {
+        $ship = ShipperInfos::all();
+        $userId = auth()->user()->id;
+        $user = request()->user();
+
+        // Retrieve all freight drivers
+        $allFreightDrivers = User::where('role', 'freight_driver')->get();
+
+        // Initialize counters
+        $activeFreightCount = 0;
+        $inactiveFreightCount = 0;
+
+        // Separate active and inactive drivers and count each type
+        $activeFreight = [];
+        $inactiveFreight = [];
+        foreach ($allFreightDrivers as $freightDriver) {
+            if ($freightDriver->status == 1 && $freightDriver->name === $user->name) {
+                $activeFreightCount++;
+                $activeFreight[] = [
+                    'name' => $freightDriver->name,
+                    'email' => $freightDriver->email,
+                    'rememberToken' => $freightDriver->rememberToken,
+                ];
+            } elseif ($freightDriver->status == 0 && $freightDriver->name === $user->name) {
+                $inactiveFreightCount++;
+                $inactiveFreight[] = [
+                    'name' => $freightDriver->name,
+                    'email' => $freightDriver->email,
+                    'rememberToken' => $freightDriver->rememberToken,
+                ];
+            }
+        }
+
+        // Pass the variables to the view
+        return view('freight.dash', compact('ship', 'activeFreightCount', 'activeFreight', 'inactiveFreightCount', 'inactiveFreight'));
     }
-    
 
-  public function dashf()
-  {
-    $ship = ShipperInfos::all();
-
-    return view('freight.dash',  compact('ship'));
-  
-  }
 
   public function storeDriverr(Request $reqeust)
   {
@@ -190,39 +259,39 @@ class FreightController extends Controller
 
     $linkedAgent = AgentDriver::where('driver_id', $parentId)->first();
 
-    
-    $driver = DriverDetail::where('user_id' ,$parentId)->get();
+
+    $driver = DriverDetail::where('parent_id' ,$parentId)->get();
+    // dd( $driver);
+    Notice::create([
+      'to' => 1,
+      'from' => $parentId,
+      'name' => "$reqeust->name {Trucker} Driver added by ".$driver[0]->name,
+    ]);
+    Openrequest::create([
+      'to' => 1,
+      'from' => $parentId,
+      'titel' => "$reqeust->name {Trucker} Driver added Request by ".$driver[0]->name,
+    ]);
+    Openrequest::create([
+      'to' => $lastInsertedId,
+      'from' => $parentId,
+      'titel' => "$reqeust->name Trucker Driver added by ".$driver[0]->name,
+    ]);
 
     Notice::create([
-      'to' => 1,
-      'from' => $parentId,
-      'name' => "Trucker Driver added by ".$driver[0]->name,
-    ]);
-    Openrequest::create([
-      'to' => 1,
-      'from' => $parentId,
-      'titel' => "$request->name {Trucker} Driver added Request by ".$driver[0]->name,
-    ]);
-    Openrequest::create([
       'to' => $lastInsertedId,
       'from' => $parentId,
-      'titel' => "$request->name Trucker Driver added by ".$driver[0]->name,
-    ]);
-    
-    Notice::create([
-      'to' => $lastInsertedId,
-      'from' => $parentId,
-      'name' => "$request->name Trucker Driver added by ".$driver[0]->name,
+      'name' => "$reqeust->name Trucker Driver added by ".$driver[0]->name,
     ]);
 
     $data = [
       'code' => 'MC' . $randomNumber,
 ];
-$names = $request->name;
-$email = $request->email;
+$names = $reqeust->name;
+$email = $reqeust->email;
 
 $code ='MC' . $randomNumber;
-Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
  $message->to($email, $names)
          ->subject('Register');
 });
@@ -231,16 +300,16 @@ $admin = User::find(1);
 
 $data = [
     'adminName' => $admin->name,
-    'userName' => $request->name,
+    'userName' => $reqeust->name,
     'verificationCode' => $code,
     'addedBy' => $driver[0]->name,
     'addingUserCode' => Auth::user()->rememberToken
 ];
 
-Mail::send('email.message', $data, function ($message) use ($admin, $code, $request) {
+Mail::send('email.message', $data, function ($message) use ($admin, $code, $reqeust, $driver) {
     $message->to($admin->email, $admin->name)
-            ->subject('Registration Confirmation - Name: ' . $request->name . 
-                      ' Code Is: ' . $code . 
+            ->subject('Registration Confirmation - Name: ' . $reqeust->name .
+                      ' Code Is: ' . $code .
                       ' Added By: ' . $driver[0]->name .
                       ' Code Is: ' . Auth::user()->rememberToken);
 });
@@ -262,11 +331,11 @@ Mail::send('email.message', $data, function ($message) use ($admin, $code, $requ
     $user =   user::find($userId);
     $user->name = $request->input('username');
     $user->save();
-    $driver = ShipperInfos::find($request->id);   
+    $driver = ShipperInfos::find($request->id);
     if ($driver) {
         $driver->name = $request->input('name');
         $driver->mname = $request->input('mname');
-        $driver->lname = $request->input('lname');      
+        $driver->lname = $request->input('lname');
         $driver->fax = $request->input('fax');
         $driver->tax = $request->input('tax');
         $driver->usdot = $request->input('usdot');
@@ -293,7 +362,7 @@ Mail::send('email.message', $data, function ($message) use ($admin, $code, $requ
     if ($certificate) {
         $certificate->ch = $request->ch;
         $certificate->save();
-    }   
+    }
      return Redirect::back();
   }
   public function shortaddshipper(Request $request)
@@ -303,7 +372,7 @@ Mail::send('email.message', $data, function ($message) use ($admin, $code, $requ
       'name' => 'required',
       'Cname' => 'required',
       'password' => 'sometimes',
-      'email' => 'required|email|unique:users',      
+      'email' => 'required|email|unique:users',
       'role' => 'sometimes',
   ];
       $validator = Validator::make($request->all(), $rules);
@@ -322,8 +391,8 @@ Mail::send('email.message', $data, function ($message) use ($admin, $code, $requ
         'role' => 'shipper',
         'status' => 1
       ]);
-$lastInsertedId = $user->id;           
-        $linkedAgenxt =  ShipperInfos::create([           
+$lastInsertedId = $user->id;
+        $linkedAgenxt =  ShipperInfos::create([
           'user_id' => $lastInsertedId,
           'name' => $request->Cname,
           'status' => 0 ,
@@ -342,5 +411,5 @@ $lastInsertedId = $user->id;
     ]);
     return 'nothing';
   }
-  
+
 }

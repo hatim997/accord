@@ -5,6 +5,29 @@
     $isMenu = false;
     $navbarHideToggle = false;
 @endphp
+<style>
+  .btn-primary {
+background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);
+border: none !important;
+border-radius: 10px !important;
+color: white;
+font-weight: bold; /* Bold text */
+}
+
+input, textarea, button {
+padding: 10px 15px;
+border-radius: 5px;
+margin: 10px 0; /* Space between fields */
+box-sizing: border-box;
+border: 1px solid #ccc;
+font-size: 16px; /* Slightly smaller font */
+transition: border-color 0.3s;
+}
+.form-heading{
+font-weight: bold !important;
+}
+
+</style>
 <h4 class="py-3 mb-4"><span class="text-muted fw-light">Truckers Certificate of Insurance</h4>
 <p>Please fill out the following information and press the submit button to request a certificate of insurance. Your request will be processed and sent to you as soon as possible. Certificates will only be issued upon verification of coverage.</p>
 
@@ -37,19 +60,25 @@
         <div class="card" id="cardCenter">
           <div class="card-content">
             <!-- Basic Layout -->
-            <div class="card-header">
-              <h4 class="card-title text-center" id="cardCenterTitle"> Register</h4>
-              <!-- Logo -->
-              <div class="app-brand justify-content-center mt-5">
-                <a href="{{url('/')}}" class="app-brand-link gap-2">
-                  <span class="app-brand-logo demo">@include('_partials.macros',["height"=>20,"withbg"=>'fill:
-                    #fff;'])</span>
-                  <span class="app-brand-text demo text-heading fw-semibold">{{config('variables.templateName')}}</span>
-                </a>
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <!-- Logo on the left -->
+              <div class="app-brand" style="margin-right: auto; margin-left:7%;">
+                  <a href="{{url('/')}}" class="app-brand-link gap-2 d-flex align-items-center">
+                      <span class="app-brand-logo demo">@include('_partials.macros', ["height"=>20, "withbg"=>'fill:#fff;'])</span>
+                      <span class="app-brand-text demo text-heading fw-semibold">{{config('variables.templateName')}}</span>
+                  </a>
               </div>
-              <!-- /Logo -->
 
-            </div>
+              <!-- Register title in the center -->
+              <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">Register</h4>
+
+              <!-- Save changes button on the right -->
+              <div style="margin-left: auto; margin-right:7%;x">
+                  <button type="submit" id="saveButton" class="btn btn-primary">Save changes</button>
+              </div>
+          </div>
+
+
             <div class="card-body">
               <div class="row">
                 <div class="container">
@@ -113,7 +142,7 @@
                     </div>
                   </div>
                   <div class="row setup-content " id="step-2">
-                
+
                             <div class="col-md-6">
                               <div class="form-group py-3">
                                 <label for="prefix">Prefix</label>
@@ -166,10 +195,10 @@
                                 @error('title') <span class="error">{{ $message }}</span> @enderror
                               </div>
                             </div>
-                       
-                     
+
+
                             <div class="col-md-6">
-                            
+
 
                               <div class="form-group py-3">
                                 <label for="cellphone"class="required">Phone No:</label>
@@ -219,61 +248,61 @@
                               <option value='AZ'>Arizona</option>
                               <option value='AR'>Arkansas</option>
                               <option value='CA'>California</option>
-  
+
                               <option value='CO'>Colorado</option>
                               <option value='CT'>Connecticut</option>
                               <option value='DE'>Delaware</option>
                               <option value='DC'>District of Columbia</option>
                               <option value='FL'>Florida</option>
-  
+
                               <option value='GA'>Georgia</option>
                               <option value='HI'>Hawaii</option>
                               <option value='ID'>Idaho</option>
                               <option value='IL'>Illinois</option>
                               <option value='IN'>Indiana</option>
-  
+
                               <option value='IA'>Iowa</option>
                               <option value='KS'>Kansas</option>
                               <option value='KY'>Kentucky</option>
                               <option value='LA'>Louisiana</option>
                               <option value='ME'>Maine</option>
-  
+
                               <option value='MD'>Maryland</option>
                               <option value='MA'>Massachusetts</option>
                               <option value='MI'>Michigan</option>
                               <option value='MN'>Minnesota</option>
                               <option value='MS'>Mississippi</option>
-  
+
                               <option value='MO'>Missouri</option>
                               <option value='MT'>Montana</option>
                               <option value='NE'>Nebraska</option>
                               <option value='NV'>Nevada</option>
                               <option value='NH'>New Hampshire</option>
-  
+
                               <option value='NJ'>New Jersey</option>
                               <option value='NM'>New Mexico</option>
                               <option value='NY'>New York</option>
                               <option value='NC'>North Carolina</option>
                               <option value='ND'>North Dakota</option>
-  
+
                               <option value='OH'>Ohio</option>
                               <option value='OK'>Oklahoma</option>
                               <option value='OR'>Oregon</option>
                               <option value='PA'>Pennsylvania</option>
                               <option value='RI'>Rhode Island</option>
-  
+
                               <option value='SC'>South Carolina</option>
                               <option value='SD'>South Dakota</option>
                               <option value='TN'>Tennessee</option>
                               <option value='TX'>Texas</option>
                               <option value='UT'>Utah</option>
-  
+
                               <option value='VT'>Vermont</option>
                               <option value='VA'>Virginia</option>
                               <option value='WA'>Washington</option>
                               <option value='WV'>West Virginia</option>
                               <option value='WI'>Wisconsin</option>
-  
+
                               <option value='WY'>Wyoming</option>
                               </select>                                @error('state') <span class="error">{{ $message }}</span> @enderror
                               </div>
@@ -284,10 +313,10 @@
                               </div>
                             </div>
                           </div>
-                       
+
 
                   <div class="row setup-content " id="step-3">
-               
+
                         <div class="col-md-6">
                           <div class="form-group py-3">
                             <label for="license_type"class="required">License Type:</label>
@@ -328,8 +357,8 @@
                             @error('vehicle_make') <span class="error">{{ $message }}</span> @enderror
                           </div>
                         </div>
-                
-                
+
+
                         <div class="col-md-6">
                           <div class="form-group py-3">
                             <label for="vehicle_model"class="required">Vehicle Model :</label>
@@ -354,9 +383,9 @@
                             @error('vehicle_capacity') <span class="error">{{ $message }}</span> @enderror
                           </div>
                         </div>
-                     
-             
-               
+
+
+
                         <div class="col-md-6">
                           <div class="form-group py-3">
                             <label for="extra_email">ALT EMAIL</label>
@@ -376,14 +405,13 @@
                           </div>
                         </div>
                       </div>
-                 
+
 
             </div>
           </div>
         </div>
-        {{-- card end --}}
-        <button type="submit" id="saveButton" class="btn btn-primary">Save changes</button>
-      </div>
+
+
 </form>
 
 

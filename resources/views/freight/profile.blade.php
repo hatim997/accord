@@ -6,6 +6,255 @@ $navbarHideToggle = false;
 @extends('layouts/commonMaster' )
 
 @section('layoutContent')
+
+
+
+
+<div class="row">
+  <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
+      <!-- User Card -->
+      <div class="card mb-6">
+        <div class="card-body pt-12">
+          <div class="user-avatar-section">
+            <div class=" d-flex align-items-center flex-column">
+              <img class="img-fluid rounded mb-4" src="{{ asset('assets/img/logo.png') }}" height="120" width="120" alt="User avatar">
+              <div class="user-info text-center">
+                {{-- @foreach($userviewlist->truckers as $item)
+                <h5>{{$item->name}}</h5>
+                @endforeach --}}
+                {{-- <span class="badge bg-label-danger rounded-pill">{{$userviewlist->role}}</span> --}}
+              </div>
+            </div>
+          </div>
+
+
+          <h5 class="pb-4 border-bottom mb-4">Details</h5>
+          @foreach ($driverdetail as $item)
+          <div class="info-container border-bottom mb-4"">
+            <ul class="list-unstyled mb-6">
+              <li class="mb-2">
+                <span class="h6">Name:</span>
+                <span>{{$item->name}} {{$item->truckers[0]->mname}} {{$item->truckers[0]->lname}}</span>
+              </li>
+              <li class="mb-2">
+                <span class="h6">Email:</span>
+                <span>{{$item->email}} </span>
+              </li>
+              <li class="mb-2">
+                <span class="h6">Alt Email:</span>
+                <span>  {{$item->truckers[0]->extra_email}} </span>
+              </li>
+              <li class="mb-2">
+                <span class="h6">Contact #:</span>
+                <span>  {{$item->truckers[0]->cellphone}} </span>
+              </li>
+              <li class="mb-2">
+                <span class="h6">Fax #:</span>
+                <span> {{$item->truckers[0]->fax}}
+                </span>
+              </li>
+
+            </ul>
+
+          </div>
+
+          <div class="info-container">
+            <ul class="list-unstyled mb-6">
+              <li class="mb-2">
+                <span class="h6">Company Name:</span>
+                <span>{{$item->truckers[0]->name}}</span>
+              </li>
+              <li class="mb-2">
+                <span class="h6">Email:</span>
+                <span>{{$item->truckers[0]->mc_number}} </span>
+              </li>
+              <li class="mb-2">
+                <span class="h6">Alt Email:</span>
+                <span>  {{$item->truckers[0]->suffix}} </span>
+              </li>
+              <li class="mb-2">
+                <span class="h6">Contact #:</span>
+                <span> {{$item->truckers[0]->title}}</span>
+              </li>
+              <li class="mb-2">
+                <span class="h6">Fax #:</span>
+                <span> {{$item->truckers[0]->tax}}
+                </span>
+              </li>
+              <li class="mb-2">
+                <span class="h6">Status:</span>
+                {{-- @if($userviewlist->status == 1) --}}
+                <span class="badge bg-label-success rounded-pill">Active</span>
+                {{-- @else --}}
+                <span class="badge bg-label-danger rounded-pill">InActive</span>
+                {{-- @endif --}}
+
+              </li>
+              <li class="mb-2">
+                <span class="h6">Role:</span>
+                {{-- <span>{{$userviewlist->role}}</span> --}}
+              </li>
+              <li class="mb-2">
+                <span class="h6">Tax id:</span>
+                {{-- @foreach($userviewlist->truckers as $item)
+                <span>{{$item->tax}}</span>
+                @endforeach --}}
+              </li>
+              <li class="mb-2">
+                <span class="h6">Contact:</span>
+                {{-- @foreach($userviewlist->truckers as $item)
+                <span>{{$item->fax}}</span>
+                @endforeach --}}
+              </li>
+              <!-- <li class="mb-2">
+                <span class="h6">Languages:</span>
+                <span>French</span>
+              </li> -->
+              <li class="mb-2">
+                <span class="h6">State-City-ZipCode:</span>
+                {{-- @foreach($userviewlist->truckers as $item) --}}
+                {{-- <span>{{$item->state}}-{{$item->city}}-{{$item->zip}}</span> --}}
+                {{-- @endforeach/ --}}
+              </li>
+            </ul>
+            <div class="d-flex justify-content-center">
+              <a href="javascript:;" class="btn btn-primary me-4 waves-effect waves-light" data-bs-target="#editUser" data-bs-toggle="modal">Edit</a>
+              <a href="javascript:;" class="btn btn-outline-danger suspend-user waves-effect">Suspend</a>
+            </div>
+          </div>
+          @endforeach
+        </div>
+      </div>
+      <!-- /User Card -->
+
+    </div>
+
+  <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+
+      <div class="card mb-6">
+          <!-- Notifications -->
+          <h5 class="card-header border-bottom mb-0">Notifications</h5>
+          <div class="card-body py-4">
+            <span class="text-heading fw-medium">Change to notification settings, the user will get the update</span>
+          </div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="text-nowrap">Type</th>
+                  <th class="text-nowrap text-center">Email</th>
+                  <th class="text-nowrap text-center">Browser</th>
+                  <th class="text-nowrap text-center">App</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-nowrap text-heading">New for you</td>
+                  <td>
+                    <div class="form-check mb-0 d-flex justify-content-center">
+                      <input class="form-check-input" type="checkbox" id="defaultCheck1" checked="">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check mb-0 d-flex justify-content-center">
+                      <input class="form-check-input" type="checkbox" id="defaultCheck2" checked="">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check mb-0 d-flex justify-content-center">
+                      <input class="form-check-input" type="checkbox" id="defaultCheck3" checked="">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-nowrap text-heading">Account activity</td>
+                  <td>
+                    <div class="form-check mb-0 d-flex justify-content-center">
+                      <input class="form-check-input" type="checkbox" id="defaultCheck4" checked="">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check mb-0 d-flex justify-content-center">
+                      <input class="form-check-input" type="checkbox" id="defaultCheck5" checked="">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check mb-0 d-flex justify-content-center">
+                      <input class="form-check-input" type="checkbox" id="defaultCheck6" checked="">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-nowrap text-heading">A new browser used to sign in</td>
+                  <td>
+                    <div class="form-check mb-0 d-flex justify-content-center">
+                      <input class="form-check-input" type="checkbox" id="defaultCheck7" checked="">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check mb-0 d-flex justify-content-center">
+                      <input class="form-check-input" type="checkbox" id="defaultCheck8" checked="">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check mb-0 d-flex justify-content-center">
+                      <input class="form-check-input" type="checkbox" id="defaultCheck9">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-nowrap text-heading">A new device is linked</td>
+                  <td>
+                    <div class="form-check mb-0 d-flex justify-content-center">
+                      <input class="form-check-input" type="checkbox" id="defaultCheck10" checked="">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check mb-0 d-flex justify-content-center">
+                      <input class="form-check-input" type="checkbox" id="defaultCheck11">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check mb-0 d-flex justify-content-center">
+                      <input class="form-check-input" type="checkbox" id="defaultCheck12">
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-body">
+            <button type="submit" class="btn btn-primary me-3 waves-effect waves-light">Save changes</button>
+            <button type="reset" class="btn btn-outline-secondary waves-effect">Discard</button>
+          </div>
+          <!-- /Notifications -->
+        </div>
+  </div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Name -->
 <div id="AddForm">
   <!-- Basic Layout -->
@@ -47,8 +296,8 @@ $navbarHideToggle = false;
 
 {{-- {{dd($driverdetail)}} --}}
             @foreach ($driverdetail as $item)
-                
-           
+
+
             <input type="hidden" class="form-control" value="{{$item->truckers[0]->id}}" name="id"   id="username" placeholder="ACME Inc."  />
 
               <div class="row">
@@ -70,8 +319,8 @@ $navbarHideToggle = false;
                     <label for="username1">Last Name:</label>
                   </div>
                 </div>
-             
-              
+
+
                 <div class="col-4">
                   <div class="form-floating form-floating-outline mb-3">
                     <input type="text" class="form-control" value="{{$item->email}}"  name="email"  id="email1" placeholder="example.com"
@@ -100,7 +349,7 @@ $navbarHideToggle = false;
                 </div>
 
               </div>
-              <hr><br>  
+              <hr><br>
               <div class="row">
                 <div class="col-4">
 
@@ -207,14 +456,14 @@ $navbarHideToggle = false;
                     <label for="zip1">Old Password</label>
                   </div>
             </div>
-           
+
               <div class="col-3">
                 <div class="form-floating form-floating-outline mb-3">
                   <input type="text" id="new_password" name="newpass"  class="form-control"   placeholder=""  />
                   <label for="zip1"> New Password</label>
                 </div>
               </div>
-       
+
           <div class="col-3">
             <div class="form-floating form-floating-outline mb-3">
               <input type="text" id="new_password_confirmation"  class="form-control"   placeholder=""  />
@@ -226,10 +475,10 @@ $navbarHideToggle = false;
           </div>
           <div id="response-message"></div>
       </div>
-     
+
         </div>
         </div>
-            
+
           </div>
         </div>
         {{-- card end --}}

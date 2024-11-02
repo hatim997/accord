@@ -165,7 +165,7 @@
               <div class="modal-content">
                 <div class="modal-header justify-content-center align-items-center">
                   <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Week</h5>
-               
+
                 </div>
                 <div class="modal-body">
                     @if($weekExpolicies->isEmpty())
@@ -190,7 +190,7 @@
                             </thead>
                             <tbody>
                                 @foreach($weekExpolicies as $policy)
-                                <tr > 
+                                <tr >
                                     <td>{{ $policy->policy_type_id }}</td>
                                     <td>{{ $policy->names }}</td>
                                     <td>{{ $policy->policy_number }}</td>
@@ -220,7 +220,7 @@
               <div class="modal-content">
                 <div class="modal-header justify-content-center align-items-center">
                   <h5 class="modal-title text-center" id="exampleModalLabel">Policies Expiring in a Month</h5>
-               
+
                 </div>
                 <div class="modal-body">
                   @if($monthExpolicies->isEmpty())
@@ -246,7 +246,7 @@
                             </thead>
                             <tbody>
                                 @foreach($monthExpolicies as $policy)
-                                <tr > 
+                                <tr >
                                     <td>{{ $policy->policy_type_id }}</td>
                                     <td>{{ $policy->names }}</td>
                                     <td>{{ $policy->policy_number }}</td>
@@ -263,7 +263,7 @@
                 </div>
 
 
-     
+
                   @endif
                 </div>
                 <div class="modal-footer">
@@ -279,7 +279,7 @@
               <div class="modal-content">
                 <div class="modal-header justify-content-center align-items-center">
                   <h5 class="modal-title" id="exampleModalLabel">List of Active Shippers</h5>
-                  
+
                 </div>
                 <div class="modal-body">
                     @if($activeShippers->isEmpty())
@@ -315,7 +315,7 @@
                 </div>
 
 
-     
+
                   @endif
                 </div>
                 <div class="modal-footer">
@@ -331,7 +331,7 @@
               <div class="modal-content">
                 <div class="modal-header justify-content-center align-items-center">
                   <h5 class="modal-title" id="exampleModalLabel">List of Inactive Shippers</h5>
-                 
+
                 </div>
                 <div class="modal-body">
                     @if($inactiveShippers->isEmpty())
@@ -368,7 +368,7 @@
                 </div>
 
 
-     
+
                   @endif
                 </div>
                 <div class="modal-footer">
@@ -380,7 +380,7 @@
 
 
         @if($driverInfo->is_active==1)
-  
+
 
 
         <div class="container mt-5 px-2">
@@ -398,7 +398,7 @@
                         <tr class="bg-light">
 
 
-                     
+
                             @if (isset($policies))
                             @foreach ($policies as $p)
                             <th scope="col" width="5">{{ shout($p->type_name) }}</th>
@@ -425,9 +425,9 @@
                     @endif
 
 
-                     
-                    
-                  
+
+
+
 
                     </tbody>
                 </table>
@@ -435,7 +435,7 @@
             </div>
 
         </div>
-  
+
 
 
         <div class="container mt-5 px-2">
@@ -445,13 +445,13 @@
                     <h4 class="mb-0 py-4 px-4 fw-bold">Broker List</h4>
                 </div>
             </div>
-    
+
             <div class="table-responsive">
                 <table class="table table-responsive " style="border: 0px">
-    
+
                     <thead>
                         <tr class="bg-light">
-    
+
                             {{-- <th scope="col" width="5%">#</th> --}}
                             <th scope="col" width="20%" class="text-center">User</th>
                             <th scope="col" width="30%" class="text-center">Address</th>
@@ -463,7 +463,7 @@
                     <tbody style="background-color: #fff;">
                         <tr>
                             @foreach ($ship as $ships)
-                                  
+
                                     <td class="text-center">{{ $ships->name }}</td>
                                     <td class="text-center">{{ $ships->address }}</td>
                                     <td class="text-center">{{ $ships->cellphone }}</td>
@@ -473,12 +473,12 @@
                                     </td>
                         </tr>
                         @endforeach
-    
+
                     </tbody>
                 </table>
-    
+
             </div>
-    
+
         </div>
 
 @else
