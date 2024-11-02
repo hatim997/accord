@@ -107,19 +107,23 @@
         <div class="card" id="cardCenter">
           <div class="card-content">
             <!-- Basic Layout -->
-            <div class="card-header">
-              <h4 class="card-title text-center" id="cardCenterTitle"> Register</h4>
-              <!-- Logo -->
-              <div class="app-brand justify-content-center mt-5">
-                <a href="{{url('/')}}" class="app-brand-link gap-2">
-                  <span class="app-brand-logo demo">@include('_partials.macros',["height"=>20,"withbg"=>'fill:
-                    #fff;'])</span>
-                  <span class="app-brand-text demo text-heading fw-semibold">{{config('variables.templateName')}}</span>
-                </a>
+            <div class="card-header d-flex justify-content-between align-items-center mb-3">
+              <!-- Logo on the left -->
+              <div class="app-brand" style="margin-right: auto; margin-left:7%;">
+                  <a href="{{url('/')}}" class="app-brand-link gap-2 d-flex align-items-center">
+                      <span class="app-brand-logo demo">@include('_partials.macros', ["height"=>20, "withbg"=>'fill:#fff;'])</span>
+                      <span class="app-brand-text demo text-heading fw-semibold">{{config('variables.templateName')}}</span>
+                  </a>
               </div>
-              <!-- /Logo -->
 
-            </div>
+              <!-- Register title in the center -->
+              <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">Register</h4>
+
+              <!-- Save changes button on the right -->
+              <div style="margin-left: auto; margin-right:7%;x">
+                  <button type="submit" id="saveButton" class="btn btn-primary">Save changes</button>
+              </div>
+          </div>
             <div class="card-body">
               <div class="row">
                 <div class="container">
@@ -314,10 +318,7 @@
         </div>
         {{-- card end --}}
 
-        <div class="d-flex justify-content-center align-items-center" >
-          <button type="submit" id="saveButton" class="btn btn-primary" style="width: 15%;">Save changes</button>
-
-      </div>
+  
       </div>
 </form>
 

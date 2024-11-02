@@ -112,7 +112,7 @@ $navbarHideToggle = false;
                       <label for="email1"> Years of Experience </label>
                     </div>
                   </div>
-                  
+
 
                   <div class="col-12">
                     <div id="dynamic_field"></div>
@@ -137,6 +137,7 @@ $navbarHideToggle = false;
   $('#add').click(function() {
     i++;
     $('#dynamic_field').append(
+      '<br><hr><br>' +
       '<div class="row" id="row' + i + '">' +
         '<div class="col-4">' +
           '<div class="form-floating form-floating-outline mb-3">' +
@@ -207,7 +208,8 @@ $navbarHideToggle = false;
         '<div class="col-4">' +
           '<button type="button" class="btn btn-outline-danger waves-input-wrapper waves-effect btn_remove" id="' + i + '">Remove</button>' +
         '</div>' +
-      '</div>'
+      '</div>' 
+
     );
   });
 

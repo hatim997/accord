@@ -17,20 +17,26 @@
   background-color: #f1f1f1; /* Highlight color */
   border: 1px solid #add5ff; /* Optional: Add a border */
 }
-.temp:hover  {
-                background-color: #33bbff;
-                color: #fff; 
-                text-decoration: underline; 
-                transition: .3s ease-in;
-                font-weight: 600;
-           }
-  .temp h6:hover{
-      color: #fff;
-    }  
+.temp:hover {
+    background-color: #33bbff;
+    color: #fff !important;
+    text-decoration: underline;
+    transition: .3s ease-in;
+    font-weight: 600;
+}
+
+/* Specific style for the h6 element inside .temp on hover */
+.temp:hover h6 {
+    color: #fff !important;
+    transition: .3s ease-in;
+    font-weight: 600;
+}
+
+
 
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
- 
+
 @endpush
 
 @section('content')
@@ -94,34 +100,34 @@
                   <div class="form-group pb-3">
                       <label for="userName">City:</label>
                       <input type="text" class="form-control" id="city" name="user_name" value="" readonly>
-                  </div>                          
+                  </div>
               </div>
               <div class="col-md-6">
                   <div class="form-group pb-3">
                       <label for="userName">State:</label>
                       <input type="text" class="form-control" id="state" name="user_name" value="" readonly >
                   </div>
-                   
-                  
+
+
                   <div class="form-group pb-3">
                       <label for="userName">No. Of Trucks:</label>
                       <input type="text" class="form-control" id="modalContent" name="modalContent" value="" readonly>
                   </div>
-                 
+
 
               </div></div>
 
 
 
                   <!-- Add more form fields as needed -->
-                  
+
                   <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       {{-- <button type="submit" class="btn btn-primary">Save changes</button> --}}
                   </div>
               </form>
           </div>
-          
+
       </div>
   </div>
 </div>
@@ -131,34 +137,34 @@
     <div class="col app-chat-contacts app-sidebar flex-grow-0 overflow-hidden " id="app-chat-contacts">
         <div class="sidebar-header h-px-75 px-5 border-bottom d-flex align-items-center">
           <div class="d-flex align-items-center me-4 me-lg-0">
-            
+
             <h5 class="text-primary mb-0">Client</h5>
           </div>
         </div>
         <div class="sidebar-body ps ps--active-y">
-  
-         
+
+
           <!-- Contacts -->
           <ul class="list-unstyled chat-contact-list py-2" id="contact-list">
-            
+
             <li class="chat-contact-list-item contact-list-item-0 d-none">
               <h6 class="text-muted mb-0">No Contacts Found</h6>
             </li>
-         
+
             @foreach ($driver as $data)
             <li class="chat-contact-list-item "  >
-              <a class="align-items-center chat-contact-list-itemm temp"   id="{{ $data->driver_id }}">               
-                <div class="chat-contact-info flex-grow-1 ms-4 "> 
+              <a class="align-items-center chat-contact-list-itemm temp"   id="{{ $data->driver_id }}">
+                <div class="chat-contact-info flex-grow-1 ms-4 ">
                 <div class="d-flex justify-content-between ">
-                   <h6 class="chat-contact-name text-truncate fw-normal m-0">{{ $data->name }}</h6> 
+                   <h6 class="chat-contact-name text-truncate fw-normal m-0">{{ $data->name }}</h6>
                 </div>
                   <small class="chat-contact-status text-truncate ">{{ str_replace('_', ' ', $data->role) }}</small>
                 </div>
               </a>
 
-              <button class="btn primary " type="button"  data-toggle="modal" data-target="#exampleModal" id="btn" 
-              data-driver_id="{{ $data->driver_id }}" data-user_name="{{ $data->user_name }}" 
-               data-company_name="{{ $data->name }}"                                             
+              <button class="btn primary " type="button"  data-toggle="modal" data-target="#exampleModal" id="btn"
+              data-driver_id="{{ $data->driver_id }}" data-user_name="{{ $data->user_name }}"
+               data-company_name="{{ $data->name }}"
               data-cell_number="{{ $data->cellphone }}"
               data-address="{{ $data->address }}"
               data-address2="{{ $data->address2 }}"
@@ -169,22 +175,22 @@
               data-city="{{ $data->city }}"
               data-zip="{{ $data->zip }}" style="    margin: 0;
     padding: 0px 0px;" >
-             
+
                 <i class="mdi mdi-eye eye temp" style="    margin: 0;
-    padding: .6rem .6rem;"></i> 
+    padding: .6rem .6rem;"></i>
             </button>
-            </li> 
+            </li>
             <li>
               <hr class="dropdown-divider" style="border:0px; border-top:1px solid;">
             </li>
-            @endforeach       
+            @endforeach
           </ul>
         <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 434px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 182px;">
-       
+
         </div>
         </div>
 
-      
+
       </div>
     </div>
 
@@ -192,18 +198,18 @@
       <div class="chat-history-wrapper">
        <br>
       </div>
- 
+
       <div class="sidebar-body" style="height: 70vh;overflow: auto;">
 
           <table class="table dataTable collapsed chat-contact-list" id="contact-list" style="width: 1193px;">
             <thead>
-              <tr class="border-bottom">              
+              <tr class="border-bottom">
                 <th class=" rowspan="1" colspan="1"
                   style="width: 18px;" data-col="1" aria-label=""></th>
                 <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 20px;"
                   aria-label="order: activate to sort column ascending">Certificate ID</th>
                 <th class=" " tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                  style="width: 134px;" aria-label="date: activate to sort column descending" aria-sort="ascending">Download</th>              
+                  style="width: 134px;" aria-label="date: activate to sort column descending" aria-sort="ascending">Download</th>
                 <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 101px;" aria-label="payment: activate to sort column ascending">View Certificate</th>
                 <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
@@ -212,13 +218,13 @@
                   style="width: 267px;" aria-label="customers: activate to sort column ascending">Add Certificate</th>
                 <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 147px;" aria-label="method: activate to sort column ascending">status</th>
-          
+
               </tr>
             </thead>
-           
+
             <tbody class="tbody">
               {{-- <tr class="odd parent">
-              
+
                 <td class="dt-checkboxes-cell"> <i style="font-size: 30px;    color: #252458;}" class="mdi mdi-chevron-down"></i> </td>
                 <td><a
                     href="#"><span>#6979</span></a>
@@ -226,7 +232,7 @@
                 <td class="sorting_1"><i class="mdi mdi-download"></i></td>
                 <td>
                   <div class="d-flex justify-content-start align-items-center user-name">
-                   
+
                     <div class="d-flex flex-column"><a
                         href="#"
                         class="text-truncate text-heading"><span class="fw-medium">Cristine Easom</span></a><small
@@ -237,7 +243,7 @@
                   <h6 class="mb-0 w-px-100 d-flex align-items-center" ><i class="mdi mdi-eye"></i>
                     </h6>
                 </td>
-              
+
                 <td>
                   <div class="d-flex align-items-center text-nowrap"><i class="mdi mdi-pencil-box"></i>
                   </div>
@@ -257,19 +263,19 @@
               </tr> --}}
 
             </tbody>
-                       
-                     
-          </table>    
+
+
+          </table>
         </div>
-   
-   
-
-
- 
 
 
 
-    
+
+
+
+
+
+
       </div>
 
     </div>
@@ -280,13 +286,13 @@
 
       @section('page-scriptt')
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-   
+
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- DataTables JS -->
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    
+
 <script>
       function toggleDropdown(id) {
     $(`#dropdown-${id}`).toggle();
@@ -305,7 +311,7 @@
 
         $('.chat-contact-list-itemm').removeClass('focus'); // Remove focus from other items
       $(this).addClass('focus'); // Add focus to the clicked item
- 
+
 
 
         function generatePolicyTable(policies) {
@@ -361,9 +367,9 @@
         // alert(data.certificate_policies);
 
 
-        var newRow = `      
-            <tr class="odd parent" style="border-bottom:1px solid #cdc9d1;">              
-                <td class="dt-checkboxes-cell"> 
+        var newRow = `
+            <tr class="odd parent" style="border-bottom:1px solid #cdc9d1;">
+                <td class="dt-checkboxes-cell">
                     <i style="font-size: 30px; color: #252458;" class="mdi mdi-chevron-down" onclick="toggleDropdown(${data.id})"></i>
                 </td>
                 <td><span>#${data.id}</span></td>
@@ -393,7 +399,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        
+
                             ${generatePolicyTable(data.certificate_policies)}
                         </tbody>
                     </table>
@@ -416,7 +422,7 @@
 
 
       });
-      
+
   });
 </script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -434,12 +440,12 @@
             var zip = button.data('zip');
             var state = button.data('state');
             var city = button.data('city');
-           
+
             // Update the modal's content
             var modal = $(this);
             modal.find('#modalUserName').val(userName);
             modal.find('#modalDriverId').val(driverId);
-            modal.find('#modalCompanyName').val(companyName);    
+            modal.find('#modalCompanyName').val(companyName);
             modal.find('#modalCellNumber').val(cellNumber);
             modal.find('#modalAddress').val(address);
             modal.find('#modalAddress2').val(address2);
@@ -451,7 +457,7 @@
             modal.find('#city').val(city);
             // modal.find('#modalCertLink').attr('href', '/route-to-certificate/' + driverId); // Update link href
             var userId = button.data('driver_id');
-     
+
      // Use AJAX or fetch to get the data from the server (assuming you have an endpoint)
      $.ajax({
          url: 'get-driver/' + userId, // Replace with your route
@@ -460,20 +466,20 @@
              // Assuming `response` contains the data you want to display
              modal.find('#modalContent').val(response); // Update the modal content
              // $('#dataModal').show(); // Show the modal
-             
+
 
          }
      });
-    
-    
+
+
         });
-     
-   
-      
-     
-  
 
 
 
-        </script> 
+
+
+
+
+
+        </script>
   @endsection

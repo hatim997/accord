@@ -5,9 +5,32 @@
     $isMenu = false;
     $navbarHideToggle = false;
 @endphp
+<style>
+  .btn-primary {
+background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);
+border: none !important;
+border-radius: 10px !important;
+color: white;
+font-weight: bold; /* Bold text */
+}
+
+input, textarea, button {
+padding: 10px 15px;
+border-radius: 5px;
+margin: 10px 0; /* Space between fields */
+box-sizing: border-box;
+border: 1px solid #ccc;
+font-size: 16px; /* Slightly smaller font */
+transition: border-color 0.3s;
+}
+.form-heading{
+font-weight: bold !important;
+}
+
+</style>
 <h4 class="py-3 mb-4"><span class="text-muted fw-light">Truckers Certificate of Insurance</h4>
 <p>Please fill out the following information and press the submit button to request a certificate of insurance. Your request will be processed and sent to you as soon as possible. Certificates will only be issued upon verification of coverage.</p>
- 
+
 
 <form method="POST" action="{{ route('reg.add') }}">
   @csrf
@@ -21,7 +44,7 @@
       </div>
 @endif
 @if($errors->any())
-   
+
             @foreach($errors->all() as $error)
             <div class="alert alert-danger alert-dismissible" role="alert">
                 {{ $error }}
@@ -29,36 +52,40 @@
                 </button>
             </div>
             @endforeach
-      
-  
+
+
 @endif
   <input type="hidden" name="role" value="agent">
   <!-- Basic Layout -->
 <div class="position-relative">
-<div class="container authentication-wrapper authentication-basic container-p-y" > 
+<div class="container authentication-wrapper authentication-basic container-p-y" >
 <div class="authentication-inner py-4">
   <div class="card" id="cardCenter" >
     <div style="background-image: url('assets/img/logo.png'); background-repeat: no-repeat; position:absolute; background-size:cover;display:block;  opacity: 0.05;
     width: 100%;height: 100%;top: 0;left: 0;right: 0;bottom: 0;"> </div>
       <div class="card-content">
 
-    
-     
+
+
       <!-- Basic Layout -->
- 
-        <div class="card-header">
-          <h4 class="card-title text-center" id="cardCenterTitle"> Register</h4>
-<!-- Logo -->
-                          <div class="app-brand justify-content-center mt-5">
-                              <a href="{{url('/')}}" class="app-brand-link gap-2">
-                              <span class="app-brand-logo demo">@include('_partials.macros',["height"=>20,"withbg"=>'fill:
-                                      #fff;'])</span>
-                              <span class="app-brand-text demo text-heading fw-semibold">{{config('variables.templateName')}}</span>
-                              </a>
-                          </div>
-                          <!-- /Logo -->
-          
+
+      <div class="card-header d-flex justify-content-between align-items-center mb-3">
+        <!-- Logo on the left -->
+        <div class="app-brand" style="margin-right: auto; margin-left:7%;">
+            <a href="{{url('/')}}" class="app-brand-link gap-2 d-flex align-items-center">
+                <span class="app-brand-logo demo">@include('_partials.macros', ["height"=>20, "withbg"=>'fill:#fff;'])</span>
+                <span class="app-brand-text demo text-heading fw-semibold">{{config('variables.templateName')}}</span>
+            </a>
         </div>
+
+        <!-- Register title in the center -->
+        <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">Register</h4>
+
+        <!-- Save changes button on the right -->
+        <div style="margin-left: auto; margin-right:7%;x">
+            <button type="submit" id="saveButton" class="btn btn-primary">Save changes</button>
+        </div>
+    </div>
         <div class="card-body">
   <div class="row">
     <div class="col-4">
@@ -72,7 +99,7 @@
         <input type="text" class="form-control" name="email" id="email1" placeholder="example.com" required />
         <label for="email1">EMAIL</label>
       </div>
-    </div>  
+    </div>
 
     <div class="col-4">
       <div class="form-floating form-floating-outline mb-3">
@@ -98,8 +125,8 @@
         <label for="fullname1">Company Name</label>
       </div>
     </div>
-  </div>    
-  <div class="row">   
+  </div>
+  <div class="row">
     <div class="col-6">
       <div class="form-floating form-floating-outline mb-3">
         <input type="text" class="form-control" name="Addss" id="Addss1" placeholder="" />
@@ -118,7 +145,7 @@
         <label for="state1">state</label>
       </div>
     </div>
-   
+
     <div class="col-4">
       <div class="form-floating form-floating-outline mb-3">
         <input type="text" class="form-control" name="city" id="city1" placeholder="" />
@@ -143,7 +170,7 @@
 
 
 
-  <button type="submit" id="saveButton" class="btn btn-primary">Save changes</button>
+  
 </div>
 </form>
 
