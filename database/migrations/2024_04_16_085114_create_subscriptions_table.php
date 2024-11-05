@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('plan_id')->constrained('subscription_plans');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->enum('status', ['Active', 'Inactive', 'Expired', 'Canceled']);
+            $table->integer('status');
             $table->timestamps();
         });
     }

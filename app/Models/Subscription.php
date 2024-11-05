@@ -16,8 +16,13 @@ class Subscription extends Model
       ];
     use HasFactory;
 
-    public function user()
+  public function user()
   {
     return $this->belongsTo(User::class, 'user_id');
+  }
+
+  public function subscriptionPlan()
+  {
+      return $this->belongsTo(Subscription_plan::class, 'plan_id');
   }
 }

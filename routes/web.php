@@ -84,6 +84,7 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
 
   Route::get('/admin/user-view/{id}', [AdminController::class, 'userview'])->name('user.view');
   Route::get('/admin/user-list', [AdminController::class, 'userlist'])->name('user.list');
+  // Route::post('/admin/filter-users', [AdminController::class, 'filterUsers'])->name('filterUsers');
 });
 
 Route::post('/mark-read/{id}', [AdminController::class, 'markAsRead'])->name('mark-read');
@@ -127,7 +128,11 @@ Route::get('reboot',function(){
   return "done";
 });
 
+Route::get('/blanks', function () {
+  return view('blanks'); // This returns the 'blanks' view
+})->name('blanks');
 Route::post('/upgrade-plan', [AuthController::class, 'addtocart'])->name('add_to_cart');
+Route::post('/pay-now', [AuthController::class, 'payNow'])->name('pay.now');
 
 Route::post('/reg', [AuthController::class, 'register'])->name('form.reg');
 Route::post('/reggg', [AuthController::class, 'getregister'])->name('get.regester');

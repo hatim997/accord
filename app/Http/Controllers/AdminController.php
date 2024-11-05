@@ -520,22 +520,43 @@ return back()->with($message);
     // Optionally, you can select a specific month if needed
     $currentMonth = date('Y-m'); // Change as necessary
     $currentMonthPercentage = isset($monthlyPercentageRatio[$currentMonth]) ? round($monthlyPercentageRatio[$currentMonth], 2) : 0;
-
-
-
-
     $userlist = User::with('subscription')->whereNot('role', 'admin')->get();
 
-
-    $usereloquent = User::with('agencies', 'truckers', 'subscription')->whereNot('role', 'admin')->get();
-    // dd($usereloquent->toArray());
-
-    // $users = DB::table('users')
-    // ->join('wp_wc_orders', DB::raw("BINARY users.email"), '=', DB::raw("BINARY wp_wc_orders.billing_email"))
-    // ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
-    // ->select('users.*', 'wp_wc_orders.*', 'wp_woocommerce_order_items.*')
-    // ->get();
-    // dd($users);
-    return view('ul', compact('userlist' ,'currentWeekUsers', 'percentageChange', 'currentMonthUsers', 'monthPercentageChange', 'currentMonthUsersIn', 'monthPercentageChangeIn', 'Paidresult', 'currentMonthPercentage'));
+    $usersWithPlans = User::with(['subscription.subscriptionPlan', 'agencies', 'truckers', 'subscription'])->whereNot('role', 'admin')
+    ->get();
+    // dd($usersWithPlans->toArray());
+    return view('ul', compact('userlist', 'usersWithPlans' ,'currentWeekUsers', 'percentageChange', 'currentMonthUsers', 'monthPercentageChange', 'currentMonthUsersIn', 'monthPercentageChangeIn', 'Paidresult', 'currentMonthPercentage'));
   }
+
+//   public function filterUsers(Request $request)
+// {
+//     $query = User::with(['subscription' => function ($q) use ($request) {
+//         // If the status is provided in the request, filter subscriptions by that status
+//         if ($request->filled('status')) {
+//             $q->where('status', $request->input('status')); // 0 for Inactive, 1 for Active
+//         }
+//     }, 'subscription.subscriptionPlan', 'agencies', 'truckers']);
+
+//     // Apply filters if values are provided
+//     if ($request->filled('role')) {
+//         $query->where('role', $request->input('role'));
+//     }
+
+//     if ($request->filled('plan')) {
+//         $query->whereHas('subscription.subscriptionPlan', function ($q) use ($request) {
+//             $q->where('name', $request->input('plan'));
+//         });
+//     }
+
+//     // If a specific user status is selected, filter users by their status
+//     if ($request->filled('status')) {
+//         $query->where('status', $request->input('status')); // Assuming 1 for active, 0 for inactive
+//     }
+
+//     $filteredUsers = $query->get();
+
+//         dd($filteredUsers);
+
+//         return view('ul', compact('filteredUsers'));
+//     }
 }

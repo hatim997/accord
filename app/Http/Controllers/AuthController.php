@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Notice;
 use App\Models\ShipperInfos;
 use App\Models\DriverDetail;
+use App\Models\Order;
 use App\Models\AgencyInfos;
 use App\Models\Subscription_plan;
 use App\Models\Subscription;
@@ -455,24 +456,89 @@ return redirect('/fportal');
     $data=Subscription_plan::All();
     return view('index' ,compact('data'));
   }
-  public function addtocart (Request $request)
+
+  public function addtocart(Request $request)
   {
-    // dd( $request->sub_id);
-    AddToCart::create([
-      'user_id' => Auth::id(),
-      'subscription_id' => $request->input('sub_id'),
-      'status' => 'Inactive',
-      'note' => $request->input('note'),
-    ]);
+      // Initialize empty data array
+      $data = [];
 
-    // $data = User::get()
+      // Retrieve subscription plan details using sub_id
+      $subs_idd = Subscription_plan::find($request->input('sub_id'));
+
+      // Check if the subscription exists before proceeding
+      if (!$subs_idd) {
+          return redirect()->back()->withErrors(['error' => 'Subscription not found.']);
+      }
+
+      // Retrieve the authenticated user
+      $user = Auth::user();
+
+      // Create a new subscription record
 
 
-    // dd($request->toArray());
-   $subs_id =$request->sub_id;
-    return view('auth.addtocart' ,compact('subs_id'));
+      // Generate unique 11-digit invoice number
+      $invoiceNumber = $this->generateUniqueInvoiceNumber();
+// dd($invoiceNumber );
+      // Insert a new record into the orders table using the subscription ID
+
+
+      // Fetch user-specific data based on role
+      if ($user->role == 'agent') {
+          $data = AgencyInfos::where('user_id', $user->id)->get();
+      } elseif ($user->role == 'truck_driver') {
+          $data = DriverDetail::where('user_id', $user->id)->get();
+      } elseif ($user->role == 'shipper') {
+          $data = ShipperInfos::where('user_id', $user->id)->get();
+      }
+
+      // Pass the data and subscription information to the view
+      return view('auth.addtocart', compact('subs_idd', 'data', 'invoiceNumber'));
   }
 
+
+  private function generateUniqueInvoiceNumber()
+  {
+      do {
+          // Generate a random 11-digit number
+          $invoiceNumber = rand(10000, 99999);
+      } while (Order::where('invoice', $invoiceNumber)->exists()); // Check if it already exists
+
+      return $invoiceNumber;
+  }
+
+  public function payNow(Request $request)
+  {
+      // Validate the request data
+      $request->validate([
+          'invoice' => 'required|string',
+          'sub_id' => 'required|integer',
+          'price' => 'required|numeric',
+      ]);
+
+      // Retrieve subscription plan details using sub_id
+
+
+      // Check if the subscription exists
+
+      $user = Auth::user();
+      $subscription = Subscription::create([
+        'user_id' => $user->id,
+        'plan_id' => $request->sub_id,
+        'start_date' => now(),
+        'end_date' => now()->addMonth(),
+        'status' => 'Active',
+    ]);
+      // Insert a new record into the orders table
+      $order = Order::create([
+          'subscription_id' => $subscription->id, // Use the found subscription plan's ID
+          'invoice' => $request->input('invoice'), // Use the passed invoice number
+          'issue_date' => now(), // Set the issue date
+          'price' => $request->price, // Store the price from the subscription plan
+      ]);
+
+      // Redirect to a confirmation page or the orders page
+      return redirect()->route('blanks')->with('success', 'Order placed successfully.');
+  }
 
 
 }

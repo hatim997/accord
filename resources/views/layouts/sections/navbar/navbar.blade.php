@@ -14,7 +14,6 @@ background-color: #2684ff !important;
 transition: .4s;
 color: #fff !important;
 
-
 }
 
 /* Modal Dialog */
@@ -253,11 +252,9 @@ color: #fff !important;
                             ->where('to', $userId)
                             ->get();
 
-
             @endphp
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
           <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
-            Open Requests
             Open Requests
             <!-- Show the dot if there are open requests -->
             @if(!$noticesExist->isEmpty())
@@ -265,8 +262,6 @@ color: #fff !important;
             @endif
           </a>
           <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
-
-
 
 
             @if ($noticesExist->isEmpty())
@@ -323,7 +318,6 @@ color: #fff !important;
                 <div class="flex-grow-1 pt-2 ">
                     <h6 class="mb-0">{{ $user->name }}</h6>
                     <small class="mb-0">{{ $user->rememberToken}}</small>
-                    <small class="mb-0">{{ $user->rememberToken}}</small>
                     <small class="m-0">{{ $user->role }}</small>
                 </div>
                 </div>
@@ -347,14 +341,12 @@ color: #fff !important;
                       @elseif ($user->role == "truck_driver")
                       <a href="{{ route('profile.truck')}}" class="stretched-link">User info </a>
                       @elseif ($user->role == "shipper")
-                      @elseif ($user->role == "shipper")
                       <a href="{{ route('profile.shipper')}}" class="stretched-link">User info </a>
                       @elseif ($user->role == "freight_driver")
                       <a href="{{ route('profile.freight')}}" class="stretched-link">User info </a>
                       @else
                       <a href="" class="stretched-link">User info </a>
                       @endif
-
 
                       {{-- <small>Appointments</small> --}}
                     </div>
@@ -363,7 +355,6 @@ color: #fff !important;
                         <i class="mdi mdi-format-align-bottom mdi-26px text-heading"></i>
                       </span>
                       @php
-                      @php
                       $emails = Session::get('plans');
                   @endphp
   @if($emails =='free')
@@ -371,8 +362,6 @@ color: #fff !important;
   @else
   <a href="https://insur.dboss.pk/wp/my-account/orders/" class="stretched-link"> Billing</a>
   @endif
-
-
 
 
                       {{-- <small>Manage Accounts</small> --}}
@@ -386,7 +375,6 @@ color: #fff !important;
                       @php
                       $order_id = Session::get('order_id');
 
-
                   @endphp
   @if($emails =='free')
 
@@ -394,9 +382,7 @@ color: #fff !important;
   <a class="stretched-link"> Subscription Plan</a>
 
 
-
                   <small>
-
 
                           {{ $emails }}  <!-- Directly output the email -->
                       @else
@@ -404,9 +390,7 @@ color: #fff !important;
 
                       <small>
 
-
                           <!-- Optionally add some message or leave empty -->
-                          {{ $emails }}
                           {{ $emails }}
                       @endif
                   </small>
@@ -419,11 +403,8 @@ color: #fff !important;
                       <small>Permission</small>
                     </div>
                   </div>
-                  </div>
                 <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px; height: 412px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 287px;"></div></div></div>
               </div>
-
-
 
         </li>
         <!--/ User -->
@@ -451,7 +432,6 @@ margin-top: 1.7rem;
         <li>
             <a href="{{ route('dash') }}" class="btn btn-light  ">Dashboard</a>
         </li>
-        </li>
         <li type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">          <a href="{{ route('agent.regs.add.form') }}" class="btn btn-light  ">Add Insured</a></li>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="{{ route('agent.regs.add.form') }}">Add Truckers </a></li>
@@ -461,10 +441,7 @@ margin-top: 1.7rem;
           <li>
             <hr class="dropdown-divider">
           </li>
-          </li>
           <li><a class="dropdown-item disabled" href="javascript:void(0);">Add Business</a></li>
-
-        </ul>
 
         </ul>
             <li type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">   <a class="btn btn-light" >Insured List </a></li>
@@ -479,14 +456,11 @@ margin-top: 1.7rem;
             </ul>
 
 
-
-
           </li>
 
         @elseif ($user->role == "admin")
         <li>
             <a class="btn btn-light" href="{{ route('dashs') }}">Dashboard</a>
-         </li>
          </li>
         <li>
             <a class="btn btn-light" href="{{ route('sub') }}" >Subscription Plans</a>
@@ -515,14 +489,11 @@ margin-top: 1.7rem;
             </ul>
 
 
-
-
         </li>
 
         @elseif ($user->role == "truck_driver")
 
        <li><a class="btn btn-light" href="{{ route('dashw') }}">Dashboard</a>
-        </li>
         </li>
          @if($user->status == "1")
         <li>
@@ -550,8 +521,6 @@ margin-top: 1.7rem;
       </li>
 
 
-
-
         @elseif ($user->role == "shipper")
         <li>
             <a class="btn btn-light" href="{{ route('sdash') }}">Dashboard</a>
@@ -571,7 +540,6 @@ margin-top: 1.7rem;
         <li>
             <a class="btn btn-light" href="{{ route('shipper.fromdrop2') }}">Shipper Limits</a>
           </li>
-
 
         @elseif ($user->role == "freight_driver")
 
@@ -595,7 +563,10 @@ margin-top: 1.7rem;
     <!-- /Search -->
 </div>
 @php
-$data = App\Models\Subscription_plan::All();
+$data = App\Models\Subscription_plan::where('id', '!=', 1)->get();
+
+    $userId = auth()->user()->id;
+    $subscriptionPlans = App\Models\Subscription_plan::all(); // Assuming this retrieves all subscription plans
 @endphp
 <!-- Upgrade -->
 <div class="modal fade" id="upgradeModal" tabindex="-1" aria-labelledby="upgradeModalLabel" aria-hidden="true">
@@ -613,14 +584,7 @@ $data = App\Models\Subscription_plan::All();
                 <h2 class="section-title">Choose the Right Pricing Plan</h2>
                 <p class="section-subtitle">Find the plan that best suits your needs</p>
               </div>
-              {{-- <div class="toggle-container text-center mb-5">
-                <span class="font-weight-bold">Per Month</span>
-                <label for="toggle" class="toggle-wrapper">
-                  <input id="toggle" type="checkbox" class="toggle-input" onclick="toggleSwitch()" />
-                  <span class="toggle-slider"></span>
-                </label>
-                <span class="font-weight-bold">Per Year</span>
-              </div> --}}
+
               <div class="pricing-list grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach ($data as $item)
                 <div class="pricing-item p-4 rounded shadow">
@@ -639,11 +603,17 @@ $data = App\Models\Subscription_plan::All();
                       </li>
                       @endforeach
                     </ul>
+                    @php
+                        $data = App\Models\Subscription_plan::all();
+                        $userId = auth()->user()->id;
+                    @endphp
                     <form method="POST" action="{{ route('add_to_cart') }}">
                       @csrf
                       <input type="hidden" name="sub_id" value="{{ $item->id }}">
-                      <button type="submit" class="btn btn-primary w-100 mt-3">Purchase Now</button>
-                    </form>
+                      <input type="hidden" name="upgrade_id" value="{{ $item->upgrade_id }}"> <!-- Pass the upgrade ID here -->
+                      <button type="submit" class="btn btn-success w-100 mt-3">Purchase Now</button>
+                  </form>
+
                   </div>
                 </div>
                 @endforeach
