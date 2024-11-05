@@ -246,116 +246,7 @@
                 </table>
 
         </div>
-        {{-- <div class="card-datatable table-responsive">
-          <div class="dataTables_wrapper dt-bootstrap5 no-footer">
-              <div class="card-header d-flex justify-content-between align-items-center rounded-0">
-                  <div class="search-box">
-                      <label>
-                          <input type="search" class="form-control form-control-sm" placeholder="Search" aria-controls="DataTables_Table_0">
-                      </label>
-                  </div>
-                  <div class="d-flex align-items-center">
-                      <div class="dataTables_length me-3">
-                          <label>
-                              <select name="DataTables_Table_0_length" class="form-select form-select-sm">
-                                  <option value="7">7</option>
-                                  <option value="10">10</option>
-                                  <option value="20">20</option>
-                                  <option value="50">50</option>
-                                  <option value="70">70</option>
-                                  <option value="100">100</option>
-                              </select>
-                          </label>
-                      </div>
-                  </div>
-              </div>
 
-              <table class="table dataTable" id="DataTables_Table_0" style="width: 100%;">
-                  <thead>
-                      <tr>
-                          <th style="display: none;"></th>
-                          <th>Id</th>
-                          <th>User</th>
-                          <th>Email</th>
-                          <th>Role</th>
-                          <th>Remember Token</th>
-                          <th>Status</th>
-                          <th class="text-center">Verified</th>
-                          <th>Actions</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      @foreach ($userlist as $key => $item)
-                      <tr>
-                          <td style="display: none;"></td>
-                          <td><span>{{ $key + 1 }}</span></td>
-                          <td class="sorting_1">
-                              <div class="d-flex align-items-center">
-                                  <div class="avatar avatar-sm me-3">
-                                      <span class="avatar-initial rounded-circle bg-label-info">
-                                          <?php
-                                          $fullName = $item->name;
-                                          $initials = '';
-                                          if (!empty($fullName)) {
-                                              $words = explode(' ', $fullName);
-                                              foreach ($words as $word) {
-                                                  $initials .= strtoupper(substr($word, 0, 1));
-                                              }
-                                          }
-                                          echo $initials;
-                                          ?>
-                                      </span>
-                                  </div>
-                                  <div><a href="" class="text-truncate text-heading"><span class="fw-medium">{{ $item->name }}</span></a></div>
-                              </div>
-                          </td>
-                          <td>{{ $item->email }}</td>
-                          <td>{{ $item->role }}</td>
-                          <td>{{ $item->rememberToken }}</td>
-                          <td>
-                              @if ($item->status == 1)
-                              <span class="text-success">Active</span>
-                              @else
-                              <span class="text-danger">Inactive</span>
-                              @endif
-                          </td>
-                          <td class="text-center"><i class="mdi mdi-security mdi-24px text-danger"></i></td>
-                          <td>
-                              <div class="d-flex align-items-center gap-2">
-                                  <button class="btn btn-sm btn-icon edit-record btn-text-secondary rounded-pill" data-id="257" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><i class="mdi mdi-eye"></i></button>
-                                  <button class="btn btn-sm btn-icon delete-record btn-text-secondary rounded-pill" data-id="257"><i class="mdi mdi-delete"></i></button>
-                                  <div class="dropdown">
-                                      <button class="btn btn-sm btn-icon btn-text-secondary rounded-pill dropdown-toggle" data-bs-toggle="dropdown">
-                                          <i class="mdi mdi-apps"></i>
-                                      </button>
-                                      <div class="dropdown-menu dropdown-menu-end">
-                                          <a href="{{ route('user.view', $item->id) }}" class="dropdown-item">View</a>
-                                          <a href="javascript:;" class="dropdown-item">Suspend</a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </td>
-                      </tr>
-                      @endforeach
-                  </tbody>
-              </table>
-
-              <div class="row align-items-center mt-3">
-                  <div class="col-md-6">
-                      <div class="dataTables_info" id="DataTables_Table_0_info">Displaying 1 to 5 of 5 entries</div>
-                  </div>
-                  <div class="col-md-6">
-                      <div class="dataTables_paginate paging_simple_numbers">
-                          <ul class="pagination justify-content-end">
-                              <li class="page-item previous disabled"><a class="page-link" href="#">Previous</a></li>
-                              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                              <li class="page-item next disabled"><a class="page-link" href="#">Next</a></li>
-                          </ul>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div> --}}
 
 
         <!-- Offcanvas to add new user -->
@@ -699,13 +590,12 @@
       });
 
       $('#roleSelect').on('change', function() {
-          var selectedRole = $(this).val(); // Get selected role
-          // Apply filter to the "Role" column with case-insensitive matching
+          var selectedRole = $(this).val();
           table.column(4).search(selectedRole, false, false).draw();
       });
 
       $('#select3').on('change', function() {
-          var selectedStatus = $(this).val(); // Get selected status
+          var selectedStatus = $(this).val();
 
           table.column(6).search(selectedStatus ? '^' + selectedStatus + '$' : '', true, false).draw();
       });
