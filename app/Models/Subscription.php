@@ -15,4 +15,14 @@ class Subscription extends Model
         'end_date',
       ];
     use HasFactory;
+
+  public function user()
+  {
+    return $this->belongsTo(User::class, 'user_id');
+  }
+
+  public function subscriptionPlan()
+  {
+      return $this->belongsTo(Subscription_plan::class, 'plan_id');
+  }
 }

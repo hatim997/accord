@@ -88,6 +88,9 @@
 @endsection
 
 @section('content')
+
+
+
     <div class="row gy-4 justify-content-center " id="content">
         <div class="col-md-10 col-lg-10">
             <div class="row gy-4">
@@ -193,11 +196,11 @@
                     <div class="modal-footer" style="margin-bottom: 0;">
                         <button type="button" class="btn btn-secondary close-btn" style="border: none; margin-bottom: 0;" data-bs-dismiss="modal">Close</button>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
-        
+
 
         <div class="modal" id="expiringPoliciesModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -205,7 +208,7 @@
                 <div class="modal-content">
                     <div class="modal-header justify-content-center align-items-center">
                         <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Month</h5>
-                     
+
                       </div>
                     <div class="modal-body">
                         @if ($monthExpolicies->isEmpty())
@@ -265,7 +268,7 @@
         @if ($agencyinfo->is_active == '1')
             <div class="container mt-5 px-2">
 
-        
+
                 <div class="mb-2 d-flex justify-content-center align-items-center">
                     <div class="text-center">
                         <h4 class="mb-0 py-4 px-4 fw-bold">Carrier List</h4>
@@ -414,7 +417,7 @@
 
     <div class="container mt-5 px-2">
 
-   
+
 
         <div class="mb-2 d-flex justify-content-center align-items-center">
             <div class="text-center">
@@ -578,13 +581,13 @@
     document.addEventListener("DOMContentLoaded", function() {
         var openModalBtns = document.querySelectorAll(".open-modal-btn");
         var closeModalBtns = document.querySelectorAll(".close-btn");
-    
+
         // Function to open the modal with overlay effect
         openModalBtns.forEach(function(btn) {
             btn.addEventListener("click", function() {
                 var modalId = btn.getAttribute("data-modal");
                 var modal = document.getElementById(modalId);
-    
+
                 // Display the modal and start the opening animation
                 modal.style.display = "flex";
                 setTimeout(function() {
@@ -592,12 +595,12 @@
                 }, 10); // Slight delay to trigger the CSS transitions
             });
         });
-    
+
         // Function to close the modal with overlay effect
         closeModalBtns.forEach(function(btn) {
             btn.addEventListener("click", function() {
                 var modal = btn.closest(".modal");
-    
+
                 // Start the closing animation
                 modal.classList.remove("open");
                 setTimeout(function() {
@@ -605,12 +608,12 @@
                 }, 300); // Match the transition time in CSS
             });
         });
-    
+
         // Close the modal when clicking outside the modal content
         window.onclick = function(event) {
             if (event.target.classList.contains("modal")) {
                 var modal = event.target;
-    
+
                 // Start the closing animation
                 modal.classList.remove("open");
                 setTimeout(function() {
@@ -619,6 +622,6 @@
             }
         };
     });
-    
+
     </script>
 @endpush

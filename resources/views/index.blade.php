@@ -64,19 +64,19 @@
                 </a>
                 <ul class="sub-menu" id="submenu-11">
                     <li class="sub-menu--item">
-                  <a class='btn-text hidden hover:text-ColorPurple sm:inline-block' 
+                  <a class='btn-text hidden hover:text-ColorPurple sm:inline-block'
                   href='{{ route('auth-login-basic')}}'> Agency Login</a>
                     </li>
                     <li class="sub-menu--item">
-                        <a class='btn-text hidden hover:text-ColorPurple sm:inline-block' 
+                        <a class='btn-text hidden hover:text-ColorPurple sm:inline-block'
                   href='{{ route('auth-login-t')}}'>Carrier Login</a>
                     </li>
                     <li class="sub-menu--item">
-                        <a class='btn-text hidden hover:text-ColorPurple sm:inline-block' 
+                        <a class='btn-text hidden hover:text-ColorPurple sm:inline-block'
                         href='{{ route('auth-login-s')}}'> Shipper Login</a>
                     </li>
                     <li class="sub-menu--item">
-                        <a class='btn-text hidden hover:text-ColorPurple sm:inline-block' 
+                        <a class='btn-text hidden hover:text-ColorPurple sm:inline-block'
                         href='{{ route('auth-login-f')}}'> Broker Login</a>
                     </li>
                 </ul>
@@ -89,7 +89,7 @@
                     <!-- Header User Event -->
                     <div class="flex items-center gap-6">
                         {{-- <a class='btn-text hidden hover:text-ColorPurple sm:inline-block' href='{{ route('auth-login-basic')}}'>Login</a> --}}
-                     
+
 
                         <a class='btn is-black btn-animation group hidden rounded sm:inline-block' href='{{ route('auth-login-basic')}}'><span>Sign up free</span></a>
                         <!-- Responsive Offcanvas Menu Button -->
@@ -502,7 +502,7 @@ No matter why you need COIs, our innovative Smart COI Network
             <!-- Horizontal Text Slider -->
 
             <!--...::: Pricing Section Start :::... -->
-            <section class="section-pricing">
+            {{-- <section class="section-pricing">
                 <!-- Section Background -->
                 <div class="bg-ColorPurple/5">
                     <!-- Section Space -->
@@ -548,9 +548,9 @@ No matter why you need COIs, our innovative Smart COI Network
                                 <div class="grid gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
 
                                     @foreach ($data as $item)
-                                        
-                                    
-                                 
+
+
+
                                     <!-- Pricing Item -->
                                     <div class="jos" data-jos_animation="flip-left" data-jos_delay="0">
                                         <div class="hover-solid-shadow">
@@ -561,7 +561,7 @@ No matter why you need COIs, our innovative Smart COI Network
                                                     <div class="month text-[28px] font-normal leading-[2.85] text-ColorBlack">
                                                         $<span class="text-[48px] font-bold leading-[1.3] xl:text-[58px]">{{$item->price}}</span>{{$item->duration}}
                                                     </div>
-                                                   
+
                                                     <span class="text-sm text-ColorBlack/70">{{$item->exdetail}}</span>
                                                 </div>
                                                 <!-- Pricing Content Top -->
@@ -570,22 +570,22 @@ No matter why you need COIs, our innovative Smart COI Network
                                                 <!-- Horizontal Line Separator -->
                                                 <!-- Pricing Data list -->
                                                 <ul class="flex flex-col gap-y-6 text-base font-semibold text-ColorBlack xl:px-[18px]">
-                                                    @php                                                    
+                                                    @php
                                                     $string = $item->description;
                                                     $array = explode(",", $string);
                                                 @endphp
-                                                
-                                                @foreach($array as $value)  
+
+                                                @foreach($array as $value)
 
                                                     <li class="flex gap-x-3">
                                                         <span class="text-xl">
                                                             <i class="fa-solid fa-star"></i>
                                                         </span>
                                                         {{ $value }}
-                                                    </li> 
-                                                 
+                                                    </li>
+
                                                     @endforeach
-                                                    
+
                                                 </ul>
                                                 <!-- Pricing Data list -->
                                                 <div class="mt-10 flex justify-center">
@@ -613,7 +613,7 @@ No matter why you need COIs, our innovative Smart COI Network
                     <!-- Section Space -->
                 </div>
                 <!-- Section Background -->
-            </section>
+            </section> --}}
             <!--...::: Pricing Section End :::... -->
 
             <!--...::: Content Section Start :::... -->

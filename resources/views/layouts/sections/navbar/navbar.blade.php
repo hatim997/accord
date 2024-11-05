@@ -15,6 +15,190 @@ transition: .4s;
 color: #fff !important;
 
 }
+
+/* Modal Dialog */
+.modal-dialog {
+  max-width: 100%;
+}
+
+.section-pricing {
+  padding: 20px;
+  background: #f9f9f9;
+}
+
+.pricing-bg {
+  background-color: #f2f2f7;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* Toggle Button */
+.toggle-wrapper {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.toggle-input {
+  display: none;
+}
+
+.toggle-slider {
+  width: 60px;
+  height: 30px;
+  background: #ddd;
+  border-radius: 30px;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.toggle-slider::before {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #4a3aff;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s;
+}
+
+.toggle-input:checked + .toggle-slider {
+  background: #4a3aff;
+}
+
+.toggle-input:checked + .toggle-slider::before {
+  transform: translateX(30px);
+}
+
+/* Pricing Item */
+/* Increase Modal Width */
+.modal-dialog.modal-lg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Reduce padding around modal content */
+.modal-content {
+  padding: 15px; /* Reduced padding */
+  gap: 15px;
+}
+
+/* Adjust Modal Header and Footer */
+.modal-header {
+  padding: 10px 15px; /* Reduced padding */
+  border: none;
+}
+
+/* Section Pricing Styling with Less Padding */
+.section-pricing {
+  padding: 15px;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Pricing List with Reduced Padding */
+.pricing-list {
+  display: grid;
+  grid-template-columns: 1fr; /* Stacks all items vertically by default */
+  gap: 15px; /* Smaller gap between items */
+}
+
+@media (min-width: 768px) {
+  /* Medium screens: two items per row */
+  .pricing-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 992px) {
+  /* Large screens: three items per row */
+  .pricing-list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* Pricing Item Styling */
+.pricing-item {
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px; /* Reduced padding */
+  text-align: center;
+  transition: box-shadow 0.3s;
+}
+
+.pricing-item:hover {
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-title {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.pricing-amount {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4a3aff;
+}
+
+.pricing-description {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.pricing-features {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feature-item {
+  font-size: 0.9rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.feature-item i {
+  color: #4a3aff;
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: #4a3aff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #3a2be0;
+}
+
+
 </style>
 @if (isset($navbarDetached) && $navbarDetached == 'navbar-detached')
     <nav class="layout-navbar {{ $containerNav }} navbar navbar-expand-xl {{ $navbarDetached }} align-items-center bg-navbar-theme"
@@ -142,7 +326,8 @@ color: #fff !important;
                 <div class="dropdown-menu-header border-bottom py-50">
                   <div class="dropdown-header d-flex align-items-center py-2">
                     <h6 class="mb-0 me-auto">Shortcuts</h6>
-                     <a href="https://insur.dboss.pk/wp/pricing/" class="btn btn-primary"> Upgrade </a>
+                     {{-- <a href="https://insur.dboss.pk/wp/pricing/" class="btn btn-primary"> Upgrade </a> --}}
+                     <a href="#" class="btn btn-primary" data-bs-toggle="modal" id="Upgrade" data-bs-target="#upgradeModal">Upgrade</a>
                   </div>
                 </div>
                 <div class="dropdown-shortcuts-list scrollable-container">
@@ -377,5 +562,78 @@ margin-top: 1.7rem;
     </ul>
     <!-- /Search -->
 </div>
+@php
+$data = App\Models\Subscription_plan::where('id', '!=', 1)->get();
+
+    $userId = auth()->user()->id;
+    $subscriptionPlans = App\Models\Subscription_plan::all(); // Assuming this retrieves all subscription plans
+@endphp
+<!-- Upgrade -->
+<div class="modal fade" id="upgradeModal" tabindex="-1" aria-labelledby="upgradeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="upgradeModalLabel">Upgrade Pricing</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <section class="section-pricing">
+          <div class="pricing-bg">
+            <div class="container-default">
+              <div class="section-header text-center mb-4">
+                <h2 class="section-title">Choose the Right Pricing Plan</h2>
+                <p class="section-subtitle">Find the plan that best suits your needs</p>
+              </div>
+
+              <div class="pricing-list grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                @foreach ($data as $item)
+                <div class="pricing-item p-4 rounded shadow">
+                  <div class="pricing-content text-center">
+                    <h3 class="pricing-title">{{ $item->name }}</h3>
+                    <p class="pricing-amount">${{ $item->price }} {{ $item->duration }}</p>
+                    <p class="pricing-description">{{ $item->exdetail }}</p>
+                    <hr class="my-4">
+                    <ul class="pricing-features list-unstyled">
+                      @php
+                      $features = explode(",", $item->description);
+                      @endphp
+                      @foreach($features as $feature)
+                      <li class="feature-item">
+                        <i class="fa-solid fa-star"></i> {{ $feature }}
+                      </li>
+                      @endforeach
+                    </ul>
+                    @php
+                        $data = App\Models\Subscription_plan::all();
+                        $userId = auth()->user()->id;
+                    @endphp
+                    <form method="POST" action="{{ route('add_to_cart') }}">
+                      @csrf
+                      <input type="hidden" name="sub_id" value="{{ $item->id }}">
+                      <input type="hidden" name="upgrade_id" value="{{ $item->upgrade_id }}"> <!-- Pass the upgrade ID here -->
+                      <button type="submit" class="btn btn-success w-100 mt-3">Purchase Now</button>
+                  </form>
+
+                  </div>
+                </div>
+                @endforeach
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- / Navbar -->
+@push('body-scripts')
+<script>
+$(document).ready(function() {
+  $('#Upgrade').click(function() {
+      $('#upgradeModal').css('opacity', '1');
+  });
+});
+</script>
+@endpush

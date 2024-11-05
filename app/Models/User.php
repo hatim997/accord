@@ -107,4 +107,9 @@ class User extends Authenticatable
   {
     return $this->hasMany(Subscription::class, 'user_id');
   }
+
+  public function subscriptionPlan()
+  {
+    return $this->belongsTo(SubscriptionPlan::class, 'plan_id');
+  }
 }

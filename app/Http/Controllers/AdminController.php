@@ -17,7 +17,7 @@ use App\Models\Subscription;
 use App\Models\UploadShipper;
 use App\Models\PolicyLimit;
 use App\Models\PolicyType;
-use App\Models\Openrequest; 
+use App\Models\Openrequest;
 use App\Models\ShipperLimit;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Redirect;
@@ -61,18 +61,18 @@ class AdminController extends Controller
       if ($request) {
           $request->status = 1;  // Mark as read
           $request->save();
-          
+
           // Check if there are any other open requests
           $openRequests = Openrequest::where('status', 0)
                           ->where('from', auth()->user()->id)
                           ->exists();
-  
+
           return response()->json([
               'success' => true,
               'allRead' => !$openRequests  // True if all requests are now read
           ]);
       }
-  
+
       return response()->json(['success' => false], 400);
   }
 
@@ -110,27 +110,27 @@ class AdminController extends Controller
       $userss = AgencyInfos::where('user_id', $id)->delete();
       Notice::where('to',$id)->orWhere('from',$id)->delete();
       AgentDriver::where('driver_id',$id)->orWhere('agent_id',$id)->delete();
-      Subscription::where('user_id', $id)->delete();  
+      Subscription::where('user_id', $id)->delete();
       User::where('id',$id)->delete();
       $message = 'delete done agent';
       return  Redirect::back()->with('success' , $message);
 
     }
     elseif ($users->role == "shipper") {
-      $userss = ShipperInfos::where('user_id', $id)->delete();     
+      $userss = ShipperInfos::where('user_id', $id)->delete();
       ShipperDriver::where('driver_id',$id)->orWhere('shipper_id',$id)->delete();
       Notice::where('to',$id)->orWhere('from',$id)->delete();
-      Subscription::where('user_id', $id)->delete();  
+      Subscription::where('user_id', $id)->delete();
       User::where('id',$id)->delete();
       $message = 'delete done shipper';
       return Redirect::back()->with('success' ,$message);
     }
     elseif ($users->role == "truck_driver" || $users->role == "freight_driver" ) {
-      $userss = DriverDetail::where('user_id', $id)->delete();  
+      $userss = DriverDetail::where('user_id', $id)->delete();
       ShipperDriver::where('driver_id',$id)->orWhere('shipper_id',$id)->delete();
       Notice::where('to',$id)->orWhere('from',$id)->delete();
-      Subscription::where('user_id', $id)->delete(); 
-      AgentDriver::where('driver_id',$id)->orWhere('agent_id',$id)->delete(); 
+      Subscription::where('user_id', $id)->delete();
+      AgentDriver::where('driver_id',$id)->orWhere('agent_id',$id)->delete();
       User::where('id',$id)->delete();
       $message = 'delete done ';
       return Redirect::back()->with('success' ,$message);
@@ -141,7 +141,7 @@ class AdminController extends Controller
     $message = 'First User have to inactive';
    return Redirect::back()->with('success' ,$message);
   }
-    
+
   }
   public function shipperlimits(string $id)
   {
@@ -331,7 +331,7 @@ return back()->with($message);
 
   public function active($id)
   {
-    
+
     $user = User::find($id);
 
     // Check if user exists
@@ -457,8 +457,7 @@ return back()->with($message);
   function userlist() {
     $currentWeekUsers = User::where('role', '!=', 'admin')
         ->whereHas('subscription', function ($query) {
-            $query->where('status', 'Active')
-                  ->where('start_date', '>=', Carbon::now()->startOfWeek())
+            $query->where('start_date', '>=', Carbon::now()->startOfWeek())
                   ->where('end_date', '>=', Carbon::now());
         })
         ->with('subscription')
@@ -468,37 +467,35 @@ return back()->with($message);
     $percentageChange = $totalUsers > 0 ? round(($currentWeekUsers->count() / $totalUsers) * 100, 2) : 0;
 
     // Get current month users Active
-    $currentMonthUsers = User::where('role', '!=', 'admin')
+    $currentMonthUsers = User::where('role', '!=', 'admin')->where('status', 1)
         ->whereHas('subscription', function ($query) {
-            $query->where('status', 'Active')
-                  ->where('start_date', '>=', Carbon::now()->startOfMonth())
+            $query->where('start_date', '>=', Carbon::now()->startOfMonth())
                   ->where('end_date', '>=', Carbon::now());
         })
         ->with('subscription')
         ->get();
-        // dd($currentMonthUsers);
+        // dd($currentMonthUsers->toArray());
 
-    $totalUsers = User::where('role', '!=', 'admin')->count();
+    $totalUsers = User::where('role', '!=', 'admin')->where('status', 1)->count();
 
     $monthPercentageChange = $totalUsers > 0 ? round(($currentMonthUsers->count() / $totalUsers) * 100, 2) : 0;
 
 
     // Get current month users InActive
-    $currentMonthUsersIn = User::where('role', '!=', 'admin')
+    $currentMonthUsersIn = User::where('role', '!=', 'admin')->where('status', 0)
         ->whereHas('subscription', function ($query) {
-            $query->where('status', 'Inactive')
-                  ->where('start_date', '>=', Carbon::now()->startOfMonth())
+            $query->where('start_date', '>=', Carbon::now()->startOfMonth())
                   ->where('end_date', '>=', Carbon::now());
         })
         ->with('subscription')
         ->get();
         // dd($currentMonthUsersIn);
 
-    $totalUsers = User::where('role', '!=', 'admin')->count();
+    $totalUsers = User::where('role', '!=', 'admin')->where('status', 0)->count();
 
     $monthPercentageChangeIn = $totalUsers > 0 ? round(($currentMonthUsersIn->count() / $totalUsers) * 100, 2) : 0;
 
-    
+
     $Paidresult = DB::table('wp_wc_orders')
         ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
         ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')
@@ -523,11 +520,43 @@ return back()->with($message);
     // Optionally, you can select a specific month if needed
     $currentMonth = date('Y-m'); // Change as necessary
     $currentMonthPercentage = isset($monthlyPercentageRatio[$currentMonth]) ? round($monthlyPercentageRatio[$currentMonth], 2) : 0;
+    $userlist = User::with('subscription')->whereNot('role', 'admin')->get();
 
-
-
-
-    $userlist = User::where('role', '!=', 'admin')->get();
-    return view('ul', compact('userlist' ,'currentWeekUsers', 'percentageChange', 'currentMonthUsers', 'monthPercentageChange', 'currentMonthUsersIn', 'monthPercentageChangeIn', 'Paidresult', 'currentMonthPercentage'));
+    $usersWithPlans = User::with(['subscription.subscriptionPlan', 'agencies', 'truckers', 'subscription'])->whereNot('role', 'admin')
+    ->get();
+    // dd($usersWithPlans->toArray());
+    return view('ul', compact('userlist', 'usersWithPlans' ,'currentWeekUsers', 'percentageChange', 'currentMonthUsers', 'monthPercentageChange', 'currentMonthUsersIn', 'monthPercentageChangeIn', 'Paidresult', 'currentMonthPercentage'));
   }
+
+//   public function filterUsers(Request $request)
+// {
+//     $query = User::with(['subscription' => function ($q) use ($request) {
+//         // If the status is provided in the request, filter subscriptions by that status
+//         if ($request->filled('status')) {
+//             $q->where('status', $request->input('status')); // 0 for Inactive, 1 for Active
+//         }
+//     }, 'subscription.subscriptionPlan', 'agencies', 'truckers']);
+
+//     // Apply filters if values are provided
+//     if ($request->filled('role')) {
+//         $query->where('role', $request->input('role'));
+//     }
+
+//     if ($request->filled('plan')) {
+//         $query->whereHas('subscription.subscriptionPlan', function ($q) use ($request) {
+//             $q->where('name', $request->input('plan'));
+//         });
+//     }
+
+//     // If a specific user status is selected, filter users by their status
+//     if ($request->filled('status')) {
+//         $query->where('status', $request->input('status')); // Assuming 1 for active, 0 for inactive
+//     }
+
+//     $filteredUsers = $query->get();
+
+//         dd($filteredUsers);
+
+//         return view('ul', compact('filteredUsers'));
+//     }
 }

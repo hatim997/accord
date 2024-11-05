@@ -29,12 +29,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css"
         integrity="sha256-h2Gkn+H33lnKlQTNntQyLXMWq7/9XI2rlPCsLsVcUBs=" crossorigin="anonymous">
 
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
     {{-- <style>
         .select2-container--default .select2-selection--single {
             height: 50px;
         }
         </style> --}}
-         @stack('body-style') 
+         @stack('body-style')
 
     <!-- Include Styles -->
     @include('layouts/sections/styles')
@@ -55,7 +58,7 @@
     <!-- Include Scripts -->
 
 
-   
+
     @include('layouts/sections/scripts')
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.0.0/dist/jquery.min.js"
@@ -69,14 +72,18 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js"
         integrity="sha256-O11zcGEd6w4SQFlm8i/Uk5VAB+EhNNmynVLznwS6TJ4=" crossorigin="anonymous"></script>
-     
-     
+
+    <!-- jQuery and DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+
      <script>
      $(document).ready(function () {
     // Attach click event to all elements with class 'mark-read'
     $('.mark-read').on('click', function () {
         var requestId = $(this).data('id');  // Get the request ID from data-id attribute
-        
+
         // Fetch the correct route using a hidden input or inline PHP
         var markReadUrl = "{{ route('mark-read', ':id') }}";  // Use placeholder for ID
         markReadUrl = markReadUrl.replace(':id', requestId);  // Replace placeholder with actual ID
@@ -85,7 +92,7 @@
         $.ajax({
             url: markReadUrl,
             type: 'POST',
-            data: { 
+            data: {
                 id: requestId,
                 _token: $('meta[name="csrf-token"]').attr('content')  // Send the CSRF token
             },
@@ -98,7 +105,7 @@
                     if (data.allRead) {
                         $('.dot-indicator').remove();  // Remove the notification dot
                     }
-                    
+
                     // Optionally hide or update the clicked item
                     var clickedItem = $(this).closest('li');
                     if (clickedItem) {
@@ -115,11 +122,13 @@
     });
 });
       </script>
-       
+
+
+
         @stack('body-scripts')
         @yield('page-scriptt')
 
-  
+
 </body>
 
 </html>
