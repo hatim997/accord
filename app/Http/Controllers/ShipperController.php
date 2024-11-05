@@ -18,7 +18,7 @@ use App\Models\ShipperLimit;
 use App\Models\ShipperInfos;
 use App\Models\PolicyLimit;
 use App\Models\PolicyType;
-use App\Models\Openrequest; 
+use App\Models\Openrequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -77,11 +77,11 @@ $user->save();
 
     $driver = ShipperInfos::find($request->id);
 
-   
+
     if ($driver) {
         $driver->name = $request->input('name');
         $driver->mname = $request->input('mname');
-        $driver->lname = $request->input('lname');      
+        $driver->lname = $request->input('lname');
         $driver->industry = $request->input('industry');
         $driver->owner = $request->input('owner');
         $driver->fax = $request->input('fax');
@@ -107,7 +107,7 @@ $user->save();
 
   public function dash2()
   {
-  
+
 
 
     $endors=Endorsement::All();
@@ -249,11 +249,11 @@ $user->others = $request->other;}
             'code' => 'FB' . $randomNumber,
       ];
       $code ='FB' . $randomNumber;
-      Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+      Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
        $message->to($email, $names)
                ->subject('Register');
       });
-      
+
           return Redirect::back()
           ->with('success' , 'freight_driver created successfully!');
     }
@@ -309,11 +309,11 @@ $user->others = $request->other;}
         'code' => 'MC' . $randomNumber,
   ];
   $code ='MC' . $randomNumber;
-  Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+  Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
    $message->to($email, $names)
            ->subject('Register');
   });
-  
+
       return Redirect::back()->with('success' ,'truck_driver created successfully!');
     }
     return 'nothing';
@@ -382,7 +382,7 @@ $user->others = $request->other;}
       'driver_id' => $lastInsertedId,
       'relation_status' => 1,
     ]);
-   
+
 
     $driver = ShipperInfos::where('user_id' ,$parentId)->get();
 
@@ -401,7 +401,7 @@ $user->others = $request->other;}
       'from' => $parentId,
       'titel' => "$reqeust->name Trucker Driver added by ".$driver[0]->name,
     ]);
-    
+
     Notice::create([
       'to' => $lastInsertedId,
       'from' => $parentId,
@@ -418,7 +418,7 @@ $user->others = $request->other;}
 $code ='MC' . $randomNumber;
 $names = $reqeust->name;
 $email = $reqeust->email;
-Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
  $message->to($email, $names)
          ->subject('Register');
 });
@@ -470,7 +470,7 @@ $agent =AgencyInfos::All();
       'address2' => $reqeust->address2,
       'zip' => $reqeust->zip,
       'websit' => $reqeust->websit,
-      'tax' => $reqeust->tax,    
+      'tax' => $reqeust->tax,
       'scac' => $reqeust->scac,
       'usdot' => $reqeust->usdot,
       'state' => $reqeust->state,
@@ -493,18 +493,19 @@ $agent =AgencyInfos::All();
       'shipper_id' => $parentId,
       'driver_id' => $lastInsertedId,
       'relation_status' => 1,
-    ]);    
+    ]);
     $linkedAgentt = AgentDriver::create([
       'agent_id' => $reqeust->agent_id,
       'driver_id' => $lastInsertedId,
       'relation_status' => 1,
     ]);
-  
-    $driver = ShipperInfos::where('user_id' ,$parentId)->get();
+
+    $driver = ShipperInfos::where('user_id', $parentId)->get();
     Notice::create([
       'to' => 1,
-      'from' => $parentId,
+                  'from' => $parentId,
       'name' => "Freight Driver added by ".$driver[0]->name,
+
     ]);
     Openrequest::create([
       'to' => 1,
@@ -515,7 +516,7 @@ $agent =AgencyInfos::All();
       'to' => $lastInsertedId,
       'from' => $parentId,
       'titel' => "$reqeust->name Freight Driver added by ".$driver[0]->name,
-    ]);    
+    ]);
     Notice::create([
       'to' => $lastInsertedId,
       'from' => $parentId,
@@ -527,7 +528,7 @@ $agent =AgencyInfos::All();
 $code ='FB' . $randomNumber;
 $names = $reqeust->username;
 $email = $reqeust->email;
-Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {  
+Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
  $message->to($email, $names)
          ->subject('Register');
 });
@@ -606,7 +607,7 @@ Mail::send('email.register', $data, function ($message) use ($email, $names, $co
   ->orderByRaw('FIELD(type_name, "'.implode('","', $customOrder).'")')
   ->get();
 
- 
+
     return view('shipper.fromdrop2', compact('policytypes'));
   }
 
