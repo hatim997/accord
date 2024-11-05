@@ -5,6 +5,29 @@
     $isMenu = false;
     $navbarHideToggle = false;
 @endphp
+<style>
+  .btn-primary {
+background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);
+border: none !important;
+border-radius: 10px !important;
+color: white;
+font-weight: bold; /* Bold text */
+}
+
+input, textarea, button {
+padding: 10px 15px;
+border-radius: 5px;
+margin: 10px 0; /* Space between fields */
+box-sizing: border-box;
+border: 1px solid #ccc;
+font-size: 16px; /* Slightly smaller font */
+transition: border-color 0.3s;
+}
+.form-heading{
+font-weight: bold !important;
+}
+
+</style>
 <h4 class="py-3 mb-4"><span class="text-muted fw-light">Freight/Broker Add By shipper</h4>
 
 <form method="POST" action="{{ route('store.brokers') }}" enctype="multipart/form-data">
@@ -34,19 +57,23 @@
         <div class="card" id="cardCenter">
           <div class="card-content">
             <!-- Basic Layout -->
-            <div class="card-header">
-              <h4 class="card-title text-center" id="cardCenterTitle"> Register</h4>
-              <!-- Logo -->
-              <div class="app-brand justify-content-center mt-5">
-                <a href="{{url('/')}}" class="app-brand-link gap-2">
-                  <span class="app-brand-logo demo">@include('_partials.macros',["height"=>20,"withbg"=>'fill:
-                    #fff;'])</span>
-                  <span class="app-brand-text demo text-heading fw-semibold">{{config('variables.templateName')}}</span>
-                </a>
+            <div class="card-header d-flex justify-content-between align-items-center mb-3">
+              <!-- Logo on the left -->
+              <div class="app-brand" style="margin-right: auto; margin-left:7%;">
+                  <a href="{{url('/')}}" class="app-brand-link gap-2 d-flex align-items-center">
+                      <span class="app-brand-logo demo">@include('_partials.macros', ["height"=>20, "withbg"=>'fill:#fff;'])</span>
+                      <span class="app-brand-text demo text-heading fw-semibold">{{config('variables.templateName')}}</span>
+                  </a>
               </div>
-              <!-- /Logo -->
 
-            </div>
+              <!-- Register title in the center -->
+              <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">Register</h4>
+
+              <!-- Save changes button on the right -->
+              <div style="margin-left: auto; margin-right:7%;x">
+                  <button type="submit" id="saveButton" class="btn btn-primary">Save changes</button>
+              </div>
+          </div>
             <div class="card-body">
               <div class="row">
                 <div class="container">
@@ -112,7 +139,7 @@
                   <div class="row p-2 setup-content " id="step-2">
                     <div class="col-xs-12">
                       <div class="row px-5">
-                      
+
                             <div class="col-md-6">
                               <div class="form-group py-3">
                                 <label for="prefix">Prefix</label>
@@ -165,8 +192,8 @@
                                 <label for="title">Title:</label>
                                 <input type="text" name="title" class="form-control" id="title" />
                                 @error('title') <span class="error">{{ $message }}</span> @enderror
-                              </div>                               
-           
+                              </div>
+
                               <div class="form-group py-3">
                                 <label for="cellphone">Phone No:</label>
                                 <input type="tel" name="cellphone" class="form-control" id="cellphone" />
@@ -176,10 +203,10 @@
                                 <label for="fax">Fax No:</label>
                                 <input type="tel" name="fax" class="form-control" id="fax" />
                                 @error('fax') <span class="error">{{ $message }}</span> @enderror
-                              </div>                          
+                              </div>
 
                           </div>
-                       
+
                             <div class="col-md-12">
                               <div class="form-group py-3">
                                 <label for="address">Address:</label>
@@ -229,7 +256,7 @@
                             <select id="" class="selecter" name="agent_id">
                               <option value="">-Select-</option>
                               @foreach ($agent as $ip)
-                                <option                            
+                                <option
                                   value="{{ $ip->user_id}}">
                                   {{ $ip->name }}
                               </option>
@@ -238,15 +265,15 @@
 
 
                           </div>
-                        </div> 
-                      </div> 
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  
+
                   <div class="row setup-content " id="step-3">
                     <div class="col-xs-12">
                       <div class="row px-5">
-                        <div class="col-md-6">                       
+                        <div class="col-md-6">
 
                           <div class="form-group py-3">
                             <label for="password">Upload COI</label>
@@ -254,7 +281,7 @@
                           </div>
 
                         </div>
-                        
+
                       </div>
                     </div>
                 </div>
@@ -265,7 +292,7 @@
         </div>
         {{-- card end --}}
 
-        <button type="submit" id="saveButton" class="btn btn-primary">Save changes</button>
+      
       </div>
 </form>
 
