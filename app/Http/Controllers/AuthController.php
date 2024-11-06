@@ -517,6 +517,12 @@ return redirect('/fportal');
       // Retrieve the authenticated user
       $user = Auth::user();
 
+      // Fetch the subscription plan details
+      $subscriptionPlan = Subscription_plan::find($request->sub_id);
+      if (!$subscriptionPlan) {
+          return redirect()->back()->withErrors(['error' => 'Subscription plan not found.']);
+      }
+
       // Create a new subscription record
       $subscription = Subscription::create([
           'user_id' => $user->id,
@@ -534,22 +540,39 @@ return redirect('/fportal');
           'price' => $request->price,
       ]);
 
-      // Retrieve admin and user details for emails
+      // Retrieve user name based on role
+      if ($user->role == 'agent') {
+          $userInfo = AgencyInfos::where('user_id', $user->id)->first();
+          $userName = $userInfo ? $userInfo->name : $user->name;
+      } elseif (in_array($user->role, ['truck_driver', 'freight_driver'])) {
+          $userInfo = DriverDetail::where('user_id', $user->id)->first();
+          $userName = $userInfo ? $userInfo->name : $user->name;
+      } elseif ($user->role == 'shipper') {
+          $userInfo = ShipperInfos::where('user_id', $user->id)->first();
+          $userName = $userInfo ? $userInfo->name : $user->name;
+      } else {
+          $userName = $user->name;
+      }
+
+      // Retrieve admin details for email
       $admin = User::find(1);
       $data = [
-          'adminName' => $admin->name,
-          'userName' => $user->name,
+
+          'userName' => $userName,  // Custom user name based on role
+          'userRole' => $user->role,
           'userEmail' => $user->email,
+          'planName' => $subscriptionPlan->name,  // Plan name for the admin email
       ];
       $orderId = $order->id;
       $orderTime = $order->created_at->format('d/m/Y h:ia');
 
       // Send email to admin
-      Mail::send('email.message', $data, function ($message) use ($admin, $user, $orderId, $orderTime) {
+      Mail::send('email.message', $data, function ($message) use ($admin, $user, $orderId, $orderTime, $subscriptionPlan) {
           $message->to($admin->email, $admin->name)
                   ->subject(
                       'Order ID: ' . $orderId .
                       ' | User Email: ' . $user->email .
+                      ' | Plan: ' . $subscriptionPlan->name .
                       ' | Order Placed At: ' . $orderTime
                   );
       });
@@ -558,7 +581,7 @@ return redirect('/fportal');
       Mail::send('email.user_message', $data, function ($message) use ($user, $orderId, $orderTime) {
           $message->to($user->email, $user->name)
                   ->subject(
-                      'Your Order ID: ' . $orderId .
+                      'Your - Order ID: ' . $orderId .
                       ' | Order Placed At: ' . $orderTime
                   );
       });
@@ -571,6 +594,7 @@ return redirect('/fportal');
           'orderTime' => $orderTime,
       ]);
   }
+
 
 
 

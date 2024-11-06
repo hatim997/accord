@@ -81,7 +81,9 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
   Route::get('/admin/certifecate', [AdminController::class, 'certadmin'])->name('dash_cert');
   Route::get('/admin/shipper-certifecate', [AdminController::class, 'view_certificate_by_shipper'])->name('shipper_cert');
   Route::get('/admin-download-certificate/{file}', [AdminController::class, 'download_certificate'])->name('admin.download.certificate');
-  Route::get('/openrquest/{id}',  [AdminController::class, 'opnrqet'])->name('opnrqet');
+// In web.php
+Route::get('/openrquest/{id}', [AdminController::class, 'opnrqet'])->name('opnrqet');
+Route::get('/loc/{id}', [AdminController::class, 'showRequestDetails'])->name('loc'); // Route to show the request details
 
   Route::get('/admin/user-view/{id}', [AdminController::class, 'userview'])->name('user.view');
   Route::get('/admin/user-list', [AdminController::class, 'userlist'])->name('user.list');
