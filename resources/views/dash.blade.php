@@ -9,15 +9,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/datatables-Cl.css') }}" />
     <style>
-        thead,
-        tbody,
-        tfoot,
-        tr,
-        td,
-        th {
-            border-style: hidden !important;
-            border: none !important;
-        }
+
+
+    
+
 
         .focus {
             border-radius: 7px;
@@ -202,10 +197,10 @@
         </div>
 
 
-        <div class="modal" id="expiringPoliciesModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal"  id="expiringPoliciesModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-xl">
-                <div class="modal-content">
+                <div class="modal-content" style="background: #F4F5FA;">
                     <div class="modal-header justify-content-center align-items-center">
                         <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Month</h5>
 
@@ -220,8 +215,8 @@
                                 <div class="table-responsive">
                                     <table class="table table-responsive table-borderless">
 
-                                        <thead>
-                                            <tr class="bg-light">
+                                        <thead >
+                                            <tr class="bg-light" >
 
 
                                                 <th scope="col" width="15%">Policy <br> ID</th>
@@ -233,7 +228,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($monthExpolicies as $policy)
-                                                <tr>
+                                                <tr >
 
                                                     <td>{{ $policy->policy_type_id }}</td>
                                                     <td><span class="ms-1">{{ $policy->names }}</span></td>

@@ -18,9 +18,7 @@
    <link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}" />
    <link rel="stylesheet" href="{{ asset('assets/css/datatables-Cl.css') }}" />
    <style>
-   thead, tbody, tfoot, tr, td, th {
-       border-style: hidden !important;
-     }
+
    .focus {
      border-radius: 7px;
      background-color: #f1f1f1; /* Highlight color */
