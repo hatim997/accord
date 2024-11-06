@@ -505,7 +505,6 @@ return redirect('/fportal');
 
       return $invoiceNumber;
   }
-
   public function payNow(Request $request)
   {
       // Validate the request data
@@ -515,30 +514,64 @@ return redirect('/fportal');
           'price' => 'required|numeric',
       ]);
 
-      // Retrieve subscription plan details using sub_id
-
-
-      // Check if the subscription exists
-
+      // Retrieve the authenticated user
       $user = Auth::user();
+
+      // Create a new subscription record
       $subscription = Subscription::create([
-        'user_id' => $user->id,
-        'plan_id' => $request->sub_id,
-        'start_date' => now(),
-        'end_date' => now()->addMonth(),
-        'status' => 'Active',
-    ]);
-      // Insert a new record into the orders table
-      $order = Order::create([
-          'subscription_id' => $subscription->id, // Use the found subscription plan's ID
-          'invoice' => $request->input('invoice'), // Use the passed invoice number
-          'issue_date' => now(), // Set the issue date
-          'price' => $request->price, // Store the price from the subscription plan
+          'user_id' => $user->id,
+          'plan_id' => $request->sub_id,
+          'start_date' => now(),
+          'end_date' => now()->addMonth(),
+          'status' => 'Active',
       ]);
 
-      // Redirect to a confirmation page or the orders page
-      return redirect()->route('blanks')->with('success', 'Order placed successfully.');
+      // Insert a new record into the orders table
+      $order = Order::create([
+          'subscription_id' => $subscription->id,
+          'invoice' => $request->input('invoice'),
+          'issue_date' => now(),
+          'price' => $request->price,
+      ]);
+
+      // Retrieve admin and user details for emails
+      $admin = User::find(1);
+      $data = [
+          'adminName' => $admin->name,
+          'userName' => $user->name,
+          'userEmail' => $user->email,
+      ];
+      $orderId = $order->id;
+      $orderTime = $order->created_at->format('d/m/Y h:ia');
+
+      // Send email to admin
+      Mail::send('email.message', $data, function ($message) use ($admin, $user, $orderId, $orderTime) {
+          $message->to($admin->email, $admin->name)
+                  ->subject(
+                      'Order ID: ' . $orderId .
+                      ' | User Email: ' . $user->email .
+                      ' | Order Placed At: ' . $orderTime
+                  );
+      });
+
+      // Send email to user
+      Mail::send('email.user_message', $data, function ($message) use ($user, $orderId, $orderTime) {
+          $message->to($user->email, $user->name)
+                  ->subject(
+                      'Your Order ID: ' . $orderId .
+                      ' | Order Placed At: ' . $orderTime
+                  );
+      });
+
+      // Redirect to a confirmation page or the orders page, passing data in session
+      return redirect()->route('blanks')->with([
+          'success' => 'Order placed successfully.',
+          'invoice' => $request->input('invoice'),
+          'email' => $user->email,
+          'orderTime' => $orderTime,
+      ]);
   }
+
 
 
 }

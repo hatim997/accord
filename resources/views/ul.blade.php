@@ -1,12 +1,82 @@
 @extends('layouts/contentNavbarLayout')
 @section('title', ' Vertical Layouts - Forms')
 @section('content')
-    <style></style>
+
     @php
         $isMenu = false;
         $navbarHideToggle = false;
     @endphp
+@push('body-style')
+<style>
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+    background: rgba(5, 120, 228, 0.388) !important;
+    color: #fff !important;
 
+    border-radius: 20px;
+    border: none;
+
+  }
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
+    background: rgb(5, 121, 228) !important;
+    color: #fff !important;
+    border-radius: 20px;
+    border: none;
+
+  }
+  #DataTables_Table_0 thead th {
+        /* background-color: #0a6d9a !important; */
+        color: #fff !important;
+        border-bottom: 2px solid #ddd;
+    }
+
+    /* Custom Table Row Styling */
+    #DataTables_Table_0 tbody tr {
+        background-color: #fff !important;
+        height: 60px;
+        border-bottom: 1px solid #E6E5E8;
+    }
+    #DataTables_Table_0 tbody tr:hover {
+        background-color: #e0f2ff;
+    }
+
+    /* Other Custom Styles */
+    #DataTables_Table_0 {
+        font-size: 14px;
+        color: #333;
+    }
+    .div.dataTables_wrapper div.dataTables_filter {
+      display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        background-color: #f7f7f7;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+    }
+    .div.dataTables_wrapper div.dataTables_filter label{
+      font-weight: 600;
+        color: #333;
+    }
+.div.dataTables_wrapper div.dataTables_filter input{
+  padding: 8px 12px;
+        width: 100%;
+        max-width: 250px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        transition: border-color 0.3s ease;
+}
+.div.dataTables_wrapper div.dataTables_filter input:focus{
+  outline: none;
+        border-color: #057ae4;
+        box-shadow: 0 0 5px blue;
+}
+.dataTables_wrapper{
+  background: none !important;
+  border: none !important;
+}
+</style>
+@endpush
     <div class="row g-6 mb-6 " style="padding-bottom: 20px">
         <div class="col-sm-6 col-xl-3">
             <div class="card" id="recentSubsUsersCard">
@@ -96,10 +166,7 @@
 
     </div>
     <!-- Users List Table -->
-    <div class="card">
-        <!-- <div class="card-header pb-0">
-                    <h5 class="card-title mb-0">Search Filter</h5>
-                </div> -->
+    <div class="card container mb-5">
 
         <div class="row mt-5">
             <div class="col-md-6">
@@ -127,125 +194,127 @@
             </div>
         </div>
 
+        <div class="card">
 
-        <div class="card-datatable table-responsive">
-                <table class="datatables-users table dataTable no-footer dtr-column" id="DataTables_Table_0">
-                    <thead>
-                      <tr>
-                        <th style="display:none;"></th>
-                        <th>Id</th>
-                        <th>User</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Remember Token</th>
-                        <th>Status</th>
-                        <th class="text-center">Verified</th>
-                        <th>Actions</th>
+          <div class="table-responsive text-nowrap">
+            <table class="table" id="DataTables_Table_0">
+              <thead style="background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);">
+                <tr>
+                  <th style="display:none;"></th>
+                  <th>Id</th>
+                  <th>User</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Remember Token</th>
+                  <th>Status</th>
+                  <th class="text-center">Verified</th>
+                  <th>Actions</th>
+              </tr>
+              </thead>
+
+              <tbody>
+                {{-- {{dd($userlist)}} --}}
+                @foreach ($usersWithPlans as $key => $item)
+                    {{-- {{$item->subscription[0]->start_date}} --}}
+                    <tr class="odd">
+                        <td class="  control" tabindex="0" style="display: none;"></td>
+                        <td><span>{{ $key + 1 }}</span></td>
+                        <td class="sorting_1">
+                            <div class="d-flex justify-content-start align-items-center user-name">
+
+                                <div class="avatar-wrapper">
+                                    <div class="avatar avatar-sm me-3">
+                                        <span class="avatar-initial rounded-circle bg-label-info">
+                                            <?php
+                                            if ($item->agencies->isNotEmpty()) {
+                                                $fullName = $item->agencies[0]->name;
+                                            } elseif ($item->truckers->isNotEmpty()) {
+                                                $fullName = $item->truckers[0]->name;
+                                            } else {
+                                                $fullName = $item->name;
+                                            }
+
+                                            $initials = '';
+
+                                            if (!empty($fullName)) {
+                                                $words = explode(' ', $fullName);
+
+                                                foreach ($words as $word) {
+                                                    $initials .= strtoupper(substr($word, 0, 1));
+                                                }
+                                            }
+
+                                            echo $initials;
+                                            ?>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column">
+                                  <a href="" class="text-truncate text-heading">
+                                      <span class="fw-medium">
+                                          @if($item->agencies->isNotEmpty())
+                                              {{ $item->agencies[0]->name }}
+                                          @elseif($item->truckers->isNotEmpty())
+                                              {{ $item->truckers[0]->name }}
+                                          @else
+                                              {{ $item->name }}
+                                          @endif
+                                      </span>
+                                  </a>
+                              </div>
+                            </div>
+                        </td>
+                        <td><span class="user-email">{{ $item->email }}</span></td>
+                        <td>
+                          <span class="user-role">
+                            @if($item->role === 'agent')
+                                Agency
+                            @elseif($item->role === 'truck_driver')
+                                Broker
+                            @elseif($item->role === 'shipper')
+                                Shipper
+                            @elseif($item->role === 'freight_driver')
+                                Carrier
+                            @else
+                                {{ $item->role }} <!-- This will show the role as is for any other role -->
+                            @endif
+                        </span>
+                        </td>
+                        <td><span class="user-rememberToken">{{ $item->rememberToken }}</span></td>
+                        <td>
+                            @if ($item->status == 1)
+                            <span class="badge rounded-pill bg-label-success me-1">Active</span>
+                            @else
+                            <span class="badge rounded-pill bg-label-warning me-1">InActive</span>
+                            @endif
+                        </td>
+                        <td class="  text-center"><i class="mdi mdi-security mdi-24px text-danger"></i></td>
+                        <td>
+                            <div class="d-flex align-items-center gap-50"><button
+                                    class="btn btn-sm btn-icon edit-record btn-text-secondary rounded-pill waves-effect"
+                                    data-id="257" data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvasAddUser"><i class="mdi mdi-eye"></i></button><button
+                                    class="btn btn-sm btn-icon delete-record btn-text-secondary rounded-pill waves-effect"
+                                    data-id="257"><i class="mdi mdi-delete"></i></button><button
+                                    class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow"
+                                    data-bs-toggle="dropdown"><svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>dots-vertical</title><path  d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" /></svg></button>
+                                <div class="dropdown-menu dropdown-menu-end m-0">
+                                    <a href="{{ route('user.view', $item->id) }}" class="dropdown-item">View</a>
+                                    <a href="javascript:;" class="dropdown-item">Suspend</a>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                        {{-- {{dd($userlist)}} --}}
-                        @foreach ($usersWithPlans as $key => $item)
-                            {{-- {{$item->subscription[0]->start_date}} --}}
-                            <tr class="odd">
-                                <td class="  control" tabindex="0" style="display: none;"></td>
-                                <td><span>{{ $key + 1 }}</span></td>
-                                <td class="sorting_1">
-                                    <div class="d-flex justify-content-start align-items-center user-name">
-                                        <!-- <div class="avatar-wrapper">
-                                                <div class="avatar avatar-sm me-3"><span
-                                                    class="avatar-initial rounded-circle bg-label-info">V</span>
-                                                </div>
-                                            </div> -->
-                                        <div class="avatar-wrapper">
-                                            <div class="avatar avatar-sm me-3">
-                                                <span class="avatar-initial rounded-circle bg-label-info">
-                                                    <?php
-                                                    if ($item->agencies->isNotEmpty()) {
-                                                        $fullName = $item->agencies[0]->name;
-                                                    } elseif ($item->truckers->isNotEmpty()) {
-                                                        $fullName = $item->truckers[0]->name;
-                                                    } else {
-                                                        $fullName = $item->name;
-                                                    }
+                @endforeach
+            </tbody>
 
-                                                    $initials = '';
 
-                                                    if (!empty($fullName)) {
-                                                        $words = explode(' ', $fullName);
-
-                                                        foreach ($words as $word) {
-                                                            $initials .= strtoupper(substr($word, 0, 1));
-                                                        }
-                                                    }
-
-                                                    echo $initials;
-                                                    ?>
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex flex-column">
-                                          <a href="" class="text-truncate text-heading">
-                                              <span class="fw-medium">
-                                                  @if($item->agencies->isNotEmpty())
-                                                      {{ $item->agencies[0]->name }}
-                                                  @elseif($item->truckers->isNotEmpty())
-                                                      {{ $item->truckers[0]->name }}
-                                                  @else
-                                                      {{ $item->name }}
-                                                  @endif
-                                              </span>
-                                          </a>
-                                      </div>
-                                    </div>
-                                </td>
-                                <td><span class="user-email">{{ $item->email }}</span></td>
-                                <td>
-                                  <span class="user-role">
-                                    @if($item->role === 'agent')
-                                        Agency
-                                    @elseif($item->role === 'truck_driver')
-                                        Broker
-                                    @elseif($item->role === 'shipper')
-                                        Shipper
-                                    @elseif($item->role === 'freight_driver')
-                                        Carrier
-                                    @else
-                                        {{ $item->role }} <!-- This will show the role as is for any other role -->
-                                    @endif
-                                </span>
-                                </td>
-                                <td><span class="user-rememberToken">{{ $item->rememberToken }}</span></td>
-                                <td>
-                                    @if ($item->status == 1)
-                                        <span class="text-success">Active</span>
-                                    @else
-                                        <span class="text-danger">InActive</span>
-                                    @endif
-                                </td>
-                                <td class="  text-center"><i class="mdi mdi-security mdi-24px text-danger"></i></td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-50"><button
-                                            class="btn btn-sm btn-icon edit-record btn-text-secondary rounded-pill waves-effect"
-                                            data-id="257" data-bs-toggle="offcanvas"
-                                            data-bs-target="#offcanvasAddUser"><i class="mdi mdi-eye"></i></button><button
-                                            class="btn btn-sm btn-icon delete-record btn-text-secondary rounded-pill waves-effect"
-                                            data-id="257"><i class="mdi mdi-delete"></i></button><button
-                                            class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown"><i class="mdi mdi-apps"></i></button>
-                                        <div class="dropdown-menu dropdown-menu-end m-0">
-                                            <a href="{{ route('user.view', $item->id) }}" class="dropdown-item">View</a>
-                                            <a href="javascript:;" class="dropdown-item">Suspend</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
+                         </table>
+          </div>
         </div>
+
+
 
 
 

@@ -18,9 +18,7 @@
    <link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}" />
    <link rel="stylesheet" href="{{ asset('assets/css/datatables-Cl.css') }}" />
    <style>
-   thead, tbody, tfoot, tr, td, th {
-       border-style: hidden !important;
-     }
+
    .focus {
      border-radius: 7px;
      background-color: #f1f1f1; /* Highlight color */
@@ -416,8 +414,31 @@
                                 </td>
                             @else
                                 <td>
-                                    <div class="red-square"></div>
+                                    <a href="{{ route('opnrqet', ['id' => $p->id]) }}"><div class="red-square"></div></a>
+
                                 </td>
+
+                                <div class="modal" id="expiringPoliciesModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-xl">
+                                      <div class="modal-content">
+                                        <div class="modal-header justify-content-center align-items-center">
+                                          <h5 class="modal-title" id="exampleModalLabel">List of Inactive Shippers</h5>
+                        
+                                        </div>
+                                        <div class="modal-body">           
+                                           
+                                                we sent requst to Admin make {{$p->type_name}}
+
+                                    
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                  </div>
+                        
+
+
+
                             @endif
                         @endforeach
                     @else
@@ -425,8 +446,7 @@
                     @endif
 
 
-
-
+ 
 
 
                     </tbody>
