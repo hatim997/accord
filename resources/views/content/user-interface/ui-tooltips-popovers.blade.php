@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout')
+e@extends('layouts/contentNavbarLayout')
 
 @section('title', 'Tooltips and popovers - UI elements')
 

@@ -99,13 +99,7 @@ Route::get('/accord', function () {
   return view('fromdrop');
 });
 
-// Route::get('/user-list', function () {
-//   return view('ul');
-// })->name('user.list');
 
-// Route::get('/user-view', function () {
-//   return view('uv');
-// })->name('user.view');
 
 Route::get('/accord', function () {
   return view('fromdrop');
@@ -146,13 +140,7 @@ Route::get('email-validate', [AuthController::class, 'validated'])->name('valida
 Route::post('email-validation', [AuthController::class, 'validation'])->name('validation');
 Route::post('freight/update', [FreightController::class, 'update'])->name('update_certt');
 
-// Route::group(['middleware' => 'checkRole:shipper'], function () {
-//   //Route::get('/sdash', [ShipperController::class, 'dash'])->name('truck.dash');
-//   //Route::get('/form', [AdminController::class, 'insurform'])->name('form');
-//   // Routes accessible only by users with 'user' role
-//   // Route::get('/user/dashboard', 'UserController@dashboard')->name('user.dashboard');
-//   //Route::get('/formlist/{id}', [ac::class, 'pdf'])->name('agent.pdf');
-// });
+
 
 Route::get('/exam', [TruckController::class, 'truckers'])->name('truckd');
 Route::get('/exam1', [TruckController::class, 'truckerss'])->name('truckf');
@@ -169,13 +157,9 @@ Route::fallback(function () {
 
 
 Route::get('/mrun', function () {
-  // Artisan::call("migrate:fresh");
-  // Artisan::call("db:seed");
   return 'Done';
 });
 
-  // Routes accessible only by users with 'agent' role
-  // Routes accessible only by users with 'agent' role
 Route::group(['middleware' => 'checkRole:agent'], function () {
   Route::get('/profile-agency', [ac::class, 'agentprofiles'])->name('profile.agency');
   Route::get('/login-agency', [AuthController::class, 'loginWordPress'])->name('login.agency');
@@ -183,7 +167,6 @@ Route::group(['middleware' => 'checkRole:agent'], function () {
   Route::get('/formlist', [ac::class, 'formlist'])->name('formlist');
   Route::get('/get-certf/{id}', [ac::class, 'getcert'])->name('get-certf');
   Route::get('/get-agency', [ac::class, 'getagency'])->name('getagency');
-  //Route::get('/formlist/{id}', [ac::class, 'pdf'])->name('agent.pdf');
   Route::get('/cert_1st_step/{id}', [ac::class, 'choosePolicyTypes'])->name('cert_1st_step');
   Route::post('/form2', [ac::class, 'create'])->name('form2');
   Route::get('/dash', [ac::class, 'dash'])->name('dash');
@@ -236,10 +219,6 @@ Route::group(['middleware' => 'checkRole:agent'], function () {
 
 
 
-
-
-
-
 Route::group(['middleware' => 'checkRole:shipper'], function () {
   Route::get('/sportal', [ShipperController::class, 'dash2'])->name('sdash');
   Route::get('/add-trucks', function () { return view('shipper.add-trucker'); })->name('add.trucks');
@@ -264,9 +243,6 @@ Route::get('/notice', [AdminController::class, 'notice'])->name('notice');
 
 
 
-
-
-
 Route::group(['middleware' => 'checkRole:freight_driver'], function () {
   Route::get('/fportal', [FreightController::class, 'dashf'])->name('fportals');
   Route::get('/add-shipp', [FreightController::class, 'drivers'])->name('add.shipper');
@@ -279,27 +255,6 @@ Route::group(['middleware' => 'checkRole:freight_driver'], function () {
 
 });
 
-// layout
-// Route::get('/layouts/without-menu', [WithoutMenu::class, 'index'])->name('layouts-without-menu');
-// Route::get('/layouts/without-navbar', [WithoutNavbar::class, 'index'])->name('layouts-without-navbar');
-// Route::get('/layouts/fluid', [Fluid::class, 'index'])->name('layouts-fluid');
-// Route::get('/layouts/container', [Container::class, 'index'])->name('layouts-container');
-// Route::get('/layouts/blank', [Blank::class, 'index'])->name('layouts-blank');
-
-// pages
-// Route::get('/pages/account-settings-account', [AccountSettingsAccount::class, 'index'])->name(
-//   'pages-account-settings-account'
-// );
-// Route::get('/pages/account-settings-notifications', [AccountSettingsNotifications::class, 'index'])->name(
-//   'pages-account-settings-notifications'
-// );
-// Route::get('/pages/account-settings-connections', [AccountSettingsConnections::class, 'index'])->name(
-//   'pages-account-settings-connections'
-// );
-// Route::get('/pages/misc-error', [MiscError::class, 'index'])->name('pages-misc-error');
-// Route::get('/pages/misc-under-maintenance', [MiscUnderMaintenance::class, 'index'])->name(
-//   'pages-misc-under-maintenance'
-// );
 
 // authentication
 Route::get('/logg', [LoginBasic::class, 'index'])->name('auth-login-basic');
@@ -316,44 +271,3 @@ Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-
 Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/pages/misc-error', [MiscError::class, 'index'])->name('pages-misc-error');
-// cards
-// Route::get('/cards/basic', [CardBasic::class, 'index'])->name('cards-basic');
-
-// // User Interface
-// Route::get('/ui/accordion', [Accordion::class, 'index'])->name('ui-accordion');
-// Route::get('/ui/alerts', [Alerts::class, 'index'])->name('ui-alerts');
-// Route::get('/ui/badges', [Badges::class, 'index'])->name('ui-badges');
-// Route::get('/ui/buttons', [Buttons::class, 'index'])->name('ui-buttons');
-// Route::get('/ui/carousel', [Carousel::class, 'index'])->name('ui-carousel');
-// Route::get('/ui/collapse', [Collapse::class, 'index'])->name('ui-collapse');
-// Route::get('/ui/dropdowns', [Dropdowns::class, 'index'])->name('ui-dropdowns');
-// Route::get('/ui/footer', [Footer::class, 'index'])->name('ui-footer');
-// Route::get('/ui/list-groups', [ListGroups::class, 'index'])->name('ui-list-groups');
-// Route::get('/ui/modals', [Modals::class, 'index'])->name('ui-modals');
-// Route::get('/ui/navbar', [Navbar::class, 'index'])->name('ui-navbar');
-// Route::get('/ui/offcanvas', [Offcanvas::class, 'index'])->name('ui-offcanvas');
-// Route::get('/ui/pagination-breadcrumbs', [PaginationBreadcrumbs::class, 'index'])->name('ui-pagination-breadcrumbs');
-// Route::get('/ui/progress', [Progress::class, 'index'])->name('ui-progress');
-// Route::get('/ui/spinners', [Spinners::class, 'index'])->name('ui-spinners');
-// Route::get('/ui/tabs-pills', [TabsPills::class, 'index'])->name('ui-tabs-pills');
-// Route::get('/ui/toasts', [Toasts::class, 'index'])->name('ui-toasts');
-// Route::get('/ui/tooltips-popovers', [TooltipsPopovers::class, 'index'])->name('ui-tooltips-popovers');
-// Route::get('/ui/typography', [Typography::class, 'index'])->name('ui-typography');
-
-// // extended ui
-// Route::get('/extended/ui-perfect-scrollbar', [PerfectScrollbar::class, 'index'])->name('extended-ui-perfect-scrollbar');
-// Route::get('/extended/ui-text-divider', [TextDivider::class, 'index'])->name('extended-ui-text-divider');
-
-// // icons
-// Route::get('/icons/icons-mdi', [MdiIcons::class, 'index'])->name('icons-mdi');
-
-// // form elements
-// Route::get('/forms/basic-inputs', [BasicInput::class, 'index'])->name('forms-basic-inputs');
-// Route::get('/forms/input-groups', [InputGroups::class, 'index'])->name('forms-input-groups');
-
-// // form layouts
-// Route::get('/form/layouts-vertical', [VerticalForm::class, 'index'])->name('form-layouts-vertical');
-// Route::get('/form/layouts-horizontal', [HorizontalForm::class, 'index'])->name('form-layouts-horizontal');
-
-// // tables
-// Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic');

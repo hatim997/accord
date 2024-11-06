@@ -7,13 +7,57 @@ $navbarHideToggle = false;
 @push('body-style')
 <link rel="stylesheet" href="{{ asset('assets/css/invoice_style.css') }}">
 @endpush
+@push('body-style')
+<style>
+  /* General card padding */
+  .card.invoice-preview-card {
+      padding: 20px; /* Increased padding inside the card */
+  }
 
+  /* Additional padding inside headers and content sections */
+  .invoice-preview-header {
+      padding: 20px; /* Padding around the invoice header */
+  }
+
+  /* Padding around each block of content */
+  .d-flex.justify-content-between.flex-wrap {
+      padding: 15px 20px;
+  }
+
+  /* Padding for tables to add space between text and borders */
+  .table-responsive {
+      padding: 15px 20px;
+  }
+
+  /* Adjust spacing in tables */
+  .table thead th, .table tbody td {
+      padding: 12px 15px; /* Space between table text and cell borders */
+  }
+
+  /* Additional spacing for bottom notes */
+  .card-body.p-0 .row {
+      padding: 20px;
+  }
+
+  /* Additional margin for the Pay Now button */
+  .text-end.mb-4 {
+      margin-top: 20px; /* Space above the button */
+  }
+
+  /* Custom spacing for alert messages */
+  .alert {
+      margin-bottom: 15px; /* Space below alerts */
+      padding: 15px;
+  }
+
+  </style>
+@endpush
 @section('layoutContent')
 
-<div class="container authentication-wrapper authentication-basic container-p-y">
-    <div class="container-xxl flex-grow-1 container-p-y">
+<div class=" authentication-wrapper authentication-basic container-p-y">
+    <div class="container-xxl flex-grow-1 container-p-y ">
         <div class="row invoice-preview">
-            <div class="col-xl-12 col-md-8 col-12 mb-md-0 mb-6">
+            <div class="col-xl-12 col-md-8 col-12 mb-md-0 mb-6 p-60">
                 <div class="card invoice-preview-card p-sm-12 p-6">
                     <div class="card-body invoice-preview-header rounded p-6 text-heading">
                         <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
