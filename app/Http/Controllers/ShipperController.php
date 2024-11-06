@@ -14,6 +14,9 @@ use App\Models\Endorsement;
 use App\Models\EndorsementFile;
 use App\Models\ShipperEndorsement;
 use App\Models\ShipperDriver;
+use App\Models\Certificate;
+use App\Models\CertificatePolicy;
+
 use App\Models\ShipperLimit;
 use App\Models\ShipperInfos;
 use App\Models\PolicyLimit;
@@ -108,11 +111,52 @@ $user->save();
   public function dash2()
   {
 
+    // $records = Certificate::with('certificatePolicies')->where('ch', '=', Auth::user()->id)
+    // ->join('shipper_driver', 'certificates.ch', '=', 'shipper_driver.shipper_id')
+    // ->join('users', 'shipper_driver.shipper_id', '=', 'users.id')
+    // ->select('shipper_driver.*', 'users.role')
+    // ->get();
 
+    $currentMonth = Carbon::now()->month;
+    $currentYear = Carbon::now()->year;
+
+    $records = Certificate::where('certificates.ch', '=', Auth::user()->id)
+        ->join('users', 'certificates.client_user_id', '=', 'users.id')
+        ->join('certificate_policies', 'certificates.id', '=', 'certificate_policies.certificate_id')
+        ->join('policy_types', 'certificate_policies.policy_type_id', '=', 'policy_types.id')
+        ->where('users.status', '=', '1')
+        ->whereMonth('certificate_policies.expiry_date', $currentMonth)
+        ->whereYear('certificate_policies.expiry_date', $currentYear)
+        ->select(
+            'users.*',
+            'certificates.*',
+            'certificate_policies.*',
+            'policy_types.*'
+        )
+        ->get();
+
+        $today = Carbon::today();
+        $nextWeek = Carbon::today()->addWeek();
+
+        $recordweeks = Certificate::where('certificates.ch', '=', Auth::user()->id)
+            ->join('users', 'certificates.client_user_id', '=', 'users.id')
+            ->join('certificate_policies', 'certificates.id', '=', 'certificate_policies.certificate_id')
+            ->join('policy_types', 'certificate_policies.policy_type_id', '=', 'policy_types.id')
+            ->where('users.status', '=', '1')
+            ->whereBetween('certificate_policies.expiry_date', [$today, $nextWeek])
+            ->select(
+                'users.*',
+                'certificates.*',
+                'certificate_policies.*',
+                'policy_types.*'
+            )
+            ->get();
+
+    // dd($records);
 
     $endors=Endorsement::All();
 
-    return view('shipper.dash',compact('endors'));
+    return view('shipper.dash',compact('endors', 'records', 'recordweeks'));
   }
 
   public function endors(Request $request)

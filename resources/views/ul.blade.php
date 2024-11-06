@@ -659,12 +659,13 @@
       });
 
       $('#roleSelect').on('change', function() {
-          var selectedRole = $(this).val();
+          var selectedRole = $(this).val(); // Get selected role
+          // Apply filter to the "Role" column with case-insensitive matching
           table.column(4).search(selectedRole, false, false).draw();
       });
 
       $('#select3').on('change', function() {
-          var selectedStatus = $(this).val();
+          var selectedStatus = $(this).val(); // Get selected status
 
           table.column(6).search(selectedStatus ? '^' + selectedStatus + '$' : '', true, false).draw();
       });
