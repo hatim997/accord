@@ -144,7 +144,7 @@
                         height: 220px;
                     ">
                             <h4 class="mb-1 py-4 text-white">Policy Expiring in a Month !</h4>
-                            <h2 class="py-3 text-white card-title" style="font-size: 72px">0</h2>
+                            <h2 class="py-3 text-white card-title" style="font-size: 72px">{{count($records)}}</h2>
                         </div>
                         <div fxlayout="row" fxlayoutalign="start center" class="total_box ng-tns-c246-95"
                         style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center flex-start; align-items: center;">
@@ -159,10 +159,9 @@
                     <div class="card"
                         style="background: rgb(42,132,254); background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);">
                         <div class="card-body text-center" style="
-                        height: 220px;
-                    ">
+                        height: 220px;">
                             <h4 class="mb-1 py-4 text-white">Policy Expiring in a Week !</h4>
-                            <h2 class="py-3 text-white card-title" style="font-size: 72px">0</h2>
+                            <h2 class="py-3 text-white card-title" style="font-size: 72px">{{count($recordweeks)}}</h2>
                         </div>
                         <div fxlayout="row" fxlayoutalign="start center" class="total_box ng-tns-c246-95"
                         style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center flex-start; align-items: center;">
@@ -239,15 +238,15 @@
                                       </tr>
                                   </thead>
                                   <tbody>
-                                      {{-- @foreach ($weekExpolicies as $policy)
+                                    @foreach ($records as $policy)
                                           <tr>
-                                              <td>{{ $policy->policy_type_id }}</td>
-                                              <td><span class="ms-1">{{ $policy->names }}</span></td>
+                                              <td>{{ $policy->policy_id }}</td>
+                                              <td><span class="ms-1">{{ $policy->type_name }}</span></td>
                                               <td>{{ $policy->policy_number }}</td>
                                               <td>{{ $policy->start_date }}</td>
                                               <td>{{ $policy->expiry_date }}</td>
                                           </tr>
-                                      @endforeach --}}
+                                    @endforeach
                                   </tbody>
                               </table>
                           </div>
@@ -285,15 +284,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($weekExpolicies as $policy)
+                                    @foreach ($recordweeks as $policy)
                                         <tr>
-                                            <td>{{ $policy->policy_type_id }}</td>
-                                            <td><span class="ms-1">{{ $policy->names }}</span></td>
+                                            <td>{{ $policy->policy_id }}</td>
+                                            <td><span class="ms-1">{{ $policy->type_name }}</span></td>
                                             <td>{{ $policy->policy_number }}</td>
                                             <td>{{ $policy->start_date }}</td>
                                             <td>{{ $policy->expiry_date }}</td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
