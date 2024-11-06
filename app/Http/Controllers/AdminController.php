@@ -59,7 +59,7 @@ class AdminController extends Controller
   {
       $request = Openrequest::find($id);
       if ($request) {
-          $request->status = 1;  // Mark as read
+          $request->status = 0;  // Mark as read
           $request->save();
 
           // Check if there are any other open requests
@@ -75,6 +75,26 @@ class AdminController extends Controller
 
       return response()->json(['success' => false], 400);
   }
+
+
+  public function opnrqet($id)
+  {
+
+    $get = PolicyType::find($id);
+
+    $user = Auth::user()->id;
+    $truck = DriverDetail::where('user_id', $user)->first();
+
+    $request = Openrequest::create([
+      'to' => 1,
+      'from' => $user,
+      'titel'=> 'add' .$get->type_name.'from Carrier'. $truck->name,
+      'status' => '1',
+  ]);       // Check if there are any other open requests
+     
+  return  $request;
+  }
+
 
 
 

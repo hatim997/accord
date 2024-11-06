@@ -248,8 +248,9 @@ color: #fff !important;
         </li>
         @php
             $userId = auth()->user()->id;
-            $noticesExist = \App\Models\Openrequest::where('status', 0)
+            $noticesExist = \App\Models\Openrequest::where('status', 1)
                             ->where('to', $userId)
+                            ->orderBy('id', 'desc')
                             ->get();
 
             @endphp
