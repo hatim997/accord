@@ -80,11 +80,11 @@ class AdminController extends Controller
   {
       // Find the policy type
       $get = PolicyType::find($id);
-  
+
       // Retrieve the authenticated user's ID and driver details
       $user = Auth::user()->id;
       $truck = DriverDetail::where('user_id', $user)->first();
-  
+
       // Create a new open request
       $request = Openrequest::create([
           'to' => 1,
@@ -92,10 +92,10 @@ class AdminController extends Controller
           'titel' => 'Add ' . $get->type_name . ' from Carrier ' . $truck->name,
           'status' => '1',
       ]);
-  
+
       // Debug: Check if session values are being set correctly
       // dd($request->to, $request->from, $request->titel, $request->status);
-  
+
 // Store in session and redirect back with the data
 return Redirect::back()->with('success', [
   'to' => $request->to,
@@ -108,7 +108,7 @@ return Redirect::back()->with('success', [
   public function showRequestDetails($id)
   {
       // dd(session()->all()); // Check the session data here
-  
+
       return Redirect::back()->with('success', [
           'to' => session('to'),
           'from' => session('from'),
@@ -117,8 +117,8 @@ return Redirect::back()->with('success', [
           'orderTime' => session('orderTime'),
       ]);
   }
-  
-  
+
+
 
 
   public function certadmin()
@@ -570,35 +570,4 @@ return back()->with($message);
     return view('ul', compact('userlist', 'usersWithPlans' ,'currentWeekUsers', 'percentageChange', 'currentMonthUsers', 'monthPercentageChange', 'currentMonthUsersIn', 'monthPercentageChangeIn', 'Paidresult', 'currentMonthPercentage'));
   }
 
-//   public function filterUsers(Request $request)
-// {
-//     $query = User::with(['subscription' => function ($q) use ($request) {
-//         // If the status is provided in the request, filter subscriptions by that status
-//         if ($request->filled('status')) {
-//             $q->where('status', $request->input('status')); // 0 for Inactive, 1 for Active
-//         }
-//     }, 'subscription.subscriptionPlan', 'agencies', 'truckers']);
-
-//     // Apply filters if values are provided
-//     if ($request->filled('role')) {
-//         $query->where('role', $request->input('role'));
-//     }
-
-//     if ($request->filled('plan')) {
-//         $query->whereHas('subscription.subscriptionPlan', function ($q) use ($request) {
-//             $q->where('name', $request->input('plan'));
-//         });
-//     }
-
-//     // If a specific user status is selected, filter users by their status
-//     if ($request->filled('status')) {
-//         $query->where('status', $request->input('status')); // Assuming 1 for active, 0 for inactive
-//     }
-
-//     $filteredUsers = $query->get();
-
-//         dd($filteredUsers);
-
-//         return view('ul', compact('filteredUsers'));
-//     }
 }

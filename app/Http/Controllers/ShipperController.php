@@ -16,6 +16,7 @@ use App\Models\ShipperEndorsement;
 use App\Models\ShipperDriver;
 use App\Models\Certificate;
 use App\Models\CertificatePolicy;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\ShipperLimit;
 use App\Models\ShipperInfos;
@@ -110,54 +111,82 @@ $user->save();
 
   public function dash2()
   {
+      // Get the current authenticated user ID
+      $authUserId = Auth::user()->id;
 
-    // $records = Certificate::with('certificatePolicies')->where('ch', '=', Auth::user()->id)
-    // ->join('shipper_driver', 'certificates.ch', '=', 'shipper_driver.shipper_id')
-    // ->join('users', 'shipper_driver.shipper_id', '=', 'users.id')
-    // ->select('shipper_driver.*', 'users.role')
-    // ->get();
+      // Fetch active users based on the relationships and count them
+      $activeUserCount = DB::table('shipper_driver')
+      ->join('users', 'shipper_driver.driver_id', '=', 'users.id') // Join directly with users table
+      ->where('shipper_driver.shipper_id', '=', $authUserId)  // Match shipper_id with authenticated user
+      ->where('users.status', '=', '1')  // Ensure the user has status 1
+      ->count();  // Get the count of active users
 
-    $currentMonth = Carbon::now()->month;
-    $currentYear = Carbon::now()->year;
+      $inactiveUserCount = DB::table('shipper_driver')
+      ->join('users', 'shipper_driver.driver_id', '=', 'users.id') // Join directly with users table
+      ->where('shipper_driver.shipper_id', '=', $authUserId)  // Match shipper_id with authenticated user
+      ->where('users.status', '=', '0')  // Ensure the user has status 1
+      ->count();  // Get the count of active users
 
-    $records = Certificate::where('certificates.ch', '=', Auth::user()->id)
-        ->join('users', 'certificates.client_user_id', '=', 'users.id')
-        ->join('certificate_policies', 'certificates.id', '=', 'certificate_policies.certificate_id')
-        ->join('policy_types', 'certificate_policies.policy_type_id', '=', 'policy_types.id')
-        ->where('users.status', '=', '1')
-        ->whereMonth('certificate_policies.expiry_date', $currentMonth)
-        ->whereYear('certificate_policies.expiry_date', $currentYear)
-        ->select(
-            'users.*',
-            'certificates.*',
-            'certificate_policies.*',
-            'policy_types.*'
-        )
-        ->get();
 
-        $today = Carbon::today();
-        $nextWeek = Carbon::today()->addWeek();
+      $activeUsers = DB::table('shipper_driver')
+      ->join('users', 'shipper_driver.driver_id', '=', 'users.id')
+      ->where('shipper_driver.shipper_id', '=', $authUserId)  // Match shipper_id with authenticated user
+      ->where('users.status', '=', '1')  // Ensure the user has status 1
+      ->select('users.id', 'users.name', 'users.role', 'users.email', 'users.status')  // Select relevant fields
+      ->get();
 
-        $recordweeks = Certificate::where('certificates.ch', '=', Auth::user()->id)
-            ->join('users', 'certificates.client_user_id', '=', 'users.id')
-            ->join('certificate_policies', 'certificates.id', '=', 'certificate_policies.certificate_id')
-            ->join('policy_types', 'certificate_policies.policy_type_id', '=', 'policy_types.id')
-            ->where('users.status', '=', '1')
-            ->whereBetween('certificate_policies.expiry_date', [$today, $nextWeek])
-            ->select(
-                'users.*',
-                'certificates.*',
-                'certificate_policies.*',
-                'policy_types.*'
-            )
-            ->get();
 
-    // dd($records);
+      $inactiveUsers = DB::table('shipper_driver')
+      ->join('users', 'shipper_driver.driver_id', '=', 'users.id')
+      ->where('shipper_driver.shipper_id', '=', $authUserId)  // Match shipper_id with authenticated user
+      ->where('users.status', '=', '0')  // Ensure the user has status 1
+      ->select('users.id', 'users.name', 'users.role', 'users.email', 'users.status')  // Select relevant fields
+      ->get();
 
-    $endors=Endorsement::All();
+      // Fetch records based on certificate expiry date for the current month and year
+      $currentMonth = Carbon::now()->month;
+      $currentYear = Carbon::now()->year;
 
-    return view('shipper.dash',compact('endors', 'records', 'recordweeks'));
+      $records = Certificate::where('certificates.ch', '=', $authUserId)
+          ->join('users', 'certificates.client_user_id', '=', 'users.id')
+          ->join('certificate_policies', 'certificates.id', '=', 'certificate_policies.certificate_id')
+          ->join('policy_types', 'certificate_policies.policy_type_id', '=', 'policy_types.id')
+          ->where('users.status', '=', '1')
+          ->whereMonth('certificate_policies.expiry_date', $currentMonth)
+          ->whereYear('certificate_policies.expiry_date', $currentYear)
+          ->select(
+              'users.*',
+              'certificates.*',
+              'certificate_policies.*',
+              'policy_types.*'
+          )
+          ->get();
+
+      // Fetch records for certificates expiring in the next week
+      $today = Carbon::today();
+      $nextWeek = Carbon::today()->addWeek();
+
+      $recordweeks = Certificate::where('certificates.ch', '=', $authUserId)
+          ->join('users', 'certificates.client_user_id', '=', 'users.id')
+          ->join('certificate_policies', 'certificates.id', '=', 'certificate_policies.certificate_id')
+          ->join('policy_types', 'certificate_policies.policy_type_id', '=', 'policy_types.id')
+          ->where('users.status', '=', '1')
+          ->whereBetween('certificate_policies.expiry_date', [$today, $nextWeek])
+          ->select(
+              'users.*',
+              'certificates.*',
+              'certificate_policies.*',
+              'policy_types.*'
+          )
+          ->get();
+
+      // Fetch all endorsements
+      $endors = Endorsement::all();
+
+      // Return the view with the active users count and other data
+      return view('shipper.dash', compact('endors', 'records', 'recordweeks', 'activeUserCount','inactiveUserCount','activeUsers','inactiveUsers'));
   }
+
 
   public function endors(Request $request)
   {

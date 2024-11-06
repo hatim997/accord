@@ -175,20 +175,22 @@
 
                 <!-- Congratulations card -->
                 <div class="col-md-3 col-lg-3">
-                    <div class="card"
-                        style="background: rgb(42,132,254); background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);">
-                        <div class="card-body text-center" style="height: 220px;">
-                            <h4 class="mb-1 py-4 text-white">No.of Active Cargo</h4>
-                            <h2 class="py-3 text-white card-title" style="font-size: 72px">0</h2>
-                        </div>
-                       <div fxlayout="row" fxlayoutalign="start center" class="total_box ng-tns-c246-95"
-                            style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center flex-start; align-items: center;">
-                            <span class="ng-tns-c246-95">&nbsp;</span><span class="num red-fg ng-tns-c246-95">&nbsp;</span><span
-                                class="go-btn ng-tns-c246-95 open-modal-btn" data-modal="expiringPoliciesModal3" tabindex="0">GO ></span>
-                        </div>
+                  <div class="card"
+                      style="background: rgb(42,132,254); background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);">
+                      <div class="card-body text-center" style="height: 220px;">
+                          <h4 class="mb-1 py-4 text-white">Active Carrier/Broker</h4>
+                          <h2 class="py-3 text-white card-title" style="font-size: 72px">
+                              {{ $activeUserCount }} <!-- Display the active user count -->
+                          </h2>
+                      </div>
+                      <div fxlayout="row" fxlayoutalign="start center" class="total_box ng-tns-c246-95"
+                          style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center flex-start; align-items: center;">
+                          <span class="ng-tns-c246-95">&nbsp;</span><span class="num red-fg ng-tns-c246-95">&nbsp;</span><span
+                              class="go-btn ng-tns-c246-95 open-modal-btn" data-modal="expiringPoliciesModal3" tabindex="0">GO ></span>
+                      </div>
+                  </div>
+              </div>
 
-                    </div>
-                </div>
                 <!--/ Congratulations card -->
                 <!-- Congratulations card -->
                 <div class="col-md-3 col-lg-3">
@@ -197,8 +199,8 @@
                         <div class="card-body text-center" style="
                         height: 220px;
                     ">
-                            <h4 class="mb-1 py-4 text-white">No.of InActive Cargo</h4>
-                            <h2 class="py-3 text-white card-title" style="font-size: 72px">0</h2>
+                            <h4 class="mb-1 py-4 text-white">InActive Carrier/Broker</h4>
+                            <h2 class="py-3 text-white card-title" style="font-size: 72px"> {{$inactiveUserCount}} </h2>
                         </div>
                         <div fxlayout="row" fxlayoutalign="start center" class="total_box ng-tns-c246-95"
                         style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center flex-start; align-items: center;">
@@ -312,93 +314,81 @@
   <div class="modal-dialog modal-xl">
       <div class="modal-content">
           <div class="modal-header justify-content-center align-items-center">
-              <h5 class="modal-title" id="exampleModalLabel">Active Cargo</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Active Carrier/Broker</h5>
           </div>
           <div class="modal-body">
-              {{-- @if ($weekExpolicies->isEmpty())
-                  <p>No policies expiring within a week.</p>
-              @else --}}
-                  <div class="container mt-2 px-2">
-                      <div class="table-responsive">
-                          <table class="table table-responsive table-borderless">
-                              <thead>
-                                  <tr class="bg-light">
-                                      <th scope="col" width="15%">Policy <br> ID</th>
-                                      <th scope="col" width="20%">Policy <br>Type Name</th>
-                                      <th scope="col" width="20%">Policy<br> Number</th>
-                                      <th scope="col" width="22%">Policy<br>Start Date</th>
-                                      <th scope="col" width="22%">Expiry Date</th>
+              <div class="container mt-2 px-2">
+                  <div class="table-responsive">
+                      <table class="table table-responsive table-borderless">
+                          <thead>
+                              <tr class="bg-light">
+                                  <th scope="col" width="15%">Name</th>
+                                  <th scope="col" width="20%">Role</th>
+                                  <th scope="col" width="20%">Email</th>
+                                  <th scope="col" width="20%">Status</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              @foreach ($activeUsers as $user)
+                                  <tr>
+                                      <td>{{ $user->name }}</td>
+                                <td>      {{ $user->role == "freight_driver" ? 'Broker' : 'Carrier' }}</td>
+                                      <td>{{ $user->email }}</td>
+                                      <td>{{ $user->status == 1 ? 'Active' : 'Inactive' }}</td>
                                   </tr>
-                              </thead>
-                              <tbody>
-                                  {{-- @foreach ($weekExpolicies as $policy)
-                                      <tr>
-                                          <td>{{ $policy->policy_type_id }}</td>
-                                          <td><span class="ms-1">{{ $policy->names }}</span></td>
-                                          <td>{{ $policy->policy_number }}</td>
-                                          <td>{{ $policy->start_date }}</td>
-                                          <td>{{ $policy->expiry_date }}</td>
-                                      </tr>
-                                  @endforeach --}}
-                              </tbody>
-                          </table>
-                      </div>
+                              @endforeach
+                          </tbody>
+                      </table>
                   </div>
-              {{-- @endif --}}
+              </div>
           </div>
           <div class="modal-footer" style="margin-bottom: 0;">
               <button type="button" class="btn btn-secondary close-btn" style="border: none; margin-bottom: 0;" data-bs-dismiss="modal">Close</button>
           </div>
-
       </div>
   </div>
 </div>
 
 
 <div class="modal" id="expiringPoliciesModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-xl">
-    <div class="modal-content">
-        <div class="modal-header justify-content-center align-items-center">
-            <h5 class="modal-title" id="exampleModalLabel">InActive Cargo</h5>
-        </div>
-        <div class="modal-body">
-            {{-- @if ($weekExpolicies->isEmpty())
-                <p>No policies expiring within a week.</p>
-            @else --}}
-                <div class="container mt-2 px-2">
-                    <div class="table-responsive">
-                        <table class="table table-responsive table-borderless">
-                            <thead>
-                                <tr class="bg-light">
-                                    <th scope="col" width="15%">Policy <br> ID</th>
-                                    <th scope="col" width="20%">Policy <br>Type Name</th>
-                                    <th scope="col" width="20%">Policy<br> Number</th>
-                                    <th scope="col" width="22%">Policy<br>Start Date</th>
-                                    <th scope="col" width="22%">Expiry Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- @foreach ($weekExpolicies as $policy)
-                                    <tr>
-                                        <td>{{ $policy->policy_type_id }}</td>
-                                        <td><span class="ms-1">{{ $policy->names }}</span></td>
-                                        <td>{{ $policy->policy_number }}</td>
-                                        <td>{{ $policy->start_date }}</td>
-                                        <td>{{ $policy->expiry_date }}</td>
-                                    </tr>
-                                @endforeach --}}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            {{-- @endif --}}
-        </div>
-        <div class="modal-footer" style="margin-bottom: 0;">
-            <button type="button" class="btn btn-secondary close-btn" style="border: none; margin-bottom: 0;" data-bs-dismiss="modal">Close</button>
-        </div>
-
-    </div>
-</div>
+  <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+          <div class="modal-header justify-content-center align-items-center">
+              <h5 class="modal-title" id="exampleModalLabel">InActive Carrier/Broker</h5>
+          </div>
+          <div class="modal-body">
+              <div class="container mt-2 px-2">
+                  <div class="table-responsive">
+                      <table class="table table-responsive table-borderless">
+                          <thead>
+                              <tr class="bg-light">
+                                  <th scope="col" width="15%">Name</th>
+                                  <th scope="col" width="20%">Role</th>
+                                  <th scope="col" width="20%">Email</th>
+                                  <th scope="col" width="20%">Status</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($inactiveUsers as $inuser)
+                            <tr>
+                                <td>{{ $inuser->name }}</td>
+                                <td>
+                                    {{ $inuser->role == "freight_driver" ? 'Broker' : 'Carrier' }}
+                                </td>
+                                <td>{{ $inuser->email }}</td>
+                                <td>{{ $inuser->status == 1 ? 'Active' : 'Inactive' }}</td>
+                            </tr>
+                        @endforeach
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer" style="margin-bottom: 0;">
+              <button type="button" class="btn btn-secondary close-btn" style="border: none; margin-bottom: 0;" data-bs-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
 </div>
 
    </div>
