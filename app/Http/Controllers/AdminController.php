@@ -76,27 +76,49 @@ class AdminController extends Controller
       return response()->json(['success' => false], 400);
   }
 
-
   public function opnrqet($id)
   {
-
-    $get = PolicyType::find($id);
-
-    $user = Auth::user()->id;
-    $truck = DriverDetail::where('user_id', $user)->first();
-
-    $request = Openrequest::create([
-      'to' => 1,
-      'from' => $user,
-      'titel'=> 'add' .$get->type_name.'from Carrier'. $truck->name,
-      'status' => '1',
-  ]);       // Check if there are any other open requests
-     
-  return  $request;
+      // Find the policy type
+      $get = PolicyType::find($id);
+  
+      // Retrieve the authenticated user's ID and driver details
+      $user = Auth::user()->id;
+      $truck = DriverDetail::where('user_id', $user)->first();
+  
+      // Create a new open request
+      $request = Openrequest::create([
+          'to' => 1,
+          'from' => $user,
+          'titel' => 'Add ' . $get->type_name . ' from Carrier ' . $truck->name,
+          'status' => '1',
+      ]);
+  
+      // Debug: Check if session values are being set correctly
+      // dd($request->to, $request->from, $request->titel, $request->status);
+  
+// Store in session and redirect back with the data
+return Redirect::back()->with('success', [
+  'to' => $request->to,
+  'from' => $request->from,
+  'titel' => $request->titel,
+  'status' => $request->status,
+  'orderTime' => now()->format('Y-m-d H:i:s') // Add current time to session for "Order Time"
+]);
   }
-
-
-
+  public function showRequestDetails($id)
+  {
+      // dd(session()->all()); // Check the session data here
+  
+      return Redirect::back()->with('success', [
+          'to' => session('to'),
+          'from' => session('from'),
+          'titel' => session('titel'),
+          'status' => session('status'),
+          'orderTime' => session('orderTime'),
+      ]);
+  }
+  
+  
 
 
   public function certadmin()
