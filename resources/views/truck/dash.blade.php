@@ -418,6 +418,7 @@
                                 <td>
                                     <div class="red-square"></div>
                                 </td>
+
                             @endif
                         @endforeach
                     @else
@@ -425,7 +426,22 @@
                     @endif
 
 
+  <div class="modal" id="expiringPoliciesModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header justify-content-center align-items-center">
+                  <h5 class="modal-title" id="exampleModalLabel">List of Inactive Shippers</h5>
 
+                </div>
+                <div class="modal-body">           
+                   
+
+            
+                </div>
+                
+              </div>
+            </div>
+          </div>
 
 
 

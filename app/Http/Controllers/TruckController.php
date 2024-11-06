@@ -113,11 +113,13 @@ $weekExpolicies = collect($results);
     $policies = null;
     $yourCertificateId = Certificate::select('id')
       ->where('client_user_id', $userId)
-      ->first();
+      ->pluck('id'); 
+      
+
     if (isset($yourCertificateId)) {
-      $certificatePolicies = CertificatePolicy::where('certificate_id', $yourCertificateId->id)->get();
+      $certificatePolicies = CertificatePolicy::whereIn('certificate_id', $yourCertificateId)->get();
     }
-    $policies = PolicyType::get();
+      $policies = PolicyType::get();
     $ship = ShipperInfos::all();
     return view('truck.dash', compact('users', 'monthExp', 'weekExp', 'ship', 'certificatePolicies', 'monthExpolicies', 'weekExpolicies', 'policies', 'driverInfo', 'activeShippersCount','inactiveShippersCount','activeShippers','inactiveShippers'));
 
