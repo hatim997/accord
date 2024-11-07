@@ -179,12 +179,13 @@ $user->save();
               'policy_types.*'
           )
           ->get();
+      $brokersinfo  = Certificate::with('driver','user')->where('ch' ,$authUserId)->get();
 
       // Fetch all endorsements
       $endors = Endorsement::all();
 
       // Return the view with the active users count and other data
-      return view('shipper.dash', compact('endors', 'records', 'recordweeks', 'activeUserCount','inactiveUserCount','activeUsers','inactiveUsers'));
+      return view('shipper.dash', compact('endors', 'records', 'recordweeks','brokersinfo', 'activeUserCount','inactiveUserCount','activeUsers','inactiveUsers'));
   }
 
 
