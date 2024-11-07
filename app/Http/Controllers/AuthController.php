@@ -566,10 +566,11 @@ class AuthController extends Controller
           'planName' => $subscriptionPlan->name,  // Plan name for the admin email
       ];
       $orderId = $order->id;
+      $orderInvoice = $order->invoice;
       $orderTime = $order->created_at->format('d/m/Y h:ia');
 
       // Send email to admin
-      Mail::send('email.message', $data, function ($message) use ($admin, $user, $orderId, $orderTime, $subscriptionPlan) {
+      Mail::send('email.user_message', $data, function ($message) use ($admin, $user, $orderId, $orderTime, $subscriptionPlan,$orderInvoice) {
           $message->to($admin->email, $admin->name)
                   ->subject(
                       'Order ID: ' . $orderId .
@@ -580,11 +581,14 @@ class AuthController extends Controller
       });
 
       // Send email to user
-      Mail::send('email.user_message', $data, function ($message) use ($user, $orderId, $orderTime) {
+      Mail::send('email.user_message', $data, function ($message) use ($user, $orderId, $orderTime,$subscriptionPlan,$orderInvoice) {
           $message->to($user->email, $user->name)
                   ->subject(
-                      'Your - Order ID: ' . $orderId .
-                      ' | Order Placed At: ' . $orderTime
+                    'Order ID: ' . $orderId .
+                    ' | User Email: ' . $user->email .
+                    ' | Plan: ' . $subscriptionPlan->name .
+                    ' | Order Placed At: ' . $orderTime .
+                    ' | Order Invoice # : ' . $orderInvoice
                   );
       });
 
