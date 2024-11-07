@@ -281,11 +281,11 @@
                                         @if ($item->role === 'agent')
                                             Agency
                                         @elseif($item->role === 'truck_driver')
-                                            Broker
+                                            Carrier
                                         @elseif($item->role === 'shipper')
                                             Shipper
                                         @elseif($item->role === 'freight_driver')
-                                            Carrier
+                                            Broker
                                         @else
                                             {{ $item->role }} <!-- This will show the role as is for any other role -->
                                         @endif
