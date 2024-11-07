@@ -18,16 +18,16 @@
 <body>
     <h2>Email Notification</h2>
     
-    @if(isset($user))
+    @if(isset($userName))
      
-    <p>Hello {{ $user }},</p>
-    @if(isset($user->email) || isset($subscriptionPlan->name) || isset($orderTime) || isset($orderInvoice) )
+    <p>Hello {{ $userName }},</p>
+    @if(isset($userEmail) || isset($planName) || isset($orderTime) || isset($orderInvoice) )
         <p>A new user has registered:</p>
         <ul>
             
             <li><strong>Invoice:</strong> {{ $orderInvoice ?? 'N/A' }}</li>
-            <li><strong>Email:</strong> {{ $user->email ?? 'N/A' }}</li>
-            <li><strong>Subscription Plan:</strong> {{ $subscriptionPlan->name ?? 'N/A' }}</li>
+            <li><strong>Email:</strong> {{ $userEmail ?? 'N/A' }}</li>
+            <li><strong>Subscription Plan:</strong> {{ $planName ?? 'N/A' }}</li>
             <li><strong>Order Time:</strong> {{ $orderTime ?? 'N/A' }}</li>
             
         </ul>
