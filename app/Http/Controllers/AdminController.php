@@ -564,7 +564,7 @@ return back()->with($message);
     $currentMonthPercentage = isset($monthlyPercentageRatio[$currentMonth]) ? round($monthlyPercentageRatio[$currentMonth], 2) : 0;
     $userlist = User::with('subscription')->whereNot('role', 'admin')->get();
 
-    $usersWithPlans = User::with(['subscription.subscriptionPlan', 'agencies', 'truckers', 'subscription'])->whereNot('role', 'admin')
+    $usersWithPlans = User::with(['subscription.subscriptionPlan', 'agencies', 'truckers', 'subscription', 'shippers', 'freights'])->whereNot('role', 'admin')
     ->get();
     // dd($usersWithPlans->toArray());
     return view('ul', compact('userlist', 'usersWithPlans' ,'currentWeekUsers', 'percentageChange', 'currentMonthUsers', 'monthPercentageChange', 'currentMonthUsersIn', 'monthPercentageChangeIn', 'Paidresult', 'currentMonthPercentage'));
