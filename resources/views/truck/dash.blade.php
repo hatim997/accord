@@ -387,13 +387,13 @@
             <div class="modal-dialog modal-xl">
               <div class="modal-content">
                 <div class="modal-header justify-content-center align-items-center">
-                  <h5 class="modal-title" id="exampleModalLabel">List of Inactive Shippers</h5>
+                  {{-- <h5 class="modal-title" id="exampleModalLabel">List of Inactive Shippers</h5> --}}
 
                 </div>
                 <div class="modal-body">
                  
                   <div class="confirmation-container">
-                    <h1>Thank You! <span class="emoji">😇</span></h1>
+                    <h1>Thank You! <span class="emoji"></span></h1>
               
                     <p class="info-text">Your request has been successfully submitted!</p>
               
