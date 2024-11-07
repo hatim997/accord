@@ -98,7 +98,7 @@
                         <a href="{{url('reg-agency')}}">
                             <span>Create an account</span>
                         </a>
-                    </p> 
+                    </p>
                             </div>
                         </div>
                     </div>
