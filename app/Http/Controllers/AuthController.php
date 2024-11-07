@@ -570,7 +570,7 @@ class AuthController extends Controller
       $orderTime = $order->created_at->format('d/m/Y h:ia');
 
       // Send email to admin
-      Mail::send('email.user_message', $data, function ($message) use ($admin, $user, $orderId, $orderTime, $subscriptionPlan,$orderInvoice) {
+      Mail::send('email.admin_message', $data, function ($message) use ($admin, $user, $orderId, $orderTime, $subscriptionPlan,$orderInvoice) {
           $message->to($admin->email, $admin->name)
                   ->subject(
                       'Order ID: ' . $orderId .

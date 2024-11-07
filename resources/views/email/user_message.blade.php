@@ -18,20 +18,8 @@
 <body>
     <h2>Email Notification</h2>
     
-    @if(isset($admin))
-        <p>Hello {{ $admin }},</p>
-        @if(isset($admin->email) || isset($subscriptionPlan->name) || isset($orderTime) )
-            <p>A new user has registered:</p>
-            <ul>
-                <li><strong>Email:</strong> {{ $admin->email ?? 'N/A' }}</li>
-                <li><strong>Subscription Plan:</strong> {{ $subscriptionPlan->name ?? 'N/A' }}</li>
-                <li><strong>Order Time:</strong> {{ $orderTime ?? 'N/A' }}</li>
-                
-            </ul>
-        @else
-            <p>No new user details are available.</p>
-        @endif
-    @else
+    @if(isset($user))
+     
     <p>Hello {{ $user }},</p>
     @if(isset($user->email) || isset($subscriptionPlan->name) || isset($orderTime) || isset($orderInvoice) )
         <p>A new user has registered:</p>
