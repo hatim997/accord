@@ -219,7 +219,6 @@ $results = DB::select($querys, [$userId]);
 $weekExpolicies = collect($results);
 // dd($weekExpolicies);
     $insuredCnt = Certificate::where('producer_user_id', Auth::user()->id)->count('client_user_id');
-    // dd($insuredCnt);
     $agencyinfo = $this->agency->getByUserId($userId);
   //   $brokersinfo = $this->agency->getBrokersByAgency($userId);
      $brokersinfo  = Certificate::with('driver','user')->where('producer_user_id' ,$userId)->get();
