@@ -6,53 +6,25 @@ $navbarHideToggle = false;
 @extends('layouts/commonMaster' )
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @section('layoutContent')
-@php
-$userId = auth()->user()->id;
-$user = request()->user();
 
-@endphp
 <div class="container-xxl flex-grow-1 container-p-y">
   <div class="row">
     <div class="col-md-12">
       <div class="nav-align-top mb-4">
         <ul class="nav nav-pills flex-column flex-md-row mb-6 gap-2 gap-lg-0">
-          @if ($user->role == "agent")
           <li class="nav-item">
             <a class="nav-link active" href="{{ route('profile.agency')}}"
-              ><i class="fa-solid fa-user" style="color: #ffffff;"></i> &nbsp;&nbsp;Account</a
+              ><i class="fa-regular fa-user" style="color: #ffffff;"></i> &nbsp;&nbsp;Account</a
             >
           </li>
-          @elseif ($user->role == "truck_driver")
-          <li class="nav-item">
-            <a class="nav-link " href="{{ route('profile.truck')}}"
-              ><i class="fa-solid fa-user" style="color: #ffffff;"></i> &nbsp;&nbsp;Account</a
-            >
-          </li>
-          @elseif ($user->role == "shipper")
-          <li class="nav-item">
-            <a class="nav-link " href="{{ route('profile.shipper')}}"
-              ><i class="fa-solid fa-user" style="color: #ffffff;"></i> &nbsp;&nbsp;Account</a
-            >
-          </li>
-          @elseif ($user->role == "freight_driver")
-          <li class="nav-item">
-            <a class="nav-link " href="{{ route('profile.freight')}}"
-              ><i class="fa-solid fa-user" style="color: #ffffff;"></i> &nbsp;&nbsp;Account</a
-            >
-          </li>
-          @else
-          <li class="nav-item">
-            <a class="nav-link " ><i class="fa-solid fa-user" style="color: #ffffff;"></i> &nbsp;&nbsp;Account</a>
-          </li>
-          @endif
           <li class="nav-item">
             <a class="nav-link" href="{{ route('billing.agency')}}"
               ><i class="fa-solid fa-receipt"></i>&nbsp;&nbsp;Billing</a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="{{ route('plan.agency', ['id' => Auth::user()->id]) }}"
-              ><i class="fa-solid fa-calendar-check"></i>Plan</a
+            <a class="nav-link" href="pages-account-settings-connections.html"
+              ><i class="ri-link-m me-1_5"></i>Plan</a
             >
           </li>
         </ul>
@@ -248,7 +220,7 @@ $user = request()->user();
               </div>
 
             </div>
-            <button type="submit" id="update-password-btn" class="btn c-pass" style="margin-top: 1% !important; background-color:#00a2ff; color:#ffffff;" >
+            <button type="submit" id="update-password-btn" class="btn btn-danger c-pass" style="margin-top: 1% !important;" >
               Change Password
             </button>
             <div id="response-message"></div>

@@ -558,33 +558,43 @@ class AuthController extends Controller
 
       // Retrieve admin details for email
       $admin = User::find(1);
-      $data = [
 
-          'userName' => $userName,  // Custom user name based on role
-          'userRole' => $user->role,
-          'userEmail' => $user->email,
+      $orderId = $order->id;
+      $orderInvoice = $order->invoice;
+      $orderTime = $order->created_at->format('d/m/Y h:ia');
+      $data1 = [
+
+          'adminName' => $admin->name,  // Custom user name based on role
+          'orderId' => $orderId,
+          'adminEmail' => $admin->email,
+          'orderTime' => $orderTime,
+          'orderInvoice' => $orderInvoice,          
           'planName' => $subscriptionPlan->name,  // Plan name for the admin email
       ];
-      $orderId = $order->id;
-      $orderTime = $order->created_at->format('d/m/Y h:ia');
+      $data2 = [
+
+        'userName' => $user->name,  // Custom user name based on role
+        'orderId' => $orderId,
+        'userEmail' => $user->email,
+        'orderTime' => $orderTime,
+        'orderInvoice' => $orderInvoice,          
+        'planName' => $subscriptionPlan->name,  // Plan name for the admin email
+    ];
 
       // Send email to admin
-      Mail::send('email.message', $data, function ($message) use ($admin, $user, $orderId, $orderTime, $subscriptionPlan) {
+      Mail::send('email.admin_message', $data1, function ($message) use ($admin, $user, $orderId, $orderTime, $subscriptionPlan,$orderInvoice) {
           $message->to($admin->email, $admin->name)
-                  ->subject(
-                      'Order ID: ' . $orderId .
-                      ' | User Email: ' . $user->email .
-                      ' | Plan: ' . $subscriptionPlan->name .
-                      ' | Order Placed At: ' . $orderTime
-                  );
-      });
+                  ->subject("message"); });
 
       // Send email to user
-      Mail::send('email.user_message', $data, function ($message) use ($user, $orderId, $orderTime) {
+      Mail::send('email.user_message', $data2, function ($message) use ($user, $orderId, $orderTime,$subscriptionPlan,$orderInvoice) {
           $message->to($user->email, $user->name)
                   ->subject(
-                      'Your - Order ID: ' . $orderId .
-                      ' | Order Placed At: ' . $orderTime
+                    'Order ID: ' . $orderId .
+                    ' | User Email: ' . $user->email .
+                    ' | Plan: ' . $subscriptionPlan->name .
+                    ' | Order Placed At: ' . $orderTime .
+                    ' | Order Invoice # : ' . $orderInvoice
                   );
       });
 

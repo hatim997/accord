@@ -99,8 +99,76 @@ return $certificates ;
 
    return view('agent.profile' , compact('driverdetail'));
   }
+  public function userplan($id)
+  {
+      // Retrieve the user and related data
+      $user = User::find($id);
 
+      $userviewlist = User::with(['subscription.subscriptionPlan', 'agencies', 'truckers', 'subscription', 'shippers', 'freights'])
+                          ->where('id', $id)
+                          ->get();
 
+      // Retrieve the subscription with plan details
+      $subscription = Subscription::with('subscriptionPlan')->where('user_id', $id)->first();
+
+      // Initialize progress and days remaining
+      $progressPercentage = 0;
+      $daysRemaining = 0;
+
+      // Calculate the progress and days remaining if subscription exists
+      if ($subscription) {
+          $endDate = Carbon::parse($subscription->end_date);
+          $currentDate = Carbon::now();
+
+          // Check if end_date is in the current month
+          if ($endDate->year == $currentDate->year && $endDate->month == $currentDate->month) {
+              $daysInMonth = $endDate->daysInMonth;
+              $daysRemaining = $currentDate->diffInDays($endDate, false);
+              $progressPercentage = 100 - (($daysRemaining / $daysInMonth) * 100);
+              $daysRemaining = max(0, $daysRemaining); // Ensure days remaining doesn't go negative
+          }
+      }
+
+      return view('agent.plan', compact('userviewlist', 'subscription', 'progressPercentage', 'daysRemaining'));
+  }
+  public function billinguser()
+  {
+      $userId = Auth::user()->id;
+
+      $billing = DB::table('orders')
+          ->join('subscriptions', 'orders.subscription_id', '=', 'subscriptions.id')
+          ->join('users', 'subscriptions.user_id', '=', 'users.id')
+          ->join('subscription_plans', 'subscriptions.plan_id', '=', 'subscription_plans.id')
+          ->where('users.id', '=', $userId)
+          ->select(
+              'subscription_plans.name as plan_name',
+              'orders.price as order_price',
+              'orders.issue_date as order_date',
+              'orders.invoice as order_invoice',
+              'subscriptions.start_date',
+              'subscriptions.end_date'
+          )
+          ->get();
+
+      // Calculate the duration in years or months
+      $billing = $billing->map(function ($item) {
+          $start = Carbon::parse($item->start_date);
+          $end = Carbon::parse($item->end_date);
+
+          // Check if the difference is in years, months, or days and display accordingly
+          if ($start->diffInYears($end) >= 1) {
+              $item->plan_duration = $start->diffInYears($end) . ' year(s)';
+          } elseif ($start->diffInMonths($end) >= 1) {
+              $item->plan_duration = $start->diffInMonths($end) . ' month(s)';
+          } else {
+              $item->plan_duration = $start->diffInDays($end) . ' day(s)';
+          }
+
+          return $item;
+      });
+
+      return view('agent.billing', compact('billing'));
+  }
   public function proupd(Request $request)
   {
     $userId = Auth::user()->id;
