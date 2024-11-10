@@ -25,7 +25,7 @@ class Shippereg extends Component
     public $vehicle_registration_number, $validatedData,$vehicle_make, $vehicle_model,$vehicle_year;
     public $vehicle_capacity, $vehicle_status;
      public $successMessage = '';
-  
+
     /**
      * Write code on Method
      *
@@ -35,7 +35,7 @@ class Shippereg extends Component
     {
         return view('livewire.shipperreg');
     }
-  
+
     /**
      * Write code on Method
      *
@@ -46,12 +46,12 @@ class Shippereg extends Component
     {
         $validatedData = $this->validate([
             'name' => 'required',
-            'mc_number' => 'required|numeric' ,         
+            'mc_number' => 'required|numeric' ,
         ]);
- 
+
         $this->currentStep = 2;
     }
-  
+
     /**
      * Write code on Method
      *
@@ -63,10 +63,10 @@ class Shippereg extends Component
             'address' => 'required',
             'address2' => 'required',
         ]);
-  
+
         $this->currentStep = 3;
     }
-  
+
     /**
      * Write code on Method
      *
@@ -113,12 +113,12 @@ class Shippereg extends Component
 
 
     public function submitForm()
-    {   
+    {
   // Create record using validated data
 
   $randomNumber = rand(100000, 999999);
-          
-           
+
+
   $user = User::create([
      'name' => $this->fname,
      'email' =>$this->email,
@@ -126,22 +126,12 @@ class Shippereg extends Component
      'rememberToken' => 'SH'. $randomNumber,
      'role' => "shipper",
    ]);
-   DB::table('wp_users')->insert([
-    'user_nicename' => $this->fname,
-    'user_login' => $this->email,
-    'user_email' =>  $this->email,
-    'user_pass' => bcrypt($this->password), // Ensure to hash passwords
-    'user_url' =>  'null',
-    'user_registered' => $currentDate,
-    'user_activation_key'	 => "agent",
-    'user_status' => 1,
-    'display_name' =>  $this->fname,
-  ]);   
+
    $lastInsertedId = $user->id;
 
-        
+
         ShipperInfos::create([
-           
+
             'user_id' =>$lastInsertedId ,
                 'name' => $this->name,
                 'title' => $this->title,
@@ -154,17 +144,17 @@ class Shippereg extends Component
                 'address2' => $this->address2,
                 'zip' => $this->zip,
                 'website' => $this->websit,
-                'tax' => $this->tax,          
-                'fax' => $this->fax,               
+                'tax' => $this->tax,
+                'fax' => $this->fax,
                 'state' => $this->state,
                 'cellphone' => $this->phone,
                 'extra_email' => $this->exemail,
-                'city' => $this->city,              
+                'city' => $this->city,
                 'is_active' => "2",
-           
+
         ]);
         $data = [
-               
+
             'code' => 'SH' . $randomNumber,
         ];
         $code ='SH' . $randomNumber;
@@ -174,9 +164,9 @@ class Shippereg extends Component
         Mail::send('email.register', $data, function ($message) use ($code){
             $message->to($this->email, $this->name)
                     ->subject('Register');
-        });    
+        });
         $this->successMessage = 'Product Created Successfully.';
-        
+
         $admin = User::find(1);
 
         $data = [
@@ -189,9 +179,9 @@ class Shippereg extends Component
             $message->to($admin->email, $admin->name)
                     ->subject('Registration Confirmation - Name: ' . $this->name . ' Code Is: ' . $code);
         });
-  
+
         $this->clearForm();
-                
+
         Notice::create([
             'to' => $lastInsertedId,
             'from' => $lastInsertedId,
@@ -209,7 +199,7 @@ class Shippereg extends Component
        session()->flash('message', "Thank you for registering with COI360! Please check your email to complete your account setup. You can <a href=" .route('auth-login-s'). ">log in here</a> once your account is activated.");
         //  return redirect()->to('/logg');
     }
-  
+
     /**
      * Write code on Method
      *
@@ -217,9 +207,9 @@ class Shippereg extends Component
      */
     public function back($step)
     {
-        $this->currentStep = $step;    
+        $this->currentStep = $step;
     }
-  
+
     /**
      * Write code on Method
      *

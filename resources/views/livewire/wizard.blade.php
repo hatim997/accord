@@ -19,7 +19,7 @@
          </div>
        </div>
       </div>
-    </div> 
+    </div>
 @endif
     <div class="row p-2  bg-white">
         <div class="row stepwizard ">
@@ -267,7 +267,7 @@
                             <span class="input-group-text cursor-pointer" id="togglePasswordd"><i class="mdi mdi-eye-off-outline"></i></span>
                             @error('password') <span class="error">{{ $message }}</span> @enderror
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
@@ -409,7 +409,7 @@
                     <div wire:loading>
                        <p class="text-danger">
                            Processing Submition...
-                        </p> 
+                        </p>
                     </div>
             </div>
         </div>

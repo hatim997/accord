@@ -78,7 +78,7 @@ class Wizard extends Component
          'phone' => 'required',
          'fax' => 'nullable',
          'exemail' => 'nullable',
-        
+
  ]);
 
      $this->currentStep = 3;
@@ -133,7 +133,7 @@ class Wizard extends Component
       * @return response()
       */
      public function submitForm()
-         { 
+         {
             $currentDate = Carbon::now();
             $endDate = $currentDate->copy()->addDays(30);
             $randomNumber = rand(100000, 999999);
@@ -146,17 +146,7 @@ class Wizard extends Component
                 'rememberToken' => 'IA' . $randomNumber,
                 'role' => "agent",
               ]);
-              DB::table('wp_users')->insert([
-                'user_nicename' => $this->fname,
-                'user_login' => $this->email,
-                'user_email' =>  $this->email,
-                'user_pass' => bcrypt($this->password), // Ensure to hash passwords
-                'user_url' =>  'null',
-                'user_registered' => $currentDate,
-                'user_activation_key'	 => "agent",
-                'user_status' => 1,
-                'display_name' =>  $this->fname,
-              ]);          
+
               $lastInsertedId = $user->id;
               AgencyInfos::create([
                   'user_id' =>$lastInsertedId,
@@ -164,7 +154,7 @@ class Wizard extends Component
                   'title' => $this->title,
                   'ialn' => $this->ialn,
                   'mname' => $this->mname,
-                  'websit' => $this->websit,                  
+                  'websit' => $this->websit,
                   'lname' => $this->lname,
                   'suffix' => $this->suffix,
                   'prefix' => $this->prefix,
@@ -181,7 +171,7 @@ class Wizard extends Component
                   'image_path' => $this->imagePath,
              ]);
              $data = [
-               
+
                 'code' => 'IA' . $randomNumber,
             ];
             $code ='IA' . $randomNumber;
@@ -207,7 +197,7 @@ class Wizard extends Component
             });
 
 
-            
+
             Notice::create([
                 'to' => 1,
                 'from' => $lastInsertedId,
@@ -225,7 +215,7 @@ class Wizard extends Component
             session()->flash('message', "Thank you for registering with COI360! Please check your email to complete your account setup. You can <a href=" .route('auth-login-basic'). ">log in here</a> once your account is activated.");
             //  return redirect()->to('/logg');
          }
-        
+
      /**
       * Write code on Method
       *
