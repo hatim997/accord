@@ -382,7 +382,7 @@
           @php
           $successData = session('success');
       @endphp
-  
+
           <div class="modal open" id="expiringPoliciesModal5" tabindex="-1" style="display: flex" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
               <div class="modal-content">
@@ -391,14 +391,14 @@
 
                 </div>
                 <div class="modal-body">
-                 
+
                   <div class="confirmation-container">
                     <h1>Thank You! <span class="emoji">😇</span></h1>
-              
+
                     <p class="info-text">Your request has been successfully submitted!</p>
-              
-              
-              
+
+
+
                     @if($successData['orderTime'])
                         <p class="time-placed">
                             <span class="clock-icon">🕒</span> Time placed: {{ $successData['orderTime'] }}
@@ -406,8 +406,8 @@
                     @else
                         <p class="time-placed">Order time not available.</p>
                     @endif
-              
-                 
+
+
                     @if($successData['to'] && $successData['from'] && $successData['titel'] && $successData['status'])
                     <p class="info-text">
                         Request Details:
@@ -423,18 +423,18 @@
                         Request details are not available.
                     </p>
                 @endif
-                
-             
-                
-        
-                
+
+
+
+
+
                 </div>
 
 
 
-                
+
                 </div>
-               
+
               </div>
             </div>
           </div>
@@ -482,7 +482,7 @@
                                   <div class="red-square"></div>
                               </a>
                           </td>
-                          
+
                                 <div class="modal" id="expiringPoliciesModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-xl">
                                       <div class="modal-content">

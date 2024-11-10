@@ -32,7 +32,7 @@ $navbarHideToggle = false;
       <div class="card mb-6">
 
         <div class="card-body pt-0">
-          <form id="formAccountSettings" method="POST" action="{{route('shipper.proupd')}}">
+          <form id="formAccountSettings" method="POST" action="{{route('agent.proupd')}}">
             @csrf
             <div class="row mt-1 g-5">
               @foreach ($driverdetail as $item)
@@ -50,13 +50,13 @@ $navbarHideToggle = false;
               </div>
               <div class="col-md-6">
                 <div class="form-floating form-floating-outline">
-                  <input class="form-control" type="text" value="{{$item->shippers[0]->mname}}" name="mname"   id="username" placeholder="ACME Inc." />
+                  <input class="form-control" type="text" value="{{$item->agencies[0]->mname}}" name="mname"   id="username" placeholder="ACME Inc." />
                   <label for="lastName">Middle Name</label>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-floating form-floating-outline">
-                  <input class="form-control" type="text" value="{{$item->shippers[0]->lname}}" name="lname"   id="username" placeholder="ACME Inc."  />
+                  <input class="form-control" type="text" value="{{$item->agencies[0]->lname}}" name="lname"   id="username" placeholder="ACME Inc."  />
                   <label for="lastName">Last Name</label>
                 </div>
               </div>
@@ -74,97 +74,67 @@ $navbarHideToggle = false;
                   <input
                     type="text"
                     class="form-control"
-                    value="{{$item->shippers[0]->extra_email}}"  name="altemail" id="altemail1" />
+                    value="{{$item->agencies[0]->extra_email}}"  name="altemail" id="altemail1" />
                   <label for="organization">ALT EMAIL</label>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-floating form-floating-outline">
-                  <input type="text" class="form-control"   name="cellphone" id="phone1" placeholder="03xxxxxxxxx" value="{{$item->shippers[0]->cellphone}}" />
+                  <input type="text" class="form-control"   name="cellphone" id="phone1" placeholder="03xxxxxxxxx" value="{{$item->agencies[0]->cellphone}}" />
                   <label for="altemail1">Contact #</label>
                 </div>
               </div>
 
 
-              <div class="col-4">
-                <div class="form-floating form-floating-outline mb-3">
-                  <input type="text" class="form-control" value="{{$item->shippers[0]->fax}}"  name="fax" id="phone1" placeholder="Address line1"  />
-                  <label for="phone1">fax #</label>
-                </div>
-              </div>
 
 
 
-              <div class="col-4">
+
+              <div class="col-md-6">
                 <div class="form-floating form-floating-outline">
                   <input
                     class="form-control"
                     type="text"
-                    value="{{$item->shippers[0]->name}}"  name="name" id="fullname1" placeholder="ACME Inc."
+                    value="{{$item->agencies[0]->name}}"  name="name" id="fullname1" placeholder="ACME Inc."
                     autofocus />
                   <label for="firstName">Company Name</label>
                 </div>
               </div>
-              <div class="col-4">
-                <div class="form-floating form-floating-outline mb-3">
-                  <input type="text" class="form-control" value="{{$item->shippers[0]->title}}"  name="title"  id="email1" placeholder="example.com"
-                      />
-                  <label for="email1">Title</label>
+              <div class="col-md-6">
+                <div class="form-floating form-floating-outline">
+                  <input class="form-control" type="text" value="{{$item->agencies[0]->ialn}}"  name="ialn"  id="email1" placeholder="xxxxxx"/>
+                  <label for="lastName">Insurance Agency License Number</label>
                 </div>
               </div>
-              <div class="col-4">
-                <div class="form-floating form-floating-outline mb-3">
-                  <input type="text" class="form-control" value="{{$item->shippers[0]->nominal_capital}}"  name="nominal_capital"  id="email1" placeholder="example.com"
-                      />
-                  <label for="email1">Nominal Capital</label>
+              <div class="col-md-6">
+                <div class="form-floating form-floating-outline">
+                  <input class="form-control" type="text" value="{{$item->agencies[0]->suffix}}"  name="suffix"  id="email1" placeholder="ltd" />
+                  <label for="lastName">Suffix</label>
                 </div>
               </div>
-
-              <div class="col-4">
-                <div class="form-floating form-floating-outline mb-3">
-                  <input type="text" class="form-control" value="{{$item->shippers[0]->owner}}"  name="owner"  id="email1" placeholder="example.com"
-                      />
-                  <label for="email1">Owner</label>
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="form-floating form-floating-outline mb-3">
-                  <input type="text" class="form-control" value="{{$item->shippers[0]->industry}}"  name="industry"  id="email1" placeholder="example.com"
-                      />
-                  <label for="email1">Industry</label>
-                </div>
-              </div>
-
               <div class="col-md-6">
                 <div class="form-floating form-floating-outline">
                   <input
                     class="form-control"
                     type="text"
-                    value="{{$item->shippers[0]->websit}}"  name="websit"  id="email1" placeholder="example.com"/>
+                    value="{{$item->agencies[0]->websit}}"  name="websit"  id="email1" placeholder="example.com"/>
                   <label for="email">Company Website address:</label>
                 </div>
               </div>
-              <div class="col-6">
-                <div class="form-floating form-floating-outline mb-3">
-                  <input type="text" class="form-control" value="{{$item->shippers[0]->tax}}"  name="tax"  id="email1" placeholder="example.com"
-                      />
-                  <label for="email1">US Tax ID / Canadian Business Number</label>
-                </div>
-              </div>
               <div class="col-md-6">
                 <div class="form-floating form-floating-outline">
                   <input
                     type="text"
                     class="form-control"
-                    value="{{$item->shippers[0]->address}}"  name="Addss" id="Addss1" placeholder="" />
+                    value="{{$item->agencies[0]->address}}"  name="Addss" id="Addss1" placeholder="" />
                   <label for="organization">Address 1</label>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-floating form-floating-outline">
-                  <input type="text" class="form-control"   value="{{$item->shippers[0]->address2}}"  name="Addss2" id="Address21" placeholder=""  />
+                  <input type="text" class="form-control"   value="{{$item->agencies[0]->address2}}"  name="Addss2" id="Address21" placeholder=""  />
                   <label for="altemail1">Address 2</label>
                 </div>
               </div>
@@ -174,13 +144,13 @@ $navbarHideToggle = false;
 
               <div class="col-md-6">
                 <div class="form-floating form-floating-outline">
-                  <input class="form-control" type="text" value="{{$item->shippers[0]->state}}"  name="state" id="state1" placeholder=""  />
+                  <input class="form-control" type="text" value="{{$item->agencies[0]->state}}"  name="state" id="state1" placeholder=""  />
                   <label for="lastName">state</label>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-floating form-floating-outline">
-                  <input class="form-control" type="text" value="{{$item->shippers[0]->city}}"  name="city" id="city1" placeholder=""  />
+                  <input class="form-control" type="text" value="{{$item->agencies[0]->city}}"  name="city" id="city1" placeholder=""  />
                   <label for="lastName">city</label>
                 </div>
               </div>
@@ -189,7 +159,7 @@ $navbarHideToggle = false;
                   <input
                     class="form-control"
                     type="text"
-                    value="{{$item->shippers[0]->zip}}"  name="zip" id="zip1" placeholder=""/>
+                    value="{{$item->agencies[0]->zip}}"  name="zip" id="zip1" placeholder=""/>
                   <label for="email">zip</label>
                 </div>
               </div>
@@ -198,14 +168,14 @@ $navbarHideToggle = false;
                   <input
                     type="text"
                     class="form-control"
-                    value="{{$item->shippers[0]->address}}"  name="Addss" id="Addss1" placeholder="" />
+                    value="{{$item->agencies[0]->address}}"  name="Addss" id="Addss1" placeholder="" />
                   <label for="organization">Address 1</label>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-floating form-floating-outline">
-                  <input type="text" class="form-control"   value="{{$item->shippers[0]->address2}}"  name="Addss2" id="Address21" placeholder=""  />
+                  <input type="text" class="form-control"   value="{{$item->agencies[0]->address2}}"  name="Addss2" id="Address21" placeholder=""  />
                   <label for="altemail1">Address 2</label>
                 </div>
               </div>
@@ -250,7 +220,7 @@ $navbarHideToggle = false;
               </div>
 
             </div>
-            <button type="submit" id="update-password-btn" class="btn c-pass" style="margin-top: 1% !important; background-color:#00a2ff; color:#ffffff;" >
+            <button type="submit" id="update-password-btn" class="btn btn-danger c-pass" style="margin-top: 1% !important;" >
               Change Password
             </button>
             <div id="response-message"></div>
@@ -268,53 +238,53 @@ $navbarHideToggle = false;
 
 @push('body-scripts')
 <script>
-  $('#update-password-btn').on('click', function() {
-          var currentPassword = $('#current_password').val();
-          var newPassword = $('#new_password').val();
-          var newPasswordConfirmation = $('#new_password_confirmation').val();
+$('#update-password-btn').on('click', function() {
+        var currentPassword = $('#current_password').val();
+        var newPassword = $('#new_password').val();
+        var newPasswordConfirmation = $('#new_password_confirmation').val();
 
-          var formData = {
-              _token: '{{ csrf_token() }}',
-              password: currentPassword,
-              newpass: newPassword,
-              newpass_confirmation: newPasswordConfirmation
-          };
+        var formData = {
+            _token: '{{ csrf_token() }}',
+            password: currentPassword,
+            newpass: newPassword,
+            newpass_confirmation: newPasswordConfirmation
+        };
 
-          $.ajax({
-              url: '{{ route('password.update') }}',
-              type: 'POST',
-              data: formData,
-              success: function(response) {
-                if (response.status === 'success') {
-                      // Show a success message and redirect to the login page
-                      $('#response-message').html('<p style="color: green;">' + response.message + '</p>');
-                      setTimeout(function() {
-                          window.location.href = '{{ route('auth-login-basic') }}';  // Redirect to login page
-                      }, 2000); // Delay for 2 seconds before redirect
-                  }
-                  else {
-                      $('#response-message').html('<p style="color: red;">' + response.message + '</p>');
-                  }
-              },
-              error: function(xhr, status, error) {
-                  // Handle the validation or server error response
-                  var errors = xhr.responseJSON.errors;
-                  var errorMessage = '';
+        $.ajax({
+            url: '{{ route('password.update') }}',
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+              if (response.status === 'success') {
+                    // Show a success message and redirect to the login page
+                    $('#response-message').html('<p style="color: green;">' + response.message + '</p>');
+                    setTimeout(function() {
+                        window.location.href = '{{ route('auth-login-basic') }}';  // Redirect to login page
+                    }, 2000); // Delay for 2 seconds before redirect
+                }
+                else {
+                    $('#response-message').html('<p style="color: red;">' + response.message + '</p>');
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle the validation or server error response
+                var errors = xhr.responseJSON.errors;
+                var errorMessage = '';
 
-                  if (errors) {
-                      for (var key in errors) {
-                          if (errors.hasOwnProperty(key)) {
-                              errorMessage += '<p style="color: red;">' + errors[key][0] + '</p>';
-                          }
-                      }
-                  } else {
-                      // Fallback in case it's a different error
-                      errorMessage = '<p style="color: red;">' + xhr.responseJSON.message + '</p>';
-                  }
+                if (errors) {
+                    for (var key in errors) {
+                        if (errors.hasOwnProperty(key)) {
+                            errorMessage += '<p style="color: red;">' + errors[key][0] + '</p>';
+                        }
+                    }
+                } else {
+                    // Fallback in case it's a different error
+                    errorMessage = '<p style="color: red;">' + xhr.responseJSON.message + '</p>';
+                }
 
-                  $('#response-message').html(errorMessage);
-              }
-          });
-      });
-  </script>
+                $('#response-message').html(errorMessage);
+            }
+        });
+    });
+</script>
 @endpush
