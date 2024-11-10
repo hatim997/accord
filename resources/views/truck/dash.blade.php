@@ -387,53 +387,40 @@
             <div class="modal-dialog modal-xl">
               <div class="modal-content">
                 <div class="modal-header justify-content-center align-items-center">
-                  {{-- <h5 class="modal-title" id="exampleModalLabel">List of Inactive Shippers</h5> --}}
+
 
                 </div>
+
                 <div class="modal-body">
-
                   <div class="confirmation-container">
-                    <h1>Thank You! <span class="emoji"></span></h1>
-              
-                    <p class="info-text">Your request has been successfully submitted!</p>
+                      <h1>Thank You! <span class="emoji"></span></h1>
 
+                      <p class="info-text ">Your request has been successfully submitted!</p>
 
+                      @if($successData['orderTime'])
+                          <p class="time-placed">
+                              <span class="clock-icon">🕒</span> Time placed: {{ $successData['orderTime'] }}
+                          </p>
+                      @else
+                          <p class="time-placed text-start">Order time not available.</p>
+                      @endif
 
-                    @if($successData['orderTime'])
-                        <p class="time-placed">
-                            <span class="clock-icon">🕒</span> Time placed: {{ $successData['orderTime'] }}
-                        </p>
-                    @else
-                        <p class="time-placed">Order time not available.</p>
-                    @endif
+                      @if($successData['to'] && $successData['from'] && $successData['titel'] && $successData['status'])
+                          <p class="info-text text-start">
+                              <strong>To:</strong> {{ $successData['to'] }} <br>
+                              <strong>From:</strong> {{ $successData['from'] }} <br>
+                              <strong>Title:</strong> {{ $successData['titel'] }} <br>
+                              <strong>Status:</strong> {{ $successData['status'] }} <br>
+                              <strong>Order Time:</strong> {{ $successData['orderTime'] }}
+                          </p>
+                      @else
+                          <p class="info-text text-start">
+                              Request details are not available.
+                          </p>
+                      @endif
+                  </div>
+              </div>
 
-
-                    @if($successData['to'] && $successData['from'] && $successData['titel'] && $successData['status'])
-                    <p class="info-text">
-                        Request Details:
-                        <br>
-                        <strong>To:</strong> {{ $successData['to'] }} <br>
-                        <strong>From:</strong> {{ $successData['from'] }} <br>
-                        <strong>Title:</strong> {{ $successData['titel'] }} <br>
-                        <strong>Status:</strong> {{ $successData['status'] }} <br>
-                        <strong>Order Time:</strong> {{ $successData['orderTime'] }}
-                    </p>
-                @else
-                    <p class="info-text">
-                        Request details are not available.
-                    </p>
-                @endif
-
-
-
-
-
-                </div>
-
-
-
-
-                </div>
 
               </div>
             </div>
