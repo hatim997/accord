@@ -413,6 +413,7 @@ return back()->with($message);
   }
   public function add_sub (Request $request)
   {
+    // dd($request->all());
     Subscription_plan::create($request->all());
     $sub = Subscription_plan::all();
 
@@ -482,18 +483,35 @@ return back()->with($message);
 
   public function userview($id)
   {
-    $user = User::find($id);
+      // Retrieve the user and related data
+      $user = User::find($id);
 
-    $result = DB::table('wp_wc_orders')
-    ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
-    ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')  // You can select specific columns if needed
-    ->where('wp_wc_orders.billing_email', $user->email )  // Assuming you want to get a specific user with ID 1
-    ->first();
-    // dd($result);
+      $userviewlist = User::with(['subscription.subscriptionPlan', 'agencies', 'truckers', 'subscription', 'shippers', 'freights'])
+                          ->where('id', $id)
+                          ->get();
 
-    $userviewlist = User::with('truckers')->where('id', $id)->first();
-    // dd($userviewlist);
-    return view('uv', compact('userviewlist', 'result'));
+      // Retrieve the subscription with plan details
+      $subscription = Subscription::with('subscriptionPlan')->where('user_id', $id)->first();
+
+      // Initialize progress and days remaining
+      $progressPercentage = 0;
+      $daysRemaining = 0;
+
+      // Calculate the progress and days remaining if subscription exists
+      if ($subscription) {
+          $endDate = Carbon::parse($subscription->end_date);
+          $currentDate = Carbon::now();
+
+          // Check if end_date is in the current month
+          if ($endDate->year == $currentDate->year && $endDate->month == $currentDate->month) {
+              $daysInMonth = $endDate->daysInMonth;
+              $daysRemaining = $currentDate->diffInDays($endDate, false);
+              $progressPercentage = 100 - (($daysRemaining / $daysInMonth) * 100);
+              $daysRemaining = max(0, $daysRemaining); // Ensure days remaining doesn't go negative
+          }
+      }
+
+      return view('uv', compact('userviewlist', 'subscription', 'progressPercentage', 'daysRemaining'));
   }
 
   function userlist() {

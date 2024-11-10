@@ -1,7 +1,7 @@
 @extends('layouts/contentNavbarLayout')
 @section('title', ' Vertical Layouts - Forms')
 @section('content')
-   
+
     @php
         $isMenu = false;
         $navbarHideToggle = false;
@@ -15,10 +15,33 @@
           <div class=" d-flex align-items-center flex-column">
             <img class="img-fluid rounded mb-4" src="{{ asset('assets/img/logo.png') }}" height="120" width="120" alt="User avatar">
             <div class="user-info text-center">
-              @foreach($userviewlist->truckers as $item)
-              <h5>{{$item->name}}</h5>
+
+              @foreach($userviewlist as $item)
+                  @if($item->agencies && $item->agencies->isNotEmpty())
+                      <h5>{{ $item->agencies[0]->name }}</h5>
+                  @endif
+                  @if($item->truckers && $item->truckers->isNotEmpty())
+                      <h5>{{ $item->truckers[0]->name }}</h5>
+                  @endif
+                  @if($item->shippers && $item->shippers->isNotEmpty())
+                      <h5>{{ $item->shippers[0]->name }}</h5>
+                  @endif
+
               @endforeach
-              <span class="badge bg-label-danger rounded-pill">{{$userviewlist->role}}</span>
+
+              <span class="badge bg-label-danger rounded-pill">
+                @if ($item->role === 'agent')
+                Agency
+                @elseif($item->role === 'truck_driver')
+                    Carrier
+                @elseif($item->role === 'shipper')
+                    Shipper
+                @elseif($item->role === 'freight_driver')
+                    Broker
+                @else
+                    {{ $item->role }} <!-- This will show the role as is for any other role -->
+                @endif
+              </span>
             </div>
           </div>
         </div>
@@ -51,36 +74,52 @@
           <ul class="list-unstyled mb-6">
             <li class="mb-2">
               <span class="h6">Username:</span>
-              <span>{{$userviewlist->name}}</span>
+              <span>{{ $item->name }}</span>
             </li>
             <li class="mb-2">
               <span class="h6">Email:</span>
-              <span>{{$userviewlist->email}}</span>
+              <span>{{ $item->email }}</span>
             </li>
             <li class="mb-2">
               <span class="h6">Status:</span>
-              @if($userviewlist->status == 1)
+              @if($item->status == 1)
               <span class="badge bg-label-success rounded-pill">Active</span>
               @else
               <span class="badge bg-label-danger rounded-pill">InActive</span>
               @endif
-              
+
             </li>
             <li class="mb-2">
               <span class="h6">Role:</span>
-              <span>{{$userviewlist->role}}</span>
+              <span class="user-role">
+                @if ($item->role === 'agent')
+                    Agency
+                @elseif($item->role === 'truck_driver')
+                    Carrier
+                @elseif($item->role === 'shipper')
+                    Shipper
+                @elseif($item->role === 'freight_driver')
+                    Broker
+                @else
+                    {{ $item->role }} <!-- This will show the role as is for any other role -->
+                @endif
+            </span>
             </li>
             <li class="mb-2">
               <span class="h6">Tax id:</span>
-              @foreach($userviewlist->truckers as $item)
-              <span>{{$item->tax}}</span>
-              @endforeach
+              <span>dummy</span>
             </li>
             <li class="mb-2">
               <span class="h6">Contact:</span>
-              @foreach($userviewlist->truckers as $item)
-              <span>{{$item->fax}}</span>
-              @endforeach
+              @if ($item->role === 'agent')
+
+              <span>{{ $item->agencies[0]->cellphone }}</span>
+              @endif
+
+              @if ($item->role === 'truck_driver')
+
+              <span>{{ $item->truckers[0]->cellphone }}</span>
+              @endif
             </li>
             <!-- <li class="mb-2">
               <span class="h6">Languages:</span>
@@ -88,9 +127,18 @@
             </li> -->
             <li class="mb-2">
               <span class="h6">State-City-ZipCode:</span>
-              @foreach($userviewlist->truckers as $item)
-              <span>{{$item->state}}-{{$item->city}}-{{$item->zip}}</span>
-              @endforeach
+              @if($item->role === 'agent')
+                <span>{{$item->agencies[0]->state}}-{{$item->agencies[0]->city}}-{{$item->agencies[0]->zip}}</span>
+              @endif
+              @if($item->role === 'truck_driver')
+                <span>{{$item->truckers[0]->state}}-{{$item->truckers[0]->city}}-{{$item->truckers[0]->zip}}</span>
+              @endif
+              @if($item->role === 'shipper')
+                <span>{{$item->shippers[0]->state}}-{{$item->shippers[0]->city}}-{{$item->shippers[0]->zip}}</span>
+              @endif
+              @if($item->role === 'freight_driver')
+                <span>{{$item->freights[0]->state}}-{{$item->freights[0]->city}}-{{$item->freights[0]->zip}}</span>
+              @endif
             </li>
           </ul>
           <div class="d-flex justify-content-center">
@@ -103,35 +151,44 @@
     <!-- /User Card -->
     <!-- Plan Card -->
 <br>
-    <div class=" card mb-6 border border-2 border-primary rounded">
-      <div class="card-body">
+
+@if ($subscription && $subscription->subscriptionPlan)
+<div class="card mb-6 border border-2 border-primary rounded">
+    <div class="card-body">
         <div class="d-flex justify-content-between align-items-start">
-          <span class="badge bg-label-primary rounded-pill">{{$result->order_item_name ?? 'NULL'}}</span>
-          <div class="d-flex justify-content-center">
-            <sub class="h5 pricing-currency mb-auto mt-1 text-primary">$</sub>
-            <h1 class="mb-0 text-primary">{{ round($result->total_amount, 2) }}</h1>
-            <sub class="h6 pricing-duration mt-auto mb-3 fw-normal">month</sub>
-          </div>
+            <span class="badge bg-label-primary rounded-pill">{{ $subscription->subscriptionPlan->name }}</span>
+            <div class="d-flex justify-content-center">
+                <sub class="h5 pricing-currency mb-auto mt-1 text-primary">$</sub>
+                <h1 class="mb-0 text-primary">{{ $subscription->subscriptionPlan->price }}</h1>
+                <sub class="h6 pricing-duration mt-auto mb-3 fw-normal">month</sub>
+            </div>
         </div>
-        
+
         <ul class="list-unstyled g-2 my-6">
-          <li class="mb-2 d-flex align-items-center"><i class="mdi mdi-check-all mdi-10px text-body me-2"></i><span>10 Users</span></li>
-          <li class="mb-2 d-flex align-items-center"><i class="mdi mdi-check-all mdi-10px text-body me-2"></i><span>Up to 10 GB storage</span></li>
-          <li class="mb-2 d-flex align-items-center"><i class="mdi mdi-check-all mdi-10px text-body me-2"></i><span>Basic Support</span></li>
+            <li class="mb-2 d-flex align-items-center"><i class="mdi mdi-check-all mdi-10px text-body me-2"></i><span><strong> Duration</strong>: {{ $subscription->subscriptionPlan->duration }}</span></li>
+            <li class="mb-2 d-flex align-items-center"><i class="mdi mdi-check-all mdi-10px text-body me-2"></i><span><strong>Description</strong>: {{ $subscription->subscriptionPlan->description }}</span></li>
+            <li class="mb-2 d-flex align-items-center"><i class="mdi mdi-check-all mdi-10px text-body me-2"></i><span><strong>Extra Detail</strong>: {{ $subscription->subscriptionPlan->exdetail }}</span></li>
         </ul>
+
         <div class="d-flex justify-content-between align-items-center mb-1">
-          <span class="h6 mb-0">Days</span>
-          <span class="h6 mb-0">65%</span>
+            <span class="h6 mb-0">Days</span>
+            <span class="h6 mb-0">{{ round($progressPercentage) }}%</span>
         </div>
+
         <div class="progress mb-1 rounded" style="height: 6px;">
-          <div class="progress-bar rounded" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar rounded" role="progressbar" style="width: {{ round($progressPercentage) }}%;" aria-valuenow="{{ round($progressPercentage) }}" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
-        <small>4 days remaining</small>
+
+        <small>{{ $daysRemaining }} days remaining</small>
         <div class="d-grid w-100 mt-6">
-          <button class="btn btn-primary waves-effect waves-light" data-bs-target="#upgradePlanModal" data-bs-toggle="modal">Upgrade Plan</button>
+            <button class="btn btn-primary waves-effect waves-light" data-bs-target="#upgradePlanModal" data-bs-toggle="modal">Upgrade Plan</button>
         </div>
-      </div>
     </div>
+</div>
+@else
+<p class="text-danger">No subscription plan found for this user.</p>
+@endif
+
     <!-- /Plan Card -->
   </div>
 
@@ -237,7 +294,7 @@
       </div>
 </div></div>
 
-   
+
 
 
 

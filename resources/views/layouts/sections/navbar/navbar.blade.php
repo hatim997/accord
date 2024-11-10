@@ -467,7 +467,8 @@ margin-top: 1.7rem;
             <a class="btn btn-light" href="{{ route('sub') }}" >Subscription Plans</a>
         </li>
         <li>
-            <a class="btn btn-light" href="{{ route('dashuser') }}">Users</a>
+            {{-- <a class="btn btn-light" href="{{ route('dashuser') }}">Users</a> --}}
+            <a class="btn btn-light" href="{{ route('user.list') }}">Users</a>
         </li>
         <li>
             <a class="btn btn-light" href="{{ route('dash_cert') }}">Certificate</a>
@@ -481,12 +482,13 @@ margin-top: 1.7rem;
         <li>
             <a class="btn btn-light" href="{{ route('getagency') }}">Agency</a>
           </li>
-          <li type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">   <a class="btn btn-light" >user DUMMY </a></li>
+          {{-- <li type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">   <a class="btn btn-light" >user DUMMY </a></li> --}}
           <ul class="dropdown-menu">
             {{--<li><a class="dropdown-item" href="{{ route('user.view') }}"> user profile DUMMY</a></li>--}}
-            <li>
+            {{-- <li>
               <hr class="dropdown-divider">
-            </li> <li><a class="dropdown-item" href="{{ route('user.list') }}">  user lIST DUMMY</a></li>
+            </li> --}}
+            {{-- <li><a class="dropdown-item" href="{{ route('user.list') }}">  user lIST DUMMY</a></li> --}}
             </ul>
 
 
