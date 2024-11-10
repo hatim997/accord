@@ -291,6 +291,7 @@
                                         @endif
                                     </span>
                                 </td>
+
                                 <td><span class="user-rememberToken">{{ $item->rememberToken }}</span></td>
                                 <td>
                                     @if ($item->status == 1)
@@ -317,10 +318,19 @@
                                                 <path
                                                     d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" />
                                             </svg></button>
-                                        <div class="dropdown-menu dropdown-menu-end m-0">
-                                            <a href="{{ route('user.view', $item->id) }}" class="dropdown-item">View</a>
-                                            <a href="javascript:;" class="dropdown-item">Suspend</a>
-                                        </div>
+
+                                            <div class="dropdown-menu dropdown-menu-end m-0">
+                                              <a href="{{ route('user.view', $item->id) }}" class="dropdown-item">View</a>
+                                              @if ($item->status == '0')
+                            <a href="{{ route('active' , ['id' => $item->id]) }} " class="dropdown-item">Active</a>
+                            @else
+                            <a href="{{ route('deactive', ['id' => $item->id]) }}" class="dropdown-item">InActive</a>
+                            @endif
+
+
+                                          </div>
+
+
                                     </div>
                                 </td>
                             </tr>
@@ -331,8 +341,6 @@
                 </table>
             </div>
         </div>
-
-
 
 
 

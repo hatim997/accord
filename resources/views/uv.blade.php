@@ -6,6 +6,19 @@
         $isMenu = false;
         $navbarHideToggle = false;
     @endphp
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="row">
 <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
     <!-- User Card -->
@@ -136,13 +149,14 @@
               @if($item->role === 'shipper')
                 <span>{{$item->shippers[0]->state}}-{{$item->shippers[0]->city}}-{{$item->shippers[0]->zip}}</span>
               @endif
-              @if($item->role === 'freight_driver')
-                <span>{{$item->freights[0]->state}}-{{$item->freights[0]->city}}-{{$item->freights[0]->zip}}</span>
-              @endif
+              @if($item->role === 'freight_driver' && $item->freights && $item->freights->isNotEmpty())
+              <span>{{ $item->freights[0]->state }} - {{ $item->freights[0]->city }} - {{ $item->freights[0]->zip }}</span>
+          @endif
+
             </li>
           </ul>
           <div class="d-flex justify-content-center">
-            <a href="javascript:;" class="btn btn-primary me-4 waves-effect waves-light" data-bs-target="#editUser" data-bs-toggle="modal">Edit</a>
+            <a href="{{route('edit_user', $item->id)}}" class="btn btn-primary me-4 waves-effect waves-light" >Edit</a>
             <a href="javascript:;" class="btn btn-outline-danger suspend-user waves-effect">Suspend</a>
           </div>
         </div>
@@ -189,7 +203,7 @@
 <p class="text-danger">No subscription plan found for this user.</p>
 @endif
 
-    
+
   </div>
 
 <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">

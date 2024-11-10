@@ -87,10 +87,13 @@ Route::get('/loc/{id}', [AdminController::class, 'showRequestDetails'])->name('l
 
   Route::get('/admin/user-view/{id}', [AdminController::class, 'userview'])->name('user.view');
   Route::get('/admin/user-list', [AdminController::class, 'userlist'])->name('user.list');
+    
+
   // Route::post('/admin/filter-users', [AdminController::class, 'filterUsers'])->name('filterUsers');
 });
 
 Route::post('/mark-read/{id}', [AdminController::class, 'markAsRead'])->name('mark-read');
+
 
 Livewire::setScriptRoute(function ($handle) {
   return Route::get('/public/livewire/livewire.js', $handle);
@@ -257,7 +260,7 @@ Route::group(['middleware' => 'checkRole:freight_driver'], function () {
   Route::post('/store-shipp', [FreightController::class, 'addshipper'])->name('store.shipper');
   Route::post('/short-add', [FreightController::class, 'shortaddshipper'])->name('short.shipper');
   Route::post('/store-driverr', [FreightController::class, 'storeDriverr'])->name('store.driverr');
-  Route::get('/profile-freight', [FreightController::class, 'profiles'])->name('profile.freight');
+Route::get('/profile-freight', [FreightController::class, 'profiles'])->name('profile.freight');
   Route::post('/profile/updat', [FreightController::class, 'proupd'])->name('freight.proupd');
 
 

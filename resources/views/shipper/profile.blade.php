@@ -221,22 +221,7 @@ $user = request()->user();
                   <label for="email">zip</label>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-floating form-floating-outline">
-                  <input
-                    type="text"
-                    class="form-control"
-                    value="{{$item->shippers[0]->address}}"  name="Addss" id="Addss1" placeholder="" />
-                  <label for="organization">Address 1</label>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="form-floating form-floating-outline">
-                  <input type="text" class="form-control"   value="{{$item->shippers[0]->address2}}"  name="Addss2" id="Address21" placeholder=""  />
-                  <label for="altemail1">Address 2</label>
-                </div>
-              </div>
+         
 
 
 
