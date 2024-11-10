@@ -165,6 +165,8 @@ Route::get('/mrun', function () {
 
 Route::group(['middleware' => 'checkRole:agent'], function () {
   Route::get('/profile-agency', [ac::class, 'agentprofiles'])->name('profile.agency');
+  Route::get('/billing-agency', [ac::class, 'billinguser'])->name('billing.agency');
+
   Route::get('/login-agency', [AuthController::class, 'loginWordPress'])->name('login.agency');
   Route::get('/login-wordpress', [AuthController::class, 'loginWordPresss'])->name('login.wordpress');
   Route::get('/formlist', [ac::class, 'formlist'])->name('formlist');

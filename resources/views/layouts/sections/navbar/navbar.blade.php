@@ -340,7 +340,7 @@ color: #fff !important;
                       @if ($user->role == "agent")
                       <a href="{{ route('profile.agency')}}" class="stretched-link">User info </a>
                       @elseif ($user->role == "truck_driver")
-                      <a href="{{ route('profile.truck')}}" class="stretched-link">User info </a>
+                      <a href="{{ route('profile.agency')}}" class="stretched-link">User info </a>
                       @elseif ($user->role == "shipper")
                       <a href="{{ route('profile.shipper')}}" class="stretched-link">User info </a>
                       @elseif ($user->role == "freight_driver")
