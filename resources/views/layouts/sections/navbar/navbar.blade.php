@@ -333,14 +333,14 @@ color: #fff !important;
                 </div>
                 <div class="dropdown-shortcuts-list scrollable-container">
                   <div class="row row-bordered overflow-visible g-0">
-                    <div class="dropdown-shortcuts-item col">
+                    <div class="dropdown-shortcuts-item col ">
                       <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                         <i class="mdi mdi-account-outline  mdi-26px text-heading"></i>
                       </span>
                       @if ($user->role == "agent")
                       <a href="{{ route('profile.agency')}}" class="stretched-link">User info </a>
                       @elseif ($user->role == "truck_driver")
-                      <a href="{{ route('profile.agency')}}" class="stretched-link">User info </a>
+                      <a href="{{ route('profile.truck')}}" class="stretched-link">User info </a>
                       @elseif ($user->role == "shipper")
                       <a href="{{ route('profile.shipper')}}" class="stretched-link">User info </a>
                       @elseif ($user->role == "freight_driver")
@@ -348,21 +348,16 @@ color: #fff !important;
                       @else
                       <a href="" class="stretched-link">User info </a>
                       @endif
-
-                      {{-- <small>Appointments</small> --}}
                     </div>
+
                     <div class="dropdown-shortcuts-item col">
                       <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                         <i class="mdi mdi-format-align-bottom mdi-26px text-heading"></i>
                       </span>
-                      @php
-                      $emails = Session::get('plans');
-                  @endphp
-  @if($emails =='free')
-  <a  class="stretched-link"> NO Billing</a>
-  @else
-  <a href="https://insur.dboss.pk/wp/my-account/orders/" class="stretched-link"> Billing</a>
-  @endif
+
+
+  <a href="{{ route('billing.agency')}}" class="stretched-link"> Billing</a>
+
 
 
                       {{-- <small>Manage Accounts</small> --}}
@@ -373,27 +368,12 @@ color: #fff !important;
                       <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                         <i class="mdi mdi-monitor mdi-26px text-heading"></i>
                       </span>
-                      @php
-                      $order_id = Session::get('order_id');
-
-                  @endphp
-  @if($emails =='free')
 
 
-  <a class="stretched-link"> Subscription Plan</a>
+            <a href="{{ route('plan.agency', ['id' => Auth::user()->id]) }}" class="stretched-link"> Subscription Plan</a>
 
 
-                  <small>
 
-                          {{ $emails }}  <!-- Directly output the email -->
-                      @else
-            <a href="https://insur.dboss.pk/wp/my-account/view-order/{{$order_id}}" class="stretched-link"> Subscription Plan</a>
-
-                      <small>
-
-                          <!-- Optionally add some message or leave empty -->
-                          {{ $emails }}
-                      @endif
                   </small>
                     </div>
                     <div class="dropdown-shortcuts-item col">

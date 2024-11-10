@@ -189,7 +189,7 @@
 <p class="text-danger">No subscription plan found for this user.</p>
 @endif
 
-    <!-- /Plan Card -->
+    
   </div>
 
 <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">

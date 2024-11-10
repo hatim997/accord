@@ -99,6 +99,38 @@ return $certificates ;
 
    return view('agent.profile' , compact('driverdetail'));
   }
+  public function userplan($id)
+  {
+      // Retrieve the user and related data
+      $user = User::find($id);
+
+      $userviewlist = User::with(['subscription.subscriptionPlan', 'agencies', 'truckers', 'subscription', 'shippers', 'freights'])
+                          ->where('id', $id)
+                          ->get();
+
+      // Retrieve the subscription with plan details
+      $subscription = Subscription::with('subscriptionPlan')->where('user_id', $id)->first();
+
+      // Initialize progress and days remaining
+      $progressPercentage = 0;
+      $daysRemaining = 0;
+
+      // Calculate the progress and days remaining if subscription exists
+      if ($subscription) {
+          $endDate = Carbon::parse($subscription->end_date);
+          $currentDate = Carbon::now();
+
+          // Check if end_date is in the current month
+          if ($endDate->year == $currentDate->year && $endDate->month == $currentDate->month) {
+              $daysInMonth = $endDate->daysInMonth;
+              $daysRemaining = $currentDate->diffInDays($endDate, false);
+              $progressPercentage = 100 - (($daysRemaining / $daysInMonth) * 100);
+              $daysRemaining = max(0, $daysRemaining); // Ensure days remaining doesn't go negative
+          }
+      }
+
+      return view('agent.plan', compact('userviewlist', 'subscription', 'progressPercentage', 'daysRemaining'));
+  }
   public function billinguser()
   {
       $userId = Auth::user()->id;
@@ -137,7 +169,6 @@ return $certificates ;
 
       return view('agent.billing', compact('billing'));
   }
-
   public function proupd(Request $request)
   {
     $userId = Auth::user()->id;
