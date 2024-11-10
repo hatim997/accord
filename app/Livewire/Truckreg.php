@@ -11,6 +11,7 @@ use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Mail;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 class Truckreg extends Component
 {
     use WithFileUploads;
@@ -156,7 +157,7 @@ class Truckreg extends Component
                 'user_activation_key'	 => "agent",
                 'user_status' => 1,
                 'display_name' =>  $this->fname,
-              ]);   
+              ]);
              $lastInsertedId = $user->id;
 
             DriverDetail::create([
@@ -192,11 +193,11 @@ class Truckreg extends Component
                 'fname' => $this->fname,
                 'mc_number' => $this->mc_number,
                 'is_active' => "2",
-               
+
             ]);
 
             $data = [
-               
+
                 'code' => 'MC' . $randomNumber,
             ];
             $code ='MC' . $randomNumber;
@@ -220,13 +221,13 @@ class Truckreg extends Component
                 $message->to($admin->email, $admin->name)
                         ->subject('Registration Confirmation - Name: ' . $this->name . ' Code Is: ' . $code);
             });
-            
+
             Notice::create([
                 'to' => $lastInsertedId,
                 'from' => $lastInsertedId,
                 'name' => "you have new registering" .$this->name." ,Trucker pls check",
               ]);
-    
+
             Notice::create([
                 'to' => $lastInsertedId,
                 'from' => $lastInsertedId,
