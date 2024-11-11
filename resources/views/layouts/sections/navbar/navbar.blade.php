@@ -310,6 +310,11 @@ color: #fff !important;
 
         </li>
         <!-- User -->
+        @php
+       $user = request()->user();
+        @endphp
+
+
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
             <a class="nav-link m-5" id="dropdownButton">
                 <div class="avatar avatar-online">
@@ -323,6 +328,7 @@ color: #fff !important;
                 </div>
                 </div>
             </a>
+            @if ($user->role == "agent" || $user->role == "truck_driver" || $user->role == "shipper" || $user->role == "freight_driver" )
             <div class="dropdown-menu py-0" id="dropdownMenu" >
                 <div class="dropdown-menu-header border-bottom py-50">
                   <div class="dropdown-header d-flex align-items-center py-2">
@@ -332,7 +338,7 @@ color: #fff !important;
                   </div>
                 </div>
                 <div class="dropdown-shortcuts-list scrollable-container">
-                  <div class="row row-bordered overflow-visible g-0">
+                  <div class="row row-bordered overflow-visible g-0 mt-3">
                     <div class="dropdown-shortcuts-item col ">
                       <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                         <i class="mdi mdi-account-outline  mdi-26px text-heading"></i>
@@ -360,10 +366,10 @@ color: #fff !important;
 
 
 
-                      {{-- <small>Manage Accounts</small> --}}
+
                     </div>
                   </div>
-                  <div class="row row-bordered overflow-visible g-0">
+                  <div class="row row-bordered overflow-visible g-0 mt-3">
                     <div class="dropdown-shortcuts-item col">
                       <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                         <i class="mdi mdi-monitor mdi-26px text-heading"></i>
@@ -388,6 +394,12 @@ color: #fff !important;
               </div>
 
         </li>
+
+
+@endif
+
+
+
         <!--/ User -->
         <li class="nav-item  mx-3">
             <a class="dropdown-item" href="{{ route('logout') }}">
@@ -551,7 +563,12 @@ $data = App\Models\Subscription_plan::where('id', '!=', 1)->get();
     $userId = auth()->user()->id;
     $subscriptionPlans = App\Models\Subscription_plan::all(); // Assuming this retrieves all subscription plans
 @endphp
-<!-- Upgrade -->
+@php
+
+    $userRole = auth()->user()->role;
+@endphp
+
+<!-- Upgrade Modal -->
 <div class="modal fade" id="upgradeModal" tabindex="-1" aria-labelledby="upgradeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -570,35 +587,33 @@ $data = App\Models\Subscription_plan::where('id', '!=', 1)->get();
 
               <div class="pricing-list grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach ($data as $item)
-                <div class="pricing-item p-4 rounded shadow">
-                  <div class="pricing-content text-center">
-                    <h3 class="pricing-title">{{ $item->name }}</h3>
-                    <p class="pricing-amount">${{ $item->price }} {{ $item->duration }}</p>
-                    <p class="pricing-description">{{ $item->exdetail }}</p>
-                    <hr class="my-4">
-                    <ul class="pricing-features list-unstyled">
-                      @php
-                      $features = explode(",", $item->description);
-                      @endphp
-                      @foreach($features as $feature)
-                      <li class="feature-item">
-                        <i class="fa-solid fa-star"></i> {{ $feature }}
-                      </li>
-                      @endforeach
-                    </ul>
-                    @php
-                        $data = App\Models\Subscription_plan::all();
-                        $userId = auth()->user()->id;
-                    @endphp
-                    <form method="POST" action="{{ route('add_to_cart') }}">
-                      @csrf
-                      <input type="hidden" name="sub_id" value="{{ $item->id }}">
-                      <input type="hidden" name="upgrade_id" value="{{ $item->upgrade_id }}"> <!-- Pass the upgrade ID here -->
-                      <button type="submit" class="btn btn-success w-100 mt-3">Purchase Now</button>
-                  </form>
-
-                  </div>
-                </div>
+                    <!-- Show plan only if it's available for the current user's role -->
+                    @if(in_array($userRole, explode(',', $item->role)))
+                        <div class="pricing-item p-4 rounded shadow">
+                          <div class="pricing-content text-center">
+                            <h3 class="pricing-title">{{ $item->name }}</h3>
+                            <p class="pricing-amount">${{ $item->price }} {{ $item->duration }}</p>
+                            <p class="pricing-description">{{ $item->exdetail }}</p>
+                            <hr class="my-4">
+                            <ul class="pricing-features list-unstyled">
+                              @php
+                                $features = explode(",", $item->description);
+                              @endphp
+                              @foreach($features as $feature)
+                                <li class="feature-item">
+                                  <i class="fa-solid fa-star"></i> {{ $feature }}
+                                </li>
+                              @endforeach
+                            </ul>
+                            <form method="POST" action="{{ route('add_to_cart') }}">
+                              @csrf
+                              <input type="hidden" name="sub_id" value="{{ $item->id }}">
+                              <input type="hidden" name="upgrade_id" value="{{ $item->upgrade_id }}"> <!-- Pass the upgrade ID here -->
+                              <button type="submit" class="btn btn-success w-100 mt-3">Purchase Now</button>
+                            </form>
+                          </div>
+                        </div>
+                    @endif
                 @endforeach
               </div>
             </div>

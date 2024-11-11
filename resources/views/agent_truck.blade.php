@@ -8,14 +8,61 @@ $navbarHideToggle = false;
 <link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/css/datatables-Cl.css') }}" />
 <style>
-thead, tbody, tfoot, tr, td, th {
-    /* border-style: hidden !important; */
+  .disabled-link {
+      color: gray;
+      pointer-events: none;
+      cursor: not-allowed;
+      text-decoration: none;
   }
-.focus {
-  border-radius: 7px;
-  background-color: #f1f1f1; /* Highlight color */
-  border: 1px solid #add5ff; /* Optional: Add a border */
+  .card .table{
+    text-align: center;
+  }
+
+  .custom-button {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 15px;
+      border-radius: 30px;
+      color: black !important;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.2s;
+      border: none;
+      font-size: 16px;
+      position: relative;
+  }
+
+  .custom-name {
+      color: black !important;
+      font-weight: bold;
+      text-decoration: none;
+      border: none;
+      font-size: 16px;
+
+  }
+
+  .btn-primary {
+background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);
+border: none !important;
+border-radius: 10px !important;
+color: white;
+font-weight: bold; /* Bold text */
 }
+
+input, textarea, button {
+padding: 10px 15px;
+border-radius: 5px;
+margin: 10px 0; /* Space between fields */
+box-sizing: border-box;
+border: 1px solid #ccc;
+font-size: 16px; /* Slightly smaller font */
+transition: border-color 0.3s;
+}
+.form-heading{
+font-weight: bold !important;
+}
+
+
 </style>
 @endpush
 @section('content')
@@ -41,7 +88,7 @@ thead, tbody, tfoot, tr, td, th {
 
     <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
+        <div class="modal-content container">
 
           <form id="AddForm">
 
@@ -181,48 +228,70 @@ thead, tbody, tfoot, tr, td, th {
 
 
 
-    <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Agent-Trucker List </h5>
-        <div class=" d-flex justify-content-right align-items-center demo-inline-spacing">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter">
-         + ADD
-          </button>
+
+
+    <div class="row  justify-content-center mb-4">
+
+      <div class="col-md-10 col-lg-10">
+        <div class="card-header d-flex justify-content-between align-items-center mb-3">
+          <div class="d-flex justify-content-center align-items-center ">
+            <div class="text-center">
+                <h4 class="mb-0 py-4  fw-bold">Agent-Trucker List</h4>
+            </div>
+        </div>
+
+          <div >
+              <button type="button" id="saveButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter"> + ADD</button>
+          </div>
+      </div>
+
+          <div class="row gy-4">
+
+
+
+
+              <div class="col-12">
+                  <div class="card">
+                      <div class="table-responsive">
+                          <table class="table " id="contact-list">
+                              <thead>
+                                  <tr style="background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);">
+                                    <th>Agent Name</th>
+                                      <th>Trucker Name</th>
+
+                                  </tr>
+                              </thead>
+                              <tbody class="table-border-bottom-0 ">
+                                @foreach ($agent_trucker as $at)
+                                      <tr>
+
+                                          <td>
+                                              <a  target="blank" class="custom-button eye-c">
+                                                {{$at->agent->name}}
+                                              </a>
+                                          </td>
+                                          <td>
+                                            <a  target="blank" class="custom-button eye-c">
+                                              {{$at->driver->name}}
+                                            </a>
+                                        </td>
+
+                                      </tr>
+                                  @endforeach
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+              <!--/ Data Tables -->
+          </div>
       </div>
     </div>
 
-      <div class="table-responsive text-nowrap">
-        <table class="table dataTable collapsed chat-contact-list" id="contact-list" style="width: 1193px;">
-         <thead class="table-light">
-            <tr>
-              <th class="">Agent Name</th>
-              <th class="">Trucker Name</th>
-            </tr>
-          </thead>
-          <tbody>
-             @foreach ($agent_trucker as $at)
-             <tr class="parent">
 
-              <td>
-                <div class="d-flex align-items-center">
-                  <div>
-                    <h6 class="mb-0 "> {{$at->agent->name}}</h6>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div>
-                    <h6 class="mb-0 "> {{$at->driver->name}}</h6>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
-        </table>
-      </div>
-    </div>
+
+
+  </div>
     <!--/ Striped Rows -->
   </div>
 </div>

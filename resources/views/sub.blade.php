@@ -25,6 +25,26 @@
             border: 1px solid #add5ff;
             /* Optional: Add a border */
         }
+        .btn-primary {
+background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);
+border: none !important;
+border-radius: 10px !important;
+color: white;
+font-weight: bold; /* Bold text */
+}
+
+input, textarea, button {
+padding: 10px 15px;
+border-radius: 5px;
+margin: 10px 0; /* Space between fields */
+box-sizing: border-box;
+border: 1px solid #ccc;
+font-size: 16px; /* Slightly smaller font */
+transition: border-color 0.3s;
+}
+.form-heading{
+font-weight: bold !important;
+}
     </style>
 @endpush
 
@@ -51,7 +71,7 @@
 
             <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                    <div class="modal-content">
+                    <div class="modal-content container">
 
                         <form id="AddForm">
 
@@ -235,62 +255,104 @@
 
 
 
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Plans List </h5>
-                <div class=" d-flex justify-content-right align-items-center demo-inline-spacing">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter">
-                        + ADD
-                    </button>
 
+
+
+        <div class="row  justify-content-center mb-4">
+
+          <div class="col-md-10 col-lg-10">
+            <div class="card-header d-flex justify-content-between align-items-center mb-3">
+              <div class="d-flex justify-content-center align-items-center ">
+                <div class="text-center">
+                    <h4 class="mb-0 py-4  fw-bold">Plans List</h4>
                 </div>
             </div>
 
-            <div class="table-responsive text-nowrap">
-                <table class="table dataTable collapsed chat-contact-list" id="contact-list">
-                    <thead class="table-light">
-                        <tr>
-                            <th class="">Role</th>
-                            <th class="">name</th>
-                            <th class="">duration</th>
-                            <th class="">price</th>
-                            <th class="">Actions</th>
+              <div >
+                  <button type="button" id="saveButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter"> + ADD</button>
+              </div>
+          </div>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($sub as $subs)
-                            <tr class="parent">
-                                <td>{{ $subs->role }}</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
+              <div class="row gy-4">
 
-                                        <div>
-                                            <h6 class="mb-0 "> {{ $subs->name }}</h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="">{{ $subs->price }}</td>
-                                <td class="">{{ $subs->duration }}</td>
 
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" onclick="openEditModal({{ $subs }})"><i
-                                                    class="mdi mdi-pencil-outline me-1"></i> Edit</a>
-                                            {{-- <a class="dropdown-item" href="javascript:void(0);"><i class="mdi mdi-trash-can-outline me-1"></i> Delete</a> --}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+
+
+                  <div class="col-12">
+                      <div class="card">
+                          <div class="table-responsive">
+                              <table class="table " id="contact-list">
+                                  <thead>
+                                      <tr style="background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);">
+                                        <th>Role</th>
+                                        <th>Name</th>
+                                        <th>Duration</th>
+                                        <th>Price</th>
+                                        <th>Actions</th>
+
+                                      </tr>
+                                  </thead>
+                                  <tbody class="table-border-bottom-0 ">
+                                    @foreach ($sub as $subs)
+                                          <tr>
+
+                                              <td>
+                                                  <a  target="blank" class="custom-button eye-c">
+                                                    {{ $subs->role }}
+                                                  </a>
+                                              </td>
+
+                                              <td>
+                                                <a  target="blank" class="custom-button eye-c">
+                                                  {{ $subs->name }}
+                                                </a>
+                                            </td>
+
+
+                                            <td>
+                                              <a  target="blank" class="custom-button eye-c">
+                                                {{ $subs->price }}
+                                              </a>
+                                          </td>
+
+
+                                          <td>
+                                            <a  target="blank" class="custom-button eye-c">
+                                              {{ $subs->duration }}
+                                            </a>
+                                        </td>
+
+
+                                        <td>
+                                          <div class="dropdown">
+                                              <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                  data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></button>
+                                              <div class="dropdown-menu">
+                                                  <a class="dropdown-item" onclick="openEditModal({{ $subs }})"><i
+                                                          class="mdi mdi-pencil-outline me-1"></i> Edit</a>
+                                                  {{-- <a class="dropdown-item" href="javascript:void(0);"><i class="mdi mdi-trash-can-outline me-1"></i> Delete</a> --}}
+                                              </div>
+                                          </div>
+                                      </td>
+
+
+                                          </tr>
+                                      @endforeach
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+                  <!--/ Data Tables -->
+              </div>
+          </div>
         </div>
-        <!--/ Striped Rows -->
+
+
+
+
+
+
     </div>
     </div>
 

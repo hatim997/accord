@@ -514,78 +514,79 @@ return back()->with($message);
       return view('uv', compact('userviewlist', 'subscription', 'progressPercentage', 'daysRemaining'));
   }
 
-  function userlist() {
-    $currentWeekUsers = User::where('role', '!=', 'admin')
-        ->whereHas('subscription', function ($query) {
-            $query->where('start_date', '>=', Carbon::now()->startOfWeek())
-                  ->where('end_date', '>=', Carbon::now());
-        })
-        ->with('subscription')
-        ->get();
+    function userlist() {
+      $currentWeekUsers = User::where('role', '!=', 'admin')
+          ->whereHas('subscription', function ($query) {
+              $query->where('start_date', '>=', Carbon::now()->startOfWeek())
+                    ->where('end_date', '>=', Carbon::now());
+          })
+          ->with('subscription')
+          ->get();
 
-    $totalUsers = User::where('role', '!=', 'admin')->count();
-    $percentageChange = $totalUsers > 0 ? round(($currentWeekUsers->count() / $totalUsers) * 100, 2) : 0;
+      $totalUsers = User::where('role', '!=', 'admin')->count();
+      $percentageChange = $totalUsers > 0 ? round(($currentWeekUsers->count() / $totalUsers) * 100, 2) : 0;
 
-    // Get current month users Active
-    $currentMonthUsers = User::where('role', '!=', 'admin')->where('status', 1)
-        ->whereHas('subscription', function ($query) {
-            $query->where('start_date', '>=', Carbon::now()->startOfMonth())
-                  ->where('end_date', '>=', Carbon::now());
-        })
-        ->with('subscription')
-        ->get();
-        // dd($currentMonthUsers->toArray());
+      // Get current month users Active
+      $currentMonthUsers = User::where('role', '!=', 'admin')->where('status', 1)
+          ->whereHas('subscription', function ($query) {
+              $query->where('start_date', '>=', Carbon::now()->startOfMonth())
+                    ->where('end_date', '>=', Carbon::now());
+          })
+          ->with('subscription')
+          ->get();
+          // dd($currentMonthUsers->toArray());
 
-    $totalUsers = User::where('role', '!=', 'admin')->where('status', 1)->count();
+      $totalUsers = User::where('role', '!=', 'admin')->where('status', 1)->count();
 
-    $monthPercentageChange = $totalUsers > 0 ? round(($currentMonthUsers->count() / $totalUsers) * 100, 2) : 0;
-
-
-    // Get current month users InActive
-    $currentMonthUsersIn = User::where('role', '!=', 'admin')->where('status', 0)
-        ->whereHas('subscription', function ($query) {
-            $query->where('start_date', '>=', Carbon::now()->startOfMonth())
-                  ->where('end_date', '>=', Carbon::now());
-        })
-        ->with('subscription')
-        ->get();
-        // dd($currentMonthUsersIn);
-
-    $totalUsers = User::where('role', '!=', 'admin')->where('status', 0)->count();
-
-    $monthPercentageChangeIn = $totalUsers > 0 ? round(($currentMonthUsersIn->count() / $totalUsers) * 100, 2) : 0;
+      $monthPercentageChange = $totalUsers > 0 ? round(($currentMonthUsers->count() / $totalUsers) * 100, 2) : 0;
 
 
-    $Paidresult = DB::table('wp_wc_orders')
-        ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
-        ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')
-        ->get();
+      // Get current month users InActive
+      $currentMonthUsersIn = User::where('role', '!=', 'admin')->where('status', 0)
+          ->whereHas('subscription', function ($query) {
+              $query->where('start_date', '>=', Carbon::now()->startOfMonth())
+                    ->where('end_date', '>=', Carbon::now());
+          })
+          ->with('subscription')
+          ->get();
+          // dd($currentMonthUsersIn);
 
-    // Step 1: Count registrations per month
-    $monthlyCounts = [];
-    $totalRegistrations = 0;
+      $totalUsers = User::where('role', '!=', 'admin')->where('status', 0)->count();
 
-    foreach ($Paidresult as $item) {
-        $month = date('Y-m', strtotime($item->date_created_gmt)); // Extract month and year
-        $monthlyCounts[$month] = ($monthlyCounts[$month] ?? 0) + 1;
-        $totalRegistrations++;
+      $monthPercentageChangeIn = $totalUsers > 0 ? round(($currentMonthUsersIn->count() / $totalUsers) * 100, 2) : 0;
+
+
+      $Paidresult = DB::table('wp_wc_orders')
+          ->join('wp_woocommerce_order_items', 'wp_wc_orders.id', '=', 'wp_woocommerce_order_items.order_id')
+          ->select('wp_wc_orders.*', 'wp_woocommerce_order_items.order_item_name')
+          ->get();
+
+      // Step 1: Count registrations per month
+      $monthlyCounts = [];
+      $totalRegistrations = 0;
+
+      foreach ($Paidresult as $item) {
+          $month = date('Y-m', strtotime($item->date_created_gmt)); // Extract month and year
+          $monthlyCounts[$month] = ($monthlyCounts[$month] ?? 0) + 1;
+          $totalRegistrations++;
+      }
+
+      // Step 2: Calculate monthly percentage ratio
+      $monthlyPercentageRatio = [];
+      foreach ($monthlyCounts as $month => $count) {
+          $monthlyPercentageRatio[$month] = ($count / $totalRegistrations) * 100;
+      }
+
+      // Optionally, you can select a specific month if needed
+      $currentMonth = date('Y-m'); // Change as necessary
+      $currentMonthPercentage = isset($monthlyPercentageRatio[$currentMonth]) ? round($monthlyPercentageRatio[$currentMonth], 2) : 0;
+      $userlist = User::with('subscription')->whereNot('role', 'admin')->get();
+
+      $usersWithPlans = User::with(['subscription.subscriptionPlan', 'agencies', 'truckers', 'subscription', 'shippers', 'freights'])->whereNot('role', 'admin')
+      ->get();
+      // dd($usersWithPlans->toArray());
+      return view('ul', compact('userlist', 'usersWithPlans' ,'currentWeekUsers', 'percentageChange', 'currentMonthUsers', 'monthPercentageChange', 'currentMonthUsersIn', 'monthPercentageChangeIn', 'Paidresult', 'currentMonthPercentage'));
     }
 
-    // Step 2: Calculate monthly percentage ratio
-    $monthlyPercentageRatio = [];
-    foreach ($monthlyCounts as $month => $count) {
-        $monthlyPercentageRatio[$month] = ($count / $totalRegistrations) * 100;
-    }
-
-    // Optionally, you can select a specific month if needed
-    $currentMonth = date('Y-m'); // Change as necessary
-    $currentMonthPercentage = isset($monthlyPercentageRatio[$currentMonth]) ? round($monthlyPercentageRatio[$currentMonth], 2) : 0;
-    $userlist = User::with('subscription')->whereNot('role', 'admin')->get();
-
-    $usersWithPlans = User::with(['subscription.subscriptionPlan', 'agencies', 'truckers', 'subscription', 'shippers', 'freights'])->whereNot('role', 'admin')
-    ->get();
-    // dd($usersWithPlans->toArray());
-    return view('ul', compact('userlist', 'usersWithPlans' ,'currentWeekUsers', 'percentageChange', 'currentMonthUsers', 'monthPercentageChange', 'currentMonthUsersIn', 'monthPercentageChangeIn', 'Paidresult', 'currentMonthPercentage'));
-  }
 
 }
