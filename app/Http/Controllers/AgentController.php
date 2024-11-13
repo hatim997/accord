@@ -847,7 +847,7 @@ $r=0;
         'plan_id' => '1',
         'start_date' =>  $currentDate,
         'end_date' => $endDate,
-        'status' => 'Active',
+        'status' => '1',
       ]);
       Notice::create([
         'to' => 1,
