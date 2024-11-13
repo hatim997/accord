@@ -56,6 +56,7 @@ class AuthController extends Controller
     if ($subscription) {
       $endDate = Carbon::parse($subscription->end_date);
       $currentDate = Carbon::now();
+      // dd('end_date',  $endDate->toArray(), 'current_data', $currentDate->toArray());
 
       if ($endDate->lessThanOrEqualTo($currentDate)) {
         if ($subscription->status != 0) {
@@ -82,7 +83,10 @@ class AuthController extends Controller
               ->subject('User Subscription Expired');
           });
         }
-        return Redirect::back()->with('danger', 'Your subscription has expired.');
+        $plans = Subscription_plan::where('role', $user->role)->where('id', '!=', 1)->get();
+        // dd($plans);
+        $danger = 'Your subscription has expired.';
+        return view('agent.agent_upgrade_plans', compact('plans', 'danger'));
       }
     }
 
@@ -150,7 +154,10 @@ class AuthController extends Controller
               ->subject('User Subscription Expired');
           });
         }
-        return Redirect::back()->with('danger', 'Your subscription has expired.');
+        $plans = Subscription_plan::where('role', $user->role)->where('id', '!=', 1)->get();
+        // dd($plans);
+        $danger = 'Your subscription has expired.';
+        return view('agent.agent_upgrade_plans', compact('plans', 'danger'));
       }
     }
 
@@ -217,7 +224,10 @@ class AuthController extends Controller
               ->subject('User Subscription Expired');
           });
         }
-        return Redirect::back()->with('danger', 'Your subscription has expired.');
+        $plans = Subscription_plan::where('role', $user->role)->where('id', '!=', 1)->get();
+        // dd($plans);
+        $danger = 'Your subscription has expired.';
+        return view('agent.agent_upgrade_plans', compact('plans', 'danger'));
       }
     }
 
@@ -286,7 +296,10 @@ class AuthController extends Controller
               ->subject('User Subscription Expired');
           });
         }
-        return Redirect::back()->with('danger', 'Your subscription has expired.');
+        $plans = Subscription_plan::where('role', $user->role)->where('id', '!=', 1)->get();
+        // dd($plans);
+        $danger = 'Your subscription has expired.';
+        return view('agent.agent_upgrade_plans', compact('plans', 'danger'));
       }
     }
 
@@ -531,7 +544,7 @@ class AuthController extends Controller
       'plan_id' => $request->sub_id,
       'start_date' => now(),
       'end_date' => now()->addMonth(),
-      'status' => 'Active',
+      'status' => '1',
     ]);
 
     // Insert a new record into the orders table
@@ -568,7 +581,7 @@ class AuthController extends Controller
           'orderId' => $orderId,
           'adminEmail' => $admin->email,
           'orderTime' => $orderTime,
-          'orderInvoice' => $orderInvoice,          
+          'orderInvoice' => $orderInvoice,
           'planName' => $subscriptionPlan->name,  // Plan name for the admin email
       ];
       $data2 = [
@@ -577,7 +590,7 @@ class AuthController extends Controller
         'orderId' => $orderId,
         'userEmail' => $user->email,
         'orderTime' => $orderTime,
-        'orderInvoice' => $orderInvoice,          
+        'orderInvoice' => $orderInvoice,
         'planName' => $subscriptionPlan->name,  // Plan name for the admin email
     ];
 

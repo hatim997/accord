@@ -206,17 +206,17 @@
               <tr class="border-bottom">
                 <th class=" rowspan="1" colspan="1"
                   style="width: 18px;" data-col="1" aria-label=""></th>
-                <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 20px;"
+                <th class="text-black" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 20px;"
                   aria-label="order: activate to sort column ascending">Certificate ID</th>
-                <th class=" " tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                <th class="text-black " tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 134px;" aria-label="date: activate to sort column descending" aria-sort="ascending">Download</th>
-                <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                <th class="text-black" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 101px;" aria-label="payment: activate to sort column ascending">View Certificate</th>
-                <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                <th class="text-black" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 118px;" aria-label="status: activate to sort column ascending">Edit Certificate</th>
-                  <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                  <th class="text-black" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 267px;" aria-label="customers: activate to sort column ascending">Add Certificate</th>
-                <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                <th class="text-black" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 147px;" aria-label="method: activate to sort column ascending">status</th>
 
               </tr>
