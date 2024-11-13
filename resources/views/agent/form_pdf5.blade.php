@@ -230,7 +230,7 @@
                                             &nbsp;&nbsp;&nbsp;&nbsp;  {{ $driver->truckers[0]->name }}<br class="ng-tns-c268-42">
                                             &nbsp;&nbsp;&nbsp;&nbsp; {{ $driver->truckers[0]->address }} <br class="ng-tns-c268-42">
                                             &nbsp;&nbsp;&nbsp;&nbsp; {{ $driver->truckers[0]->city }}
-                                            &nbsp;&nbsp;&nbsp;&nbsp; {{ $driver->truckers[0]->state }} , 
+                                            &nbsp;&nbsp;&nbsp;&nbsp; {{ $driver->truckers[0]->state }} ,
                                             &nbsp;&nbsp;&nbsp;&nbsp; {{ $driver->truckers[0]->zip }}
                                             <br class="ng-tns-c268-42">
                                             &nbsp;&nbsp;&nbsp;&nbsp;  {{ $driver->truckers[0]->cellphone }}
@@ -1043,11 +1043,11 @@
                             </tbody></table>
                             </td>
                             <td valign="middle" style="text-align: center; vertical-align: middle;">
-                              <div>                        
-                             
+                              <div>
+
                                   {{ !empty($certPolicy) ? $certPolicy->where('policy_type_id',
                                   $pt->id)->first()->ADDL_INSR ?? '' : '' }}
-                              
+
                               </div>
                             </td>
                             <td valign="middle" style="text-align: center; vertical-align: middle;">
@@ -1127,7 +1127,7 @@
                                   </tr>
                                   @else
                                   <tr>
-                                    <td style="border:1px solid black; line-height:0;">{{ $pl->coverage_item }}</td>
+                                    <td style="border:1px solid black; line-height:0.6;">{{ $pl->coverage_item }}</td>
                                     <td style="border:1px solid black" width="20%">
                                       <div>
                                         <span>$&nbsp;
@@ -1287,8 +1287,8 @@
                                               <td class=" ng-tns-c268-42">
                                                 @if(!empty($agent->agencies[0]->image_path))
                                             <img src="{{ storage_path('app/' .  $agent->agencies[0]->image_path)}}" width="91" height="39" alt="">
-                                            @else 
-                                          
+                                            @else
+
                                             @endif
                                          </td>
                                          <tr class="ng-tns-c268-42">

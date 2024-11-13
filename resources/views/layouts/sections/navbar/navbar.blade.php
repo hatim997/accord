@@ -317,11 +317,11 @@ color: #fff !important;
 
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
             <a class="nav-link m-5" id="dropdownButton">
-                <div class="avatar avatar-online">
+                <div class="avatar">
                     @php
                     $user = request()->user();
-                @endphp
-                <div class="flex-grow-1 pt-2 ">
+                  @endphp
+                <div class="flex-grow-1">
                     <h6 class="mb-0">{{ $user->name }}</h6>
                     <small class="mb-0">{{ $user->rememberToken}}</small>
                     <small class="m-0">{{ $user->role }}</small>

@@ -189,6 +189,34 @@ class FreightController extends Controller
 
   public function storeDriverr(Request $reqeust)
   {
+    $validatedDataa = Validator::make($reqeust->all(), [
+      'name' => 'required',
+      'scac' => 'required',
+      'mc_number' => 'required',
+      'usdot' => 'required',
+      'tax' => 'required',
+      'prefix' => 'required',
+      'fname' => 'required',
+      'mname' => 'sometimes',
+      'lname' => 'required',
+      'suffix' => 'required',
+      'title' => 'required',
+      'email' => 'required|email|unique:users',
+      'address' => 'required',
+      'cellphone' => 'required',
+      'salutation'=> 'required',
+      'zip' => 'required',
+      'state' => 'required',
+      'city' => 'required',
+      'license_number'=> 'required',
+      'password' => 'required',
+    ]);
+
+    if ($validatedDataa->fails())
+    {
+      return Redirect::back()->withErrors($validatedDataa)->withInput();
+    }
+
     $parentId = Auth::user()->id;
     $currentDate = Carbon::now();
     $endDate = $currentDate->copy()->addDays(30);
@@ -254,7 +282,7 @@ class FreightController extends Controller
       'plan_id' => '1',
       'start_date' =>  $currentDate,
       'end_date' => $endDate,
-      'status' => 'Active',
+      'status' => '1',
     ]);
 
     $linkedAgent = AgentDriver::where('driver_id', $parentId)->first();

@@ -145,6 +145,7 @@ $weekExpolicies = collect($results);
 }
   public function addReg(Request $request)
   {
+
     $userId = Auth::user()->id;
     $validatedDataa = Validator::make($request->all(), [
       'username' => 'required',
@@ -571,7 +572,7 @@ if ($certificate->isEmpty()) {
     return view('truck.add-broker');
   }
 
-  public function storeDriver(Request $reqeust)
+  public function storeDriver(Request $request)
   {
     $parentId = Auth::user()->id;
     $currentDate = Carbon::now();
@@ -579,9 +580,9 @@ if ($certificate->isEmpty()) {
 
     $randomNumber = rand(100000, 999999);
     $user = User::create([
-      'name' => $reqeust->fname,
-      'email' =>$reqeust->email,
-      'password' => Crypt::encryptString($reqeust->password),
+      'name' => $request->fname,
+      'email' =>$request->email,
+      'password' => Crypt::encryptString($request->password),
       'role' => "truck_driver",
       'rememberToken' => 'MC'.$randomNumber,
       'status' => "1",
@@ -590,8 +591,8 @@ if ($certificate->isEmpty()) {
     $lastInsertedId = $user->id;
     $name = '';
 
-    if(!empty($reqeust->file('imagePath'))){
-      $file  = $reqeust->file('imagePath');
+    if(!empty($request->file('imagePath'))){
+      $file  = $request->file('imagePath');
       $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
       $file->storeAs('public/uploads_driver_license', $name);
     }
@@ -599,38 +600,38 @@ if ($certificate->isEmpty()) {
    DriverDetail::create([
       'parent_id' =>$parentId ,
       'user_id' =>$lastInsertedId ,
-      'name' => $reqeust->name,
-      'title' => $reqeust->title,
-      'mname' => $reqeust->mname,
-      'lname' => $reqeust->lname,
-      'suffix' => $reqeust->suffix,
-      'salutation' => $reqeust->salutation,
-      'prefix' => $reqeust->prefix,
-      'address' => $reqeust->address,
-      'address2' => $reqeust->address2,
-      'zip' => $reqeust->zip,
-      'websit' => $reqeust->websit,
-      'tax' => $reqeust->tax,
-      'license_number' => $reqeust->license_number,
-      'license_expiry_date' => $reqeust->license_expiry_date,
-      'license_type' => $reqeust->license_type,
-      'years_of_experience' => $reqeust->years_of_experience,
-      'vehicle_registration_number' => $reqeust->vehicle_registration_number,
-      'vehicle_make' => $reqeust->vehicle_make,
-      'vehicle_model' => $reqeust->vehicle_model,
-      'vehicle_year' => $reqeust->vehicle_year,
-      'vehicle_capacity' => $reqeust->vehicle_capacity,
-      'vehicle_status' => $reqeust->vehicle_status,
-      'scac' => $reqeust->scac,
-      'usdot' => $reqeust->usdot,
-      'state' => $reqeust->state,
-      'cellphone' => $reqeust->cellphone,
-      'extra_email' => $reqeust->extra_email,
-      'fname' => $reqeust->fname,
-      'mc_number' => $reqeust->mc_number,
+      'name' => $request->name,
+      'title' => $request->title,
+      'mname' => $request->mname,
+      'lname' => $request->lname,
+      'suffix' => $request->suffix,
+      'salutation' => $request->salutation,
+      'prefix' => $request->prefix,
+      'address' => $request->address,
+      'address2' => $request->address2,
+      'zip' => $request->zip,
+      'websit' => $request->websit,
+      'tax' => $request->tax,
+      'license_number' => $request->license_number,
+      'license_expiry_date' => $request->license_expiry_date,
+      'license_type' => $request->license_type,
+      'years_of_experience' => $request->years_of_experience,
+      'vehicle_registration_number' => $request->vehicle_registration_number,
+      'vehicle_make' => $request->vehicle_make,
+      'vehicle_model' => $request->vehicle_model,
+      'vehicle_year' => $request->vehicle_year,
+      'vehicle_capacity' => $request->vehicle_capacity,
+      'vehicle_status' => $request->vehicle_status,
+      'scac' => $request->scac,
+      'usdot' => $request->usdot,
+      'state' => $request->state,
+      'cellphone' => $request->cellphone,
+      'extra_email' => $request->extra_email,
+      'fname' => $request->fname,
+      'mc_number' => $request->mc_number,
       'is_active' => "1",
       'image_path' => $name,
-      'fax' => $reqeust->fax,
+      'fax' => $request->fax,
    ]);
 
     $subb = Subscription::create([
@@ -656,16 +657,45 @@ if ($certificate->isEmpty()) {
 
 
 
-  public function storeBroker(Request $reqeust)
+  public function storeBroker(Request $request)
   {
+
+    $validatedDataa = Validator::make($request->all(), [
+      'name' => 'required',
+      'state' => 'required',
+      'password' => 'required',
+      'title' => 'required',
+      'city' => 'required',
+      'lname' => 'required',
+      'zip' => 'required',
+      'fname' => 'required',
+      'address2' => 'required',
+      'cellphone' => 'required',
+      'mname' => 'sometimes',
+      'address' => 'required',
+      'email' => 'required|email|unique:users',
+      'prefix' => 'required',
+      'websit' => 'required',
+      'tax' => 'required',
+      'usdot' => 'required',
+      'mc_number' => 'required',
+      'scac' => 'required',
+    ]);
+
+    if ($validatedDataa->fails())
+    {
+      return Redirect::back()->withErrors($validatedDataa)->withInput();
+    }
+
+
     $parentId = Auth::user()->id;
     $currentDate = Carbon::now();
     $endDate = $currentDate->copy()->addDays(30);
     $randomNumber = rand(100000, 999999);
     $user = User::create([
-      'name' => $reqeust->fname,
-      'email' =>$reqeust->email,
-      'password' => Crypt::encryptString($reqeust->password),
+      'name' => $request->fname,
+      'email' =>$request->email,
+      'password' => Crypt::encryptString($request->password),
       'role' => "freight_driver",
       'rememberToken' => 'FB'.$randomNumber,
 
@@ -675,8 +705,8 @@ if ($certificate->isEmpty()) {
     $lastInsertedId = $user->id;
     $name = '';
 
-    if(!empty($reqeust->file('imagePath'))){
-      $file  = $reqeust->file('imagePath');
+    if(!empty($request->file('imagePath'))){
+      $file  = $request->file('imagePath');
       $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
       $file->storeAs('public/uploads_broker_license', $name);
     }
@@ -684,38 +714,38 @@ if ($certificate->isEmpty()) {
    DriverDetail::create([
       'parent_id' =>$parentId ,
       'user_id' =>$lastInsertedId ,
-      'name' => $reqeust->name,
-      'title' => $reqeust->title,
-      'mname' => $reqeust->mname,
-      'lname' => $reqeust->lname,
-      'suffix' => $reqeust->suffix,
-      'salutation' => $reqeust->salutation,
-      'prefix' => $reqeust->prefix,
-      'address' => $reqeust->address,
-      'address2' => $reqeust->address2,
-      'zip' => $reqeust->zip,
-      'websit' => $reqeust->websit,
-      'tax' => $reqeust->tax,
-      'license_number' => $reqeust->license_number,
-      'license_expiry_date' => $reqeust->license_expiry_date,
-      'license_type' => $reqeust->license_type,
-      'years_of_experience' => $reqeust->years_of_experience,
-      'vehicle_registration_number' => $reqeust->vehicle_registration_number,
-      'vehicle_make' => $reqeust->vehicle_make,
-      'vehicle_model' => $reqeust->vehicle_model,
-      'vehicle_year' => $reqeust->vehicle_year,
-      'vehicle_capacity' => $reqeust->vehicle_capacity,
-      'vehicle_status' => $reqeust->vehicle_status,
-      'scac' => $reqeust->scac,
-      'usdot' => $reqeust->usdot,
-      'state' => $reqeust->state,
-      'cellphone' => $reqeust->cellphone,
-      'extra_email' => $reqeust->extra_email,
-      'fname' => $reqeust->fname,
-      'mc_number' => $reqeust->mc_number,
+      'name' => $request->name,
+      'title' => $request->title,
+      'mname' => $request->mname,
+      'lname' => $request->lname,
+      'suffix' => $request->suffix,
+      'salutation' => $request->salutation,
+      'prefix' => $request->prefix,
+      'address' => $request->address,
+      'address2' => $request->address2,
+      'zip' => $request->zip,
+      'websit' => $request->websit,
+      'tax' => $request->tax,
+      'license_number' => $request->license_number,
+      'license_expiry_date' => $request->license_expiry_date,
+      'license_type' => $request->license_type,
+      'years_of_experience' => $request->years_of_experience,
+      'vehicle_registration_number' => $request->vehicle_registration_number,
+      'vehicle_make' => $request->vehicle_make,
+      'vehicle_model' => $request->vehicle_model,
+      'vehicle_year' => $request->vehicle_year,
+      'vehicle_capacity' => $request->vehicle_capacity,
+      'vehicle_status' => $request->vehicle_status,
+      'scac' => $request->scac,
+      'usdot' => $request->usdot,
+      'state' => $request->state,
+      'cellphone' => $request->cellphone,
+      'extra_email' => $request->extra_email,
+      'fname' => $request->fname,
+      'mc_number' => $request->mc_number,
       'is_active' => "1",
       'image_path' => $name,
-      'fax' => $reqeust->fax,
+      'fax' => $request->fax,
    ]);
 
     $subb = Subscription::create([
@@ -723,7 +753,7 @@ if ($certificate->isEmpty()) {
       'plan_id' => '1',
       'start_date' =>  $currentDate,
       'end_date' => $endDate,
-      'status' => 'Active',
+      'status' => '1',
     ]);
 
     $linkedAgent = AgentDriver::where('driver_id', $parentId)->first();
@@ -741,15 +771,15 @@ $code='FB' . $randomNumber;
 
 $data = [
     'adminName' => $admin->name,
-    'userName' => $reqeust->name,
+    'userName' => $request->name,
     'verificationCode' => $code,
     'addedBy' => $driver[0]->name,
     'addingUserCode' => Auth::user()->rememberToken
 ];
 
-Mail::send('email.message', $data, function ($message) use ($admin, $code, $reqeust, $driver) {
+Mail::send('email.message', $data, function ($message) use ($admin, $code, $request, $driver) {
     $message->to($admin->email, $admin->name)
-            ->subject('Registration Confirmation - Name: ' . $reqeust->name .
+            ->subject('Registration Confirmation - Name: ' . $request->name .
                       ' Code Is: ' . $code .
                       ' Added By: ' . $driver[0]->name .
                       ' Code Is: ' . Auth::user()->rememberToken);

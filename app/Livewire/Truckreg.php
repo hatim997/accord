@@ -147,17 +147,7 @@ class Truckreg extends Component
                'rememberToken' => 'MC' . $randomNumber,
                'role' => "truck_driver",
              ]);
-             DB::table('wp_users')->insert([
-                'user_nicename' => $this->fname,
-                'user_login' => $this->email,
-                'user_email' =>  $this->email,
-                'user_pass' => bcrypt($this->password), // Ensure to hash passwords
-                'user_url' =>  'null',
-                'user_registered' => $currentDate,
-                'user_activation_key'	 => "agent",
-                'user_status' => 1,
-                'display_name' =>  $this->fname,
-              ]);
+
              $lastInsertedId = $user->id;
 
             DriverDetail::create([

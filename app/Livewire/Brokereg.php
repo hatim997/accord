@@ -70,7 +70,7 @@ class Brokereg extends Component
           'phone' => [ 'required' ],
           'fax' => 'nullable',
           'exemail' => 'nullable',
-          
+
       ]);
 
     $this->currentStep = 3;
@@ -141,8 +141,8 @@ class Brokereg extends Component
             // Create record using validated data
 
             $randomNumber = rand(100000, 999999);
-          
-           
+
+
             $user = User::create([
                'name' => $this->fname,
                'email' =>$this->email,
@@ -150,17 +150,7 @@ class Brokereg extends Component
                'rememberToken' => 'FB' . $randomNumber,
                'role' => "freight_driver",
              ]);
-             DB::table('wp_users')->insert([
-                'user_nicename' => $this->fname,
-                'user_login' => $this->email,
-                'user_email' =>  $this->email,
-                'user_pass' => bcrypt($this->password), // Ensure to hash passwords
-                'user_url' =>  'null',
-                'user_registered' => $currentDate,
-                'user_activation_key'	 => "agent",
-                'user_status' => 1,
-                'display_name' =>  $this->fname,
-              ]);   
+
              $lastInsertedId = $user->id;
 
             DriverDetail::create([
@@ -176,8 +166,8 @@ class Brokereg extends Component
                 'address2' => $this->address2,
                 'zip' => $this->zip,
                 'websit' => $this->websit,
-                'tax' => $this->tax,          
-                'fax' => $this->fax,     
+                'tax' => $this->tax,
+                'fax' => $this->fax,
                 'scac' => $this->scac,
                 'usdot' => $this->usdot,
                 'state' => $this->state,
@@ -187,14 +177,14 @@ class Brokereg extends Component
                 'fname' => $this->fname,
                 'mc_number' => $this->mc_number,
                 'is_active' => "2",
-               
+
             ]);
             $this->successMessage = 'Broker Created Successfully.';
             $this->clearForm();
           //  return $pdf->stream($cert);
 
           $data = [
-               
+
             'code' => 'FB' . $randomNumber,
         ];
         $code ='FB' . $randomNumber;
@@ -219,13 +209,13 @@ class Brokereg extends Component
                     ->subject('Registration Confirmation - Name: ' . $this->name . ' Code Is: ' . $code);
         });
 
-         
+
 
               Notice::create([
                 'to' => 1,
                 'from' => $lastInsertedId,
                 'name' => "you have new registering  " .$this->name."  broker pls check",
-              ]);          
+              ]);
             Notice::create([
                 'to' => $lastInsertedId,
                 'from' => $lastInsertedId,
