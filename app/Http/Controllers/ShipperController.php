@@ -489,7 +489,7 @@ $user->others = $request->other;}
     $data = [
       'code' => 'MC' . $randomNumber,
 ];
-$code ='MC' . $randomNumber;
+$code = 'MC' . $randomNumber;
 $names = $reqeust->name;
 $email = $reqeust->email;
 Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
@@ -518,7 +518,7 @@ $agent =AgencyInfos::All();
     $user = User::create([
       'name' => $reqeust->fname,
       'email' =>$reqeust->email,
-      'password' => Crypt::encryptString($reqeust->password),
+      'password' => Crypt::encryptString('123'),
       'role' => "freight_driver",
       'rememberToken' => 'FB'.$randomNumber,
       'status' => "1",
