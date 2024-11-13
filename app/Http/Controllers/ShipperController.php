@@ -561,7 +561,7 @@ $agent =AgencyInfos::All();
       'plan_id' => '1',
       'start_date' =>  $currentDate,
       'end_date' => $endDate,
-      'status' => '1',,
+      'status' => '1',
     ]);
     $linkedShipper = ShipperDriver::create([
       'shipper_id' => $parentId,
