@@ -96,7 +96,7 @@ class FreightController extends Controller
             'plan_id' => '1',
             'start_date' => $currentDate,
             'end_date' => $endDate,
-            'status' => 'Active',
+            'status' => '1',
         ]);
 
         // Link driver to shipper
