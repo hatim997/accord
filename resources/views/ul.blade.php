@@ -269,16 +269,16 @@
             <div class="table-responsive text-nowrap">
                 <table class="table" id="DataTables_Table_0">
                     <thead style="background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);">
-                        <tr>
+                        <tr class="text-center align-middle bg-light">
                             <th style="display:none;"></th>
-                            <th>Id</th>
-                            <th>User</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Remember Token</th>
-                            <th>Status</th>
-                            <th class="text-center">Verified</th>
-                            <th>Actions</th>
+                            <th scope="col" width="5%" class="text-center">Id</th>
+                            <th scope="col" width="15%" class="text-center">User</th>
+                            <th scope="col" width="15%" class="text-center">Email</th>
+                            <th scope="col" width="10%" class="text-center">Role</th>
+                            <th scope="col" width="15%" class="text-center">Remember Token</th>
+                            <th scope="col" width="10%" class="text-center">Status</th>
+                            <th scope="col" width="15%" class="text-center">Verified</th>
+                            <th scope="col" width="15%" class="text-center">Actions</th>
                         </tr>
                     </thead>
 
