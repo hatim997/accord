@@ -568,11 +568,14 @@ $agent =AgencyInfos::All();
       'driver_id' => $lastInsertedId,
       'relation_status' => 1,
     ]);
-    $linkedAgentt = AgentDriver::create([
-      'agent_id' => $reqeust->agent_id,
-      'driver_id' => $lastInsertedId,
-      'relation_status' => 1,
-    ]);
+    if($reqeust->agent_id){
+
+      $linkedAgentt = AgentDriver::create([
+        'agent_id' => $reqeust->agent_id,
+        'driver_id' => $lastInsertedId,
+        'relation_status' => 1,
+      ]);
+    }
 
     $driver = ShipperInfos::where('user_id', $parentId)->get();
     Notice::create([

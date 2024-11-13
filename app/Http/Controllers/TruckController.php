@@ -759,7 +759,7 @@ if ($certificate->isEmpty()) {
     $linkedAgent = AgentDriver::where('driver_id', $parentId)->first();
 
     $notice = Notice::create([
-      'to' => $linkedAgent->agent_id,
+      'to' => '1',
       'from' => $parentId,
       'name' => "Broker added by ". $parentId,
     ]);
