@@ -449,7 +449,7 @@ $user->others = $request->other;}
       'plan_id' => '1',
       'start_date' =>  $currentDate,
       'end_date' => $endDate,
-      'status' => '1',,
+      'status' => '1',
     ]);
     $linkedAgentt = ShipperDriver::create([
       'shipper_id' => $parentId,
