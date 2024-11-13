@@ -4,8 +4,9 @@ $navbarHideToggle = false;
 @endphp
 {{-- @extends('layouts/contentNavbarLayout') --}}
 @extends('layouts/commonMaster' )
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 @section('layoutContent')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @php
 $userId = auth()->user()->id;
 $user = request()->user();
@@ -52,7 +53,7 @@ $user = request()->user();
           </li>
           <li class="nav-item">
             <a class="nav-link " href="{{ route('plan.agency', ['id' => Auth::user()->id]) }}"
-              ><i class="fa-solid fa-calendar-check"></i>Plan</a
+              ><i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;Plan</a
             >
           </li>
         </ul>
@@ -191,7 +192,7 @@ $user = request()->user();
                   <label for="email">zip</label>
                 </div>
               </div>
-      
+
 
 
 

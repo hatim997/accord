@@ -168,7 +168,7 @@
                   <div class="modal-header justify-content-center align-items-center">
                       <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Week</h5>
                   </div>
-                  <div class="modal-body">
+                  <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
                       {{-- @if ($weekExpolicies->isEmpty())
                           <p>No policies expiring within a week.</p>
                       @else --}}
@@ -176,13 +176,13 @@
                               <div class="table-responsive">
                                   <table class="table table-responsive table-borderless">
                                       <thead>
-                                          <tr class="bg-light">
-                                              <th scope="col" width="15%">Policy <br> ID</th>
-                                              <th scope="col" width="20%">Policy <br>Type Name</th>
-                                              <th scope="col" width="20%">Policy<br> Number</th>
-                                              <th scope="col" width="22%">Policy<br>Start Date</th>
-                                              <th scope="col" width="22%">Expiry Date</th>
-                                          </tr>
+                                        <tr class="bg-light text-center align-middle">
+                                          <th scope="col" width="15%">Policy ID</th>
+                                          <th scope="col" width="20%">Policy Name</th>
+                                          <th scope="col" width="20%">Policy Number</th>
+                                          <th scope="col" width="22%">Start Date</th>
+                                          <th scope="col" width="22%">Expiry Date</th>
+                                      </tr>
                                       </thead>
                                       <tbody>
                                           {{-- @foreach ($weekExpolicies as $policy)
@@ -214,7 +214,7 @@
                 <div class="modal-header justify-content-center align-items-center">
                     <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Week</h5>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
                     {{-- @if ($weekExpolicies->isEmpty())
                         <p>No policies expiring within a week.</p>
                     @else --}}
@@ -222,13 +222,13 @@
                             <div class="table-responsive">
                                 <table class="table table-responsive table-borderless">
                                     <thead>
-                                        <tr class="bg-light">
-                                            <th scope="col" width="15%">Policy <br> ID</th>
-                                            <th scope="col" width="20%">Policy <br>Type Name</th>
-                                            <th scope="col" width="20%">Policy<br> Number</th>
-                                            <th scope="col" width="22%">Policy<br>Start Date</th>
-                                            <th scope="col" width="22%">Expiry Date</th>
-                                        </tr>
+                                      <tr class="bg-light text-center align-middle">
+                                        <th scope="col" width="15%">Policy ID</th>
+                                        <th scope="col" width="20%">Policy Name</th>
+                                        <th scope="col" width="20%">Policy Number</th>
+                                        <th scope="col" width="22%">Start Date</th>
+                                        <th scope="col" width="22%">Expiry Date</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
                                         {{-- @foreach ($weekExpolicies as $policy)
@@ -261,7 +261,7 @@
               <div class="modal-header justify-content-center align-items-center">
                   <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Week</h5>
               </div>
-              <div class="modal-body">
+              <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
                   {{-- @if ($weekExpolicies->isEmpty())
                       <p>No policies expiring within a week.</p>
                   @else --}}
@@ -269,13 +269,13 @@
                           <div class="table-responsive">
                               <table class="table table-responsive table-borderless">
                                   <thead>
-                                      <tr class="bg-light">
-                                          <th scope="col" width="15%">Policy <br> ID</th>
-                                          <th scope="col" width="20%">Policy <br>Type Name</th>
-                                          <th scope="col" width="20%">Policy<br> Number</th>
-                                          <th scope="col" width="22%">Policy<br>Start Date</th>
-                                          <th scope="col" width="22%">Expiry Date</th>
-                                      </tr>
+                                    <tr class="bg-light text-center align-middle">
+                                      <th scope="col" width="15%">Policy ID</th>
+                                      <th scope="col" width="20%">Policy Name</th>
+                                      <th scope="col" width="20%">Policy Number</th>
+                                      <th scope="col" width="22%">Start Date</th>
+                                      <th scope="col" width="22%">Expiry Date</th>
+                                  </tr>
                                   </thead>
                                   <tbody>
                                       {{-- @foreach ($weekExpolicies as $policy)
@@ -308,7 +308,7 @@
             <div class="modal-header justify-content-center align-items-center">
                 <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Week</h5>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
                 {{-- @if ($weekExpolicies->isEmpty())
                     <p>No policies expiring within a week.</p>
                 @else --}}
@@ -316,13 +316,13 @@
                         <div class="table-responsive">
                             <table class="table table-responsive table-borderless">
                                 <thead>
-                                    <tr class="bg-light">
-                                        <th scope="col" width="15%">Policy <br> ID</th>
-                                        <th scope="col" width="20%">Policy <br>Type Name</th>
-                                        <th scope="col" width="20%">Policy<br> Number</th>
-                                        <th scope="col" width="22%">Policy<br>Start Date</th>
-                                        <th scope="col" width="22%">Expiry Date</th>
-                                    </tr>
+                                  <tr class="bg-light text-center align-middle">
+                                    <th scope="col" width="15%">Policy ID</th>
+                                    <th scope="col" width="20%">Policy Name</th>
+                                    <th scope="col" width="20%">Policy Number</th>
+                                    <th scope="col" width="22%">Start Date</th>
+                                    <th scope="col" width="22%">Expiry Date</th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                     {{-- @foreach ($weekExpolicies as $policy)

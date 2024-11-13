@@ -113,9 +113,7 @@
 tr{
   height: 1px !important;
 }
-.card{
 
-}
     </style>
 @endpush
 

@@ -11,7 +11,7 @@
     <style>
 
 
-    
+
 
 
         .focus {
@@ -156,7 +156,7 @@
                     <div class="modal-header justify-content-center align-items-center">
                         <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Week</h5>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
                         @if ($weekExpolicies->isEmpty())
                             <p>No policies expiring within a week.</p>
                         @else
@@ -164,7 +164,7 @@
                                 <div class="table-responsive">
                                     <table class="table table-responsive table-borderless">
                                         <thead>
-                                            <tr class="bg-light">
+                                            <tr class="bg-light text-center align-middle">
                                                 <th scope="col" width="15%">Policy <br> ID</th>
                                                 <th scope="col" width="20%">Policy <br>Type Name</th>
                                                 <th scope="col" width="20%">Policy<br> Number</th>
@@ -175,7 +175,7 @@
                                         <tbody>
                                             @foreach ($weekExpolicies as $policy)
                                                 <tr>
-                                                    <td>{{ $policy->policy_type_id }}</td>
+                                                    <td style=" border-left: 1px solid #E6E5E8;">{{ $policy->policy_type_id }}</td>
                                                     <td><span class="ms-1">{{ $policy->names }}</span></td>
                                                     <td>{{ $policy->policy_number }}</td>
                                                     <td>{{ $policy->start_date }}</td>
@@ -188,7 +188,7 @@
                             </div>
                         @endif
                     </div>
-                    <div class="modal-footer" style="margin-bottom: 0;">
+                    <div class="modal-footer" >
                         <button type="button" class="btn btn-secondary close-btn" style="border: none; margin-bottom: 0;" data-bs-dismiss="modal">Close</button>
                     </div>
 
@@ -205,7 +205,7 @@
                         <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Month</h5>
 
                       </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
                         @if ($monthExpolicies->isEmpty())
                             <p>No policies expiring within a Month.</p>
                         @else
@@ -216,7 +216,7 @@
                                     <table class="table table-responsive table-borderless">
 
                                         <thead >
-                                            <tr class="bg-light" >
+                                            <tr class="bg-light text-center align-middle" >
 
 
                                                 <th scope="col" width="15%">Policy <br> ID</th>
@@ -230,7 +230,7 @@
                                             @foreach ($monthExpolicies as $policy)
                                                 <tr >
 
-                                                    <td>{{ $policy->policy_type_id }}</td>
+                                                    <td style=" border-left: 1px solid #E6E5E8;"  >{{ $policy->policy_type_id }}</td>
                                                     <td><span class="ms-1">{{ $policy->names }}</span></td>
                                                     <td>{{ $policy->policy_number }}</td>
                                                     <td>{{ $policy->start_date }}</td>

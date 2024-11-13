@@ -8,9 +8,7 @@
     @endphp
 
 <style>
-  thead, tbody, tfoot, tr, td, th {
-      border-style: hidden !important;
-    }
+
   .focus {
     border-radius: 7px;
     background-color: #f1f1f1; /* Highlight color */
@@ -235,21 +233,20 @@
               <div class="modal-header justify-content-center align-items-center">
                   <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Month</h5>
               </div>
-              <div class="modal-body">
-                  {{-- @if ($weekExpolicies->isEmpty())
-                      <p>No policies expiring within a week.</p>
-                  @else --}}
+              <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
+
                       <div class="container mt-2 px-2">
                           <div class="table-responsive">
                               <table class="table table-responsive table-borderless">
                                   <thead>
-                                      <tr class="bg-light">
-                                          <th scope="col" width="15%">Policy <br> ID</th>
-                                          <th scope="col" width="20%">Policy <br>Type Name</th>
-                                          <th scope="col" width="20%">Policy<br> Number</th>
-                                          <th scope="col" width="22%">Policy<br>Start Date</th>
-                                          <th scope="col" width="22%">Expiry Date</th>
-                                      </tr>
+                                    <tr class="bg-light text-center align-middle">
+                                      <th scope="col" width="15%">Policy ID</th>
+                                      <th scope="col" width="20%">Policy Name</th>
+                                      <th scope="col" width="20%">Policy Number</th>
+                                      <th scope="col" width="22%">Start Date</th>
+                                      <th scope="col" width="22%">Expiry Date</th>
+                                  </tr>
+
                                   </thead>
                                   <tbody>
                                     @foreach ($records as $policy)
@@ -281,7 +278,7 @@
             <div class="modal-header justify-content-center align-items-center">
                 <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Week</h5>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
                 {{-- @if ($weekExpolicies->isEmpty())
                     <p>No policies expiring within a week.</p>
                 @else --}}
@@ -289,13 +286,13 @@
                         <div class="table-responsive">
                             <table class="table table-responsive table-borderless">
                                 <thead>
-                                    <tr class="bg-light">
-                                        <th scope="col" width="15%">Policy <br> ID</th>
-                                        <th scope="col" width="20%">Policy <br>Type Name</th>
-                                        <th scope="col" width="20%">Policy<br> Number</th>
-                                        <th scope="col" width="22%">Policy<br>Start Date</th>
-                                        <th scope="col" width="22%">Expiry Date</th>
-                                    </tr>
+                                  <tr class="bg-light text-center align-middle">
+                                    <th scope="col" width="15%">Policy ID</th>
+                                    <th scope="col" width="20%">Policy Name</th>
+                                    <th scope="col" width="20%">Policy Number</th>
+                                    <th scope="col" width="22%">Start Date</th>
+                                    <th scope="col" width="22%">Expiry Date</th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($recordweeks as $policy)
@@ -321,17 +318,19 @@
     </div>
 </div>
 
-
 <div class="modal" id="expiringPoliciesModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
       <div class="modal-content">
+          <!-- Modal Header -->
           <div class="modal-header justify-content-center align-items-center">
               <h5 class="modal-title" id="exampleModalLabel">Active Carrier/Broker</h5>
           </div>
-          <div class="modal-body">
+
+          <!-- Modal Body -->
+          <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
               <div class="container mt-2 px-2">
                   <div class="table-responsive">
-                      <table class="table table-responsive table-borderless">
+                      <table class="table table-borderless">
                           <thead>
                               <tr class="bg-light">
                                   <th scope="col" width="15%">Name</th>
@@ -344,7 +343,7 @@
                               @foreach ($activeUsers as $user)
                                   <tr>
                                       <td>{{ $user->name }}</td>
-                                <td>      {{ $user->role == "freight_driver" ? 'Broker' : 'Carrier' }}</td>
+                                      <td>{{ $user->role == "freight_driver" ? 'Broker' : 'Carrier' }}</td>
                                       <td>{{ $user->email }}</td>
                                       <td>{{ $user->status == 1 ? 'Active' : 'Inactive' }}</td>
                                   </tr>
@@ -354,12 +353,15 @@
                   </div>
               </div>
           </div>
-          <div class="modal-footer" style="margin-bottom: 0;">
-              <button type="button" class="btn btn-secondary close-btn" style="border: none; margin-bottom: 0;" data-bs-dismiss="modal">Close</button>
+
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
           </div>
       </div>
   </div>
 </div>
+
 
 
 <div class="modal" id="expiringPoliciesModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -368,7 +370,7 @@
           <div class="modal-header justify-content-center align-items-center">
               <h5 class="modal-title" id="exampleModalLabel">InActive Carrier/Broker</h5>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
               <div class="container mt-2 px-2">
                   <div class="table-responsive">
                       <table class="table table-responsive table-borderless">

@@ -165,7 +165,7 @@
                   <h5 class="modal-title" id="exampleModalLabel">Policies Expiring in a Week</h5>
 
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
                     @if($weekExpolicies->isEmpty())
                     <p>No policies expiring within a week.</p>
                   @else
@@ -176,7 +176,7 @@
                         <table class="table table-responsive table-borderless">
 
                             <thead>
-                                <tr class="bg-light">
+                                <tr class="bg-light text-center align-middle">
 
 
                                     <th scope="col" width="15%">Policy <br> ID</th>
@@ -189,7 +189,7 @@
                             <tbody>
                                 @foreach($weekExpolicies as $policy)
                                 <tr >
-                                    <td>{{ $policy->policy_type_id }}</td>
+                                    <td style=" border-left: 1px solid #E6E5E8;">{{ $policy->policy_type_id }}</td>
                                     <td>{{ $policy->names }}</td>
                                     <td>{{ $policy->policy_number }}</td>
                                     <td>{{ $policy->start_date }}</td>
@@ -220,7 +220,7 @@
                   <h5 class="modal-title text-center" id="exampleModalLabel">Policies Expiring in a Month</h5>
 
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
                   @if($monthExpolicies->isEmpty())
                     <p>No policies expiring within a Month.</p>
                   @else
@@ -232,7 +232,7 @@
                         <table class="table table-responsive table-borderless">
 
                             <thead>
-                                <tr class="bg-light">
+                                <tr class="bg-light text-center align-middle">
 
 
                                     <th scope="col" width="15%">Policy <br> ID</th>
@@ -244,12 +244,12 @@
                             </thead>
                             <tbody>
                                 @foreach($monthExpolicies as $policy)
-                                <tr >
-                                    <td>{{ $policy->policy_type_id }}</td>
-                                    <td>{{ $policy->names }}</td>
-                                    <td>{{ $policy->policy_number }}</td>
-                                    <td>{{ $policy->start_date }}</td>
-                                    <td>{{ $policy->expiry_date }}</td>
+                                <tr  >
+                                    <td style=" border-left: 1px solid #E6E5E8;">{{ $policy->policy_type_id }}</td>
+                                    <td >{{ $policy->names }}</td>
+                                    <td >{{ $policy->policy_number }}</td>
+                                    <td >{{ $policy->start_date }}</td>
+                                    <td >{{ $policy->expiry_date }}</td>
                                 </tr>
                             @endforeach
 
@@ -279,7 +279,7 @@
                   <h5 class="modal-title" id="exampleModalLabel">List of Active Shippers</h5>
 
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
                     @if($activeShippers->isEmpty())
                     <p>No active shippers available.</p>
                 @else
@@ -290,16 +290,16 @@
                         <table class="table table-responsive table-borderless">
 
                             <thead>
-                                <tr class="bg-light">
+                                <tr class="bg-light text-center align-middle">
                                     <th scope="col" width="25%">Name</th>
                                     <th scope="col" width="25%">Email</th>
-                                    <th scope="col" width="25%">Remember Token</th>
+                                    <th scope="col" width="25%">Token</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($activeShippers as $shipper)
                                 <tr>
-                                    <td>{{ $shipper->name }}</td>
+                                    <td style=" border-left: 1px solid #E6E5E8 !important;">{{ $shipper->name }}</td>
                                     <td>{{ $shipper->email }}</td>
                                     <td>{{ $shipper->remember_token }}</td>
                                 </tr>
@@ -331,7 +331,7 @@
                   <h5 class="modal-title" id="exampleModalLabel">List of Inactive Shippers</h5>
 
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
                     @if($inactiveShippers->isEmpty())
                     <p>No active shippers available.</p>
                 @else
@@ -343,16 +343,16 @@
                         <table class="table table-responsive table-borderless">
 
                             <thead>
-                                <tr class="bg-light">
-                                    <th scope="col" width="25%">Name</th>
+                                <tr class="bg-light text-center align-middle" >
+                                    <th scope="col" width="25%" >Name</th>
                                     <th scope="col" width="25%">Email</th>
-                                    <th scope="col" width="25%">Remember Token</th>
+                                    <th scope="col" width="25%">Token</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($inactiveShippers as $shipper)
                                 <tr>
-                                    <td>{{ $shipper->name }}</td>
+                                    <td style=" border-left: 1px solid #E6E5E8 !important;">{{ $shipper->name }}</td>
                                     <td>{{ $shipper->email }}</td>
                                     <td>{{ $shipper->remember_token }}</td>
                                 </tr>
@@ -376,6 +376,29 @@
             </div>
           </div>
 
+          <style>
+            .modal-header {
+                font-size: 1.25rem;
+            }
+
+            .confirmation-container {
+                text-align: center;
+                padding: 2rem;
+                color: #333;
+            }
+
+            .info-text {
+                font-size: 1rem;
+            }
+
+            .time-placed {
+                font-weight: 600;
+            }
+
+            .border {
+                border: 1px solid #ddd;
+            }
+          </style>
 
 
           @if(session('success'))
@@ -383,48 +406,59 @@
           $successData = session('success');
       @endphp
 
-          <div class="modal open" id="expiringPoliciesModal5" tabindex="-1" style="display: flex" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-              <div class="modal-content">
-                <div class="modal-header justify-content-center align-items-center">
+<div class="modal open" id="expiringPoliciesModal5" tabindex="-1" style="display: flex" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header justify-content-center align-items-center bg-primary text-white"
+          style="background-color: #2170D8 !important; padding: 1rem 0; height: 4rem;">
+         <h5 class="modal-title" style="color: #fff; margin: 0;">
+             <i class="bi bi-check-circle-fill me-2"></i> Submission Successful
+         </h5>
+     </div>
 
 
-                </div>
+          <!-- Modal Body -->
+          <div class="modal-body">
+              <div class="confirmation-container text-center p-4">
+                  <!-- Thank You Message -->
+                  <h1 class="display-6">Thank You! <span class="emoji">🎉</span></h1>
+                  <p class="info-text fs-5 mt-2 text-muted">Your request has been successfully submitted!</p>
 
-                <div class="modal-body">
-                  <div class="confirmation-container">
-                      <h1>Thank You! <span class="emoji"></span></h1>
+                  <!-- Order Time -->
+                  @if($successData['orderTime'])
+                      <p class="time-placed text-center mt-3 text-info">
+                          <i class="bi bi-clock-fill me-1"></i> Time placed: {{ $successData['orderTime'] }}
+                      </p>
+                  @else
+                      <p class="time-placed text-center text-warning">Order time not available.</p>
+                  @endif
 
-                      <p class="info-text ">Your request has been successfully submitted!</p>
-
-                      @if($successData['orderTime'])
-                          <p class="time-placed">
-                              <span class="clock-icon">🕒</span> Time placed: {{ $successData['orderTime'] }}
-                          </p>
-                      @else
-                          <p class="time-placed text-start">Order time not available.</p>
-                      @endif
-
+                  <!-- Request Details -->
+                  <div class="mt-4">
                       @if($successData['to'] && $successData['from'] && $successData['titel'] && $successData['status'])
-                          <p class="info-text text-start">
-                              <strong>To:</strong> {{ $successData['to'] }} <br>
-                              <strong>From:</strong> {{ $successData['from'] }} <br>
-                              <strong>Title:</strong> {{ $successData['titel'] }} <br>
-                              <strong>Status:</strong> {{ $successData['status'] }} <br>
-                              <strong>Order Time:</strong> {{ $successData['orderTime'] }}
+                          <p class="info-text text-start border rounded p-3 shadow-sm">
+                              <i class="bi bi-person-fill me-1"></i> <strong>To:</strong> {{ $successData['to'] }} <br>
+                              <i class="bi bi-person-fill me-1"></i> <strong>From:</strong> {{ $successData['from'] }} <br>
+                              <i class="bi bi-tag-fill me-1"></i> <strong>Title:</strong> {{ $successData['titel'] }} <br>
+                              <i class="bi bi-info-circle-fill me-1"></i> <strong>Status:</strong> {{ $successData['status'] }} <br>
+                              <i class="bi bi-clock-fill me-1"></i> <strong>Order Time:</strong> {{ $successData['orderTime'] }}
                           </p>
                       @else
-                          <p class="info-text text-start">
-                              Request details are not available.
-                          </p>
+                          <p class="info-text text-center text-danger">Request details are not available.</p>
                       @endif
                   </div>
               </div>
-
-
-              </div>
-            </div>
           </div>
+      </div>
+  </div>
+</div>
+
+<!-- Styles (Add these to your CSS file) -->
+
+<!-- Include Bootstrap Icons in your project if not already included -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
           @endif
 
 
@@ -444,7 +478,7 @@
                 <table class="table table-responsive table-borderless">
 
                     <thead>
-                        <tr class="bg-light">
+                        <tr class="bg-light" >
 
 
 
@@ -460,7 +494,7 @@
                         @if (isset($certificatePolicies))
                         @foreach ($policies as $p)
                             @if ($certificatePolicies->pluck('policy_type_id')->contains($p->id))
-                                <td>
+                                <td >
                                     <div class="green-square"></div>
                                 </td>
                             @else

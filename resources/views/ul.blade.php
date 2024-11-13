@@ -7,6 +7,7 @@
         $navbarHideToggle = false;
     @endphp
     @push('body-style')
+
         <style>
             .dataTables_wrapper .dataTables_paginate .paginate_button.current,
             .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
@@ -85,75 +86,134 @@
                 background: none !important;
                 border: none !important;
             }
+
+    .focus {
+        border-radius: 7px;
+        background-color: #f1f1f1; /* Highlight color */
+        border: 1px solid #add5ff;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Overlay background */
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 1000;
+    }
+
+    /* Modal content styling */
+    .modal-content {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 800px; /* Limit modal width */
+        text-align: center;
+        transform: scale(0.8);
+        transition: transform 0.3s ease;
+    }
+
+    /* Open class to trigger transitions */
+    .modal.open {
+        opacity: 1;
+    }
+
+    .modal.open .modal-content {
+        transform: scale(1);
+    }
+
+    /* Close button */
+    .close-btn {
+        cursor: pointer;
+        font-size: 18px;
+        margin-top: 10px;
+        display: inline-block;
+        border-radius: 3px;
+        background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);
+        border: none !important;
+    }
+
+    .modal-title {
+        font-weight: bold;
+    }
         </style>
     @endpush
     <div class="row g-6 mb-6 " style="padding-bottom: 20px">
-        <div class="col-sm-6 col-xl-3">
-            <div class="card" id="recentSubsUsersCard">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div class="me-1">
-                            <p class="text-heading mb-1">Recently Users</p>
-                            <div class="d-flex align-items-center">
-                                <h4 class="mb-1 me-2">{{ $currentWeekUsers->count() }}</h4>
-                                <p class="text-success mb-1">({{ $percentageChange }}%)</p>
-                            </div>
-                            <small class="mb-0">Total Users</small>
-                        </div>
-                        <div class="avatar">
-                            <div class="avatar-initial bg-label-primary rounded-3">
-                                <div class="mdi mdi-account ri-26px"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="card" data-bs-toggle="modal" data-bs-target="#verifiedUsersModal">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div class="me-1">
-                            <p class="text-heading mb-1">Verified Users</p>
-                            <div class="d-flex align-items-center">
-                                <h4 class="mb-1 me-1">{{ $currentMonthUsers->count() }}</h4>
-                                <p class="text-success mb-1">({{ $monthPercentageChange }}%)</p>
-                            </div>
-                            <small class="mb-0">Recent analytics</small>
-                        </div>
-                        <div class="avatar">
-                            <div class="avatar-initial bg-label-success rounded-3">
-                                <div class="mdi mdi-account ri-26px"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-        </div>
         <div class="col-sm-6 col-xl-3">
-            <div class="card" data-bs-toggle="modal" data-bs-target="#dataModal">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div class="me-1">
-                            <p class="text-heading mb-1">Paid Users</p>
-                            <div class="d-flex align-items-center">
-                                <h4 class="mb-1 me-1">{{ count($Paidresult) }}</h4>
-                                <p class="text-danger mb-1">({{ $currentMonthPercentage }}%)</p>
-                            </div>
-                            <small class="mb-0">Recent analytics</small>
+          <div class="card open-modal-btn" data-modal="recentSubsUsersModal">
+              <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                      <div class="me-1">
+                          <p class="text-heading mb-1">Recently Users</p>
+                          <div class="d-flex align-items-center">
+                              <h4 class="mb-1 me-1">{{ $currentWeekUsers->count() }}</h4>
+                              <p class="text-success mb-1">({{ $percentageChange }}%)</p>
+                          </div>
+                          <small class="mb-0">Total Users</small>
+                      </div>
+                      <div class="avatar">
+                        <div class="avatar-initial bg-label-primary rounded-3">
+                          <div class="mdi mdi-account ri-26px"></div>
+                      </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="col-sm-6 col-xl-3">
+        <div class="card open-modal-btn" data-modal="verifiedUsersModal">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div class="me-1">
+                        <p class="text-heading mb-1">Verified Users</p>
+                        <div class="d-flex align-items-center">
+                            <h4 class="mb-1 me-1">{{ $currentMonthUsers->count() }}</h4>
+                            <p class="text-success mb-1">({{ $monthPercentageChange }}%)</p>
                         </div>
-                        <div class="avatar">
-                            <div class="avatar-initial bg-label-danger rounded-3">
-                                <div class="mdi mdi-account ri-26px"></div>
-                            </div>
-                        </div>
+                        <small class="mb-0">Recent analytics</small>
+                    </div>
+                    <div class="avatar">
+                      <div class="avatar-initial bg-label-success rounded-3">
+                        <div class="mdi mdi-account ri-26px"></div>
+                    </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
         <div class="col-sm-6 col-xl-3">
-            <div class="card" data-bs-toggle="modal" data-bs-target="#verifiedUsersModalInactive">
+          <div class="card open-modal-btn" data-modal="verifiedUsersModalInactive">
+              <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                      <div class="me-1">
+                          <p class="text-heading mb-1">Paid Users</p>
+                          <div class="d-flex align-items-center">
+                              <h4 class="mb-1 me-1">{{ count($Paidresult) }}</h4>
+                              <p class="text-danger mb-1">({{ $currentMonthPercentage }}%)</p>
+                          </div>
+                          <small class="mb-0">Recent analytics</small>
+                      </div>
+                      <div class="avatar">
+                          <div class="avatar-initial bg-label-danger rounded-3">
+                              <div class="mdi mdi-account ri-26px"></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card open-modal-btn" data-modal="dataModal">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="me-1">
@@ -204,7 +264,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card"z>
 
             <div class="table-responsive text-nowrap">
                 <table class="table" id="DataTables_Table_0">
@@ -463,27 +523,29 @@
 
 
     <!-- Recently User List -->
-    <div class="modal fade" id="recentSubsUsersModal" tabindex="-1" aria-labelledby="recentUsersModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="recentUsersModalLabel">Recently Subscribed Users</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-striped table-hover">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Subscriptions</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($currentWeekUsers as $user)
+
+
+    <div class="modal" id="recentSubsUsersModal" tabindex="-1" aria-labelledby="recentUsersModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+              <div class="modal-header justify-content-center align-items-center">
+                  <h5 class="modal-title" id="exampleModalLabel">Paid User Details</h5>
+              </div>
+              <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
+                  <div class="container mt-2 px-2">
+                      <div class="table-responsive">
+                          <table class="table table-borderless">
+                              <thead>
+                                  <tr class="bg-light text-center align-middle">
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Subscriptions</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                @foreach ($currentWeekUsers as $user)
                                 <tr>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
@@ -499,104 +561,118 @@
                                         @endforeach
                                     </td>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
+                                  @endforeach
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
     </div>
 
-
     <!-- Verified User List -->
-    <div class="modal fade" id="verifiedUsersModal" tabindex="-1" aria-labelledby="verifiedUsersModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="verifiedUsersModalLabel">Verified Users Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped">
-                            <thead class="table-light">
-                                <tr>
-                                    <th
-                                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">
-                                        Name</th>
-                                    <th
-                                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">
-                                        Email</th>
-                                    <th
-                                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">
-                                        Subscriptions</th>
-                                    <th
-                                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">
-                                        Start Date</th>
-                                    <th
-                                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">
-                                        End Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($currentMonthUsers as $user)
-                                    <tr>
-                                        <td
-                                            style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">
-                                            {{ $user->name }}</td>
-                                        <td
-                                            style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">
-                                            {{ $user->email }}</td>
-                                        <td
-                                            style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">
-                                            Free</td>
-                                        <td
-                                            style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">
-                                            @foreach ($user->subscription as $subscription)
-                                                {{ $subscription->start_date ?? '' }}
-                                            @endforeach
-                                        </td>
-                                        <td
-                                            style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 150px;">
-                                            @foreach ($user->subscription as $subscription)
-                                                {{ $subscription->end_date ?? '' }}
-                                            @endforeach
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+    <div class="modal" id="verifiedUsersModal" tabindex="-1" aria-labelledby="verifiedUsersModalLabel"
+    aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+              <div class="modal-header justify-content-center align-items-center">
+                  <h5 class="modal-title" id="exampleModalLabel">Verified User Details</h5>
+              </div>
+              <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
+                  <div class="container mt-2 px-2">
+                      <div class="table-responsive">
+                          <table class="table table-borderless">
+                              <thead>
+                                  <tr class="bg-light text-center align-middle">
+                                    <th scope="col" width="15%">Name</th>
+                                    <th scope="col" width="15%">Email</th>
+                                    <th scope="col" width="10%">Subscriptions</th>
+                                    <th scope="col" width="30%">Start Date</th>
+                                    <th scope="col" width="30%">End Date</th>
+
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                {{-- @foreach ($currentMonthUsers as $user)
+    @if ($user->id == 3)
+        <tr>
+            <td>{{ $user->name }}</td>
+            <td>{{ $user->email }}</td>
+            <td>Free</td>
+            <td>
+                @foreach ($user->subscription as $subscription)
+                    {{ $subscription->start_date ?? '' }}
+                @endforeach
+            </td>
+            <td>
+                @foreach ($user->subscription as $subscription)
+                    {{ $subscription->end_date ?? '' }}
+                @endforeach
+            </td>
+        </tr>
+    @endif
+@endforeach --}}
+
+                                 @foreach ($currentMonthUsers as $user)
+                                  <tr>
+                                      <td>  {{ $user->name[3] }}</td>
+                                      <td> {{ $user->email[3] }}</td>
+                                      <td>Free</td>
+                                      <td>
+                                           @foreach ($user->subscription as $subscription)
+                                        {{ $subscription->start_date[3] ?? '' }}
+                                    @endforeach
+                                  </td>
+                                     <td>
+
+                                    @foreach ($user->subscription as $subscription)
+                                        {{ $subscription->end_date[3] ?? '' }}
+                                    @endforeach
+                                </td>
+                                  </tr>
+                              @endforeach
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
     </div>
 
 
     <!-- Verified User List Inactive -->
-    <div class="modal fade" id="verifiedUsersModalInactive" tabindex="-1" aria-labelledby="verifiedUsersModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="verifiedUsersModalLabel">Verification Pending</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Subscriptions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($currentMonthUsersIn as $user)
+
+
+
+    <div class="modal" id="verifiedUsersModalInactive" tabindex="-1" aria-labelledby="verifiedUsersModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+              <div class="modal-header justify-content-center align-items-center">
+                  <h5 class="modal-title" id="exampleModalLabel">Verification Pending Details</h5>
+              </div>
+              <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
+                  <div class="container mt-2 px-2">
+                      <div class="table-responsive">
+                          <table class="table table-borderless">
+                              <thead>
+                                  <tr class="bg-light text-center align-middle">
+                                      <th scope="col" width="15%"> Name</th>
+                                      <th scope="col" width="15%">Email</th>
+                                      <th scope="col" width="30%">Subscriptions</th>
+
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                @foreach ($currentMonthUsersIn as $user)
                                 <tr>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
@@ -609,53 +685,61 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
     </div>
 
-    <!-- Paid Users List -->
-    <div class="modal fade" id="dataModal" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="dataModalLabel">Paid User Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Plan Name</th>
-                                <th>Amount</th>
-                                <th>Billing Email</th>
-                                <th>Date</th>
-                                <!-- Add other headers as needed -->
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($Paidresult as $result)
-                                <tr>
-                                    <td>{{ $result->order_item_name }}</td>
-                                    <td>{{ number_format($result->total_amount, 2) }}</td>
-                                    <td>{{ $result->billing_email }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($result->date_created_gmt)->format('F j, Y, g:i A') }}
-                                    </td>
-                                    <!-- Add other fields as needed -->
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
+
+
+
+    {{-- Paid Users --}}
+<div class="modal" id="dataModal" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+          <div class="modal-header justify-content-center align-items-center">
+              <h5 class="modal-title" id="exampleModalLabel">Paid User Details</h5>
+          </div>
+          <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
+              <div class="container mt-2 px-2">
+                  <div class="table-responsive">
+                      <table class="table table-borderless">
+                          <thead>
+                              <tr class="bg-light text-center align-middle">
+                                  <th scope="col" width="15%">Plan Name</th>
+                                  <th scope="col" width="15%">Amount</th>
+                                  <th scope="col" width="30%">Billing Email</th>
+                                  <th scope="col" width="40%">Date</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              @foreach ($Paidresult as $result)
+                                  <tr>
+                                      <td>{{ $result->order_item_name }}</td>
+                                      <td>{{ number_format($result->total_amount, 2) }}</td>
+                                      <td>{{ $result->billing_email }}</td>
+                                      <td>{{ \Carbon\Carbon::parse($result->date_created_gmt)->format('F j, Y, g:i A') }}</td>
+                                  </tr>
+                              @endforeach
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
 
 
 
@@ -801,6 +885,47 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      var openModalBtns = document.querySelectorAll(".open-modal-btn");
+      var closeModalBtns = document.querySelectorAll(".close-btn");
+
+      // Open modal
+      openModalBtns.forEach(function(btn) {
+          btn.addEventListener("click", function() {
+              var modalId = btn.getAttribute("data-modal");
+              var modal = document.getElementById(modalId);
+              modal.style.display = "flex";
+              setTimeout(function() {
+                  modal.classList.add("open");
+              }, 10);
+          });
+      });
+
+      // Close modal
+      closeModalBtns.forEach(function(btn) {
+          btn.addEventListener("click", function() {
+              var modal = btn.closest(".modal");
+              modal.classList.remove("open");
+              setTimeout(function() {
+                  modal.style.display = "none";
+              }, 300);
+          });
+      });
+
+      // Close modal when clicking outside
+      window.onclick = function(event) {
+          if (event.target.classList.contains("modal")) {
+              var modal = event.target;
+              modal.classList.remove("open");
+              setTimeout(function() {
+                  modal.style.display = "none";
+              }, 300);
+          }
+      };
+  });
 </script>
 
 
