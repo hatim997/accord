@@ -30,7 +30,7 @@ font-weight: bold !important;
 </style>
 <h4 class="py-3 mb-4"><span class="text-muted fw-light">Freight/Broker Add By Trucker</h4>
 
-<form method="POST" action="{{ route('store.brokers') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('store.broker') }}" enctype="multipart/form-data">
   @csrf
 
   @if(Session::has('success'))
