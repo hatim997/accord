@@ -192,7 +192,7 @@
     </div>
 
         <div class="col-sm-6 col-xl-3">
-          <div class="card open-modal-btn" data-modal="verifiedUsersModalInactive">
+          <div class="card open-modal-btn" data-modal="dataModal">
               <div class="card-body">
                   <div class="d-flex justify-content-between">
                       <div class="me-1">
@@ -213,7 +213,7 @@
           </div>
       </div>
         <div class="col-sm-6 col-xl-3">
-            <div class="card open-modal-btn" data-modal="dataModal">
+            <div class="card open-modal-btn" data-modal="verifiedUsersModalInactive">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="me-1">
@@ -620,18 +620,18 @@
 
                                  @foreach ($currentMonthUsers as $user)
                                   <tr>
-                                      <td>  {{ $user->name[3] }}</td>
-                                      <td> {{ $user->email[3] }}</td>
+                                      <td>  {{ $user->name }}</td>
+                                      <td> {{ $user->email }}</td>
                                       <td>Free</td>
                                       <td>
                                            @foreach ($user->subscription as $subscription)
-                                        {{ $subscription->start_date[3] ?? '' }}
+                                        {{ $subscription->start_date ?? '' }}
                                     @endforeach
                                   </td>
                                      <td>
 
                                     @foreach ($user->subscription as $subscription)
-                                        {{ $subscription->end_date[3] ?? '' }}
+                                        {{ $subscription->end_date ?? '' }}
                                     @endforeach
                                 </td>
                                   </tr>
