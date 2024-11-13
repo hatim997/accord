@@ -368,7 +368,7 @@ class AuthController extends Controller
       'plan_name' => $result->order_item_name ?? null,
       'start_date' =>  $currentDate,
       'end_date' => $endDate,
-      'status' => 'Active',
+      'status' => '1',
     ]);
 
     $decryptedData = Crypt::decryptString($user->password);

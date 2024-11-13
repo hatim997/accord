@@ -191,7 +191,7 @@ $weekExpolicies = collect($results);
         'plan_id' => '1',
         'start_date' =>  $currentDate,
         'end_date' => $endDate,
-        'status' => 'Active',
+        'status' => '1',
       ]);
       $user = AgencyInfos::create([
         'user_id' => $lastInsertedId,
@@ -287,7 +287,7 @@ $weekExpolicies = collect($results);
         'plan_id' => '1',
         'start_date' =>  $currentDate,
         'end_date' => $endDate,
-        'status' => 'Active',
+        'status' => '1',
       ]);
       $user = ShipperInfos::create([
         'user_id' => $lastInsertedId,
@@ -639,7 +639,7 @@ if ($certificate->isEmpty()) {
       'plan_id' => '1',
       'start_date' =>  $currentDate,
       'end_date' => $endDate,
-      'status' => 'Active',
+      'status' => '1',
     ]);
 
     $linkedAgent = AgentDriver::where('driver_id', $parentId)->first();

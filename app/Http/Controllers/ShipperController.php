@@ -299,7 +299,7 @@ $user->others = $request->other;}
         'plan_id' => '1',
         'start_date' =>  $currentDate,
         'end_date' => $endDate,
-        'status' => 'Active',
+        'status' => '1',,
       ]);
       // $user = DriverDetail::create([
       //   'user_id' => $lastInsertedId,
@@ -354,7 +354,7 @@ $user->others = $request->other;}
         'plan_id' => '1',
         'start_date' =>  $currentDate,
         'end_date' => $endDate,
-        'status' => 'Active',
+        'status' => '1',,
       ]);
 
       //   $user = DriverDetail::create([
@@ -449,7 +449,7 @@ $user->others = $request->other;}
       'plan_id' => '1',
       'start_date' =>  $currentDate,
       'end_date' => $endDate,
-      'status' => 'Active',
+      'status' => '1',,
     ]);
     $linkedAgentt = ShipperDriver::create([
       'shipper_id' => $parentId,
@@ -561,7 +561,7 @@ $agent =AgencyInfos::All();
       'plan_id' => '1',
       'start_date' =>  $currentDate,
       'end_date' => $endDate,
-      'status' => 'Active',
+      'status' => '1',,
     ]);
     $linkedShipper = ShipperDriver::create([
       'shipper_id' => $parentId,
