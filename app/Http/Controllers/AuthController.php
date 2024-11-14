@@ -504,6 +504,8 @@ class AuthController extends Controller
       $data = DriverDetail::where('user_id', $user->id)->get();
     } elseif ($user->role == 'shipper') {
       $data = ShipperInfos::where('user_id', $user->id)->get();
+    }elseif ($user->role == 'freight_driver') {
+      $data = DriverDetail::where('user_id', $user->id)->get();
     }
 
     // Pass the data and subscription information to the view

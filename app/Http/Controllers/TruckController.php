@@ -767,8 +767,11 @@ if ($certificate->isEmpty()) {
     $driver = DriverDetail::where('user_id' ,$parentId)->get();
 
 $admin = User::find(1);
-$code='FB' . $randomNumber;
 
+
+$email = $request->email;
+$names = $request->name;
+$code = 'FB' . $randomNumber;
 $data = [
     'adminName' => $admin->name,
     'userName' => $request->name,
@@ -776,6 +779,11 @@ $data = [
     'addedBy' => $driver[0]->name,
     'addingUserCode' => Auth::user()->rememberToken
 ];
+
+Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
+  $message->to($email, $names)
+          ->subject('Register');
+});
 
 Mail::send('email.message', $data, function ($message) use ($admin, $code, $request, $driver) {
     $message->to($admin->email, $admin->name)
