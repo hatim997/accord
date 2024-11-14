@@ -80,7 +80,7 @@ h1 {
 </style>
 @endpush
 
-@section('content')
+@section('layoutContent')
 
 <div class="wrapper">
   <div class="confirmation-container">
