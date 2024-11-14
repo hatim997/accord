@@ -78,7 +78,7 @@ class AuthController extends Controller
           // Send email to admin
           $ademail = User::where('role', '=', 'admin')->first();
           $adminemail = $ademail->email;
-          Mail::send('email.subscription_expired', $data, function ($message) use ($adminemail) {
+          Mail::send('email.admin_sub_exp', $data, function ($message) use ($adminemail) {
             $message->to($adminemail)
               ->subject('User Subscription Expired');
           });
@@ -152,7 +152,7 @@ class AuthController extends Controller
           // Send email to the admin
           $ademail = User::where('role', '=', 'admin')->first();
           $adminemail = $ademail->email;
-          Mail::send('email.subscription_expired', $data, function ($message) use ($adminemail) {
+          Mail::send('email.admin_sub_exp', $data, function ($message) use ($adminemail) {
             $message->to($adminemail)
               ->subject('User Subscription Expired');
           });
@@ -223,7 +223,7 @@ class AuthController extends Controller
           // Send email to the admin
           $ademail = User::where('role', '=', 'admin')->first();
           $adminemail = $ademail->email;
-          Mail::send('email.subscription_expired', $data, function ($message) use ($adminemail) {
+          Mail::send('email.admin_sub_exp', $data, function ($message) use ($adminemail) {
             $message->to($adminemail)
               ->subject('User Subscription Expired');
           });
@@ -296,7 +296,7 @@ class AuthController extends Controller
           // Send email to the admin
           $ademail = User::where('role', '=', 'admin')->first();
           $adminemail = $ademail->email;
-          Mail::send('email.subscription_expired', $data, function ($message) use ($adminemail) {
+          Mail::send('email.admin_sub_exp', $data, function ($message) use ($adminemail) {
             $message->to($adminemail)
               ->subject('User Subscription Expired');
           });
@@ -591,6 +591,7 @@ $user = User::find($user_id);
           'adminName' => $admin->name,  // Custom user name based on role
           'orderId' => $orderId,
           'adminEmail' => $admin->email,
+          'userEmail' => $user->email,        
           'orderTime' => $orderTime,
           'orderInvoice' => $orderInvoice,
           'planName' => $subscriptionPlan->name,  // Plan name for the admin email

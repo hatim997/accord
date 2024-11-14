@@ -23,7 +23,8 @@
         @if(isset($adminEmail) || isset($planName) || isset($orderTime) )
             <p>A new user has registered:</p>
             <ul>
-                <li><strong>Email:</strong> {{ $adminEmail ?? 'N/A' }}</li>
+                <li><strong>Invoice:</strong> {{ $orderInvoice ?? 'N/A' }}</li>
+                <li><strong>Email:</strong> {{ $userEmail ?? 'N/A' }}</li>
                 <li><strong>Subscription Plan:</strong> {{ $planName ?? 'N/A' }}</li>
                 <li><strong>Order Time:</strong> {{ $orderTime ?? 'N/A' }}</li>
                 
