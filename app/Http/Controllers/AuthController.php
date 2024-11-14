@@ -51,7 +51,7 @@ class AuthController extends Controller
       return Redirect::back()->with('danger', 'Wrong credentials');
     }
 
-    $subscription = Subscription::where('user_id', $user->id)->first();
+    $subscription = Subscription::where('user_id', $user->id)->orderBy('created_at', 'desc')->first();
 
     if ($subscription) {
       $endDate = Carbon::parse($subscription->end_date);
@@ -125,7 +125,7 @@ class AuthController extends Controller
     }
 
     // Check for subscription and expiration
-    $subscription = Subscription::where('user_id', $user->id)->first();
+    $subscription = Subscription::where('user_id', $user->id)->orderBy('created_at', 'desc')->first();
     if ($subscription) {
       $endDate = Carbon::parse($subscription->end_date);
       $currentDate = Carbon::now();
@@ -196,7 +196,7 @@ class AuthController extends Controller
     }
 
     // Check for subscription and expiration
-    $subscription = Subscription::where('user_id', $user->id)->first();
+    $subscription = Subscription::where('user_id', $user->id)->orderBy('created_at', 'desc')->first();
     if ($subscription) {
       $endDate = Carbon::parse($subscription->end_date);
       $currentDate = Carbon::now();
@@ -270,7 +270,7 @@ class AuthController extends Controller
       return Redirect::back()->with('danger', $message);
     }
 
-    $subscription = Subscription::where('user_id', $user->id)->first();
+    $subscription = Subscription::where('user_id', $user->id)->orderBy('created_at', 'desc')->first();
     if ($subscription) {
       $endDate = Carbon::parse($subscription->end_date);
       $currentDate = Carbon::now();
