@@ -491,7 +491,7 @@ class AuthController extends Controller
     }
 
     // Retrieve the authenticated user
-    $user_id = session('userRole');
+    $user_id = session('userId');
 
 $user = User::find($user_id);
 

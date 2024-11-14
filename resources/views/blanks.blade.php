@@ -2,7 +2,7 @@
     $isMenu = false;
     $navbarHideToggle = false;
 @endphp
-@extends('layouts/contentNavbarLayout')
+@extends('layouts/commonMaster')
 
 @section('title', 'Dashboard - main')
 
