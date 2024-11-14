@@ -9,7 +9,7 @@
 <body>
   <p>Dear Admin,</p>
 
-  <p>The subscription for user {{ $userName }} has expired on {{ \Carbon\Carbon::parse($endDate)->format('Y-m-d') }}.</p>
+  <p>The subscription for user {{ $userName }} has expired on {{ $endDate }}.</p>
   
   <p>Please reach out to the user for renewal, or they may lose access to the services.</p>
   
