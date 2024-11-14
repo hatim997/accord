@@ -537,7 +537,9 @@ class AuthController extends Controller
     ]);
 
       // Retrieve the authenticated user
-      $user = Auth::user();
+      $user_id = session('userId');
+
+$user = User::find($user_id);
 
       // Fetch the subscription plan details
       $subscriptionPlan = Subscription_plan::find($request->sub_id);
