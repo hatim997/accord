@@ -62,7 +62,7 @@ class AuthController extends Controller
         if ($subscription->status != 0) {
           $subscription->status = 0;
           $subscription->save();
-
+        }
           // Data to pass to the email view
           $data = [
             'userName' => $user->name,
@@ -82,7 +82,7 @@ class AuthController extends Controller
             $message->to($adminemail)
               ->subject('User Subscription Expired');
           });
-        }
+        
         Session::put('userRole', $user->role);
         Session::put('userId', $user->id);
         $plans = Subscription_plan::where('role', $user->role)->where('id', '!=', 1)->get();
@@ -135,7 +135,7 @@ class AuthController extends Controller
         if ($subscription->status != 0) {
           $subscription->status = 0;
           $subscription->save();
-
+        }
           // Email data
           $data = [
             'userName' => $user->name,
@@ -156,7 +156,7 @@ class AuthController extends Controller
             $message->to($adminemail)
               ->subject('User Subscription Expired');
           });
-        }
+        
         $plans = Subscription_plan::where('role', $user->role)->where('id', '!=', 1)->get();
         // dd($plans);
         $danger = 'Your subscription has expired.';
@@ -206,7 +206,7 @@ class AuthController extends Controller
         if ($subscription->status != 0) {
           $subscription->status = 0;
           $subscription->save();
-
+        }
           // Email data
           $data = [
             'userName' => $user->name,
@@ -227,7 +227,7 @@ class AuthController extends Controller
             $message->to($adminemail)
               ->subject('User Subscription Expired');
           });
-        }
+        
         $plans = Subscription_plan::where('role', $user->role)->where('id', '!=', 1)->get();
         // dd($plans);
         $danger = 'Your subscription has expired.';
@@ -279,7 +279,7 @@ class AuthController extends Controller
         if ($subscription->status != 0) {
           $subscription->status = 0;
           $subscription->save();
-
+        }
           // Email data
           $data = [
             'userName' => $user->name,
@@ -300,7 +300,7 @@ class AuthController extends Controller
             $message->to($adminemail)
               ->subject('User Subscription Expired');
           });
-        }
+        
         $plans = Subscription_plan::where('role', $user->role)->where('id', '!=', 1)->get();
         // dd($plans);
         $danger = 'Your subscription has expired.';
@@ -491,7 +491,7 @@ class AuthController extends Controller
     }
 
     // Retrieve the authenticated user
-    $user_id = session('userId');
+    $user_id = session('userRole');
 
 $user = User::find($user_id);
 
