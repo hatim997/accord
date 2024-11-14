@@ -491,7 +491,7 @@ class AuthController extends Controller
     }
 
     // Retrieve the authenticated user
-    $user = Auth::user();
+    $user = session('userRole');
 
     // Create a new subscription record
 
@@ -503,13 +503,13 @@ class AuthController extends Controller
 
 
     // Fetch user-specific data based on role
-    if ($user->role == 'agent') {
+    if ($user == 'agent') {
       $data = AgencyInfos::where('user_id', $user->id)->get();
-    } elseif ($user->role == 'truck_driver') {
+    } elseif ($user == 'truck_driver') {
       $data = DriverDetail::where('user_id', $user->id)->get();
-    } elseif ($user->role == 'shipper') {
+    } elseif ($user == 'shipper') {
       $data = ShipperInfos::where('user_id', $user->id)->get();
-    }elseif ($user->role == 'freight_driver') {
+    }elseif ($user == 'freight_driver') {
       $data = DriverDetail::where('user_id', $user->id)->get();
     }
 
