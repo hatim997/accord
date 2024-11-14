@@ -83,6 +83,8 @@ class AuthController extends Controller
               ->subject('User Subscription Expired');
           });
         }
+        Session::put('userRole', $user->role);
+        Session::put('userId', $user->id);
         $plans = Subscription_plan::where('role', $user->role)->where('id', '!=', 1)->get();
         // dd($plans);
         $danger = 'Your subscription has expired.';
@@ -139,7 +141,8 @@ class AuthController extends Controller
             'userName' => $user->name,
             'endDate' => $subscription->end_date,
           ];
-
+          Session::put('userRole', $user->role);
+          Session::put('userId', $user->id);
           // Send email to the user
           Mail::send('email.subscription_expired', $data, function ($message) use ($user) {
             $message->to($user->email, $user->name)
@@ -209,7 +212,8 @@ class AuthController extends Controller
             'userName' => $user->name,
             'endDate' => $subscription->end_date,
           ];
-
+          Session::put('userRole', $user->role);
+          Session::put('userId', $user->id);
           // Send email to the user
           Mail::send('email.subscription_expired', $data, function ($message) use ($user) {
             $message->to($user->email, $user->name)
@@ -281,7 +285,8 @@ class AuthController extends Controller
             'userName' => $user->name,
             'endDate' => $subscription->end_date,
           ];
-
+          Session::put('userRole', $user->role);
+          Session::put('userId', $user->id);
           // Send email to the user
           Mail::send('email.subscription_expired', $data, function ($message) use ($user) {
             $message->to($user->email, $user->name)
