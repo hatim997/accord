@@ -92,18 +92,18 @@ font-weight: bold !important;
                         <div class="col-md-6">
                           <div class="form-group p-3">
                             <label for="name">Company Name:</label>
-                            <input type="text" name="name" class="form-control" id="name">
+                            <input type="text" name="name" class="form-control" id="name" required="">
                             @error('name') <span class="error">{{ $message }}</span> @enderror
                           </div>
                           <div class="form-group p-3">
                             <label for="mc_number">Federal Registration No. (MC Number)</label>
                             <input type="number" oninput="this.value=this.value.slice(0,8)" maxlength="8"
-                              name="mc_number" class="form-control" id="mc_number" />
+                              name="mc_number" class="form-control" id="mc_number" required="" />
                             @error('mc_number') <span class="error">{{ $message }}</span> @enderror
                           </div>
                           <div class="form-group p-3">
                             <label for="tax">US Tax ID / Canadian Business Number</label>
-                            <input type="text" name="tax" class="form-control" id="tax" />
+                            <input type="text" name="tax" class="form-control" id="tax" required=""/>
                             @error('tax') <span class="error">{{ $message }}</span> @enderror
 
                           </div>
@@ -112,13 +112,13 @@ font-weight: bold !important;
                         <div class="col-md-6">
                           <div class="form-group p-3">
                             <label for="scac">SCAC Code</label>
-                            <input type="text" name="scac" maxlength="4" class="form-control" id="scac">
+                            <input required="" type="text" name="scac" maxlength="4" class="form-control" id="scac">
                             @error('scac') <span class="error">{{ $message }}</span> @enderror
 
                           </div>
                           <div class="form-group p-3">
                             <label for="usdot">US DOT #</label>
-                            <input type="number" name="usdot" oninput="this.value=this.value.slice(0,8)" maxlength="8"
+                            <input required="" type="number" name="usdot" oninput="this.value=this.value.slice(0,8)" maxlength="8"
                               class="form-control" id="usdot" />
                             @error('usdot') <span class="error">{{ $message }}</span> @enderror
 
@@ -126,7 +126,7 @@ font-weight: bold !important;
 
                           <div class="form-group p-3">
                             <label for="websit">Company Website address:</label>
-                            <input type="text" name="websit" class="form-control" id="websit" />
+                            <input required="" type="text" name="websit" class="form-control" id="websit" />
                             @error('websit') <span class="error">{{ $message }}</span> @enderror
 
                           </div>
@@ -154,23 +154,23 @@ font-weight: bold !important;
                               </div>
                               <div class="form-group py-3">
                                 <label for="mname">Middle Name:</label>
-                                <input type="text" name="mname" class="form-control" id="mname" />
+                                <input required="" type="text" name="mname" class="form-control" id="mname" />
                                 @error('mname') <span class="error">{{ $message }}</span> @enderror
                               </div>
                               <div class="form-group py-3">
                                 <label for="suffix">Suffix</label>
-                                <input type="text" name="suffix" class="form-control" id="suffix" />
+                                <input required="" type="text" name="suffix" class="form-control" id="suffix" />
                                 @error('suffix') <span class="error">{{ $message }}</span> @enderror
                               </div>
                               <div class="form-group py-3">
                                 <label for="salutation">Salutation</label>
-                                <input type="text" name="salutation" class="form-control" id="salutation" />
+                                <input required="" type="text" name="salutation" class="form-control" id="salutation" />
                                 @error('salutation') <span class="error">{{ $message }}</span> @enderror
                               </div>
 
                               <div class="form-group py-3">
                                 <label for="email">Email:</label>
-                                <input type="email" name="email" class="form-control" id="email" />
+                                <input required="" type="email" name="email" class="form-control" id="email" />
                                 @error('email') <span class="error">{{ $message }}</span> @enderror
                               </div>
 
@@ -178,30 +178,30 @@ font-weight: bold !important;
                             <div class="col-md-6">
                               <div class="form-group py-3">
                                 <label for="fname">First Name:</label>
-                                <input type="text" name="fname" class="form-control" id="fname" />
+                                <input required="" type="text" name="fname" class="form-control" id="fname" />
                                 @error('fname') <span class="error">{{ $message }}</span> @enderror
                               </div>
 
                               <div class="form-group py-3">
                                 <label for="lname">Last Name:</label>
-                                <input type="text" name="lname" class="form-control" id="lname" />
+                                <input required="" type="text" name="lname" class="form-control" id="lname" />
                                 @error('lname') <span class="error">{{ $message }}</span> @enderror
                               </div>
 
                               <div class="form-group py-3">
                                 <label for="title">Title:</label>
-                                <input type="text" name="title" class="form-control" id="title" />
+                                <input required="" type="text" name="title" class="form-control" id="title" />
                                 @error('title') <span class="error">{{ $message }}</span> @enderror
                               </div>
 
                               <div class="form-group py-3">
                                 <label for="cellphone">Phone No:</label>
-                                <input type="tel" name="cellphone" class="form-control" id="cellphone" />
+                                <input required="" type="tel" name="cellphone" class="form-control" id="cellphone" />
                                 @error('cellphone') <span class="error">{{ $message }}</span> @enderror
                               </div>
                               <div class="form-group py-3">
                                 <label for="fax">Fax No:</label>
-                                <input type="tel" name="fax" class="form-control" id="fax" />
+                                <input required="" type="tel" name="fax" class="form-control" id="fax" />
                                 @error('fax') <span class="error">{{ $message }}</span> @enderror
                               </div>
 
@@ -210,12 +210,12 @@ font-weight: bold !important;
                             <div class="col-md-12">
                               <div class="form-group py-3">
                                 <label for="address">Address:</label>
-                                <input type="text" name="address" class="form-control" id="address" />
+                                <input required="" type="text" name="address" class="form-control" id="address" />
                                 @error('address') <span class="error">{{ $message }}</span> @enderror
                               </div>
                               <div class="form-group py-3">
                                 <label for="address2">Address 2</label>
-                                <input type="text" name="address2" class="form-control" id="address2" />
+                                <input required="" type="text" name="address2" class="form-control" id="address2" />
                                 @error('address2') <span class="error">{{ $message }}</span> @enderror
                               </div>
 
@@ -223,25 +223,25 @@ font-weight: bold !important;
                             <div class="col-md-6">
                               <div class="form-group py-3">
                                 <label for="zip">Zip Code:</label>
-                                <input type="number" oninput="this.value=this.value.slice(0,5)" maxlength="5" name="zip"
+                                <input required="" type="number" oninput="this.value=this.value.slice(0,5)" maxlength="5" name="zip"
                                   class="form-control" id="zip" />
                                 @error('zip') <span class="error">{{ $message }}</span> @enderror
                               </div>
                               <div class="form-group py-3">
                                 <label for="city">City:</label>
-                                <input type="text" name="city" class="form-control" id="city" />
+                                <input required="" type="text" name="city" class="form-control" id="city" />
                                 @error('city') <span class="error">{{ $message }}</span> @enderror
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group py-3">
                                 <label for="state">State:</label>
-                                <input type="text" name="state" class="form-control" id="state" />
+                                <input required="" type="text" name="state" class="form-control" id="state" />
                                 @error('state') <span class="error">{{ $message }}</span> @enderror
                               </div>
                               <div class="form-group py-3">
                                 <label for="country">Country:</label>
-                                <input type="text" name="country" class="form-control" id="country" />
+                                <input required="" type="text" name="country" class="form-control" id="country" />
                                 @error('country') <span class="error">{{ $message }}</span> @enderror
                               </div>
                             </div>
@@ -280,6 +280,14 @@ font-weight: bold !important;
                             <input type="file" class="form-control" name="imagePath" id="imagePath" placeholder="Choose License" />
                           </div>
 
+
+
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group py-3">
+                            <label for="password">PASSWORD</label>
+                            <input type="text" class="form-control" name="password" id="password" placeholder="********" />
+                          </div>
                         </div>
 
                       </div>
@@ -292,7 +300,7 @@ font-weight: bold !important;
         </div>
         {{-- card end --}}
 
-      
+
       </div>
 </form>
 

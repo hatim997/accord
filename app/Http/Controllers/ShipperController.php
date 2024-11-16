@@ -299,7 +299,7 @@ $user->others = $request->other;}
         'plan_id' => '1',
         'start_date' =>  $currentDate,
         'end_date' => $endDate,
-        'status' => 'Active',
+        'status' => '1',
       ]);
       // $user = DriverDetail::create([
       //   'user_id' => $lastInsertedId,
@@ -354,7 +354,7 @@ $user->others = $request->other;}
         'plan_id' => '1',
         'start_date' =>  $currentDate,
         'end_date' => $endDate,
-        'status' => 'Active',
+        'status' => '1',
       ]);
 
       //   $user = DriverDetail::create([
@@ -449,7 +449,7 @@ $user->others = $request->other;}
       'plan_id' => '1',
       'start_date' =>  $currentDate,
       'end_date' => $endDate,
-      'status' => 'Active',
+      'status' => '1',
     ]);
     $linkedAgentt = ShipperDriver::create([
       'shipper_id' => $parentId,
@@ -489,7 +489,7 @@ $user->others = $request->other;}
     $data = [
       'code' => 'MC' . $randomNumber,
 ];
-$code ='MC' . $randomNumber;
+$code = 'MC' . $randomNumber;
 $names = $reqeust->name;
 $email = $reqeust->email;
 Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
@@ -518,7 +518,7 @@ $agent =AgencyInfos::All();
     $user = User::create([
       'name' => $reqeust->fname,
       'email' =>$reqeust->email,
-      'password' => Crypt::encryptString($reqeust->password),
+      'password' => Crypt::encryptString('123'),
       'role' => "freight_driver",
       'rememberToken' => 'FB'.$randomNumber,
       'status' => "1",
@@ -561,18 +561,21 @@ $agent =AgencyInfos::All();
       'plan_id' => '1',
       'start_date' =>  $currentDate,
       'end_date' => $endDate,
-      'status' => 'Active',
+      'status' => '1',
     ]);
     $linkedShipper = ShipperDriver::create([
       'shipper_id' => $parentId,
       'driver_id' => $lastInsertedId,
       'relation_status' => 1,
     ]);
-    $linkedAgentt = AgentDriver::create([
-      'agent_id' => $reqeust->agent_id,
-      'driver_id' => $lastInsertedId,
-      'relation_status' => 1,
-    ]);
+    if($reqeust->agent_id){
+
+      $linkedAgentt = AgentDriver::create([
+        'agent_id' => $reqeust->agent_id,
+        'driver_id' => $lastInsertedId,
+        'relation_status' => 1,
+      ]);
+    }
 
     $driver = ShipperInfos::where('user_id', $parentId)->get();
     Notice::create([

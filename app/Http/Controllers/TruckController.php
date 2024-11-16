@@ -191,7 +191,7 @@ $weekExpolicies = collect($results);
         'plan_id' => '1',
         'start_date' =>  $currentDate,
         'end_date' => $endDate,
-        'status' => 'Active',
+        'status' => '1',
       ]);
       $user = AgencyInfos::create([
         'user_id' => $lastInsertedId,
@@ -287,7 +287,7 @@ $weekExpolicies = collect($results);
         'plan_id' => '1',
         'start_date' =>  $currentDate,
         'end_date' => $endDate,
-        'status' => 'Active',
+        'status' => '1',
       ]);
       $user = ShipperInfos::create([
         'user_id' => $lastInsertedId,
@@ -639,7 +639,7 @@ if ($certificate->isEmpty()) {
       'plan_id' => '1',
       'start_date' =>  $currentDate,
       'end_date' => $endDate,
-      'status' => 'Active',
+      'status' => '1',
     ]);
 
     $linkedAgent = AgentDriver::where('driver_id', $parentId)->first();
@@ -759,7 +759,7 @@ if ($certificate->isEmpty()) {
     $linkedAgent = AgentDriver::where('driver_id', $parentId)->first();
 
     $notice = Notice::create([
-      'to' => $linkedAgent->agent_id,
+      'to' => '1',
       'from' => $parentId,
       'name' => "Broker added by ". $parentId,
     ]);
@@ -767,8 +767,11 @@ if ($certificate->isEmpty()) {
     $driver = DriverDetail::where('user_id' ,$parentId)->get();
 
 $admin = User::find(1);
-$code='FB' . $randomNumber;
 
+
+$email = $request->email;
+$names = $request->name;
+$code = 'FB' . $randomNumber;
 $data = [
     'adminName' => $admin->name,
     'userName' => $request->name,
@@ -776,6 +779,11 @@ $data = [
     'addedBy' => $driver[0]->name,
     'addingUserCode' => Auth::user()->rememberToken
 ];
+
+Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
+  $message->to($email, $names)
+          ->subject('Register');
+});
 
 Mail::send('email.message', $data, function ($message) use ($admin, $code, $request, $driver) {
     $message->to($admin->email, $admin->name)

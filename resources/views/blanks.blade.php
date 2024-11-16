@@ -2,7 +2,7 @@
     $isMenu = false;
     $navbarHideToggle = false;
 @endphp
-@extends('layouts/contentNavbarLayout')
+@extends('layouts/commonMaster')
 
 @section('title', 'Dashboard - main')
 
@@ -80,7 +80,7 @@ h1 {
 </style>
 @endpush
 
-@section('content')
+@section('layoutContent')
 
 <div class="wrapper">
   <div class="confirmation-container">
