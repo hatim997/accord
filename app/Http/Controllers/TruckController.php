@@ -305,14 +305,20 @@ $weekExpolicies = collect($results);
               'code' => 'SH' . $randomNumber,
        ];
        $code ='SH' . $randomNumber;
-       Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
-         $message->to($email, $names)
-                 ->subject('Register');
-       });
+
 
        $admin = User::find(1);
   $driver = DriverDetail::where('user_id' ,$userId)->get();
-      $data = [
+            Notice::create([
+    'to' => 1,
+    'from' => $userId,
+    'name' => "Agency  added by ".$driver[0]->name,
+  ]);
+  Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
+    $message->to($email, $names)
+            ->subject('Register');
+  });
+      $data1 = [
           'adminName' => $admin->name,
           'userName' => $request->name,
           'verificationCode' => $code,
@@ -320,7 +326,7 @@ $weekExpolicies = collect($results);
           'addingUserCode' => Auth::user()->rememberToken
       ];
 
-      Mail::send('email.message', $data, function ($message) use ($admin, $code, $request, $driver) {
+      Mail::send('email.message', $data1, function ($message) use ($admin, $code, $request, $driver) {
           $message->to($admin->email, $admin->name)
                   ->subject('Registration Confirmation - Name: ' . $request->name .
                             ' Code Is: ' . $code .

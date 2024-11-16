@@ -249,6 +249,9 @@ Route::group(['middleware' => 'checkRole:shipper'], function () {
 
 });
 Route::get('/notice', [AdminController::class, 'notice'])->name('notice');
+Route::post('/notice/mark-all-as-read', [AdminController::class, 'markAllAsRead'])->name('notice.markAllAsRead');
+Route::get('/notice/update/{id}', [AdminController::class, 'updateNoticeStatus'])->name('notice.update');
+
 
 
 

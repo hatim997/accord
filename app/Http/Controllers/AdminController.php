@@ -422,13 +422,46 @@ return back()->with($message);
       'message' => 'Subscription Plan created successfully.'
     ]);
   }
-  public function notice ()
-  {$userId = Auth::user()->id;
-    Notice::query()->update(['status' => 0]);
-    $notice = Notice::where('to', $userId)->orderBy('created_at', 'desc')->get();  // Get all notices ordered by newest first
-    // dd($notice);
+  public function notice()
+{
+    $userId = Auth::user()->id;
+
+    // Fetch notices for logged-in user and user_id 1, ensuring no duplicates
+    $notice = Notice::where(function ($query) use ($userId) {
+        $query->where('to', $userId)
+              ->orWhere('to', 1);
+    })
+    ->orderBy('status', 'asc') // Ensure unread (0) appears before read (1)
+    ->orderBy('created_at', 'desc')
+    ->get();
+
     return view('notice', compact('notice'));
-  }
+}
+public function updateNoticeStatus($id)
+{
+    $userId = Auth::user()->id;
+
+    // Update only the clicked notice's status to 1
+    Notice::where('id', $id)
+        ->where('to', $userId)
+        ->update(['status' => 1]);
+
+    return redirect()->route('notice'); // Redirect back to the notice page
+}
+
+  public function markAllAsRead()
+{
+    $userId = Auth::user()->id;
+
+    // Update status to 1 for all notifications for the logged-in user and user_id 1
+    Notice::where(function ($query) use ($userId) {
+        $query->where('to', $userId)
+              ->orWhere('to', 1);
+    })->update(['status' => 1]);
+
+    return redirect()->route('notice')->with('success', 'All notifications marked as read.');
+}
+
 
   public function edit_sub (Request $request , int $id)
   {

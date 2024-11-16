@@ -288,27 +288,41 @@ color: #fff !important;
         </li>
     </ul>
     <ul class="navbar-nav flex-row align-items-center">
-        <li class="nav-item dropdown-notifications navbar-dropdown dropdown ms-5 me-xl-4 ps-5">
-            <a class="nav-link  btn btn-text-secondary px-3 mx-3 rounded-pill btn-icon dropdown-toggle hide-arrow waves-effect waves-light"
-                href="{{route('notice')}}" >
-                {{-- <span class="badge rounded-pill bg-label-primary text-xs">8 New</span> --}}
-                @php
+      @php
+      // Check if there are unread notifications for the logged-in user or for user_id = 1 (admin)
+      $unreadNotices = \App\Models\Notice::where('status', 0)
+          ->where(function ($query) {
+              $query->where('to', Auth::user()->id)
+                    ->orWhere('to', 1); // Including admin (user_id = 1)
+          })
+          ->exists();
+  @endphp
 
+  <li class="nav-item dropdown-notifications navbar-dropdown dropdown ms-5 me-xl-4 ps-5">
+      <a
+          class="nav-link btn btn-text-secondary px-3 mx-3 rounded-pill btn-icon dropdown-toggle hide-arrow waves-effect waves-light"
+          href="{{ route('notice') }}">
 
-                    $noticesExist = \App\Models\Notice::where('status', 1)->exists();
-                    @endphp
-                <div class="avatar
-                                   @if($noticesExist)
+          <div class="avatar
+              @if($unreadNotices)
                   avatar-away
-                  @endif
+              @endif
+          ">
+              <i class="mdi mdi-bell-outline mdi-24px"></i>
+          </div>
+
+          @if($unreadNotices)
+              <span
+                  class="badge rounded-pill bg-label-danger text-xs position-absolute top-0 end-0 translate-middle">
+                  New
+              </span>
+          @endif
+      </a>
+  </li>
 
 
-             ">
-                <i class="mdi mdi-bell-outline mdi-24px"></i>
-            </div>
-            </a>
 
-        </li>
+
         <!-- User -->
         @php
        $user = request()->user();
