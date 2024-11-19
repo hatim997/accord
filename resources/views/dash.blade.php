@@ -260,7 +260,8 @@
             </div>
         </div>
 
-        @if ($agencyinfo->is_active == '1')
+        {{-- @if ($agencyinfo->is_active == '1') --}}
+        @if ($active[0]->status == '1')
             <div class="container mt-5 px-2">
 
 

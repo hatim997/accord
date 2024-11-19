@@ -462,7 +462,7 @@
           @endif
 
 
-        @if($driverInfo->is_active==1)
+        @if($active->status == 1)
 
 
 

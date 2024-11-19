@@ -288,6 +288,7 @@ $weekExpolicies = collect($results);
 // dd($weekExpolicies);
     $insuredCnt = Certificate::where('producer_user_id', Auth::user()->id)->count('client_user_id');
     $agencyinfo = $this->agency->getByUserId($userId);
+    $active = User::where('id', $userId)->get();
   //   $brokersinfo = $this->agency->getBrokersByAgency($userId);
      $brokersinfo  = Certificate::with('driver','user')->where('producer_user_id' ,$userId)->get();
     // $brokersinfo = Certificate::with(['driverDetails.user', 'user'])
@@ -297,7 +298,7 @@ $weekExpolicies = collect($results);
     // })
     // ->get();
 
-    return view('dash', compact('users', 'monthExp', 'weekExp', 'insuredCnt', 'agencyinfo','monthExpolicies', 'brokersinfo' , 'weekExpolicies'));
+    return view('dash', compact('users', 'active', 'monthExp', 'weekExp', 'insuredCnt', 'agencyinfo','monthExpolicies', 'brokersinfo' , 'weekExpolicies'));
   }
 
   public function formlist()

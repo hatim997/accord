@@ -110,6 +110,8 @@ $inactiveShippersCount = User::where('role', 'shipper')
 $weekExpolicies = collect($results);
     $certificatePolicies = null;
     $driverInfo = $this->driver->getByUserId($userId);
+    $active = User::where('id', $userId)->first();
+    // dd($active->toArray());
     $policies = null;
     $yourCertificateId = Certificate::select('id')
       ->where('client_user_id', $userId)
@@ -121,7 +123,7 @@ $weekExpolicies = collect($results);
     }
       $policies = PolicyType::get();
     $ship = ShipperInfos::all();
-    return view('truck.dash', compact('users', 'monthExp', 'weekExp', 'ship', 'certificatePolicies', 'monthExpolicies', 'weekExpolicies', 'policies', 'driverInfo', 'activeShippersCount','inactiveShippersCount','activeShippers','inactiveShippers'));
+    return view('truck.dash', compact('users', 'active', 'monthExp', 'weekExp', 'ship', 'certificatePolicies', 'monthExpolicies', 'weekExpolicies', 'policies', 'driverInfo', 'activeShippersCount','inactiveShippersCount','activeShippers','inactiveShippers'));
 
   }
   public function shipper()
