@@ -119,12 +119,27 @@ class Wizard extends Component
 
       public function fithStepSubmit()
       {
-        $validatedData = $this->validate([
-            'image' => 'required|image|mimes:png|dimensions:min_width=200,max_width=200,min_height=100,max_height=100|max:1024',
-          ]);
-          $name = md5($this->image . microtime()).'.'.$this->image->extension();
-          $this->imagePath = $this->image->storeAs('photos', $name);
-          $this->submitForm();
+        if (!$this->image) {
+            session()->flash('error', 'No file uploaded.');
+            return;
+        }
+//  $validatedData = $this->validate([
+//     'image' => 'required|string', // Ensure the image is a string (Base64 format)
+// ]);
+$imageData = base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $this->image));
+
+$name = md5(microtime()) . '.png'; 
+$imagePath = 'photos/' . $name;
+\Storage::put($imagePath, $imageData); 
+$this->imagePath = $imagePath;
+
+$this->submitForm();
+        // $validatedData = $this->validate([
+        //     'image' => 'required|image|mimes:png|dimensions:min_width=200,max_width=200,min_height=100,max_height=100|max:1024',
+        //   ]);
+        //   $name = md5($this->image . microtime()).'.'.$this->image->extension();
+        //   $this->imagePath = $this->image->storeAs('photos', $name);
+        //   $this->submitForm();
       }
 
     /**

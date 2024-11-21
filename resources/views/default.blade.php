@@ -15,12 +15,19 @@
     <link rel="stylesheet" href="{{ asset(mix('assets/css/demo.css')) }}" />
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset(mix('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')) }}" />
-  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
     <link href="{{ asset('wizard.css') }}" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
         var $j = jQuery.noConflict();
     </script>
+    <style>
+
+      canvas {
+          touch-action: none; /* Prevent touch-based scrolling on touch devices */
+      }
+        </style>
 </head>
 <body>    
 <div class="container">  
@@ -34,6 +41,7 @@
       </div>
     </div>        
 </div>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.9/jquery.inputmask.min.js"></script>

@@ -386,22 +386,44 @@
                 <h6>Accept the terms & conditions below:</h6>
 
                 <div class="px-3">
-                    <div class="form-check mb-5 pb-5 ">
+                    <div class="form-check mb-5">
                         <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" />
                         <label class="form-check-label required" for="defaultCheck2">
                             I accept the terms and conditions of the COI 360 and submit the following signature page as
                             confirmation of my agreement to this Addendum.
                         </label>
                     </div>
-                    <div>
+                    <div class="row py-5" style="background: #f4f4f5; border-radius: 20px; margin:0rem 3rem;">
+                        <div class="col-md-6 text-center">
+                            <h3> Draw your eSignature here </h3>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <h3>Your signature shows here </h3>
+                </div>
+                            <div class="col-md-6 text-center">
 
-                        <input type="file" wire:model="image" class="form-control" id="inputGroupFile01"
+                 <canvas id="signature-pad" class="" 
+                        style="border: 1px dotted #9b9b9bcc; width: 200px; height: 100px; border-radius: 15px; background:#fff;" 
+                        width="200" 
+                        height="100">
+                    </canvas> </div>  
+                    <div class="col-md-6 text-center" style="display: flex; justify-content: center;"> 
+                    <div id="showimage"  width="200" 
+                    height="100" style="border: 1px dotted #9b9b9bcc; width: 200px; height: 100px; border-radius: 15px;"></div> </div>
+                 
+                        
+                        <div class="col-md-12 text-center" style="
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: row;
+                        align-items: center;
+                    ">
+                            <button class="btn" id="clear"><i class="mdi mdi-refresh"></i>
+                            </button> <button class="btn btn-primary d-grid  waves-effect waves-light" id="save">Upload</button> </div>  
+                        <input type="hidden" wire:model="image" class="form-control" id="inputGroupFile01"
                             aria-describedby="defaultFormControlHelp">
                         @error('image') <span class="error">{{ $message }}</span> @enderror
-                        <div id="defaultFormControlHelp" class="form-text text-center"
-                            style="color: #24235b  !important "> <b>Notice: </b> Images must be in transparent PNG
-                            format, with dimensions of 200px (width) by 100px (height), and file size less than 100KB
-                        </div>
+                       
                     </div>
                 </div>
                 <button class="btn btn-success btn-lg pull-right" wire:click="fithStepSubmit"
@@ -411,6 +433,88 @@
                            Processing Submition...
                         </p>
                     </div>
+                     <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('signature-pad');
+    const signaturePad = new SignaturePad(canvas);
+
+    // Save and show signature as an image
+    document.getElementById('save').addEventListener('click', () => {
+        if (signaturePad.isEmpty()) {
+            alert('Please provide a signature first.');
+            return;
+        }
+
+        const imageData = canvas.toDataURL('image/png');
+        const hiddenInput = document.getElementById('inputGroupFile01');
+        hiddenInput.value = imageData;
+        @this.set('image', imageData); 
+        // Set the base64 image data to the hidden input field
+       // Set the value of the hidden input
+    //    Livewire.emit('fithStepSubmit', imageData);
+        // Create an image element for preview (optional)
+        const img = document.createElement('img');
+        img.src = imageData; // Set the Base64 image as the source
+        img.alt = 'Signature';
+        img.style.maxWidth = '100%'; // Ensure responsive sizing
+        img.style.height = 'auto';
+       
+        // Append the image to the container with ID "showimage"
+        const showImageContainer = document.getElementById('showimage');
+        showImageContainer.innerHTML = ''; // Clear any existing content
+        showImageContainer.appendChild(img); // Append the new image
+    });
+
+    // Clear the signature pad
+    document.getElementById('clear').addEventListener('click', () => {
+        signaturePad.clear(); // Clears the canvas
+        document.getElementById('showimage').innerHTML = ''; // Clears the image preview
+
+        // Clear the hidden input value
+        const hiddenInput = document.getElementById('inputGroupFile01');
+        hiddenInput.value = ''; // Clear the hidden input value
+    });
+});
+
+
+
+
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     const canvas = document.getElementById('signature-pad');
+    //     const signaturePad = new SignaturePad(canvas);
+
+    //     // Save and show signature as an image
+    //     document.getElementById('save').addEventListener('click', () => {
+    //         if (signaturePad.isEmpty()) {
+    //             alert('Please provide a signature first.');
+    //             return;
+    //         }
+
+    //         const imageData = canvas.toDataURL('image/png');
+
+    //         // Create an image element
+    //         const img = document.createElement('img');
+    //         img.src = imageData; // Set the Base64 image as the source
+    //         img.alt = 'Signature';
+    //         img.style.maxWidth = '100%'; // Ensure responsive sizing
+    //         img.style.height = 'auto';
+
+    //         // Append the image to the container with ID "showimage"
+    //         const showImageContainer = document.getElementById('showimage');
+    //         showImageContainer.innerHTML = ''; // Clear any existing content
+    //         showImageContainer.appendChild(img); // Append the new image
+    //     });
+
+    //     // Clear the signature pad
+    //     document.getElementById('clear').addEventListener('click', () => {
+    //         signaturePad.clear(); // Clears the canvas
+    //         document.getElementById('showimage').innerHTML = ''; // Clears the image preview
+    //     });
+    // }); 
+
+
+                      
+                    </script>
             </div>
         </div>
     </div>
