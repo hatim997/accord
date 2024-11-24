@@ -70,7 +70,7 @@ $user = request()->user();
                     class="form-control"
                     type="text"
                     id="firstName"
-                    name="firstName"
+                    name="username"
                    value="{{$item->name}}"
                     autofocus />
                   <label for="firstName">First Name</label>
@@ -221,7 +221,7 @@ $user = request()->user();
                   <label for="email">zip</label>
                 </div>
               </div>
-         
+
 
 
 

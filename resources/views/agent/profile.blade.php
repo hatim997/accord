@@ -70,22 +70,22 @@ $user = request()->user();
                   <input
                     class="form-control"
                     type="text"
-                    id="firstName"
-                    name="firstName"
+                    id="username"
+                    name="username"
                    value="{{$item->name}}"
                     autofocus />
-                  <label for="firstName">First Name</label>
+                  <label for="username">First Name</label>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-floating form-floating-outline">
-                  <input class="form-control" type="text" value="{{$item->agencies[0]->mname}}" name="mname"   id="username" placeholder="ACME Inc." />
+                  <input class="form-control" type="text" value="{{$item->agencies[0]->mname}}" name="mname"   id="mname" placeholder="ACME Inc." />
                   <label for="lastName">Middle Name</label>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-floating form-floating-outline">
-                  <input class="form-control" type="text" value="{{$item->agencies[0]->lname}}" name="lname"   id="username" placeholder="ACME Inc."  />
+                  <input class="form-control" type="text" value="{{$item->agencies[0]->lname}}" name="lname"   id="lname" placeholder="ACME Inc."  />
                   <label for="lastName">Last Name</label>
                 </div>
               </div>
