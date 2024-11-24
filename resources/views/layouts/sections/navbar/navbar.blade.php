@@ -297,28 +297,61 @@ color: #fff !important;
           })
           ->exists();
   @endphp
+<style>
+  .icon-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    color: #64748B !important;
+    /* background: #dddddd; */
+    border: none;
+    outline: none;
+    border-radius: 50%;
+  }
 
-  <li class="nav-item dropdown-notifications navbar-dropdown dropdown ms-5 me-xl-4 ps-5">
-      <a
-          class="nav-link btn btn-text-secondary px-3 mx-3 rounded-pill btn-icon dropdown-toggle hide-arrow waves-effect waves-light"
-          href="{{ route('notice') }}">
+  .icon-button:hover {
+    cursor: pointer;
+  }
 
-          <div class="avatar
-              @if($unreadNotices)
-                  avatar-away
-              @endif
-          ">
-              <i class="mdi mdi-bell-outline mdi-24px"></i>
-          </div>
+  .icon-button:active {
+    /* background: #cccccc; */
+  }
 
-          @if($unreadNotices)
-              <span
-                  class="badge rounded-pill bg-label-danger text-xs position-absolute top-0 end-0 translate-middle">
-                  New
-              </span>
-          @endif
-      </a>
-  </li>
+  .icon-button__badge {
+    position: absolute;
+    top: 10px;
+    border: 1px solid #fff;
+    right: 11px;
+    width: 12px;
+    height: 12px;
+    background: #F43F5E;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+  }
+</style>
+
+<li class="nav-item dropdown-notifications navbar-dropdown dropdown ms-5 me-xl-4 ps-5">
+  <a
+    class="nav-link icon-button dropdown-toggle hide-arrow waves-effect waves-light"
+    href="{{ route('notice') }}"
+  >
+    <!-- Notification Icon -->
+    <i class="mdi mdi-bell mdi-24px"></i>
+
+    <!-- Badge (Displayed only if there are unread notices) -->
+    @if($unreadNotices)
+      <span class="icon-button__badge"></span>
+    @endif
+  </a>
+</li>
 
 
 
@@ -336,9 +369,12 @@ color: #fff !important;
                     $user = request()->user();
                   @endphp
                 <div class="flex-grow-1">
-                    <h6 class="mb-0">{{ $user->name }}</h6>
-                    <small class="mb-0">{{ $user->rememberToken}}</small>
-                    <small class="m-0">{{ $user->role }}</small>
+                  <small class="m-0" style="color: #EB6D40 !important; font-weight:bold;">{{ $user->role }}</small>
+                  <small class="mb-0" style="color: #727272 !important; font-weight:bold;">{{ $user->rememberToken}}</small>
+                    <h6 class="mb-0" style="color: #000 !important; font-weight:bold;">{{ $user->name }}</h6>
+
+
+
                 </div>
                 </div>
             </a>

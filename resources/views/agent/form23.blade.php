@@ -10,7 +10,7 @@ $navbarHideToggle = false;
 @endpush
 <style>
   td{
-    padding-left: 15px; 
+    padding-left: 15px;
     padding-top: 10px;
     margin-bottom:8px;
   }
@@ -48,8 +48,7 @@ $navbarHideToggle = false;
         font-style: italic;
         /* Optional: to differentiate the cellphone number */
     }
-</style>
-<style>
+
     .agency-info {
         line-height: 1.5;
     }
@@ -63,8 +62,7 @@ $navbarHideToggle = false;
     .agency-city-state-zip {
         font-size: 14px;
     }
-</style>
-<style>
+
     .agency-sub-table {
         border-collapse: collapse;
         width: 100%;
@@ -157,24 +155,19 @@ $navbarHideToggle = false;
                                                         </table>
                                                         </td>
                                                         </tr>
-                                                        <tr class="ng-tns-c268-42" style="margin-top: 20px !important;">
-                                                            <td colspan="2" class="ng-tns-c268-42">
-                                                                <div class="acord_title_matter ng-tns-c268-42">
-                                                                    THIS CERTIFICATE IS ISSUED AS A MATTER OF INFORMATION
-                                                                    ONLY AND CONFERS
-                                                                    NO RIGHTS UPON THE CERTIFICATE HOLDER. THIS CERTIFICATE
-                                                                    DOES NOT
-                                                                    AFFIRMATIVELY OR NEGATIVELY AMEND, EXTEND OR ALTER THE
-                                                                    COVERAGE
-                                                                    AFFORDED BY THE POLICIES BELOW. THIS CERTIFICATE OF
-                                                                    INSURANCE
-                                                                    DOES NOT CONSTITUTE A CONTRACT BETWEEN THE ISSUING
-                                                                    INSURER(S),
-                                                                    AUTHORIZED REPRESENTATIVE OR PRODUCER, AND THE
-                                                                    CERTIFICATE HOLDER.
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                      <tr class="ng-tns-c268-42" style="background-color: #f9f9f9;">
+                                                          <td colspan="2" class="ng-tns-c268-42">
+                                                              <div class="acord_title_matter ng-tns-c268-42"
+                                                                   style="text-align: center; font-family: 'Arial', sans-serif; font-size: 11px; line-height: 1.5; color: #333;   border-radius: 5px;">
+                                                                  THIS CERTIFICATE IS ISSUED AS A MATTER OF INFORMATION ONLY AND CONFERS
+                                                                  NO RIGHTS UPON THE CERTIFICATE HOLDER. THIS CERTIFICATE DOES NOT
+                                                                  AFFIRMATIVELY OR NEGATIVELY AMEND, EXTEND OR ALTER THE COVERAGE
+                                                                  AFFORDED BY THE POLICIES BELOW. THIS CERTIFICATE OF INSURANCE
+                                                                  DOES NOT CONSTITUTE A CONTRACT BETWEEN THE ISSUING INSURER(S),
+                                                                  AUTHORIZED REPRESENTATIVE OR PRODUCER, AND THE CERTIFICATE HOLDER.
+                                                              </div>
+                                                          </td>
+                                                      </tr>
 
 
 
@@ -1749,7 +1742,7 @@ $navbarHideToggle = false;
                                                             <tbody class="ng-tns-c268-42">
                                                                 <tr class="ng-tns-c268-42">
                                                                     <td colspan="8" class="ng-tns-c268-42">
-                                                                        <div style="font-family: Arial; font-size: 11px; margin: 2px;"
+                                                                        <div style="text-align: center; font-family: 'Arial', sans-serif;font-weight:bold; font-size: 11px; line-height: 1.5; color: #333;   border-radius: 5px;"
                                                                             class="ng-tns-c268-42"> THE POLICIES OF
                                                                             INSURANCE
                                                                             LISTED BELOW
@@ -1770,7 +1763,7 @@ $navbarHideToggle = false;
                                                                             PAID CLAIMS. </div>
                                                                     </td>
                                                                 </tr>
-                                                                <tr id="scrollToPolicyHeaderTR" class="ng-tns-c268-42" style="font-size: 20px; text-align: center;">
+                                                                <tr id="scrollToPolicyHeaderTR" class="ng-tns-c268-42" style="font-size: 20px; text-align: center; margin-top:25%;">
 
                                                                   <td width="3%" class="lable_title ng-tns-c268-42">
                                                                     <div align="center" class="ng-tns-c268-42" style="font-size: 10px;">
@@ -2082,8 +2075,8 @@ $navbarHideToggle = false;
                                                                                                             </div>
                                                                                                         </div>
                                                                                                         <div class="mat-form-field-infix ng-tns-c70-67" style="font-weight: bold; text-align: center;">
-                                                                                                          <input 
-                                                                                                              style="font-weight: bold !important; background-color: #ffff; text-align: center; " 
+                                                                                                          <input
+                                                                                                              style="font-weight: bold !important;  text-align: center; "
                                                                                                               autocomplete="off"
                                                                                                               matinput=""
                                                                                                               formcontrolname="policyNumberGL"
@@ -2098,7 +2091,7 @@ $navbarHideToggle = false;
                                                                                                               aria-required="true">
                                                                                                           <span class="mat-form-field-label-wrapper ng-tns-c70-67"></span>
                                                                                                       </div>
-                                                                                                      
+
                                                                                                     </div>
                                                                                                     <div
                                                                                                         class="mat-form-field-subscript-wrapper ng-tns-c70-67">
@@ -2138,9 +2131,9 @@ $navbarHideToggle = false;
                                                                                             </span>
                                                                                         </label>
                                                                                     </mat-slide-toggle>
-                                                                                    
+
                                                                                     </td>
-                                                                                    
+
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
@@ -3089,7 +3082,7 @@ $navbarHideToggle = false;
         <div class="form-floating form-floating-outline mb-4" style="text-align: center;">
           <h3 style="font-weight: 600; font-size: 1.75rem; color: #333;">Additional Remarks Schedule</h3>
       </div>
-      
+
       <div class="form-floating form-floating-outline mb-4" style="display: flex; justify-content: center;">
           <textarea class="form-control h-px-100" name="ars"
               style="background-color: rgba(0, 0, 0, 0.05) !important; width: 80%; max-width: 600px; height: 200px; color: #333; font-size: 1rem; border-radius: 8px; border: 1px solid #ccc; padding: 12px; text-align: center;"
@@ -3099,18 +3092,18 @@ $navbarHideToggle = false;
               @endif
           </textarea>
       </div>
-      
+
       <div fxlayout="row" fxlayoutalign="center center" class="acord-button-row ng-tns-c268-42"
           style="display: flex; justify-content: center; align-items: center; padding-top: 15px;">
-          
+
           <a mat-flat-button="" href="{{ route('formlist') }}" color="warn"
               class="mat-focus-indicator action-button mat-flat-button mat-button-base mat-warn"
               style="font-weight: 600; background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%); border-radius: 25px; padding: 10px 20px; color: #fff; transition: background-color 0.3s ease;">
               <span class="mat-button-wrapper">Close</span>
           </a>
       </div>
-      
-      
+
+
     </div>
     </div>
     </div>
