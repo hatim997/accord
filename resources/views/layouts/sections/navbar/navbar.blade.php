@@ -9,12 +9,7 @@
   font-weight: bold;
   border-radius: 25px;
 }
-.waves-effect:hover{
-background-color: #2684ff !important;
-transition: .4s;
-color: #fff !important;
 
-}
 
 /* Modal Dialog */
 .modal-dialog {
