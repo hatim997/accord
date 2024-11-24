@@ -8,7 +8,87 @@ $navbarHideToggle = false;
 @push('body-css')
   <link rel="stylesheet" href="{{ asset('assets/css/form.css') }}" />
 @endpush
+<style>
+  td{
+    padding-left: 15px;
+    padding-top: 10px;
+    margin-bottom:8px;
+  }
+    .label-title {
+        font-weight: bold;
+        font-size: 16px;
+        color: #333;
+        padding: 10px;
+        background-color: #f9f9f9;
+    }
 
+    .label-title-normal {
+        font-size: 14px;
+        color: #555;
+        padding: 10px;
+        background-color: #ffffff;
+    }
+
+    .insured-info {
+        line-height: 1.5;
+    }
+
+    .insured-name {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .insured-address,
+    .insured-city-state-zip,
+    .insured-cellphone {
+        font-size: 14px;
+    }
+
+    .insured-cellphone {
+        font-style: italic;
+        /* Optional: to differentiate the cellphone number */
+    }
+
+    .agency-info {
+        line-height: 1.5;
+    }
+
+    .agency-name {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .agency-address,
+    .agency-city-state-zip {
+        font-size: 14px;
+    }
+
+    .agency-sub-table {
+        border-collapse: collapse;
+        width: 100%;
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+
+    .tab-field-set {
+        padding: 12px 8px;
+        color: #555;
+    }
+
+    .contact-name {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .ng-tns-c268-42 {
+        line-height: 1.5;
+    }
+    #acordPage .l_h_23 {
+    line-height: 10px !important;
+}
+</style>
 @section('content')
 <form method="post" action="{{ route('update_cert') }}" id="form">
     @csrf
@@ -52,1319 +132,1127 @@ $navbarHideToggle = false;
                                                             <td colspan="2" valign="middle" class="p-0 ng-tns-c268-42">
                                                                 <table width="100%" cellpadding="0" cellspacing="0"
                                                                     border="0" class="ng-tns-c268-42">
-                                                                    <tr class="ng-tns-c268-42">
-                                                                        <td class="ng-tns-c268-42"><span
-                                                                                class="acord_title ng-tns-c268-42"><img
-                                                                                src="{{ asset('assets/img/nlogo.png')}}"
-                                                                                    width="91" height="39"
-                                                                                    class="ng-tns-c268-42">
-                                                                                    CERTIFICATE OF LIABILITY INSURANCE</span></td>
-                                                                                <td width="120px" class="date_top ng-tns-c268-42">
-                                                                                    <div class="mat-form-field-subscript-wrapper ng-tns-c70-48"
-                                                                                    style="text-align: center; position: relative; top:10px; float: left;  font-size:13px">
-                                                                                 {{ isset($certificate->created_at) ?date('m-d-Y', strtotime($certificate->created_at)) : '' }}
-                                                                                    </div>
-                                                                                </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="ng-tns-c268-42">
-                                                            <td colspan="2" class="ng-tns-c268-42">
-                                                                <div class="acord_title_matter ng-tns-c268-42">THIS
-                                                                    CERTIFICATE IS
-                                                                    ISSUED AS A MATTER OF INFORMATION ONLY AND CONFERS
-                                                                    NO RIGHTS
-                                                                    UPON THE CERTIFICATE HOLDER. THIS CERTIFICATE DOES
-                                                                    NOT
-                                                                    AFFIRMATIVELY OR NEGATIVELY AMEND, EXTEND OR ALTER
-                                                                    THE COVERAGE
-                                                                    AFFORDED BY THE POLICIES BELOW. THIS CERTIFICATE OF
-                                                                    INSURANCE
-                                                                    DOES NOT CONSTITUTE A CONTRACT BETWEEN THE ISSUING
-                                                                    INSURER(S),
-                                                                    AUTHORIZED REPRESENTATIVE OR PRODUCER, AND THE
-                                                                    CERTIFICATE
-                                                                    HOLDER. </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="ng-tns-c268-42">
-                                                            <td width="35%" valign="top" class="p-0 ng-tns-c268-42">
-                                                                <table width="100%" cellpadding="0" cellspacing="0"
-                                                                    border="0" style="min-height: 90px;"
-                                                                    class="ng-tns-c268-42">
-                                                                    <tbody class="ng-tns-c268-42">
-                                                                        <tr height="73" class="ng-tns-c268-42">
-                                                                            <td width="100" valign="middle"
-                                                                                class="lable_title ng-tns-c268-42">
-                                                                                PRODUCER</td>
-                                                                            <td valign="middle"
-                                                                                class="lable_title_normal ng-tns-c268-42">
-                                                                                {{ $agent->agencies[0]->name }}<br
+                                                                    <tr class="ng-tns-c268-42"
+                                                                    style="display: flex; justify-content: center; align-items: center;">
+                                                                    <td class="ng-tns-c268-42"
+                                                                        style="text-align: center;">
+                                                                        <span
+                                                                            class="acord_title ng-tns-c268-42"><img
+                                                                                src="{{ asset('assets/img/nlogo.png') }}"
+                                                                                width="91" height="39"
                                                                                 class="ng-tns-c268-42">
-                                                                                {{ $agent->agencies[0]->address }}<br
-                                                                                    class="ng-tns-c268-42"> {{ $agent->agencies[0]->city }}
-                                                                                    {{ $agent->agencies[0]->state }}
-                                                                                ,
-                                                                               {{ $agent->agencies[0]->zip }} <br
-                                                                                    class="ng-tns-c268-42">
-                                                                              </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                            <td width="65%" valign="top" class="p-0 ng-tns-c268-42">
-                                                                <table width="100%" cellpadding="0" cellspacing="0"
-                                                                    border="0"
-                                                                    class="agenc_sub_table a_s_t_b ng-tns-c268-42"
-                                                                    style="min-height: 90px;">
-                                                                    <tbody class="ng-tns-c268-42">
-                                                                        <tr class="ng-tns-c268-42">
-                                                                            <td
-                                                                                class="lable_title tab_fild_set ng-tns-c268-42">
-                                                                                CONTACT NAME:</td>
-                                                                            <td colspan="3" class="ng-tns-c268-42">
-                                                                                {{ $agent->name }}
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="ng-tns-c268-42">
-                                                                            <td width="22%"
-                                                                                class="lable_title ng-tns-c268-42"><span
-                                                                                    class="ng-tns-c268-42">PHONE</span>
-                                                                                (A/C, No,
-                                                                                Ext): </td>
-                                                                            <td class="ng-tns-c268-42">{{ $agent->agencies[0]->cellphone }}</td>
-                                                                            <td width="26%"
-                                                                                class="lable_title tab_fild_set ng-tns-c268-42">
-                                                                                <span class="ng-tns-c268-42">FAX (A/C,
-                                                                                    No):</span>
-                                                                            </td>
-                                                                            <td width="26%"
-                                                                                class="tab_fild_set ng-tns-c268-42">{{ $agent->agencies[0]->fax }}
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="ng-tns-c268-42">
-                                                                            <td width="22%"
-                                                                                class="lable_title ng-tns-c268-42"><span
-                                                                                    class="ng-tns-c268-42">E-MAIL</span>
-                                                                                ADDRESS:
-                                                                            </td>
-                                                                            <td width="26%" class="ng-tns-c268-42">
-                                                                                {{ $agent->email }} </td>
-                                                                            <td width="25%"
-                                                                                class="lable_title ng-tns-c268-42"><span
-                                                                                    class="ng-tns-c268-42">PRODUCER</span>
-                                                                                CUSTOMER
-                                                                                ID #: </td>
-                                                                            <td width="25%" class="ng-tns-c268-42">
-                                                                                {{ $agent->agencies[0]->producer_customer_number }}</td>
-                                                                        </tr>
-                                                                    </tbody>
+                                                                            &nbsp;&nbsp;CERTIFICATE OF LIABILITY
+                                                                            INSURANCE</span>
+                                                                    </td></span>
+                                                        </td>
+                                                        <td width="120px" class="date_top ng-tns-c268-42"
+                                                            style="text-align: right; padding-right: 10px;">
+                                                            <div class="mat-form-field-subscript-wrapper ng-tns-c70-48"
+                                                                style="position: relative; top: 10px; font-size: 12px;">
+                                                                {{ isset($certificate->created_at) ? date('m-d-Y', strtotime($certificate->created_at)) : '' }}
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
                                                                 </table>
                                                             </td>
                                                         </tr>
+                                                        <tr class="ng-tns-c268-42" style="background-color: #f9f9f9;">
+                                                          <td colspan="2" class="ng-tns-c268-42">
+                                                              <div class="acord_title_matter ng-tns-c268-42"
+                                                                   style="text-align: center; font-family: 'Arial', sans-serif; font-size: 11px; line-height: 1.5; color: #333;   border-radius: 5px;">
+                                                                  THIS CERTIFICATE IS ISSUED AS A MATTER OF INFORMATION ONLY AND CONFERS
+                                                                  NO RIGHTS UPON THE CERTIFICATE HOLDER. THIS CERTIFICATE DOES NOT
+                                                                  AFFIRMATIVELY OR NEGATIVELY AMEND, EXTEND OR ALTER THE COVERAGE
+                                                                  AFFORDED BY THE POLICIES BELOW. THIS CERTIFICATE OF INSURANCE
+                                                                  DOES NOT CONSTITUTE A CONTRACT BETWEEN THE ISSUING INSURER(S),
+                                                                  AUTHORIZED REPRESENTATIVE OR PRODUCER, AND THE CERTIFICATE HOLDER.
+                                                              </div>
+                                                          </td>
+                                                      </tr>
+
+
                                                         <tr class="ng-tns-c268-42">
+                                                          <td width="35%" valign="top" class="p-0 ng-tns-c268-42">
+                                                              <table width="100%" cellpadding="0" cellspacing="0"
+                                                                  border="0" style="min-height: 150px;"
+                                                                  class="ng-tns-c268-42">
+                                                                  <tbody class="ng-tns-c268-42">
+                                                                      <tr height="123" class="ng-tns-c268-42">
+                                                                          <td width="150" valign="middle"
+                                                                              class="label-title ng-tns-c268-42">
+                                                                              <strong>PRODUCER</strong>
+                                                                          </td>
+                                                                          <td valign="middle"
+                                                                              class="label-title-normal ng-tns-c268-42">
+                                                                              <div class="agency-info">
+                                                                                  <span
+                                                                                      class="agency-name">{{ $agent->agencies[0]->name }}</span><br
+                                                                                      class="ng-tns-c268-42">
+                                                                                  <span
+                                                                                      class="agency-address">{{ $agent->agencies[0]->address }}</span><br
+                                                                                      class="ng-tns-c268-42">
+                                                                                  <span
+                                                                                      class="agency-city-state-zip">{{ $agent->agencies[0]->city }},
+                                                                                      {{ $agent->agencies[0]->state }}
+                                                                                      {{ $agent->agencies[0]->zip }}</span>
+                                                                              </div>
+                                                                          </td>
+                                                                      </tr>
+
+                                                                  </tbody>
+                                                              </table>
+                                                          </td>
+                                                          {{-- <tr class="ng-tns-c268-42">
                                                             <td width="35%" valign="top" class="p-0 ng-tns-c268-42">
                                                                 <table width="100%" cellpadding="0" cellspacing="0"
-                                                                    border="0" style="min-height: 205px;"
+                                                                    border="0" style="min-height: 150px;"
                                                                     class="ng-tns-c268-42">
                                                                     <tbody class="ng-tns-c268-42">
-                                                                        <tr height="173" class="ng-tns-c268-42">
-                                                                            <td width="100" valign="middle"
-                                                                                class="lable_title ng-tns-c268-42">
-                                                                                INSURED</td>
-                                                                            <td valign="middle"
-                                                                                class="lable_title_normal pt-30 ng-tns-c268-42">
-                                                                                {{ $driver->truckers[0]->name }}<br
-                                                                                    class="ng-tns-c268-42">
-                                                                                    {{ $driver->truckers[0]->address }} <br class="ng-tns-c268-42">
-                                                                                    {{ $driver->truckers[0]->city }}
-                                                                                    {{ $driver->truckers[0]->state }}  ,
-                                                                                    {{ $driver->truckers[0]->zip }}
-                                                                                <br class="ng-tns-c268-42">
-                                                                                {{ $driver->truckers[0]->cellphone }} ,
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                            <td width="65%" valign="top" class="p-0 ng-tns-c268-42">
-                                                                <table width="100%" cellpadding="0" cellspacing="0"
-                                                                    border="0" formgroupname="iaInsurerForm"
-                                                                    class="agenc_sub_table a_s_t_b ng-tns-c268-42 ng-untouched ng-pristine ng-valid"
-                                                                    style="min-height: 205px;">
-                                                                    <tbody class="ng-tns-c268-42">
-                                                                        <tr class="ng-tns-c268-42">
-                                                                            <td width="22%"
-                                                                                class="w-120 tab_fild_set ng-tns-c268-42">
-                                                                            </td>
-                                                                            <td width="26%" align="center"
-                                                                                class="lable_title ng-tns-c268-42">
-                                                                                INSURER(S)
-                                                                                AFFORDING COVERAGE</td>
-                                                                            <td width="26%" align="center"
-                                                                                class="lable_title tab_fild_set ng-tns-c268-42">
-                                                                                NAIC
-                                                                                #</td>
-                                                                            <td width="26%" align="center"
-                                                                                class="lable_title tab_fild_set ng-tns-c268-42">
-                                                                                BEST
-                                                                                RATING</td>
-                                                                        </tr>
-                                                                        <tr class="ng-tns-c268-42">
-                                                                            <td class="lable_title ng-tns-c268-42">
-                                                                                INSURER A : </td>
-                                                                            <td class="ng-tns-c268-42">
-                                                                                <mat-form-field appearance="outline"
-                                                                                    class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-49 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
-                                                                                    style="">
-                                                                                    <div
-                                                                                        class="mat-form-field-wrapper ng-tns-c70-49">
-                                                                                        <div
-                                                                                            class="mat-form-field-flex ng-tns-c70-49">
-                                                                                            <div
-                                                                                                class="mat-form-field-outline ng-tns-c70-49 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-49"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-49"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-49">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-49 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-49"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-49"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-49">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-infix ng-tns-c70-49">
-                                                                                                {{-- <input matinput=""
-                                                                                                    placeholder="Enter Insurer A Details"
-                                                                                                    formcontrolname="insurerA"
-                                                                                                    value="@if (isset(  $certPolicy ) ){{ $certPolicy->first()->insuranceProvider->name }} @endif"
-                                                                                                    class="js-example-basic-single form-control mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-49 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
-                                                                                                    id="insurA"
-                                                                                                    data-placeholder="Enter Insurer A Details"
-                                                                                                    aria-invalid="false"
-                                                                                                    aria-required="false"
-                                                                                                    autocomplete="off"
-                                                                                                    role="combobox"
-                                                                                                    aria-autocomplete="list"
-                                                                                                    aria-expanded="false"
-                                                                                                    aria-haspopup="listbox"> --}}
-                                                                                                    @php
-                                                                                                    $values = "";
-                                                                                                @endphp
-                                                                                                    <select id="insurA" class="selecter">
-                                                                                                      <option value="">-Select-</option>
-                                                                                                      @foreach ($insurProviders as $ip)
-                                                                                                      @php
-                                                                                                      $isSelected = false;
-                                                                                                  @endphp
+                                                                      <tr height="123" class="ng-tns-c268-42">
+                                                                        <td width="150" valign="middle" class="label-title ng-tns-c268-42">
+                                                                            <strong>PRODUCER</strong>
+                                                                        </td>
+                                                                        <td valign="middle" class="label-title-normal ng-tns-c268-42">
+                                                                            <div class="agency-info">
+                                                                                <span class="agency-name">{{ $agent->agencies[0]->name }}</span><br class="ng-tns-c268-42">
+                                                                                <span class="agency-address">{{ $agent->agencies[0]->address }}</span><br class="ng-tns-c268-42">
+                                                                                <span class="agency-city-state-zip">{{ $agent->agencies[0]->city }}, {{ $agent->agencies[0]->state }} {{ $agent->agencies[0]->zip }}</span>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr> --}}
 
-                                                                                                  @foreach ($certPolicy as $policy)
-                                                                                                      @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'A')
-                                                                                                          @php
-                                                                                                              $isSelected = true;
-                                                                                                              break;
-                                                                                                          @endphp
-                                                                                                      @endif
-                                                                                                  @endforeach
-                                                                                                  <option
-                                                                                                  {{ $isSelected ? 'selected' : '' }}
-                                                                                                  data-naic="{{ $ip->naic_number }}"
-                                                                                                          data-brn="{{ $ip->best_rating_number }}"
-                                                                                                          value="{{   $ip->id }}">
-                                                                                                          @php
-                                                                                                          $values = $ip->id;
+
+                                                          <td width="65%" valign="top" class="p-0 ng-tns-c268-42">
+                                                              <table width="100%" cellpadding="0" cellspacing="0"
+                                                                  border="0" style="min-height: 150px;"
+                                                                  class="ng-tns-c268-42">
+                                                                  <tbody class="ng-tns-c268-42">
+                                                                      <tr class="ng-tns-c268-42">
+                                                                          <td class="label-title ng-tns-c268-42">
+                                                                              <strong>CONTACT NAME:</strong>
+                                                                          </td>
+                                                                          <td class="ng-tns-c268-42">
+                                                                              <span
+                                                                                  class="contact-name">{{ $agent->name }}</span>
+                                                                          </td>
+                                                                          <td width="26%"
+                                                                              class="label-title  ng-tns-c268-42">
+                                                                              <strong>FAX (A/C, No):</strong>
+                                                                          </td>
+                                                                          <td width="26%"
+                                                                              class="tab-field-set ng-tns-c268-42">
+                                                                              {{ $agent->agencies[0]->fax }}</td>
+                                                                      </tr>
+                                                                      <tr class="ng-tns-c268-42">
+                                                                          <td width="22%"
+                                                                              class="label-title ng-tns-c268-42">
+                                                                              <strong>PHONE</strong> (A/C, No, Ext):
+                                                                          </td>
+                                                                          <td class="ng-tns-c268-42">
+                                                                              {{ $agent->agencies[0]->cellphone }}</td>
+
+                                                                          <td width="25%"
+                                                                              class="label-title ng-tns-c268-42">
+                                                                              <strong>PRODUCER</strong> CUSTOMER ID #:
+                                                                          </td>
+                                                                          <td width="25%" class="ng-tns-c268-42">
+                                                                              {{ $agent->agencies[0]->producer_customer_number }}
+                                                                          </td>
+                                                                      </tr>
+                                                                      <tr class="ng-tns-c268-42">
+                                                                          <td width="22%"
+                                                                              class="label-title ng-tns-c268-42">
+                                                                              <strong>E-MAIL</strong> ADDRESS:
+                                                                          </td>
+                                                                          <td width="26%" class="ng-tns-c268-42">
+                                                                              {{ $agent->email }}</td>
+
+                                                                      </tr>
+                                                                  </tbody>
+                                                              </table>
+                                                          </td>
+
+
+                                                      </tr>
+                                                      <tr class="ng-tns-c268-42">
+                                                          <td width="35%" valign="top" class="p-0 ng-tns-c268-42">
+                                                              <table width="100%" cellpadding="0" cellspacing="0"
+                                                                  border="0" style="min-height: 205px;"
+                                                                  class="ng-tns-c268-42">
+                                                                  <tbody class="ng-tns-c268-42">
+                                                                      <tr height="173" class="ng-tns-c268-42">
+                                                                          <td width="150" valign="middle"
+                                                                              class="label-title ng-tns-c268-42">
+                                                                              <strong>INSURED</strong>
+                                                                          </td>
+                                                                          <td valign="middle"
+                                                                              class="label-title-normal pt-30 ng-tns-c268-42">
+                                                                              <div class="insured-info">
+                                                                                  <span
+                                                                                      class="insured-name">{{ $driver->truckers[0]->name }}</span><br
+                                                                                      class="ng-tns-c268-42">
+                                                                                  <span
+                                                                                      class="insured-address">{{ $driver->truckers[0]->address }}</span><br
+                                                                                      class="ng-tns-c268-42">
+                                                                                  <span
+                                                                                      class="insured-city-state-zip">{{ $driver->truckers[0]->city }},
+                                                                                      {{ $driver->truckers[0]->state }}
+                                                                                      {{ $driver->truckers[0]->zip }}</span><br
+                                                                                      class="ng-tns-c268-42">
+                                                                                  <span class="insured-cellphone">Cell:
+                                                                                      {{ $driver->truckers[0]->cellphone }}</span>
+                                                                              </div>
+                                                                          </td>
+                                                                      </tr>
+
+
+                                                                  </tbody>
+                                                              </table>
+                                                          </td>
+                                                          <td width="65%" valign="top" class="p-0 ng-tns-c268-42">
+                                                              <table width="100%" cellpadding="0" cellspacing="0"
+                                                                  border="0" formgroupname="iaInsurerForm"
+                                                                  class="agenc_sub_table a_s_t_b"
+                                                                  style="min-height: 205px; border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; color: #333;">
+                                                                  <tbody class="ng-tns-c268-42">
+                                                                      <tr class="ng-tns-c268-42 " >
+                                                                          <td width="22%"
+                                                                              class="w-120 tab_fild_set ng-tns-c268-42">
+                                                                          </td>
+                                                                          <td width="26%" align="center"
+                                                                              class="lable_title ng-tns-c268-42">
+                                                                              INSURER(S)
+                                                                              AFFORDING COVERAGE</td>
+                                                                          <td width="26%" align="center"
+                                                                              class="lable_title tab_fild_set ng-tns-c268-42">
+                                                                              NAIC
+                                                                              #</td>
+                                                                          <td width="26%" align="center"
+                                                                              class="lable_title tab_fild_set ng-tns-c268-42">
+                                                                              BEST
+                                                                              RATING</td>
+                                                                      </tr>
+                                                                      <tr class="ng-tns-c268-42">
+                                                                        <td
+                                                                            class="lable_title ng-tns-c268-42"
+                                                                            style="padding-left: 15px; text-align: left;"
+                                                                        >
+                                                                            INSURER A :
+                                                                        </td>
+                                                                          <td class="ng-tns-c268-42" >
+                                                                              <mat-form-field appearance="outline"
+                                                                                  class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-49 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
+                                                                                  style="">
+                                                                                  <div
+                                                                                      class="mat-form-field-wrapper ng-tns-c70-49">
+                                                                                      <div
+                                                                                          class="mat-form-field-flex ng-tns-c70-49">
+                                                                                          <div
+                                                                                              class="mat-form-field-outline ng-tns-c70-49 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-49"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-49"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-49">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-49 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-49"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-49"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-49">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-infix ng-tns-c70-49" style=" background-color : #FFFFFF ;">
+
+                                                                                              @php
+                                                                                                  $values = '';
+                                                                                              @endphp
+                                                                                              <select id="insurA"
+                                                                                                  class="selecter">
+                                                                                                  <option value="">
+                                                                                                      -Select-</option>
+                                                                                                  @foreach ($insurProviders as $ip)
+                                                                                                      @php
+                                                                                                          $isSelected = false;
                                                                                                       @endphp
+
+                                                                                                      @foreach ($certPolicy as $policy)
+                                                                                                          @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'A')
+                                                                                                              @php
+                                                                                                                  $isSelected = true;
+                                                                                                                  break;
+                                                                                                              @endphp
+                                                                                                          @endif
+                                                                                                      @endforeach
+                                                                                                      <option
+                                                                                                          {{ $isSelected ? 'selected' : '' }}
+                                                                                                          data-naic="{{ $ip->naic_number }}"
+                                                                                                          data-brn="{{ $ip->best_rating_number }}"
+                                                                                                          value="{{ $ip->id }}">
+                                                                                                          @php
+                                                                                                              $values =
+                                                                                                                  $ip->id;
+                                                                                                          @endphp
                                                                                                           {{ $ip->name }}
                                                                                                       </option>
-                                                                                                      @endforeach
-                                                                                                    </select>
-
-                                                                                                    <input type="hidden" id="insurance_provider_id_A" name="insurance_provider_id[]"
-                                                                                                    @foreach ($insurProviders as $ip)
-                                                                                                @foreach ($certPolicy as $policy)
-                                                                                                    @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'A')
-                                                                                                    value="{{$ip->id}}"
-                                                                                                    @endif
-                                                                                                    @endforeach
-                                                                                                    @endforeach
-                                                                                                    />
-
-                                                                                                    <div id="insurerAList">
-                                                                                                    </div>
-                                                                                                <mat-autocomplete
-                                                                                                    panelwidth="auto"
-                                                                                                    class="mat-autocomplete ng-tns-c70-49">
-                                                                                                </mat-autocomplete><span
-                                                                                                    class="mat-form-field-label-wrapper ng-tns-c70-49"></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="mat-form-field-subscript-wrapper ng-tns-c70-49">
-                                                                                            <div class="mat-form-field-hint-wrapper ng-tns-c70-49 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
-                                                                                                style="opacity: 1; transform: translateY(0%);">
-                                                                                                <div
-                                                                                                    class="mat-form-field-hint-spacer ng-tns-c70-49">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </mat-form-field>
-                                                                            </td>
-                                                                            <td class="opd_td ng-tns-c268-42">
-                                                                                <mat-form-field appearance="outline"
-                                                                                    class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-50 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
-                                                                                    style="">
-                                                                                    <div
-                                                                                        class="mat-form-field-wrapper ng-tns-c70-50">
-                                                                                        <div
-                                                                                            class="mat-form-field-flex ng-tns-c70-50">
-                                                                                            <div
-                                                                                                class="mat-form-field-outline ng-tns-c70-50 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-50"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-50"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-50">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-50 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-50"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-50"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-50">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-infix ng-tns-c70-50">
-                                                                                                <input matinput=""
-                                                                                                    placeholder="Enter Insurer A Details"
-                                                                                                    formcontrolname="insNaicNoA"
-                                                                                                    value="@if (isset(  $certPolicy ) ){{ $certPolicy->first()->insuranceProvider->naic_number }} @endif"
-                                                                                                    class="mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-50 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
-                                                                                                    id="naic_a"
-                                                                                                    data-placeholder="Enter Insurer A Details"
-                                                                                                    aria-invalid="false"
-                                                                                                    aria-required="false"
-                                                                                                    autocomplete="off"
-                                                                                                    role="combobox"
-                                                                                                    aria-autocomplete="list"
-                                                                                                    aria-expanded="false"
-                                                                                                    aria-haspopup="listbox" readonly>
-                                                                                                <mat-autocomplete
-                                                                                                    panelwidth="auto"
-                                                                                                    class="mat-autocomplete ng-tns-c70-50">
-                                                                                                </mat-autocomplete><span
-                                                                                                    class="mat-form-field-label-wrapper ng-tns-c70-50"></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="mat-form-field-subscript-wrapper ng-tns-c70-50">
-                                                                                            <div class="mat-form-field-hint-wrapper ng-tns-c70-50 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
-                                                                                                style="opacity: 1; transform: translateY(0%);">
-                                                                                                <div
-                                                                                                    class="mat-form-field-hint-spacer ng-tns-c70-50">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </mat-form-field>
-                                                                            </td>
-                                                                            <td class="ng-tns-c268-42">
-                                                                                <mat-form-field appearance="outline"
-                                                                                    class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-51 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
-                                                                                    style="">
-                                                                                    <div
-                                                                                        class="mat-form-field-wrapper ng-tns-c70-51">
-                                                                                        <div
-                                                                                            class="mat-form-field-flex ng-tns-c70-51">
-                                                                                            <div
-                                                                                                class="mat-form-field-outline ng-tns-c70-51 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-51"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-51"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-51">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-51 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-51"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-51"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-51">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-infix ng-tns-c70-51">
-                                                                                                <input
-                                                                                                    autocomplete="off"
-                                                                                                    matinput=""
-                                                                                                    formcontrolname="insBestRatingA"
-                                                                                                    readonly="true"
-                                                                                                    value="@if (isset(  $certPolicy ) ){{ $certPolicy->first()->insuranceProvider->best_rating_number }} @endif"
-                                                                                                    class="mat-input-element mat-form-field-autofill-control ng-tns-c70-51 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
-                                                                                                    id="br_a"
-                                                                                                    aria-invalid="false"
-                                                                                                    aria-required="false" readonly><span
-                                                                                                    class="mat-form-field-label-wrapper ng-tns-c70-51"></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="mat-form-field-subscript-wrapper ng-tns-c70-51">
-                                                                                            <div class="mat-form-field-hint-wrapper ng-tns-c70-51 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
-                                                                                                style="opacity: 1; transform: translateY(0%);">
-                                                                                                <div
-                                                                                                    class="mat-form-field-hint-spacer ng-tns-c70-51">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </mat-form-field>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="ng-tns-c268-42">
-                                                                            <td class="lable_title ng-tns-c268-42">
-                                                                                INSURER B : </td>
-                                                                            <td class="ng-tns-c268-42">
-                                                                                <mat-form-field appearance="outline"
-                                                                                    class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-52 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
-                                                                                    style="">
-                                                                                    <div
-                                                                                        class="mat-form-field-wrapper ng-tns-c70-52">
-                                                                                        <div
-                                                                                            class="mat-form-field-flex ng-tns-c70-52">
-                                                                                            <div
-                                                                                                class="mat-form-field-outline ng-tns-c70-52 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-52"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-52"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-52">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-52 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-52"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-52"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-52">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-infix ng-tns-c70-52">
-                                                                                                {{-- <input matinput=""
-                                                                                                    placeholder="Enter Insurer B Details"
-                                                                                                    formcontrolname="insurerB"
-                                                                                                    value=""
-                                                                                                    class="mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-52 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
-                                                                                                    id="mat-input-8"
-                                                                                                    data-placeholder="Enter Insurer B Details"
-                                                                                                    aria-invalid="false"
-                                                                                                    aria-required="false"
-                                                                                                    autocomplete="off"
-                                                                                                    role="combobox"
-                                                                                                    aria-autocomplete="list"
-                                                                                                    aria-expanded="false"
-                                                                                                    aria-haspopup="listbox"> --}}
-
-                                                                                                    <select id="insurB" class="selecter">
-                                                                                                      <option value="">-Select-</option>
-                                                                                                      @foreach ($insurProviders as $ip)
+                                                                                                  @endforeach
+                                                                                              </select>
+                                                                                              <input type="hidden"
+                                                                                                  id="insurance_provider_id_A"
+                                                                                                  name="insurance_provider_id[]"
+                                                                                                  value="" />
+                                                                                              <div id="insurerAList">
+                                                                                              </div>
+                                                                                              <mat-autocomplete
+                                                                                                  panelwidth="auto"
+                                                                                                  class="mat-autocomplete ng-tns-c70-49">
+                                                                                              </mat-autocomplete><span
+                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-49"></span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      <div
+                                                                                          class="mat-form-field-subscript-wrapper ng-tns-c70-49">
+                                                                                          <div class="mat-form-field-hint-wrapper ng-tns-c70-49 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+                                                                                              style="opacity: 1; transform: translateY(0%);">
+                                                                                              <div
+                                                                                                  class="mat-form-field-hint-spacer ng-tns-c70-49">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </mat-form-field>
+                                                                          </td>
+                                                                          <td class="opd_td ng-tns-c268-42" >
+                                                                              <mat-form-field appearance="outline"
+                                                                                  class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-50 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
+                                                                                  style="">
+                                                                                  <div
+                                                                                      class="mat-form-field-wrapper ng-tns-c70-50">
+                                                                                      <div
+                                                                                          class="mat-form-field-flex ng-tns-c70-50">
+                                                                                          <div
+                                                                                              class="mat-form-field-outline ng-tns-c70-50 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-50"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-50"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-50">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-50 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-50"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-50"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-50">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-infix ng-tns-c70-50" >
+                                                                                              <input matinput=""
+                                                                                                  placeholder="Enter Insurer A Details"
+                                                                                                  formcontrolname="insNaicNoA"
+                                                                                                  value="@if (isset($certPolicy)) {{ $certPolicy->first()->insuranceProvider->naic_number }} @endif"
+                                                                                                  class="mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-50 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                                  id="naic_a"
+                                                                                                  data-placeholder="Enter Insurer A Details"
+                                                                                                  aria-autocomplete="list"
+                                                                                                  aria-expanded="false"
+                                                                                                  aria-haspopup="listbox"
+                                                                                                  readonly>
+                                                                                              <mat-autocomplete
+                                                                                                  panelwidth="auto"
+                                                                                                  class="mat-autocomplete ng-tns-c70-50">
+                                                                                              </mat-autocomplete><span
+                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-50"></span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      <div
+                                                                                          class="mat-form-field-subscript-wrapper ng-tns-c70-50">
+                                                                                          <div class="mat-form-field-hint-wrapper ng-tns-c70-50 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+                                                                                              style="opacity: 1; transform: translateY(0%);">
+                                                                                              <div
+                                                                                                  class="mat-form-field-hint-spacer ng-tns-c70-50">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </mat-form-field>
+                                                                          </td>
+                                                                          <td class="ng-tns-c268-42">
+                                                                              <mat-form-field appearance="outline"
+                                                                                  class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-51 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
+                                                                                  style="">
+                                                                                  <div
+                                                                                      class="mat-form-field-wrapper ng-tns-c70-51">
+                                                                                      <div
+                                                                                          class="mat-form-field-flex ng-tns-c70-51">
+                                                                                          <div
+                                                                                              class="mat-form-field-outline ng-tns-c70-51 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-51"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-51"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-51">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-51 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-51"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-51"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-51">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-infix ng-tns-c70-51">
+                                                                                              <input autocomplete="off"
+                                                                                                  matinput=""
+                                                                                                  formcontrolname="insBestRatingA"
+                                                                                                  readonly="true"
+                                                                                                  value=""
+                                                                                                  class="mat-input-element mat-form-field-autofill-control ng-tns-c70-51 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                                  id="br_a"
+                                                                                                  aria-invalid="false"
+                                                                                                  aria-required="false"
+                                                                                                  readonly><span
+                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-51"></span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      <div
+                                                                                          class="mat-form-field-subscript-wrapper ng-tns-c70-51">
+                                                                                          <div class="mat-form-field-hint-wrapper ng-tns-c70-51 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+                                                                                              style="opacity: 1; transform: translateY(0%);">
+                                                                                              <div
+                                                                                                  class="mat-form-field-hint-spacer ng-tns-c70-51">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </mat-form-field>
+                                                                          </td>
+                                                                      </tr>
+                                                                      <tr class="ng-tns-c268-42">
+                                                                        <td
+                                                                            class="lable_title ng-tns-c268-42"
+                                                                            style="padding-left: 15px; text-align: left;"
+                                                                        >
+                                                                            INSURER B :
+                                                                        </td>
+                                                                          <td class="ng-tns-c268-42">
+                                                                              <mat-form-field appearance="outline"
+                                                                                  class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-52 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
+                                                                                  style="">
+                                                                                  <div
+                                                                                      class="mat-form-field-wrapper ng-tns-c70-52">
+                                                                                      <div
+                                                                                          class="mat-form-field-flex ng-tns-c70-52">
+                                                                                          <div
+                                                                                              class="mat-form-field-outline ng-tns-c70-52 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-52"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-52"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-52">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-52 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-52"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-52"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-52">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-infix ng-tns-c70-52" style=" background-color : #FFFFFF ;">
+                                                                                              {{-- <input
+                                                                                              placeholder="Enter Insurer B Details"
+                                                                                              value="@if (isset($certPolicy) && null !== $certPolicy->skip(1)->take(1)->first()){{ $certPolicy->skip(1)->take(1)->first()->insuranceProvider->name }} @endif"
+                                                                                              class="js-example-basic-single form-control mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-49 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                              id="insurB"
+                                                                                              data-placeholder="Enter Insurer B Details"> --}}
+                                                                                              @php
+                                                                                                  $values = '';
+                                                                                              @endphp
+                                                                                              <select id="insurB"
+                                                                                                  class="selecter">
+                                                                                                  <option value="">
+                                                                                                      -Select-</option>
+                                                                                                  @foreach ($insurProviders as $ip)
                                                                                                       @php
-                                                                                                      $isSelected = false;
-                                                                                                  @endphp
+                                                                                                          $isSelected = false;
+                                                                                                      @endphp
+
+                                                                                                      @foreach ($certPolicy as $policy)
+                                                                                                          @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'B')
+                                                                                                              @php
+                                                                                                                  $isSelected = true;
+                                                                                                                  break;
+                                                                                                              @endphp
+                                                                                                          @endif
+                                                                                                      @endforeach
+                                                                                                      <option
+                                                                                                          {{ $isSelected ? 'selected' : '' }}
+                                                                                                          data-naic="{{ $ip->naic_number }}"
+                                                                                                          data-brn="{{ $ip->best_rating_number }}"
+                                                                                                          value="{{ $ip->id }}">
+                                                                                                          @php
+                                                                                                              $values =
+                                                                                                                  $ip->id;
+                                                                                                          @endphp
+                                                                                                          {{ $ip->name }}
+                                                                                                      </option>
+                                                                                                  @endforeach
+                                                                                              </select>
+                                                                                              <input type="hidden"
+                                                                                                  id="insurance_provider_id_B"
+                                                                                                  name="insurance_provider_id[]"
+                                                                                                  value="" />
+                                                                                              <div id="insurerBList">
+                                                                                              </div>
+                                                                                              <mat-autocomplete
+                                                                                                  panelwidth="auto"
+                                                                                                  class="mat-autocomplete ng-tns-c70-52">
+                                                                                              </mat-autocomplete><span
+                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-52"></span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      <div
+                                                                                          class="mat-form-field-subscript-wrapper ng-tns-c70-52">
+                                                                                          <div class="mat-form-field-hint-wrapper ng-tns-c70-52 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+                                                                                              style="opacity: 1; transform: translateY(0%);">
+                                                                                              <div
+                                                                                                  class="mat-form-field-hint-spacer ng-tns-c70-52">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </mat-form-field>
+                                                                          </td>
+                                                                          <td class="ng-tns-c268-42">
+                                                                              <mat-form-field appearance="outline"
+                                                                                  class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-53 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
+                                                                                  style="">
+                                                                                  <div
+                                                                                      class="mat-form-field-wrapper ng-tns-c70-53">
+                                                                                      <div
+                                                                                          class="mat-form-field-flex ng-tns-c70-53">
+                                                                                          <div
+                                                                                              class="mat-form-field-outline ng-tns-c70-53 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-53"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-53"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-53">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-53 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-53"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-53"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-53">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-infix ng-tns-c70-53">
+                                                                                              <input matinput=""
+                                                                                                  placeholder="Enter Insurer B Details"
+                                                                                                  formcontrolname="insNaicNoB"
+                                                                                                  @foreach ($insurProviders as $ip)
 
                                                                                                   @foreach ($certPolicy as $policy)
-                                                                                                      @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'B')
-                                                                                                          @php
-                                                                                                              $isSelected = true;
-                                                                                                              break;
-                                                                                                          @endphp
-                                                                                                      @endif
+                                                                                                  @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'B')
+
+                                                                                                  value="{{ $ip->naic_number }}"
+                                                                                                  @endif @endforeach
                                                                                                   @endforeach
-                                                                                                  <option
-                                                                                                  {{ $isSelected ? 'selected' : '' }}                                                                                                          data-naic="{{ $ip->naic_number }}"
+                                                                                              class="mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-50 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                              id="naic_b"
+                                                                                              data-placeholder="Enter Insurer B Details"
+                                                                                              aria-autocomplete="list"
+                                                                                              aria-expanded="false"
+                                                                                              aria-haspopup="listbox"
+                                                                                              readonly>
+                                                                                              <mat-autocomplete
+                                                                                                  panelwidth="auto"
+                                                                                                  class="mat-autocomplete ng-tns-c70-53">
+                                                                                              </mat-autocomplete><span
+                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-53"></span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      <div
+                                                                                          class="mat-form-field-subscript-wrapper ng-tns-c70-53">
+                                                                                          <div class="mat-form-field-hint-wrapper ng-tns-c70-53 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+                                                                                              style="opacity: 1; transform: translateY(0%);">
+                                                                                              <div
+                                                                                                  class="mat-form-field-hint-spacer ng-tns-c70-53">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </mat-form-field>
+                                                                          </td>
+                                                                          <td class="ng-tns-c268-42">
+                                                                              <mat-form-field appearance="outline"
+                                                                                  class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-54 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
+                                                                                  style="">
+                                                                                  <div
+                                                                                      class="mat-form-field-wrapper ng-tns-c70-54">
+                                                                                      <div
+                                                                                          class="mat-form-field-flex ng-tns-c70-54">
+                                                                                          <div
+                                                                                              class="mat-form-field-outline ng-tns-c70-54 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-54"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-54"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-54">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-54 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-54"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-54"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-54">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-infix ng-tns-c70-54">
+                                                                                              <input autocomplete="off"
+                                                                                                  matinput=""
+                                                                                                  formcontrolname="insBestRatingB"
+                                                                                                  readonly="true"
+                                                                                                  value=""
+                                                                                                  class="mat-input-element mat-form-field-autofill-control ng-tns-c70-51 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                                  id="br_b"
+                                                                                                  aria-invalid="false"
+                                                                                                  aria-required="false"
+                                                                                                  readonly><span
+                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-54"></span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      <div
+                                                                                          class="mat-form-field-subscript-wrapper ng-tns-c70-54">
+                                                                                          <div class="mat-form-field-hint-wrapper ng-tns-c70-54 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+                                                                                              style="opacity: 1; transform: translateY(0%);">
+                                                                                              <div
+                                                                                                  class="mat-form-field-hint-spacer ng-tns-c70-54">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </mat-form-field>
+                                                                          </td>
+                                                                      </tr>
+                                                                      <tr class="ng-tns-c268-42">
+                                                                        <td
+                                                                            class="lable_title ng-tns-c268-42"
+                                                                            style="padding-left: 15px; text-align: left;"
+                                                                        >
+                                                                            INSURER C :
+                                                                        </td>
+                                                                          <td class="ng-tns-c268-42">
+                                                                              <mat-form-field appearance="outline"
+                                                                                  class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-55 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
+                                                                                  style="">
+                                                                                  <div
+                                                                                      class="mat-form-field-wrapper ng-tns-c70-55">
+                                                                                      <div
+                                                                                          class="mat-form-field-flex ng-tns-c70-55">
+                                                                                          <div
+                                                                                              class="mat-form-field-outline ng-tns-c70-55 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-55"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-55"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-55">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-55 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-55"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-55"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-55">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-infix ng-tns-c70-55" style=" background-color : #FFFFFF ;">
+                                                                                              {{-- <input
+                                                                                              placeholder="Enter Insurer C Details"
+                                                                                              value="@if (isset($certPolicy) && null !== $certPolicy->skip(2)->take(1)->first()){{ $certPolicy->skip(2)->take(1)->first()->insuranceProvider->name }} @endif"
+                                                                                              class="js-example-basic-single form-control mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-49 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                              id="insurC"
+                                                                                              data-placeholder="Enter Insurer C Details"> --}}
+                                                                                              <select id="insurC"
+                                                                                                  class="selecter">
+                                                                                                  <option value="">
+                                                                                                      -Select-</option>
+                                                                                                  @foreach ($insurProviders as $ip)
+                                                                                                      @php
+                                                                                                          $isSelected = false;
+                                                                                                      @endphp
+
+                                                                                                      @foreach ($certPolicy as $policy)
+                                                                                                          @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'C')
+                                                                                                              @php
+                                                                                                                  $isSelected = true;
+                                                                                                                  break;
+                                                                                                              @endphp
+                                                                                                          @endif
+                                                                                                      @endforeach
+                                                                                                      <option
+                                                                                                          {{ $isSelected ? 'selected' : '' }}
+                                                                                                          data-naic="{{ $ip->naic_number }}"
                                                                                                           data-brn="{{ $ip->best_rating_number }}"
                                                                                                           value="{{ $ip->id }}">
                                                                                                           {{ $ip->name }}
                                                                                                       </option>
-                                                                                                      @endforeach
-                                                                                                    </select>
-                                                                                                    <input type="hidden" id="insurance_provider_id_B" name="insurance_provider_id[]"
-
-                                                                                                    @foreach ($insurProviders as $ip)
-                                                                                                    @foreach ($certPolicy as $policy)
-                                                                                                        @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'B')
-                                                                                                        value="{{$ip->id}}"
-                                                                                                        @endif
-                                                                                                        @endforeach
-                                                                                                        @endforeach />
-                                                                                                                                                                                                        <mat-autocomplete
-                                                                                                    panelwidth="auto"
-                                                                                                    class="mat-autocomplete ng-tns-c70-52">
-                                                                                                </mat-autocomplete><span
-                                                                                                    class="mat-form-field-label-wrapper ng-tns-c70-52"></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="mat-form-field-subscript-wrapper ng-tns-c70-52">
-                                                                                            <div class="mat-form-field-hint-wrapper ng-tns-c70-52 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
-                                                                                                style="opacity: 1; transform: translateY(0%);">
-                                                                                                <div
-                                                                                                    class="mat-form-field-hint-spacer ng-tns-c70-52">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </mat-form-field>
-                                                                            </td>
-                                                                            <td class="ng-tns-c268-42">
-                                                                                <mat-form-field appearance="outline"
-                                                                                    class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-53 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
-                                                                                    style="">
-                                                                                    <div
-                                                                                        class="mat-form-field-wrapper ng-tns-c70-53">
-                                                                                        <div
-                                                                                            class="mat-form-field-flex ng-tns-c70-53">
-                                                                                            <div
-                                                                                                class="mat-form-field-outline ng-tns-c70-53 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-53"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-53"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-53">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-53 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-53"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-53"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-53">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-infix ng-tns-c70-53">
-                                                                                                <input matinput=""
-                                                                                                        placeholder="Enter Insurer B Details"
-                                                                                                        formcontrolname="insNaicNoB"
-                                                                                                        @foreach ($insurProviders as $ip)
-
-                                                                                                        @foreach ($certPolicy as $policy)
-                                                                                                        @if ( $policy->insurance_provider_id == $ip->id  && $policy->insurance_provider_code == 'B'  )
-
-                                                                                                        value="{{$ip->naic_number}}"
-                                                                                                        @endif
-                                                                                                    @endforeach
-                                                                                                    @endforeach                                                                                                          class="mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-50 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
-                                                                                                        id="naic_b"
-                                                                                                        data-placeholder="Enter Insurer B Details"
-                                                                                                        aria-invalid="false"
-                                                                                                        aria-required="false"
-                                                                                                        autocomplete="off"
-                                                                                                        role="combobox"
-                                                                                                        aria-autocomplete="list"
-                                                                                                        aria-expanded="false"
-                                                                                                        aria-haspopup="listbox" readonly>
-                                                                                                <mat-autocomplete
-                                                                                                    panelwidth="auto"
-                                                                                                    class="mat-autocomplete ng-tns-c70-53">
-                                                                                                </mat-autocomplete><span
-                                                                                                    class="mat-form-field-label-wrapper ng-tns-c70-53"></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="mat-form-field-subscript-wrapper ng-tns-c70-53">
-                                                                                            <div class="mat-form-field-hint-wrapper ng-tns-c70-53 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
-                                                                                                style="opacity: 1; transform: translateY(0%);">
-                                                                                                <div
-                                                                                                    class="mat-form-field-hint-spacer ng-tns-c70-53">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </mat-form-field>
-                                                                            </td>
-                                                                            <td class="ng-tns-c268-42">
-                                                                                <mat-form-field appearance="outline"
-                                                                                    class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-54 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
-                                                                                    style="">
-                                                                                    <div
-                                                                                        class="mat-form-field-wrapper ng-tns-c70-54">
-                                                                                        <div
-                                                                                            class="mat-form-field-flex ng-tns-c70-54">
-                                                                                            <div
-                                                                                                class="mat-form-field-outline ng-tns-c70-54 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-54"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-54"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-54">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-54 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-54"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-54"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-54">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-infix ng-tns-c70-54">
-                                                                                                <input
-                                                                                                    autocomplete="off"
-                                                                                                    matinput=""
-                                                                                                    formcontrolname="insBestRatingB"
-                                                                                                    readonly="true"
-                                                                                                    value=""
-
-                                                                                                    class="mat-input-element mat-form-field-autofill-control ng-tns-c70-51 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
-                                                                                                    id="br_b"
-                                                                                                    aria-invalid="false"
-                                                                                                    aria-required="false" readonly>
-                                                                                                    <span
-                                                                                                    class="mat-form-field-label-wrapper ng-tns-c70-54"></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="mat-form-field-subscript-wrapper ng-tns-c70-54">
-                                                                                            <div class="mat-form-field-hint-wrapper ng-tns-c70-54 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
-                                                                                                style="opacity: 1; transform: translateY(0%);">
-                                                                                                <div
-                                                                                                    class="mat-form-field-hint-spacer ng-tns-c70-54">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </mat-form-field>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="ng-tns-c268-42">
-                                                                            <td class="lable_title ng-tns-c268-42">
-                                                                                INSURER C : </td>
-                                                                            <td class="ng-tns-c268-42">
-                                                                                <mat-form-field appearance="outline"
-                                                                                    class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-55 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
-                                                                                    style="">
-                                                                                    <div
-                                                                                        class="mat-form-field-wrapper ng-tns-c70-55">
-                                                                                        <div
-                                                                                            class="mat-form-field-flex ng-tns-c70-55">
-                                                                                            <div
-                                                                                                class="mat-form-field-outline ng-tns-c70-55 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-55"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-55"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-55">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-55 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-55"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-55"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-55">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-infix ng-tns-c70-55">
-                                                                                                <select id="insurC" class="selecter">
-                                                                                                  <option value="">-Select-</option>
-                                                                                                  @foreach ($insurProviders as $ip)
-                                                                                                  @php
-                                                                                                  $isSelected = false;
-                                                                                              @endphp
-
-                                                                                              @foreach ($certPolicy as $policy)
-                                                                                                  @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'C')
-                                                                                                      @php
-                                                                                                          $isSelected = true;
-                                                                                                          break;
-                                                                                                      @endphp
-                                                                                                  @endif
-                                                                                              @endforeach
-                                                                                              <option
-                                                                                              {{ $isSelected ? 'selected' : '' }}                                                                                                        data-naic="{{ $ip->naic_number }}"
-                                                                                                      data-brn="{{ $ip->best_rating_number }}"
-                                                                                                      value="{{ $ip->id }}">
-                                                                                                      {{ $ip->name }}
-                                                                                                  </option>
                                                                                                   @endforeach
                                                                                               </select>
-                                                                                              <input type="hidden" id="insurance_provider_id_C" name="insurance_provider_id[]"
-
-
-                                                                                              @foreach ($insurProviders as $ip)
-                                                                                              @foreach ($certPolicy as $policy)
-                                                                                                  @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'C')
-                                                                                                  value="{{$ip->id}}"
-                                                                                                  @endif
-                                                                                                  @endforeach
-                                                                                                  @endforeach />
-                                                                                                <mat-autocomplete
-                                                                                                    panelwidth="auto"
-                                                                                                    class="mat-autocomplete ng-tns-c70-55">
-                                                                                                </mat-autocomplete><span
-                                                                                                    class="mat-form-field-label-wrapper ng-tns-c70-55"></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="mat-form-field-subscript-wrapper ng-tns-c70-55">
-                                                                                            <div class="mat-form-field-hint-wrapper ng-tns-c70-55 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
-                                                                                                style="opacity: 1; transform: translateY(0%);">
-                                                                                                <div
-                                                                                                    class="mat-form-field-hint-spacer ng-tns-c70-55">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </mat-form-field>
-                                                                            </td>
-                                                                            <td class="ng-tns-c268-42">
-                                                                                <mat-form-field appearance="outline"
-                                                                                    class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-56 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
-                                                                                    style="">
-                                                                                    <div
-                                                                                        class="mat-form-field-wrapper ng-tns-c70-56">
-                                                                                        <div
-                                                                                            class="mat-form-field-flex ng-tns-c70-56">
-                                                                                            <div
-                                                                                                class="mat-form-field-outline ng-tns-c70-56 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-56"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-56"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-56">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-56 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-56"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-56"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-56">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-infix ng-tns-c70-56">
-                                                                                                <input matinput=""
-                                                                                                        placeholder="Enter Insurer C Details"
-                                                                                                        formcontrolname="insNaicNoC"
-                                                                                                        @foreach ($insurProviders as $ip)
-
-                                                                                                        @foreach ($certPolicy as $policy)
-                                                                                                        @if ( $policy->insurance_provider_id == $ip->id  && $policy->insurance_provider_code == 'C'  )
-
-                                                                                                        value="{{$ip->naic_number}}"
-                                                                                                        @endif
-                                                                                                    @endforeach
-                                                                                                    @endforeach
-                                                                                                     class="mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-50 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
-                                                                                                        id="naic_c"
-                                                                                                        data-placeholder="Enter Insurer C Details"
-                                                                                                        aria-invalid="false"
-                                                                                                        aria-required="false"
-                                                                                                        autocomplete="off"
-                                                                                                        role="combobox"
-                                                                                                        aria-autocomplete="list"
-                                                                                                        aria-expanded="false"
-                                                                                                        aria-haspopup="listbox" readonly>
-                                                                                                  <mat-autocomplete
-                                                                                                    panelwidth="auto"
-                                                                                                    class="mat-autocomplete ng-tns-c70-56">
-                                                                                                </mat-autocomplete><span
-                                                                                                    class="mat-form-field-label-wrapper ng-tns-c70-56"></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="mat-form-field-subscript-wrapper ng-tns-c70-56">
-                                                                                            <div class="mat-form-field-hint-wrapper ng-tns-c70-56 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
-                                                                                                style="opacity: 1; transform: translateY(0%);">
-                                                                                                <div
-                                                                                                    class="mat-form-field-hint-spacer ng-tns-c70-56">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </mat-form-field>
-                                                                            </td>
-                                                                            <td class="ng-tns-c268-42">
-                                                                                <mat-form-field appearance="outline"
-                                                                                    class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-57 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
-                                                                                    style="">
-                                                                                    <div
-                                                                                        class="mat-form-field-wrapper ng-tns-c70-57">
-                                                                                        <div
-                                                                                            class="mat-form-field-flex ng-tns-c70-57">
-                                                                                            <div
-                                                                                                class="mat-form-field-outline ng-tns-c70-57 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-57"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-57"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-57">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-57 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-57"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-57"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-57">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-infix ng-tns-c70-57">
-                                                                                                <input
-                                                                                                    autocomplete="off"
-                                                                                                    matinput=""
-                                                                                                    formcontrolname="insBestRatingC"
-                                                                                                    readonly="true"
-                                                                                                    value=""
-                                                                                                    class="mat-input-element mat-form-field-autofill-control ng-tns-c70-51 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
-                                                                                                    id="br_c"
-                                                                                                    aria-invalid="false"
-                                                                                                    aria-required="false" readonly>
-                                                                                                <span
-                                                                                                    class="mat-form-field-label-wrapper ng-tns-c70-57"></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="mat-form-field-subscript-wrapper ng-tns-c70-57">
-                                                                                            <div class="mat-form-field-hint-wrapper ng-tns-c70-57 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
-                                                                                                style="opacity: 1; transform: translateY(0%);">
-                                                                                                <div
-                                                                                                    class="mat-form-field-hint-spacer ng-tns-c70-57">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </mat-form-field>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="ng-tns-c268-42">
-                                                                            <td class="lable_title ng-tns-c268-42">
-                                                                                INSURER D : </td>
-                                                                            <td class="ng-tns-c268-42">
-                                                                                <mat-form-field appearance="outline"
-                                                                                    class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-58 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
-                                                                                    style="">
-                                                                                    <div
-                                                                                        class="mat-form-field-wrapper ng-tns-c70-58">
-                                                                                        <div
-                                                                                            class="mat-form-field-flex ng-tns-c70-58">
-                                                                                            <div
-                                                                                                class="mat-form-field-outline ng-tns-c70-58 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-58"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-58"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-58">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-58 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-58"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-58"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-58">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-infix ng-tns-c70-58">
-                                                                                                <select id="insurD" class="selecter">
-                                                                                                  <option value="">-Select-</option>
+                                                                                              <input type="hidden"
+                                                                                                  id="insurance_provider_id_C"
+                                                                                                  name="insurance_provider_id[]"
+                                                                                                  value="" />
+                                                                                              <div id="insurerCList">
+                                                                                              </div>
+                                                                                              <mat-autocomplete
+                                                                                                  panelwidth="auto"
+                                                                                                  class="mat-autocomplete ng-tns-c70-55">
+                                                                                              </mat-autocomplete><span
+                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-55"></span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      <div
+                                                                                          class="mat-form-field-subscript-wrapper ng-tns-c70-55">
+                                                                                          <div class="mat-form-field-hint-wrapper ng-tns-c70-55 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+                                                                                              style="opacity: 1; transform: translateY(0%);">
+                                                                                              <div
+                                                                                                  class="mat-form-field-hint-spacer ng-tns-c70-55">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </mat-form-field>
+                                                                          </td>
+                                                                          <td class="ng-tns-c268-42">
+                                                                              <mat-form-field appearance="outline"
+                                                                                  class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-56 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
+                                                                                  style="">
+                                                                                  <div
+                                                                                      class="mat-form-field-wrapper ng-tns-c70-56">
+                                                                                      <div
+                                                                                          class="mat-form-field-flex ng-tns-c70-56">
+                                                                                          <div
+                                                                                              class="mat-form-field-outline ng-tns-c70-56 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-56"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-56"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-56">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-56 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-56"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-56"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-56">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-infix ng-tns-c70-56">
+                                                                                              <input matinput=""
+                                                                                                  placeholder="Enter Insurer C Details"
+                                                                                                  formcontrolname="insNaicNoC"
                                                                                                   @foreach ($insurProviders as $ip)
-                                                                                                  @php
-                                                                                                  $isSelected = false;
-                                                                                              @endphp
 
-                                                                                              @foreach ($certPolicy as $policy)
-                                                                                                  @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'D')
+                                                                                                  @foreach ($certPolicy as $policy)
+                                                                                                  @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'C')
+
+                                                                                                  value="{{ $ip->naic_number }}"
+                                                                                                  @endif @endforeach
+                                                                                                  @endforeach
+                                                                                              class="mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-50 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                              id="naic_c"
+                                                                                              data-placeholder="Enter Insurer C Details"
+                                                                                              aria-autocomplete="list"
+                                                                                              aria-expanded="false"
+                                                                                              aria-haspopup="listbox"
+                                                                                              readonly>
+                                                                                              <mat-autocomplete
+                                                                                                  panelwidth="auto"
+                                                                                                  class="mat-autocomplete ng-tns-c70-56">
+                                                                                              </mat-autocomplete><span
+                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-56"></span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      <div
+                                                                                          class="mat-form-field-subscript-wrapper ng-tns-c70-56">
+                                                                                          <div class="mat-form-field-hint-wrapper ng-tns-c70-56 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+                                                                                              style="opacity: 1; transform: translateY(0%);">
+                                                                                              <div
+                                                                                                  class="mat-form-field-hint-spacer ng-tns-c70-56">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </mat-form-field>
+                                                                          </td>
+                                                                          <td class="ng-tns-c268-42">
+                                                                              <mat-form-field appearance="outline"
+                                                                                  class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-57 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
+                                                                                  style="">
+                                                                                  <div
+                                                                                      class="mat-form-field-wrapper ng-tns-c70-57">
+                                                                                      <div
+                                                                                          class="mat-form-field-flex ng-tns-c70-57">
+                                                                                          <div
+                                                                                              class="mat-form-field-outline ng-tns-c70-57 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-57"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-57"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-57">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-57 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-57"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-57"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-57">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-infix ng-tns-c70-57">
+                                                                                              <input autocomplete="off"
+                                                                                                  matinput=""
+                                                                                                  formcontrolname="insBestRatingC"
+                                                                                                  readonly="true"
+                                                                                                  value=""
+                                                                                                  class="mat-input-element mat-form-field-autofill-control ng-tns-c70-51 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                                  id="br_c"
+                                                                                                  aria-invalid="false"
+                                                                                                  aria-required="false"
+                                                                                                  readonly><span
+                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-54"></span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      <div
+                                                                                          class="mat-form-field-subscript-wrapper ng-tns-c70-57">
+                                                                                          <div class="mat-form-field-hint-wrapper ng-tns-c70-57 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+                                                                                              style="opacity: 1; transform: translateY(0%);">
+                                                                                              <div
+                                                                                                  class="mat-form-field-hint-spacer ng-tns-c70-57">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </mat-form-field>
+                                                                          </td>
+                                                                      </tr>
+                                                                      <tr class="ng-tns-c268-42">
+                                                                        <td
+                                                                            class="lable_title ng-tns-c268-42"
+                                                                            style="padding-left: 15px; text-align: left;"
+                                                                        >
+                                                                            INSURER D :
+                                                                        </td>
+                                                                          <td class="ng-tns-c268-42">
+                                                                              <mat-form-field appearance="outline"
+                                                                                  class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-58 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
+                                                                                  style="">
+                                                                                  <div
+                                                                                      class="mat-form-field-wrapper ng-tns-c70-58">
+                                                                                      <div
+                                                                                          class="mat-form-field-flex ng-tns-c70-58">
+                                                                                          <div
+                                                                                              class="mat-form-field-outline ng-tns-c70-58 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-58"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-58"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-58">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-58 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-58"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-58"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-58">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-infix ng-tns-c70-58" style=" background-color : #FFFFFF ;">
+                                                                                              {{-- <input
+                                                                                                  placeholder="Enter Insurer D Details"
+                                                                                                  value="@if (isset($certPolicy) && null !== $certPolicy->skip(3)->take(1)->first()){{ $certPolicy->skip(3)->take(1)->first()->insuranceProvider->name }} @endif"
+                                                                                                  class="js-example-basic-single form-control mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-49 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                                  id="insurD"
+                                                                                                  data-placeholder="Enter Insurer D Details"> --}}
+                                                                                              <select id="insurD"
+                                                                                                  class="selecter">
+                                                                                                  <option value="">
+                                                                                                      -Select-</option>
+                                                                                                  @foreach ($insurProviders as $ip)
                                                                                                       @php
-                                                                                                          $isSelected = true;
-                                                                                                          break;
+                                                                                                          $isSelected = false;
                                                                                                       @endphp
-                                                                                                  @endif
-                                                                                              @endforeach
-                                                                                              <option
-                                                                                              {{ $isSelected ? 'selected' : '' }}                                                                                                       data-naic="{{ $ip->naic_number }}"
-                                                                                                      data-brn="{{ $ip->best_rating_number }}"
-                                                                                                      value="{{ $ip->id }}">
-                                                                                                      {{ $ip->name }}
-                                                                                                  </option>
-                                                                                                  @endforeach
-                                                                                              </select>
-                                                                                              <input type="hidden" id="insurance_provider_id_D" name="insurance_provider_id[]"
-
-                                                                                              @foreach ($insurProviders as $ip)
-                                                                                              @foreach ($certPolicy as $policy)
-                                                                                                  @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'D')
-                                                                                                  value="{{$ip->id}}"
-                                                                                                  @endif
-                                                                                                  @endforeach
-                                                                                                  @endforeach />
-                                                                                                <mat-autocomplete
-                                                                                                    panelwidth="auto"
-                                                                                                    class="mat-autocomplete ng-tns-c70-58">
-                                                                                                </mat-autocomplete><span
-                                                                                                    class="mat-form-field-label-wrapper ng-tns-c70-58"></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="mat-form-field-subscript-wrapper ng-tns-c70-58">
-                                                                                            <div class="mat-form-field-hint-wrapper ng-tns-c70-58 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
-                                                                                                style="opacity: 1; transform: translateY(0%);">
-                                                                                                <div
-                                                                                                    class="mat-form-field-hint-spacer ng-tns-c70-58">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </mat-form-field>
-                                                                            </td>
-                                                                            <td class="ng-tns-c268-42">
-                                                                                <mat-form-field appearance="outline"
-                                                                                    class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-59 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
-                                                                                    style="">
-                                                                                    <div
-                                                                                        class="mat-form-field-wrapper ng-tns-c70-59">
-                                                                                        <div
-                                                                                            class="mat-form-field-flex ng-tns-c70-59">
-                                                                                            <div
-                                                                                                class="mat-form-field-outline ng-tns-c70-59 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-59"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-59"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-59">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-59 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-59"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-59"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-59">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-infix ng-tns-c70-59">
-                                                                                                <input matinput=""
-                                                                                                      placeholder="Enter Insurer D Details"
-                                                                                                      formcontrolname="insNaicNoD"
-                                                                                                      @foreach ($insurProviders as $ip)
 
                                                                                                       @foreach ($certPolicy as $policy)
-                                                                                                      @if ( $policy->insurance_provider_id == $ip->id  && $policy->insurance_provider_code == 'D'  )
-
-                                                                                                      value="{{$ip->naic_number}}"
-                                                                                                      @endif
-                                                                                                  @endforeach
-                                                                                                  @endforeach                                                                                                        class="mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-50 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
-                                                                                                      id="naic_d"
-                                                                                                      data-placeholder="Enter Insurer D Details"
-                                                                                                      aria-invalid="false"
-                                                                                                      aria-required="false"
-                                                                                                      autocomplete="off"
-                                                                                                      role="combobox"
-                                                                                                      aria-autocomplete="list"
-                                                                                                      aria-expanded="false"
-                                                                                                      aria-haspopup="listbox" readonly>
-                                                                                                <mat-autocomplete
-                                                                                                    panelwidth="auto"
-                                                                                                    class="mat-autocomplete ng-tns-c70-59">
-                                                                                                </mat-autocomplete><span
-                                                                                                    class="mat-form-field-label-wrapper ng-tns-c70-59"></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="mat-form-field-subscript-wrapper ng-tns-c70-59">
-                                                                                            <div class="mat-form-field-hint-wrapper ng-tns-c70-59 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
-                                                                                                style="opacity: 1; transform: translateY(0%);">
-                                                                                                <div
-                                                                                                    class="mat-form-field-hint-spacer ng-tns-c70-59">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </mat-form-field>
-                                                                            </td>
-                                                                            <td class="ng-tns-c268-42">
-                                                                                <mat-form-field appearance="outline"
-                                                                                    class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-60 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
-                                                                                    style="">
-                                                                                    <div
-                                                                                        class="mat-form-field-wrapper ng-tns-c70-60">
-                                                                                        <div
-                                                                                            class="mat-form-field-flex ng-tns-c70-60">
-                                                                                            <div
-                                                                                                class="mat-form-field-outline ng-tns-c70-60 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-60"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-60"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-60">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-60 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-60"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-60"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-60">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-infix ng-tns-c70-60">
-                                                                                                <input
-                                                                                                      autocomplete="off"
-                                                                                                      matinput=""
-                                                                                                      formcontrolname="insBestRatingD"
-                                                                                                      readonly="true"
-                                                                                                      value=""
-                                                                                                      class="mat-input-element mat-form-field-autofill-control ng-tns-c70-51 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
-                                                                                                      id="br_d"
-                                                                                                      aria-invalid="false"
-                                                                                                      aria-required="false" readonly>
-                                                                                                <span
-                                                                                                    class="mat-form-field-label-wrapper ng-tns-c70-60"></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="mat-form-field-subscript-wrapper ng-tns-c70-60">
-                                                                                            <div class="mat-form-field-hint-wrapper ng-tns-c70-60 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
-                                                                                                style="opacity: 1; transform: translateY(0%);">
-                                                                                                <div
-                                                                                                    class="mat-form-field-hint-spacer ng-tns-c70-60">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </mat-form-field>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="ng-tns-c268-42">
-                                                                            <td class="lable_title ng-tns-c268-42">
-                                                                                INSURER E : </td>
-                                                                            <td class="ng-tns-c268-42">
-                                                                                <mat-form-field appearance="outline"
-                                                                                    class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-61 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
-                                                                                    style="">
-                                                                                    <div
-                                                                                        class="mat-form-field-wrapper ng-tns-c70-61">
-                                                                                        <div
-                                                                                            class="mat-form-field-flex ng-tns-c70-61">
-                                                                                            <div
-                                                                                                class="mat-form-field-outline ng-tns-c70-61 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-61"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-61"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-61">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-61 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-61"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-61"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-61">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-infix ng-tns-c70-61">
-                                                                                                <select id="insurE" class="selecter">
-                                                                                                  <option value="">-Select-</option>
-                                                                                                  @foreach ($insurProviders as $ip)
-                                                                                                  @php
-                                                                                                  $isSelected = false;
-                                                                                              @endphp
-
-                                                                                              @foreach ($certPolicy as $policy)
-                                                                                                  @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'E')
-                                                                                                      @php
-                                                                                                          $isSelected = true;
-                                                                                                          break;
-                                                                                                      @endphp
-                                                                                                  @endif
-                                                                                              @endforeach
-                                                                                              <option
-                                                                                              {{ $isSelected ? 'selected' : '' }}                                                                                                       data-naic="{{ $ip->naic_number }}"
-                                                                                                      data-brn="{{ $ip->best_rating_number }}"
-                                                                                                      value="{{ $ip->id }}">
-                                                                                                      {{ $ip->name }}
-                                                                                                  </option>
+                                                                                                          @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'D')
+                                                                                                              @php
+                                                                                                                  $isSelected = true;
+                                                                                                                  break;
+                                                                                                              @endphp
+                                                                                                          @endif
+                                                                                                      @endforeach
+                                                                                                      <option
+                                                                                                          {{ $isSelected ? 'selected' : '' }}
+                                                                                                          data-naic="{{ $ip->naic_number }}"
+                                                                                                          data-brn="{{ $ip->best_rating_number }}"
+                                                                                                          value="{{ $ip->id }}">
+                                                                                                          {{ $ip->name }}
+                                                                                                      </option>
                                                                                                   @endforeach
                                                                                               </select>
-                                                                                              <input type="hidden" id="insurance_provider_id_E" name="insurance_provider_id[]"
+                                                                                              <input type="hidden"
+                                                                                                  id="insurance_provider_id_D"
+                                                                                                  name="insurance_provider_id[]"
+                                                                                                  value="" />
+                                                                                              <div id="insurerDList">
+                                                                                              </div></span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      <div
+                                                                                          class="mat-form-field-subscript-wrapper ng-tns-c70-58">
+                                                                                          <div class="mat-form-field-hint-wrapper ng-tns-c70-58 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+                                                                                              style="opacity: 1; transform: translateY(0%);">
+                                                                                              <div
+                                                                                                  class="mat-form-field-hint-spacer ng-tns-c70-58">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </mat-form-field>
+                                                                          </td>
+                                                                          <td class="ng-tns-c268-42">
+                                                                              <mat-form-field appearance="outline"
+                                                                                  class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-59 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
+                                                                                  style="">
+                                                                                  <div
+                                                                                      class="mat-form-field-wrapper ng-tns-c70-59">
+                                                                                      <div
+                                                                                          class="mat-form-field-flex ng-tns-c70-59">
+                                                                                          <div
+                                                                                              class="mat-form-field-outline ng-tns-c70-59 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-59"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-59"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-59">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-59 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-59"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-59"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-59">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-infix ng-tns-c70-59">
+                                                                                              <input matinput=""
+                                                                                                  placeholder="Enter Insurer D Details"
+                                                                                                  formcontrolname="insNaicNoD"
+                                                                                                  @foreach ($insurProviders as $ip)
 
-                                                                                              @foreach ($insurProviders as $ip)
-                                                                                              @foreach ($certPolicy as $policy)
-                                                                                                  @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'E')
-                                                                                                  value="{{$ip->id}}"
-                                                                                                  @endif
+                                                                                                  @foreach ($certPolicy as $policy)
+                                                                                                  @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'D')
+
+                                                                                                  value="{{ $ip->naic_number }}"
+                                                                                                  @endif @endforeach
                                                                                                   @endforeach
-                                                                                                  @endforeach />
-                                                                                                <mat-autocomplete
-                                                                                                    panelwidth="auto"
-                                                                                                    class="mat-autocomplete ng-tns-c70-61">
-                                                                                                </mat-autocomplete><span
-                                                                                                    class="mat-form-field-label-wrapper ng-tns-c70-61"></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="mat-form-field-subscript-wrapper ng-tns-c70-61">
-                                                                                            <div class="mat-form-field-hint-wrapper ng-tns-c70-61 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
-                                                                                                style="opacity: 1; transform: translateY(0%);">
-                                                                                                <div
-                                                                                                    class="mat-form-field-hint-spacer ng-tns-c70-61">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </mat-form-field>
-                                                                            </td>
-                                                                            <td class="ng-tns-c268-42">
-                                                                                <mat-form-field appearance="outline"
-                                                                                    class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-62 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
-                                                                                    style="">
-                                                                                    <div
-                                                                                        class="mat-form-field-wrapper ng-tns-c70-62">
-                                                                                        <div
-                                                                                            class="mat-form-field-flex ng-tns-c70-62">
-                                                                                            <div
-                                                                                                class="mat-form-field-outline ng-tns-c70-62 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-62"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-62"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-62">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-62 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-62"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-62"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-62">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-infix ng-tns-c70-62">
-                                                                                                <input matinput=""
-                                                                                                        placeholder="Enter Insurer E Details"
-                                                                                                        formcontrolname="insNaicNoE"
-                                                                                                        @foreach ($insurProviders as $ip)
-
-                                                                                                        @foreach ($certPolicy as $policy)
-                                                                                                        @if ( $policy->insurance_provider_id == $ip->id  && $policy->insurance_provider_code == 'E'  )
-
-                                                                                                        value="{{$ip->naic_number}}"
-                                                                                                        @endif
-                                                                                                    @endforeach
-                                                                                                    @endforeach                                                                                                          class="mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-50 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
-                                                                                                        id="naic_e"
-                                                                                                        data-placeholder="Enter Insurer E Details"
-                                                                                                        aria-invalid="false"
-                                                                                                        aria-required="false"
-                                                                                                        autocomplete="off"
-                                                                                                        role="combobox"
-                                                                                                        aria-autocomplete="list"
-                                                                                                        aria-expanded="false"
-                                                                                                        aria-haspopup="listbox" readonly>
-
-                                                                                                <mat-autocomplete
-                                                                                                    panelwidth="auto"
-                                                                                                    class="mat-autocomplete ng-tns-c70-62">
-                                                                                                </mat-autocomplete><span
-                                                                                                    class="mat-form-field-label-wrapper ng-tns-c70-62"></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="mat-form-field-subscript-wrapper ng-tns-c70-62">
-                                                                                            <div class="mat-form-field-hint-wrapper ng-tns-c70-62 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
-                                                                                                style="opacity: 1; transform: translateY(0%);">
-                                                                                                <div
-                                                                                                    class="mat-form-field-hint-spacer ng-tns-c70-62">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </mat-form-field>
-                                                                            </td>
-                                                                            <td class="ng-tns-c268-42">
-                                                                                <mat-form-field appearance="outline"
-                                                                                    class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-63 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
-                                                                                    style="">
-                                                                                    <div
-                                                                                        class="mat-form-field-wrapper ng-tns-c70-63">
-                                                                                        <div
-                                                                                            class="mat-form-field-flex ng-tns-c70-63">
-                                                                                            <div
-                                                                                                class="mat-form-field-outline ng-tns-c70-63 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-63"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-63"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-63">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-63 ng-star-inserted">
-                                                                                                <div class="mat-form-field-outline-start ng-tns-c70-63"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div class="mat-form-field-outline-gap ng-tns-c70-63"
-                                                                                                    style="width: 0px;">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="mat-form-field-outline-end ng-tns-c70-63">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div
-                                                                                                class="mat-form-field-infix ng-tns-c70-63">
-                                                                                                <input
-                                                                                                      autocomplete="off"
-                                                                                                      matinput=""
-                                                                                                      formcontrolname="insBestRatingE"
-                                                                                                      readonly="true"
-                                                                                                      value=" "
-                                                                                                      class="mat-input-element mat-form-field-autofill-control ng-tns-c70-51 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
-                                                                                                      id="br_e"
-                                                                                                      aria-invalid="false"
-                                                                                                      aria-required="false" readonly>
-                                                                                                    <span
-                                                                                                    class="mat-form-field-label-wrapper ng-tns-c70-63"></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="mat-form-field-subscript-wrapper ng-tns-c70-63">
-                                                                                            <div class="mat-form-field-hint-wrapper ng-tns-c70-63 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
-                                                                                                style="opacity: 1; transform: translateY(0%);">
-                                                                                                <div
-                                                                                                    class="mat-form-field-hint-spacer ng-tns-c70-63">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </mat-form-field>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="ng-tns-c268-42">
-                                                                          <td class="lable_title ng-tns-c268-42">
-                                                                              INSURER F : </td>
+                                                                                              class="mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-50 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                              id="naic_d"
+                                                                                              data-placeholder="Enter Insurer D Details"
+                                                                                              aria-autocomplete="list"
+                                                                                              aria-expanded="false"
+                                                                                              aria-haspopup="listbox"
+                                                                                              readonly>
+                                                                                              <mat-autocomplete
+                                                                                                  panelwidth="auto"
+                                                                                                  class="mat-autocomplete ng-tns-c70-59">
+                                                                                              </mat-autocomplete><span
+                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-59"></span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      <div
+                                                                                          class="mat-form-field-subscript-wrapper ng-tns-c70-59">
+                                                                                          <div class="mat-form-field-hint-wrapper ng-tns-c70-59 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+                                                                                              style="opacity: 1; transform: translateY(0%);">
+                                                                                              <div
+                                                                                                  class="mat-form-field-hint-spacer ng-tns-c70-59">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </mat-form-field>
+                                                                          </td>
+                                                                          <td class="ng-tns-c268-42">
+                                                                              <mat-form-field appearance="outline"
+                                                                                  class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-60 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
+                                                                                  style="">
+                                                                                  <div
+                                                                                      class="mat-form-field-wrapper ng-tns-c70-60">
+                                                                                      <div
+                                                                                          class="mat-form-field-flex ng-tns-c70-60">
+                                                                                          <div
+                                                                                              class="mat-form-field-outline ng-tns-c70-60 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-60"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-60"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-60">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-60 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-60"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-60"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-60">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-infix ng-tns-c70-60">
+                                                                                              <input autocomplete="off"
+                                                                                                  matinput=""
+                                                                                                  formcontrolname="insBestRatingD"
+                                                                                                  readonly="true"
+                                                                                                  value=""
+                                                                                                  class="mat-input-element mat-form-field-autofill-control ng-tns-c70-51 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                                  id="br_d"
+                                                                                                  aria-invalid="false"
+                                                                                                  aria-required="false"
+                                                                                                  readonly><span
+                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-54"></span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      <div
+                                                                                          class="mat-form-field-subscript-wrapper ng-tns-c70-60">
+                                                                                          <div class="mat-form-field-hint-wrapper ng-tns-c70-60 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+                                                                                              style="opacity: 1; transform: translateY(0%);">
+                                                                                              <div
+                                                                                                  class="mat-form-field-hint-spacer ng-tns-c70-60">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </mat-form-field>
+                                                                          </td>
+                                                                      </tr>
+                                                                      <tr class="ng-tns-c268-42">
+                                                                        <td
+                                                                            class="lable_title ng-tns-c268-42"
+                                                                            style="padding-left: 15px; text-align: left;"
+                                                                        >
+                                                                            INSURER E :
+                                                                        </td>
                                                                           <td class="ng-tns-c268-42">
                                                                               <mat-form-field appearance="outline"
                                                                                   class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-61 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
@@ -1398,39 +1286,45 @@ $navbarHideToggle = false;
                                                                                               </div>
                                                                                           </div>
                                                                                           <div
-                                                                                              class="mat-form-field-infix ng-tns-c70-61">
-                                                                                              <select id="insurF" class="selecter">
-                                                                                                <option value="">-Select-</option>
-                                                                                                @foreach ($insurProviders as $ip)
-                                                                                                @php
-                                                                                                $isSelected = false;
-                                                                                            @endphp
+                                                                                              class="mat-form-field-infix ng-tns-c70-61" style=" background-color : #FFFFFF ;">
+                                                                                              {{-- <input
+                                                                                                  placeholder="Enter Insurer E  Details"
+                                                                                                  value="@if (isset($certPolicy) && null !== $certPolicy->skip(4)->take(1)->first()){{ $certPolicy->skip(4)->take(1)->first()->insuranceProvider->name }} @endif"
+                                                                                                  class="js-example-basic-single form-control mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-49 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                                  id="insurE"
+                                                                                                  data-placeholder="Enter Insurer E Details"> --}}
+                                                                                              <select id="insurE"
+                                                                                                  class="selecter">
+                                                                                                  <option value="">
+                                                                                                      -Select-</option>
+                                                                                                  @foreach ($insurProviders as $ip)
+                                                                                                      @php
+                                                                                                          $isSelected = false;
+                                                                                                      @endphp
 
-                                                                                            @foreach ($certPolicy as $policy)
-                                                                                                @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'F')
-                                                                                                    @php
-                                                                                                        $isSelected = true;
-                                                                                                        break;
-                                                                                                    @endphp
-                                                                                                @endif
-                                                                                            @endforeach
-                                                                                            <option
-                                                                                            {{ $isSelected ? 'selected' : '' }}                                                                                                     data-naic="{{ $ip->naic_number }}"
-                                                                                                    data-brn="{{ $ip->best_rating_number }}"
-                                                                                                    value="{{ $ip->id }}">
-                                                                                                    {{ $ip->name }}
-                                                                                                </option>
-                                                                                                @endforeach
-                                                                                            </select>
-                                                                                            <input type="hidden" id="insurance_provider_id_F" name="insurance_provider_id[]"
-
-                                                                                            @foreach ($insurProviders as $ip)
-                                                                                            @foreach ($certPolicy as $policy)
-                                                                                                @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'F')
-                                                                                                value="{{$ip->id}}"
-                                                                                                @endif
-                                                                                                @endforeach
-                                                                                                @endforeach />
+                                                                                                      @foreach ($certPolicy as $policy)
+                                                                                                          @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'E')
+                                                                                                              @php
+                                                                                                                  $isSelected = true;
+                                                                                                                  break;
+                                                                                                              @endphp
+                                                                                                          @endif
+                                                                                                      @endforeach
+                                                                                                      <option
+                                                                                                          {{ $isSelected ? 'selected' : '' }}
+                                                                                                          data-naic="{{ $ip->naic_number }}"
+                                                                                                          data-brn="{{ $ip->best_rating_number }}"
+                                                                                                          value="{{ $ip->id }}">
+                                                                                                          {{ $ip->name }}
+                                                                                                      </option>
+                                                                                                  @endforeach
+                                                                                              </select>
+                                                                                              <input type="hidden"
+                                                                                                  id="insurance_provider_id_E"
+                                                                                                  name="insurance_provider_id[]"
+                                                                                                  value="" />
+                                                                                              <div id="insurerEList">
+                                                                                              </div>
                                                                                               <mat-autocomplete
                                                                                                   panelwidth="auto"
                                                                                                   class="mat-autocomplete ng-tns-c70-61">
@@ -1485,28 +1379,23 @@ $navbarHideToggle = false;
                                                                                           <div
                                                                                               class="mat-form-field-infix ng-tns-c70-62">
                                                                                               <input matinput=""
-                                                                                                      placeholder="Enter Insurer F Details"
-                                                                                                      formcontrolname="insNaicNoF"
-                                                                                                      @foreach ($insurProviders as $ip)
+                                                                                                  placeholder="Enter Insurer E Details"
+                                                                                                  formcontrolname="insNaicNoE"
+                                                                                                  @foreach ($insurProviders as $ip)
 
-                                                                                                      @foreach ($certPolicy as $policy)
-                                                                                                      @if ( $policy->insurance_provider_id == $ip->id  && $policy->insurance_provider_code == 'F'  )
+                                                                                                  @foreach ($certPolicy as $policy)
+                                                                                                  @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'E')
 
-                                                                                                      value="{{$ip->naic_number}}"
-                                                                                                      @endif
+                                                                                                  value="{{ $ip->naic_number }}"
+                                                                                                  @endif @endforeach
                                                                                                   @endforeach
-                                                                                                  @endforeach
-                                                                                                      class="mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-50 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
-                                                                                                      id="naic_f"
-                                                                                                      data-placeholder="Enter Insurer F Details"
-                                                                                                      aria-invalid="false"
-                                                                                                      aria-required="false"
-                                                                                                      autocomplete="off"
-                                                                                                      role="combobox"
-                                                                                                      aria-autocomplete="list"
-                                                                                                      aria-expanded="false"
-                                                                                                      aria-haspopup="listbox" readonly>
-
+                                                                                              class="mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-50 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                              id="naic_e"
+                                                                                              data-placeholder="Enter Insurer E Details"
+                                                                                              aria-autocomplete="list"
+                                                                                              aria-expanded="false"
+                                                                                              aria-haspopup="listbox"
+                                                                                              readonly>
                                                                                               <mat-autocomplete
                                                                                                   panelwidth="auto"
                                                                                                   class="mat-autocomplete ng-tns-c70-62">
@@ -1560,18 +1449,19 @@ $navbarHideToggle = false;
                                                                                           </div>
                                                                                           <div
                                                                                               class="mat-form-field-infix ng-tns-c70-63">
-                                                                                              <input
-                                                                                                    autocomplete="off"
-                                                                                                    matinput=""
-                                                                                                    formcontrolname="insBestRatingF"
-                                                                                                    readonly="true"
-                                                                                                    value=" "
-                                                                                                    class="mat-input-element mat-form-field-autofill-control ng-tns-c70-51 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
-                                                                                                    id="br_f"
-                                                                                                    aria-invalid="false"
-                                                                                                    aria-required="false" readonly>
+                                                                                              <input autocomplete="off"
+                                                                                                  matinput=""
+                                                                                                  formcontrolname="insBestRatingE"
+                                                                                                  readonly="true"
+                                                                                                  value=""
+                                                                                                  class="mat-input-element mat-form-field-autofill-control ng-tns-c70-51 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                                  id="br_e"
+                                                                                                  aria-invalid="false"
+                                                                                                  aria-required="false"
+                                                                                                  readonly><span
+                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-54">
                                                                                                   <span
-                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-63"></span>
+                                                                                                      class="mat-form-field-label-wrapper ng-tns-c70-63"></span>
                                                                                           </div>
                                                                                       </div>
                                                                                       <div
@@ -1587,15 +1477,247 @@ $navbarHideToggle = false;
                                                                               </mat-form-field>
                                                                           </td>
                                                                       </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
+                                                                      <tr class="ng-tns-c268-42">
+                                                                        <td
+                                                                            class="lable_title ng-tns-c268-42"
+                                                                            style="padding-left: 15px; text-align: left;"
+                                                                        >
+                                                                            INSURER F :
+                                                                        </td>
+                                                                          <td class="ng-tns-c268-42">
+                                                                              <mat-form-field appearance="outline"
+                                                                                  class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-52 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
+                                                                                  style="">
+                                                                                  <div
+                                                                                      class="mat-form-field-wrapper ng-tns-c70-52">
+                                                                                      <div
+                                                                                          class="mat-form-field-flex ng-tns-c70-52">
+                                                                                          <div
+                                                                                              class="mat-form-field-outline ng-tns-c70-52 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-52"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-52"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-52">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-52 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-52"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-52"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-52">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-infix ng-tns-c70-52" style=" background-color : #FFFFFF ;">
+                                                                                              {{-- <input
+                                                                                              placeholder="Enter Insurer F Details"
+                                                                                              value="@if (isset($certPolicy) && null !== $certPolicy->skip(1)->take(1)->first()){{ $certPolicy->skip(1)->take(1)->first()->insuranceProvider->name }} @endif"
+                                                                                              class="js-example-basic-single form-control mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-49 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                              id="insurF"
+                                                                                              data-placeholder="Enter Insurer F Details"> --}}
+                                                                                              <select id="insurF"
+                                                                                                  class="selecter">
+                                                                                                  <option value="">
+                                                                                                      -Select-</option>
+                                                                                                  @foreach ($insurProviders as $ip)
+                                                                                                      @php
+                                                                                                          $isSelected = false;
+                                                                                                      @endphp
+
+                                                                                                      @foreach ($certPolicy as $policy)
+                                                                                                          @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'F')
+                                                                                                              @php
+                                                                                                                  $isSelected = true;
+                                                                                                                  break;
+                                                                                                              @endphp
+                                                                                                          @endif
+                                                                                                      @endforeach
+                                                                                                      <option
+                                                                                                          {{ $isSelected ? 'selected' : '' }}
+                                                                                                          data-naic="{{ $ip->naic_number }}"
+                                                                                                          data-brn="{{ $ip->best_rating_number }}"
+                                                                                                          value="{{ $ip->id }}">
+                                                                                                          {{ $ip->name }}
+                                                                                                      </option>
+                                                                                                  @endforeach
+                                                                                              </select>
+                                                                                              <input type="hidden"
+                                                                                                  id="insurance_provider_id_F"
+                                                                                                  name="insurance_provider_id[]"
+                                                                                                  value="" />
+                                                                                              <div id="insurerFList">
+                                                                                              </div>
+                                                                                              <mat-autocomplete
+                                                                                                  panelwidth="auto"
+                                                                                                  class="mat-autocomplete ng-tns-c70-52">
+                                                                                              </mat-autocomplete><span
+                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-52"></span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      <div
+                                                                                          class="mat-form-field-subscript-wrapper ng-tns-c70-52">
+                                                                                          <div class="mat-form-field-hint-wrapper ng-tns-c70-52 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+                                                                                              style="opacity: 1; transform: translateY(0%);">
+                                                                                              <div
+                                                                                                  class="mat-form-field-hint-spacer ng-tns-c70-52">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </mat-form-field>
+                                                                          </td>
+                                                                          <td class="ng-tns-c268-42">
+                                                                              <mat-form-field appearance="outline"
+                                                                                  class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-53 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
+                                                                                  style="">
+                                                                                  <div
+                                                                                      class="mat-form-field-wrapper ng-tns-c70-53">
+                                                                                      <div
+                                                                                          class="mat-form-field-flex ng-tns-c70-53">
+                                                                                          <div
+                                                                                              class="mat-form-field-outline ng-tns-c70-53 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-53"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-53"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-53">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-53 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-53"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-53"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-53">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-infix ng-tns-c70-53">
+                                                                                              <input matinput=""
+                                                                                                  placeholder="Enter Insurer F Details"
+                                                                                                  formcontrolname="insNaicNoF"
+                                                                                                  @foreach ($insurProviders as $ip)
+
+                                                                                                  @foreach ($certPolicy as $policy)
+                                                                                                  @if ($policy->insurance_provider_id == $ip->id && $policy->insurance_provider_code == 'F')
+
+                                                                                                  value="{{ $ip->naic_number }}"
+                                                                                                  @endif @endforeach
+                                                                                                  @endforeach
+                                                                                              class="mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger ng-tns-c70-50 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                              id="naic_f"
+                                                                                              data-placeholder="Enter Insurer F Details"
+                                                                                              aria-autocomplete="list"
+                                                                                              aria-expanded="false"
+                                                                                              aria-haspopup="listbox"
+                                                                                              readonly>
+                                                                                              <mat-autocomplete
+                                                                                                  panelwidth="auto"
+                                                                                                  class="mat-autocomplete ng-tns-c70-53">
+                                                                                              </mat-autocomplete><span
+                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-53"></span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      <div
+                                                                                          class="mat-form-field-subscript-wrapper ng-tns-c70-53">
+                                                                                          <div class="mat-form-field-hint-wrapper ng-tns-c70-53 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+                                                                                              style="opacity: 1; transform: translateY(0%);">
+                                                                                              <div
+                                                                                                  class="mat-form-field-hint-spacer ng-tns-c70-53">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </mat-form-field>
+                                                                          </td>
+                                                                          <td class="ng-tns-c268-42">
+                                                                              <mat-form-field appearance="outline"
+                                                                                  class="mat-form-field full-width-text ng-tns-c268-42 ng-tns-c70-54 mat-primary mat-form-field-type-mat-input mat-form-field-appearance-outline mat-form-field-can-float ng-untouched ng-pristine ng-valid ng-star-inserted"
+                                                                                  style="">
+                                                                                  <div
+                                                                                      class="mat-form-field-wrapper ng-tns-c70-54">
+                                                                                      <div
+                                                                                          class="mat-form-field-flex ng-tns-c70-54">
+                                                                                          <div
+                                                                                              class="mat-form-field-outline ng-tns-c70-54 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-54"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-54"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-54">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c70-54 ng-star-inserted">
+                                                                                              <div class="mat-form-field-outline-start ng-tns-c70-54"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div class="mat-form-field-outline-gap ng-tns-c70-54"
+                                                                                                  style="width: 0px;">
+                                                                                              </div>
+                                                                                              <div
+                                                                                                  class="mat-form-field-outline-end ng-tns-c70-54">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div
+                                                                                              class="mat-form-field-infix ng-tns-c70-54">
+                                                                                              <input autocomplete="off"
+                                                                                                  matinput=""
+                                                                                                  formcontrolname="insBestRatingF"
+                                                                                                  readonly="true"
+                                                                                                  value=""
+                                                                                                  class="mat-input-element mat-form-field-autofill-control ng-tns-c70-51 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+                                                                                                  id="br_f"
+                                                                                                  aria-invalid="false"
+                                                                                                  aria-required="false"
+                                                                                                  readonly><span
+                                                                                                  class="mat-form-field-label-wrapper ng-tns-c70-54"></span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      <div
+                                                                                          class="mat-form-field-subscript-wrapper ng-tns-c70-54">
+                                                                                          <div class="mat-form-field-hint-wrapper ng-tns-c70-54 ng-trigger ng-trigger-transitionMessages ng-star-inserted"
+                                                                                              style="opacity: 1; transform: translateY(0%);">
+                                                                                              <div
+                                                                                                  class="mat-form-field-hint-spacer ng-tns-c70-54">
+                                                                                              </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                              </mat-form-field>
+                                                                          </td>
+                                                                      </tr>
+                                                                  </tbody>
+                                                              </table>
+                                                          </td>
+                                                      </tr>
                                                     </tbody>
                                                 </table>
                                                 <div class="p-t-b-10 ng-tns-c268-42"><span
-                                                        class="agenc_sub_titel ng-tns-c268-42"
-                                                        style="float: left;">COVERAGES</span>
+                                                  class="agenc_sub_titel ng-tns-c268-42"
+                                                  style="display: block; text-align: center; width: 100%; font-weight: bold;">
+                                                  COVERAGES
+                                              </span>
+
                                                     <div style="float: right;" class="ng-tns-c268-42"><span
                                                             style="font-family: Arial; font-size: 12px; font-weight: bold; margin-right: 10px;"
                                                             class="ng-tns-c268-42">Currency</span><span
@@ -1618,7 +1740,7 @@ $navbarHideToggle = false;
                                                     <tbody class="ng-tns-c268-42">
                                                         <tr class="ng-tns-c268-42">
                                                             <td colspan="8" class="ng-tns-c268-42">
-                                                                <div style="font-family: Arial; font-size: 11px; margin: 2px;"
+                                                                <div  style="text-align: center; font-family: 'Arial', sans-serif;font-weight:bold; font-size: 11px; line-height: 1.5; color: #333;   border-radius: 5px;"
                                                                     class="ng-tns-c268-42"> THE POLICIES OF INSURANCE
                                                                     LISTED BELOW
                                                                     HAVE BEEN ISSUED TO THE INSURED NAMED ABOVE FOR THE
@@ -1905,6 +2027,7 @@ $navbarHideToggle = false;
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-67">
                                                                                                 <input
+                                                                                                   style="font-weight: bold !important; background:none; text-align: center; "
                                                                                                     autocomplete="off"
                                                                                                     matinput=""
                                                                                                     formcontrolname="policyNumberGL"
@@ -1934,7 +2057,7 @@ $navbarHideToggle = false;
                                                                         <tr class="ng-tns-c268-42">
                                                                             <td
                                                                                 class="lable_title_large ng-tns-c268-42">
-                                                                                <div style="margin-top: 5px; margin-bottom: 5px; padding-left: 5px;"
+                                                                                <div  style="margin-top: 5px; margin-bottom: 5px; padding-left: 5px;" align="center"
                                                                                     class="ng-tns-c268-42"> Is This
                                                                                     Policy Through A
                                                                                     Risk Retention Insurance
@@ -1956,9 +2079,11 @@ $navbarHideToggle = false;
                                                                                                     class="mat-slide-toggle-thumb"></span><span
                                                                                                     mat-ripple=""
                                                                                                     class="mat-ripple mat-slide-toggle-ripple mat-focus-indicator"><span
-                                                                                                        class="mat-ripple-element mat-slide-toggle-persistent-ripple"></span></span></span></span><span
-                                                                                            class="mat-slide-toggle-content"><span
-                                                                                                style="display: none;">&nbsp;</span>No</span></label>
+                                                                                                        class="mat-ripple-element mat-slide-toggle-persistent-ripple"></span></span></span></span><span class="mat-slide-toggle-content" style="display: flex; justify-content: center; align-items: center; font-weight: bold; text-align: center;">
+                                                                                                          <span style="display: none;">&nbsp;</span>
+                                                                                                          No
+                                                                                                      </span>
+                                                                                                      </label>
                                                                                 </mat-slide-toggle>
                                                                             </td>
                                                                         </tr>
@@ -2426,6 +2551,7 @@ $navbarHideToggle = false;
                                                                                             <div
                                                                                                 class="mat-form-field-infix ng-tns-c70-67">
                                                                                                 <input disabled
+                                                                                                   style="font-weight: bold !important; background-color: #ffff; text-align: center; "
                                                                                                     autocomplete="off"
                                                                                                     matinput=""
                                                                                                     formcontrolname="policyNumberGL"
@@ -2455,7 +2581,7 @@ $navbarHideToggle = false;
                                                                         <tr class="ng-tns-c268-42">
                                                                             <td
                                                                                 class="lable_title_large ng-tns-c268-42">
-                                                                                <div style="margin-top: 5px; margin-bottom: 5px; padding-left: 5px;"
+                                                                                <div  style="margin-top: 5px; margin-bottom: 5px; padding-left: 5px;" align="center"
                                                                                     class="ng-tns-c268-42"> Is This
                                                                                     Policy Through A
                                                                                     Risk Retention Insurance
@@ -2477,9 +2603,11 @@ $navbarHideToggle = false;
                                                                                                     class="mat-slide-toggle-thumb"></span><span
                                                                                                     mat-ripple=""
                                                                                                     class="mat-ripple mat-slide-toggle-ripple mat-focus-indicator"><span
-                                                                                                        class="mat-ripple-element mat-slide-toggle-persistent-ripple"></span></span></span></span><span
-                                                                                            class="mat-slide-toggle-content"><span
-                                                                                                style="display: none;">&nbsp;</span>No</span></label>
+                                                                                                        class="mat-ripple-element mat-slide-toggle-persistent-ripple"></span></span></span></span><span class="mat-slide-toggle-content" style="display: flex; justify-content: center; align-items: center; font-weight: bold; text-align: center;">
+                                                                                                          <span style="display: none;">&nbsp;</span>
+                                                                                                          No
+                                                                                                      </span>
+                                                                                                      </label>
                                                                                 </mat-slide-toggle>
                                                                             </td>
                                                                         </tr>
@@ -2709,17 +2837,18 @@ $navbarHideToggle = false;
                                                         <tr class="ng-tns-c268-42">
                                                             <td colspan="7" style="padding: 10px;"
                                                                 class="ng-tns-c268-42">
-                                                                <div style="font-size: 11px;" class="ng-tns-c268-42">
-                                                                    DESCRIPTION OF
-                                                                    OPERATIONS / VEHICLES / EXCLUSIONS ADDED BY
-                                                                    ENDORSEMENT /
-                                                                    SPECIAL PROVISIONS (Attach <a
-                                                                        href="javascript:void(0);" id="acordBox"
-                                                                        class="ng-tns-c268-42">
-                                                                        <textarea class="form-control h-px-100" required name="descrp" style="background-color: rgb(201 196 196 / 15%) !important;width: 100%;height: 90px;color: #000000;" placeholder="Comments here...">{{$certificate->descrp}}
-                                                                        </textarea>
+                                                                <div style="font-size: 12px; text-align: center; margin: 1% auto; width: 50%;" class="ng-tns-c268-42">
+                                                                  <h3 style="text-align: center; ">
+                                                                      DESCRIPTION OF OPERATIONS / VEHICLES / EXCLUSIONS ADDED BY ENDORSEMENT /
+                                                                      SPECIAL PROVISIONS (Attach)
+                                                                  </h3>
+                                                                  <a href="javascript:void(0);" id="acordBox" class="ng-tns-c268-42">
+                                                                      <textarea class="form-control " required name="descrp"
+                                                                          style="background-color: rgb(201 196 196 / 15%) !important; width: 100%; height: 90px; color: #000000;"
+                                                                          placeholder="Comments here...">{{$certificate->descrp}}</textarea>
+                                                                  </a>
+                                                              </div>
 
-                                                                </div>
                                                                 <table width="100%" cellpadding="0" cellspacing="0"
                                                                     border="0" class="ng-tns-c268-42">
                                                                     <tbody class="ng-tns-c268-42">
@@ -2738,12 +2867,12 @@ $navbarHideToggle = false;
                                                 <table width="100%" cellpadding="0" cellspacing="0" border="0"
                                                     style="margin-top: 9px;" class="ng-tns-c268-42">
                                                     <tbody class="ng-tns-c268-42">
-                                                        <tr class="ng-tns-c268-42">
-                                                            <td style="width: 50%; font-size: 15px; font-weight: bold;"
-                                                                class="ng-tns-c268-42">CERTIFICATE HOLDER</td>
-                                                            <td style="width: 50%; font-size: 15px; font-weight: bold;"
-                                                                class="ng-tns-c268-42">CANCELLATION</td>
-                                                        </tr>
+                                                      <tr class="ng-tns-c268-42">
+                                                        <td style="width: 50%; font-size: 15px; font-weight: bold;"
+                                                            class="ng-tns-c268-42">CERTIFICATE HOLDER</td>
+                                                        <td style="width: 50%; font-size: 15px; font-weight: bold;"
+                                                            class="ng-tns-c268-42">CANCELLATION</td>
+                                                    </tr>
                                                         <tr class="ng-tns-c268-42">
                                                             <td valign="top" colspan="2" class="p-0 ng-tns-c268-42">
                                                                 <table width="100%" cellpadding="0" cellspacing="0"
@@ -2752,22 +2881,26 @@ $navbarHideToggle = false;
                                                                         <tr class="ng-tns-c268-42">
                                                                             <td rowspan="2" width="50%"
                                                                                 class="ct_holder ng-tns-c268-42">
-                                                                                <textarea class="form-control h-px-100" required name="ch" style="background-color: rgb(201 196 196 / 15%) !important;width: 100%;height: 90px;color: #000000;" placeholder="Comments here...">
+                                                                                <textarea class="form-control h-px-100" required name="ch" style="background-color: rgb(201 196 196 / 15%) !important;width: 100%;height: 90px;color: #000000; font-size:15px !important" placeholder="Comments here...">
                                                                                   {{$certificate->ch}}
                                                                                 </textarea>
 
                                                                             </td>
-                                                                            <td class="fot_titel ng-tns-c268-42"> SHOULD
-                                                                                ANY OF THE
-                                                                                ABOVE DESCRIBED POLICIES BE CANCELLED
-                                                                                BEFORE THE
-                                                                                EXPIRATION DATE THEREOF, NOTICE WILL BE
-                                                                                DELIVERED IN
-                                                                                ACCORDANCE WITH THE POLICY PROVISIONS.
-                                                                            </td>
+                                                                            <td class="fot_titel ng-tns-c268-42" style="font-size: 12px;">
+                                                                              SHOULD
+                                                                              ANY OF THE
+                                                                              ABOVE DESCRIBED POLICIES BE
+                                                                              CANCELLED
+                                                                              BEFORE THE
+                                                                              EXPIRATION DATE THEREOF, NOTICE WILL
+                                                                              BE
+                                                                              DELIVERED IN
+                                                                              ACCORDANCE WITH THE POLICY
+                                                                              PROVISIONS.
+                                                                          </td>
                                                                         </tr>
                                                                         <tr class="ng-tns-c268-42">
-                                                                            <td class="fot_titel ng-tns-c268-42">
+                                                                            <td class="fot_titel ng-tns-c268-42" style="font-size: 12px">
                                                                                 AUTHORIZED
                                                                                 REPRESENTATIVE <textarea cols="38"
                                                                                     rows="3" readonly="readonly"
@@ -2788,33 +2921,43 @@ $navbarHideToggle = false;
                                 <div class="rights_reserved ng-tns-c268-42">2006 -2024 ACORD CORPORATION. All rights
                                     reserved.</div>
                             </div>
+<div style="background: #fff">
+                            <div class="form-floating form-floating-outline mb-4" style="text-align: center;">
+                              <h3 style="font-weight: 600; font-size: 1.75rem; color: #333;">Additional Remarks Schedule</h3>
+                          </div>
 
-                            <div class="form-floating form-floating-outline mb-4">
-                              <h3>Additional Remarks Schedule</h3>
-                              </div>
+                          <div class="form-floating form-floating-outline mb-4" style="display: flex; justify-content: center;">
+                              <textarea class="form-control h-px-100" name="ars"
+                                  style="background-color: rgba(0, 0, 0, 0.05) !important; width: 80%; max-width: 600px; height: 200px; color: #333; font-size: 1rem; border-radius: 8px; border: 1px solid #ccc; padding: 12px; text-align: center;"
+                                  placeholder="Comments here...">
+                                  @if (!empty($certificate->ars))
+                                      {{ $certificate->ars }}
+                                  @endif
+                              </textarea>
+                          </div>
 
-                            <div class="form-floating form-floating-outline mb-4">
-                                <textarea class="form-control h-px-100" name="ars" style="background-color: rgb(201 196 196 / 15%) !important;width: 100%;height: 290px;color: #000000;" placeholder="Comments here...">{{$certificate->ars}}</textarea>
+                          <div fxlayout="row" fxlayoutalign="center center" class="acord-button-row ng-tns-c268-42"
+                              style="display: flex; justify-content: center; align-items: center; padding-top: 15px;">
 
-                              </div>
 
-                            <div fxlayout="row" fxlayoutalign="center center" class="acord-button-row ng-tns-c268-42"
-                                style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center; align-items: center;">
-                                <button mat-flat-button="" color="accent" id="btnsub"  type="submit"
-                                    class="mat-focus-indicator action-buttion ng-tns-c268-42 mat-flat-button mat-button-base mat-accent">
+                              <button mat-flat-button="" color="accent" id="btnsub"  type="submit"
+                                    class="mat-focus-indicator action-buttion ng-tns-c268-42 mat-flat-button mat-button-base mat-accent" style="font-weight: 600 !important; background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%); border-radius: 25px; padding: 10px 20px; color: #fff; transition: background-color 0.3s ease;">
 
                                     <span
                                         class="mat-button-wrapper"> Update
                                         </span><span matripple="" class="mat-ripple mat-button-ripple"></span><span
                                         class="mat-button-focus-overlay"></span></button>
 
-                                        <a mat-flat-button="" href="{{ route('formlist') }}"
-                                    color="warn"
-                                    class="mat-focus-indicator action-buttion ng-tns-c268-42 mat-flat-button mat-button-base mat-warn"><span
-                                        class="mat-button-wrapper">
-                               Close
-                                    </span></a>
-                            </div>
+
+                              <a mat-flat-button="" href="{{ route('formlist') }}" color="warn"
+                                  class="mat-focus-indicator action-button mat-flat-button mat-button-base mat-warn"
+                                  style="font-weight: 600; background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%); border-radius: 25px; padding: 10px 20px; color: #fff; transition: background-color 0.3s ease;">
+                                  <span class="mat-button-wrapper">Close</span>
+                              </a>
+                          </div>
+
+                        </div>
+
                         </div>
                     </div>
                 </div>
