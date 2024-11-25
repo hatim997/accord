@@ -208,7 +208,7 @@
                             <option value='WI'>Wisconsin</option>
 
                             <option value='WY'>Wyoming</option>
-                            </select>
+                          </select>
 
                     </div>
                     <div class="form-group py-3">
