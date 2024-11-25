@@ -18,7 +18,7 @@
          </div>
        </div>
       </div>
-    </div> 
+    </div>
 @endif
     <div class="row p-2  bg-white">
         <div class="row stepwizard ">
@@ -102,138 +102,233 @@
         </div>
     </div>
     <div class="row setup-content {{ $currentStep != 2 ? 'displayNone' : '' }}" id="step-2">
-        <div class="col-xs-12">
-            <div class="row px-5">
-                <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group py-3">
-                                <label for="exampleFormControlSelect1">Prefix</label>
-                                <select class="form-select" id="exampleFormControlSelect1"
-                                    aria-label="Default select example">
-                                    <option selected>Open this select menu</option>
-                                    <option value="1">Mr</option>
-                                    <option value="2">Mrs</option>
-                                    <option value="3">Ms</option>
-                                </select>
+      <div class="col-xs-12">
+        <div class="row px-5">
+
+            <!-- Card 1 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="pt-2">Contact Details</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group py-3">
+                                    <label for="exampleFormControlSelect1">Prefix</label>
+                                    <select class="form-select" id="exampleFormControlSelect1"
+                                        aria-label="Default select example">
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">Mr</option>
+                                        <option value="2">Mrs</option>
+                                        <option value="3">Ms</option>
+                                    </select>
+                                </div>
+
 
                             </div>
-                            <div class="form-group py-3">
-                                <label for="description">Middel Name:</label>
-                                <input type="text" wire:model="mname" class="form-control" id="productAmount" />
-                                @error('mname') <span class="error">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="form-group py-3">
-                                <label class="form-label required" for="description">Suffix</label>
-                                <input type="text" wire:model="suffix" class="form-control" id="productAmount" />
-                                @error('suffix') <span class="error">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="form-group py-3">
-                                <label class="form-label required" for="description">salutation</label>
-                                <input type="text" wire:model="salutation" class="form-control" id="productAmount" />
-                                @error('slutation') <span class="error">{{ $message }}</span> @enderror
+                            <div class="col-md-6">
+
+                                <div class="form-group py-3">
+                                  <label class="form-label required" for="description">Suffix</label>
+                                  <input type="text" wire:model="suffix" class="form-control" id="productAmount" />
+                                  @error('suffix') <span class="error">{{ $message }}</span> @enderror
+                              </div>
                             </div>
 
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group py-3">
-                                <label class="form-label required" for="description">First Name:</label>
-                                <input type="text" wire:model="fname" class="form-control" id="productAmount" />
-                                @error('fname') <span class="error">{{ $message }}</span> @enderror
-                            </div>
 
-                            <div class="form-group py-3">
-                                <label class="form-label required" for="description">Last Name:</label>
-                                <input type="text" wire:model="lname" class="form-control" id="productAmount" />
-                                @error('lname') <span class="error">{{ $message }}</span> @enderror
-                            </div>
-
-                            <div class="form-group py-3">
+                            <div class="col-md-12">
+                              <div class="form-group py-3">
+                                  <label class="form-label required" for="description">First Name:</label>
+                                  <input type="text" wire:model="fname" class="form-control" id="productAmount" />
+                                  @error('fname') <span class="error">{{ $message }}</span> @enderror
+                              </div>
+                              <div class="form-group py-3">
+                                    <label for="description">Middle Name:</label>
+                                    <input type="text" wire:model="mname" class="form-control" id="productAmount" />
+                                    @error('mname') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="form-group py-3">
+                                    <label class="form-label required" for="description">Last Name:</label>
+                                    <input type="text" wire:model="lname" class="form-control" id="productAmount" />
+                                    @error('lname') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="form-group py-3">
+                                    <label class="form-label required" for="description">Salutation</label>
+                                    <input type="text" wire:model="salutation" class="form-control" id="productAmount" />
+                                    @error('salutation') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="form-group py-3">
                                 <label class="form-label required" for="description">Title:</label>
                                 <input type="text" wire:model="title" class="form-control" id="productAmount" />
                                 @error('title') <span class="error">{{ $message }}</span> @enderror
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group py-3">
-                                <label class="form-label required" for="description">Email:</label>
-                                <input type="email" wire:model="email" class="form-control" id="productAmount" />
-                                @error('email') <span class="error">{{ $message }}</span> @enderror
-                            </div>
-
-                            <div class="form-group py-3">
-                                <label class="form-label required" for="description">Phone No:</label>
-                                <input type="tel" wire:model="phone"  class="form-control" id="phone" />
-                                @error('phone') <span class="error">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="form-group py-3">
-                                <label for="description">Fax No:</label>
-                                <input type="tel" wire:model="fax" class="form-control" id="productAmount" />
-                                @error('fax') <span class="error">{{ $message }}</span> @enderror
-                            </div>
-
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group py-3">
-                                <label for="description">Second Email:</label>
-                                <input type="email" wire:model="exemail" class="form-control" id="productAmount" />
-                                @error('exemail') <span class="error">{{ $message }}</span> @enderror
-                            </div>
-                      
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group py-3">
-                                <label class="form-label required" for="description">Address:</label>
-                                <input type="text" wire:model="address" class="form-control" id="productAmount" />
-                                @error('address') <span class="error">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="form-group py-3">
-                                <label for="description">Address 2</label>
-                                <input type="text" wire:model="address2" class="form-control" id="productAmount" />
-                                @error('address2') <span class="error">{{ $message }}</span> @enderror
-                            </div>
-
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group py-3">
-                                <label class="form-label required" for="description">Zip Code:</label>
-                                <input type="number" oninput="this.value=this.value.slice(0,5)" maxlength="5"
-                                    wire:model="zip" class="form-control" id="productAmount" />
-                                @error('zip') <span class="error">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="form-group py-3">
-                                <label class="form-label required" for="description">City:</label>
-                                <input type="text" wire:model="city" class="form-control" id="productAmount" />
-                                @error('city') <span class="error">{{ $message }}</span> @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group py-3">
-                                <label class="form-label required" for="description">State:</label>
-                                <input type="text" wire:model="state" class="form-control" id="productAmount" />
-                                @error('state') <span class="error">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="form-group py-3">
-                                <label for="description">Country:</label>
-                                <input type="text" wire:model="country" class="form-control" id="productAmount" />
-                                @error('country') <span class="error">{{ $message }}</span> @enderror
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary nextBtn btn-lg pull-right" type="button"
-                wire:click="secondStepSubmit">Next</button>
-            <button class="btn btn-danger nextBtn btn-lg pull-right" type="button" wire:click="back(1)">Back</button>
+
+            <!-- Card 2 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="pt-2">Contact Details</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group py-3">
+                                    <label class="form-label required" for="description">Email:</label>
+                                    <input type="email" wire:model="email" class="form-control" id="productAmount" />
+                                    @error('email') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="form-group py-3">
+                                    <label class="form-label required" for="description">Second Email:</label>
+                                    <input type="email" wire:model="exemail" class="form-control" id="productAmount" />
+                                    @error('exemail') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+
+                              <div class="form-group py-3">
+                                  <label class="form-label required" for="description">Phone No:</label>
+                                  <input type="tel" wire:model="phone" class="form-control" id="phone" />
+                                  @error('phone') <span class="error">{{ $message }}</span> @enderror
+                              </div>
+                              <div class="form-group py-3">
+                                  <label for="description">Fax No:</label>
+                                  <input type="tel" wire:model="fax" class="form-control" id="productAmount" />
+                                  @error('fax') <span class="error">{{ $message }}</span> @enderror
+                              </div>
+                          </div>
+                            <div class="col-md-12">
+                                <div class="form-group py-3">
+                                    <label for="description">Second Phone No:</label>
+                                    <input type="tel" wire:model="secphone" class="form-control" id="phone" />
+                                    @error('secphone') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                                <br><br><br><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="pt-2">Address Details</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group py-3">
+                                    <label class="form-label required" for="description">Address:</label>
+                                    <input type="text" wire:model="address" class="form-control" id="productAmount" />
+                                    @error('address') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="form-group py-3">
+                                    <label for="description">Address 2:</label>
+                                    <input type="text" wire:model="address2" class="form-control" id="productAmount" />
+                                    @error('address2') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group py-3">
+                                    <label class="form-label required" for="description">Zip Code:</label>
+                                    <input type="number" oninput="this.value=this.value.slice(0,5)" maxlength="5"
+                                        wire:model="zip" class="form-control" id="productAmount" />
+                                    @error('zip') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="form-group py-3">
+                                    <label class="form-label required" for="description">City:</label>
+                                    <input type="text" wire:model="city" class="form-control" id="productAmount" />
+                                    @error('city') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group py-3">
+                                    <label for="description" class="required">State:</label>
+                                    @error('state') <span class="error">{{ $message }}</span> @enderror
+                                    <select class="form-control" id="productAmount"  wire:model="state" >
+
+                                      <option value='AL'>Alabama</option>
+                                      <option value='AK'>Alaska</option>
+                                      <option value='AZ'>Arizona</option>
+                                      <option value='AR'>Arkansas</option>
+                                      <option value='CA'>California</option>
+
+                                      <option value='CO'>Colorado</option>
+                                      <option value='CT'>Connecticut</option>
+                                      <option value='DE'>Delaware</option>
+                                      <option value='DC'>District of Columbia</option>
+                                      <option value='FL'>Florida</option>
+
+                                      <option value='GA'>Georgia</option>
+                                      <option value='HI'>Hawaii</option>
+                                      <option value='ID'>Idaho</option>
+                                      <option value='IL'>Illinois</option>
+                                      <option value='IN'>Indiana</option>
+
+                                      <option value='IA'>Iowa</option>
+                                      <option value='KS'>Kansas</option>
+                                      <option value='KY'>Kentucky</option>
+                                      <option value='LA'>Louisiana</option>
+                                      <option value='ME'>Maine</option>
+
+                                      <option value='MD'>Maryland</option>
+                                      <option value='MA'>Massachusetts</option>
+                                      <option value='MI'>Michigan</option>
+                                      <option value='MN'>Minnesota</option>
+                                      <option value='MS'>Mississippi</option>
+
+                                      <option value='MO'>Missouri</option>
+                                      <option value='MT'>Montana</option>
+                                      <option value='NE'>Nebraska</option>
+                                      <option value='NV'>Nevada</option>
+                                      <option value='NH'>New Hampshire</option>
+
+                                      <option value='NJ'>New Jersey</option>
+                                      <option value='NM'>New Mexico</option>
+                                      <option value='NY'>New York</option>
+                                      <option value='NC'>North Carolina</option>
+                                      <option value='ND'>North Dakota</option>
+
+                                      <option value='OH'>Ohio</option>
+                                      <option value='OK'>Oklahoma</option>
+                                      <option value='OR'>Oregon</option>
+                                      <option value='PA'>Pennsylvania</option>
+                                      <option value='RI'>Rhode Island</option>
+
+                                      <option value='SC'>South Carolina</option>
+                                      <option value='SD'>South Dakota</option>
+                                      <option value='TN'>Tennessee</option>
+                                      <option value='TX'>Texas</option>
+                                      <option value='UT'>Utah</option>
+
+                                      <option value='VT'>Vermont</option>
+                                      <option value='VA'>Virginia</option>
+                                      <option value='WA'>Washington</option>
+                                      <option value='WV'>West Virginia</option>
+                                      <option value='WI'>Wisconsin</option>
+
+                                      <option value='WY'>Wyoming</option>
+                                    </select>
+
+                                </div>
+                                <div class="form-group py-3">
+                                    <label for="description">Country:</label>
+                                    <input type="text" wire:model="country" class="form-control" id="productAmount" />
+                                    @error('country') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+        <!-- Buttons -->
+        <button class="btn btn-danger nextBtn btn-lg pull-right" type="button" wire:click="back(1)">Back</button>
+        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" wire:click="secondStepSubmit">Next</button>
+    </div>
     </div>
 <div class="row setup-content {{ $currentStep != 3 ? 'displayNone' : '' }}" id="step-4">
     <div class="col-xs-12">
@@ -259,9 +354,8 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button"
-            wire:click="thirdStepSubmit">Next</button>
         <button class="btn btn-danger nextBtn btn-lg pull-right" type="button" wire:click="back(2)">Back</button>
+        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" wire:click="thirdStepSubmit">Next</button>
     </div>
 </div>
 <div class="row setup-content {{ $currentStep != 4 ? 'displayNone' : '' }}" id="step-5">
@@ -372,9 +466,8 @@
             </div>
 
         </div>
-        <button class="btn btn-primary nextBtn btn-lg pull-right" wire:click="forthStepSubmit"
-            type="button">Finish!</button>
         <button class="btn btn-danger nextBtn btn-lg pull-right" type="button" wire:click="back(3)">Back</button>
+        <button class="btn btn-primary nextBtn btn-lg pull-right" wire:click="forthStepSubmit" type="button">Finish!</button>
     </div>
 </div>
 

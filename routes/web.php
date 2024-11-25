@@ -92,7 +92,7 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
 
 Route::post('/mark-read/{id}', [AdminController::class, 'markAsRead'])->name('mark-read');
 
-
+// remove /accord livewire
 Livewire::setScriptRoute(function ($handle) {
   return Route::get('/public/livewire/livewire.js', $handle);
 });

@@ -4,22 +4,22 @@
     <title>Laravel Livewire Example</title>
     @livewireStyles
 
-  
-    
+
+
     <link rel="stylesheet" href="{{ asset(mix('assets/vendor/fonts/materialdesignicons.css')) }}" />
     <link rel="stylesheet" href="{{ asset(mix('assets/vendor/libs/node-waves/node-waves.css')) }}" />
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset(mix('assets/vendor/css/core.css')) }}" />
     <link rel="stylesheet" href="{{ asset(mix('assets/vendor/css/theme-default.css')) }}" />
-    
+
     <link rel="stylesheet" href="{{ asset(mix('assets/css/demo.css')) }}" />
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset(mix('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')) }}" />
-  
+
     <link href="{{ asset('wizard.css') }}" rel="stylesheet" />
 </head>
-<body>    
-<div class="container">  
+<body>
+<div class="container">
     <div class=" " style="background-color: transparent">
       <div class="card-header text-center">
         <img src="{{ asset('assets/img/logo.png') }}" alt class="" style="width: 180px">
@@ -28,7 +28,7 @@
       <div class="card-body">
         <livewire:truckreg />
       </div>
-    </div>        
+    </div>
 </div>
 
 
@@ -61,7 +61,7 @@ phoneInputs.forEach(function(input) {
   });
 });
 </script>
-@livewireScripts  
+@livewireScripts
 
   @yield('page-scripts')
 <script src="{{ asset(mix('assets/vendor/libs/popper/popper.js')) }}"></script>
@@ -75,5 +75,5 @@ phoneInputs.forEach(function(input) {
 
 
 @stack('scripts')
-</body> 
+</body>
 </html>

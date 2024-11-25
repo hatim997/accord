@@ -120,7 +120,7 @@ class Wizard extends Component
       public function fithStepSubmit()
       {
         $validatedData = $this->validate([
-            'image' => 'required|image|mimes:png|dimensions:min_width=200,max_width=200,min_height=100,max_height=100|max:1024',
+            'image' => 'required|image|mimes:png|dimensions:min_width=1,max_width=200,min_height=1,max_height=100|max:1024',
           ]);
           $name = md5($this->image . microtime()).'.'.$this->image->extension();
           $this->imagePath = $this->image->storeAs('photos', $name);
