@@ -1091,7 +1091,7 @@
                                   @foreach ($pt->policyLimits->whereNotIn('id', [13,14,18]) as $pl)
                                   @if($pl->policy_type_id !=6)
                                   <tr style="line-height:2;">
-                                    <td style="border:1px solid black; line-height:0.9;">
+                                    <td style="border:1px solid black; line-height:0.7;">
                                       {{$pl->coverage_item}}
                                     </td>
                                     <td style="border:1px solid black" width="40%">
