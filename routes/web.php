@@ -94,10 +94,10 @@ Route::post('/mark-read/{id}', [AdminController::class, 'markAsRead'])->name('ma
 
 // remove /accord livewire
 Livewire::setScriptRoute(function ($handle) {
-  return Route::get('accord/public/livewire/livewire.js', $handle);
+  return Route::get('/public/livewire/livewire.js', $handle);
 });
 Livewire::setUpdateRoute(function ($handle) {
-  return Route::post('accord/public/livewire/update', $handle);
+  return Route::post('/public/livewire/update', $handle);
 });
 Route::get('/accord', function () {
   return view('fromdrop');
