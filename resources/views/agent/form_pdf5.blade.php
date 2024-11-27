@@ -1105,7 +1105,7 @@
                                   </tr>
                                   @else
                                   <tr style="line-height: 2;">
-                                    <td style="border:1px solid black; line-height:0.7;">{{ $pl->coverage_item }}</td>
+                                    <td style="border:1px solid black; line-height:0.6;">{{ $pl->coverage_item }}</td>
                                     <td style="border:1px solid black" width="40%">
                                       <div>
                                         <span>&nbsp; $&nbsp;
