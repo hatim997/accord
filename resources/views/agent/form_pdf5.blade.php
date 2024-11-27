@@ -1243,7 +1243,7 @@
 
                             <tr class="ng-tns-c268-42">
                               <td colspan="8" style="padding: 0px;" class="ng-tns-c268-42">
-                                <div style="font-size: 9px; height:90px;" class="ng-tns-c268-42">
+                                <div style="font-size: 9px; height:80px;" class="ng-tns-c268-42">
                                   DESCRIPTION OF OPERATIONS / LOCATIONS / VEHICLES (Attach ACORD 101, Additional Remarks
                                   Schedule, if more space is required) <br class="ng-tns-c268-42"> <br class="ng-tns-c268-42">
                                   <lable style="white-space: pre-wrap;">   {{$certificate->descrp}}    </lable></div>
