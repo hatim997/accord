@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Smalot\PdfParser\Parser;
 
 class AdminController extends Controller
 {
@@ -505,8 +506,214 @@ public function updateNoticeStatus($id)
   public function view_certificate_by_shipper()
   {
     $shipper_certificates = UploadShipper::all();
+    // dd($shipper_certificates);
     return view('admin_view_shipper_certificate', compact('shipper_certificates'));
   }
+
+  public function viewCertificate($path)
+{
+    $filePath = storage_path('app/public/uploads_shipper/' . $path);
+
+    if (file_exists($filePath)) {
+        return response()->file($filePath);
+    }
+
+    return abort(404);
+}
+
+public function getPdfValue($path)
+{
+    // Resolve the correct file path
+    $filePath = storage_path('app/public/uploads_shipper/' . $path);
+
+    if (!file_exists($filePath)) {
+        return response()->json(['error' => 'File not found'], 404);
+    }
+
+    try {
+        $parser = new \Smalot\PdfParser\Parser();
+        $pdf = $parser->parseFile($filePath);
+
+        // Extract text from the PDF
+        $text = $pdf->getText();
+        // dd($text);
+
+        // Clean the text
+        // $cleanedText = $this->cleanPdfContent($text);
+        // dd($cleanedText);
+
+        // Extract details
+        $pdfDetails = $this->extractPdfDetails($text);
+        dd($pdfDetails);
+
+        // Return the extracted text in a view or as JSON
+        return view('admin.pdf-content', ['content' => $text]);
+
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+}
+public function cleanPdfContent($content)
+{
+    // Remove non-breaking spaces
+    $cleanedContent = str_replace('\u{A0}', ' ', $content);
+
+    // Replace multiple spaces/tabs/newlines with a single space
+    $cleanedContent = preg_replace('/\s+/', ' ', $cleanedContent);
+
+    // Trim any leading/trailing spaces
+    $cleanedContent = trim($cleanedContent);
+
+    return $cleanedContent;
+}
+
+
+public function extractPdfDetails($content)
+{
+    $details = [];
+
+    // Clean the content (replace special characters like non-breaking space)
+    $content = preg_replace('/\s+/', ' ', $content);  // Replace multiple spaces with a single space
+    $content = str_replace("\u{A0}", ' ', $content);  // Replace non-breaking space with regular space
+
+      // GENERAL LIABILITY
+    $pattern = '/EACH\s+OCCURRENCE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['each_occurrence1'] = $matches[1];
+    }
+    $pattern = '/DAMAGE\s+TO\s+RENTED\s+PREMISES[\s\xA0]*\(\s*EA\s*Occurence\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['damage_premises2'] = $matches[1];
+    }
+
+    $pattern = '/MED\s+EXP\s*\(\s*Any\s+one\s+person\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['med_exp_any_one_person3'] = $matches[1];
+    }
+
+    $pattern = '/PERSONAL\s*&\s*ADV\s*INJURY[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';  // Corrected regex
+
+    if (preg_match($pattern, $content, $matches)) {
+        $details['personal_injury4'] = $matches[1];
+    }
+
+    $pattern = '/GENERAL\s+AGGREGATE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['general_aggregate5'] = $matches[1];
+    }
+
+    $pattern = '/PRODUCTS\s*-\s*COMP\/OP\s*AGG[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['products_comp_op_agg6'] = $matches[1];
+    }
+
+    // AUTO LIABILITY
+    $pattern = '/COMBINED\s+SINGLE\s+LIMIT\s*\(\s*EA\s+accident\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['combined_single_limit_ea_accident(2a)'] = $matches[1]; // Extracted value
+    }
+
+    $pattern = '/BODILY\s+INJURY\s*\(\s*Per\s+person\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})?/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['bodily_injury_per_person(2b)'] = $matches[1] ?? '0.00'; // Extracted value or 0.00 if not present
+    }
+
+    $pattern = '/BODILY\s+INJURY\s*\(\s*Per\s+accident\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})?/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['bodily_injury_per_accident(2c)'] = $matches[1] ?? '0.00'; // Extracted value or 0.00 if not present
+    }
+
+    $pattern = '/PROPERTY\s+DAMAGE\s*\(\s*Per\s+accident\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})?/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['property_damage_per_accident(2e)'] = $matches[1] ?? '0.00'; // Extracted value or 0.00 if not present
+    }
+
+    // $pattern = '/EACH\s+OCCURRENCE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    // if (preg_match($pattern, $content, $matches)) {
+    //     $details['each_occurrence(2f)'] = $matches[1]; // Extracted value
+    // }
+
+    // $pattern = '/EACH\s+OCCURRENCE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    // preg_match_all($pattern, $content, $matches);
+    // if (!empty($matches[1])) {
+    //     // Save all occurrences into an array
+    //     foreach ($matches[1] as $index => $value) {
+    //         $details['each_occurrence_' . ($index + 1)] = $value;
+    //     }
+    // }
+
+    $pattern = '/AGGREGATE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['aggregate(6a)'] = $matches[1] ?? '0.00'; // Extracted value
+    }
+
+    $pattern = '/E\.L\.\s*EACH\s*ACCIDENT[\s]*\$\s*([\d,]+\.\d{2})/i';  // Handle flexible spaces
+
+    if (preg_match($pattern, $content, $matches)) {
+        $details['el_each_accident1'] = $matches[1] ?? '0.00'; // Extracted value or default to '0.00'
+    }
+
+    // $content = str_replace("\xA0", ' ', $content);
+
+// Pattern for "E.L. DISEASE - EA EMPLOYEE $"
+$pattern = '/E\.L\.\s*DISEASE\s*-\s*EA\s*EMPLOYEE[\s]*\$\s*([\d,]*\.?\d{0,2})?/i';
+
+
+// Try to match the pattern
+if (preg_match($pattern, $content, $matches)) {
+    // If a match is found, assign the extracted value
+    $details['el_disease_ea_employee2'] = $matches[1];
+}
+
+$pattern = '/E\.L\.\s*DISEASE\s*-\s*POLICY\s*LIMIT[\s]*\$\s*([\d,]*\.?\d{0,2})?/i';
+
+if (preg_match($pattern, $content, $matches)) {
+  // Extract and store the value, or default to '0.00'
+  $details['el_disease_policy_limit'] = $matches[1];
+}
+
+
+$pattern = '/Limit\/\s*Trailer[\s]*([\d,]*\.?\d{0,2})/i';
+
+if (preg_match($pattern, $content, $matches)) {
+    $details['limit_trailer_value'] = $matches[1] ?? '0.00';
+}
+
+
+    $pattern = '/LIMIT\s*PER\s*VEHICLE[\s\xA0]*([\d,]+\.\d{2})/i';
+
+    if (preg_match($pattern, $content, $matches)) {
+        $details['limit_per_vehicle'] = $matches[1] ?? '0.00';
+    }
+
+
+    $pattern = '/Limit\/Ded\s*([\d,\.]+)?\s*(?:\/\s*([\d,\.]+))?/i';
+
+    if (preg_match_all($pattern, $content, $matches, PREG_SET_ORDER)) {
+      foreach ($matches as $matchIndex => $match) {
+          // echo "Match Set $matchIndex:\n";
+
+          $first_value = isset($match[1]) ? $match[1] : '0.00';
+          $second_value = isset($match[2]) ? $match[2] : $first_value;
+
+          // echo "  Value 1: $first_value\n";
+          // echo "  Value 2: $second_value\n";
+
+          $details[] = [
+              'limit_ded_value1' => $first_value,
+              'limit_ded_value2' => $second_value,
+          ];
+      }
+  }
+
+
+    return $details;
+}
+
+
+
+
+
 
   public function download_certificate($file_name) {
     $file = $path = storage_path().'/app/public/uploads_shipper/' . $file_name;
