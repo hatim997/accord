@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Smalot\PdfParser\Parser;
 
 class AdminController extends Controller
 {
@@ -505,8 +506,252 @@ public function updateNoticeStatus($id)
   public function view_certificate_by_shipper()
   {
     $shipper_certificates = UploadShipper::all();
+    // dd($shipper_certificates);
     return view('admin_view_shipper_certificate', compact('shipper_certificates'));
   }
+
+  public function viewCertificate($path)
+{
+    $filePath = storage_path('app/public/uploads_shipper/' . $path);
+
+    if (file_exists($filePath)) {
+        return response()->file($filePath);
+    }
+
+    return abort(404);
+}
+
+public function getPdfValue($path, $user_id)
+{
+
+  // $shipperLimt = ShipperLimit::where('shipper_id', $user_id)
+  // ->join('policy_limits', 'shipper_limits.policy_limit_id','=','policy_limits.id')
+  // ->join('policy_types','policy_limits.policy_type_id','=','policy_types.id')
+  // ->select('type_name', 'coverage_item','policy_amount')
+  // ->get();
+  $shipperLimt = ShipperLimit::where('shipper_id', $user_id)
+  ->join('policy_limits', 'shipper_limits.policy_limit_id','=','policy_limits.id')
+  ->join('policy_types','policy_limits.policy_type_id','=','policy_types.id')
+  ->select('type_name', 'coverage_item', 'policy_limit_id', 'policy_amount')
+  ->orderByRaw("FIELD(shipper_limits.policy_type_id, 2, 1, 9, 5, 4, 3, 6, 7, 8)")
+  ->get()
+  ->groupBy('type_name'); // Group by policy type name
+
+
+  //  dd($shipperLimt->toArray());
+    // Resolve the correct file path
+    $filePath = storage_path('app/public/uploads_shipper/' . $path);
+
+    if (!file_exists($filePath)) {
+        return response()->json(['error' => 'File not found'], 404);
+    }
+
+    try {
+        $parser = new \Smalot\PdfParser\Parser();
+        $pdf = $parser->parseFile($filePath);
+
+        // Extract text from the PDF
+        $text = $pdf->getText();
+        // dd($text);
+
+        // Clean the text
+        // $cleanedText = $this->cleanPdfContent($text);
+        // dd($cleanedText);
+
+        // Extract details
+        $pdfDetails = $this->extractPdfDetails($text);
+        // dd($pdfDetails);
+
+        // Return the extracted text in a view or as JSON
+        return view('pdf-content', compact('pdfDetails', 'shipperLimt'));
+
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+}
+public function cleanPdfContent($content)
+{
+    // Remove non-breaking spaces
+    $cleanedContent = str_replace('\u{A0}', ' ', $content);
+
+    // Replace multiple spaces/tabs/newlines with a single space
+    $cleanedContent = preg_replace('/\s+/', ' ', $cleanedContent);
+
+    // Trim any leading/trailing spaces
+    $cleanedContent = trim($cleanedContent);
+
+    return $cleanedContent;
+}
+
+
+public function extractPdfDetails($content)
+{
+    $details = [];
+
+    // Clean the content (replace special characters like non-breaking space)
+    $content = preg_replace('/\s+/', ' ', $content);  // Replace multiple spaces with a single space
+    $content = str_replace("\u{A0}", ' ', $content);  // Replace non-breaking space with regular space
+
+    // GENERAL LIABILITY
+    $pattern = '/EACH\s+OCCURRENCE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['5'] = $matches[1];
+    }
+    $pattern = '/DAMAGE\s+TO\s+RENTED\s+PREMISES[\s\xA0]*\(\s*EA\s*Occurence\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['6'] = $matches[1];
+    }
+
+    $pattern = '/MED\s+EXP\s*\(\s*Any\s+one\s+person\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['7'] = $matches[1];
+    }
+
+    $pattern = '/PERSONAL\s*&\s*ADV\s*INJURY[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';  // Corrected regex
+
+    if (preg_match($pattern, $content, $matches)) {
+        $details['8'] = $matches[1];
+    }
+
+    $pattern = '/GENERAL\s+AGGREGATE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['9'] = $matches[1];
+    }
+
+    $pattern = '/PRODUCTS\s*-\s*COMP\/OP\s*AGG[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['10'] = $matches[1];
+    }
+
+    // AUTO LIABILITY
+    $pattern = '/COMBINED\s+SINGLE\s+LIMIT\s*\(\s*EA\s+accident\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['1'] = $matches[1]; // Extracted value
+    }
+
+    $pattern = '/BODILY\s+INJURY\s*\(\s*Per\s+person\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})?/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['2'] = $matches[1] ?? '0.00'; // Extracted value or 0.00 if not present
+    }
+
+    $pattern = '/BODILY\s+INJURY\s*\(\s*Per\s+accident\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})?/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['3'] = $matches[1] ?? '0.00'; // Extracted value or 0.00 if not present
+    }
+
+    $pattern = '/PROPERTY\s+DAMAGE\s*\(\s*Per\s+accident\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})?/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['4'] = $matches[1] ?? '0.00'; // Extracted value or 0.00 if not present
+    }
+
+    // $pattern = '/EACH\s+OCCURRENCE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    // if (preg_match($pattern, $content, $matches)) {
+    //     $details['each_occurrence(2f)'] = $matches[1]; // Extracted value
+    // }
+
+    $pattern = '/EACH\s+OCCURRENCE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    preg_match_all($pattern, $content, $matches);
+    if (!empty($matches[1])) {
+      $customKeys = [5, 25];
+        foreach ($matches[1] as $index => $value) {
+          $details[$customKeys[$index]] = $value;
+      }
+    }
+
+    $pattern = '/AGGREGATE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    if (preg_match($pattern, $content, $matches)) {
+        $details['26'] = $matches[1] ?? '0.00'; // Extracted value
+    }
+
+    $pattern = '/E\.L\.\s*EACH\s*ACCIDENT[\s]*\$\s*([\d,]+\.\d{2})/i';  // Handle flexible spaces
+
+    if (preg_match($pattern, $content, $matches)) {
+        $details['15'] = $matches[1] ?? '0.00'; // Extracted value or default to '0.00'
+    }
+
+    $pattern = '/E\.L\.\s*DISEASE\s*-\s*EA\s*EMPLOYEE[\s]*\$\s*([\d,]*\.?\d{0,2})?/i';
+    if (preg_match($pattern, $content, $matches)) {
+    $details['16'] = $matches[1];
+    }
+
+$pattern = '/E\.L\.\s*DISEASE\s*-\s*POLICY\s*LIMIT[\s]*\$\s*([\d,]*\.?\d{0,2})?/i';
+
+if (preg_match($pattern, $content, $matches)) {
+  // Extract and store the value, or default to '0.00'
+  $details['17'] = $matches[1];
+}
+
+
+$pattern = '/Limit\/\s*Trailer[\s]*([\d,]*\.?\d{0,2})/i';
+
+if (preg_match($pattern, $content, $matches)) {
+    $details['12'] = $matches[1] ?? '0.00';
+}
+
+
+    $pattern = '/LIMIT\s*PER\s*VEHICLE[\s\xA0]*([\d,]+\.\d{2})/i';
+
+    if (preg_match($pattern, $content, $matches)) {
+        $details['11'] = $matches[1] ?? '0.00';
+    }
+
+
+    $pattern = '/Limit\/Ded\s*([\d,\.]+)?\s*(?:\/\s*([\d,\.]+))?/i';
+
+  //   if (preg_match_all($pattern, $content, $matches, PREG_SET_ORDER)) {
+  //     foreach ($matches as $matchIndex => $match) {
+  //         // echo "Match Set $matchIndex:\n";
+
+  //         $first_value = isset($match[1]) ? $match[1] : '0.00';
+  //         $second_value = isset($match[2]) ? $match[2] : $first_value;
+
+  //         // echo "  Value 1: $first_value\n";
+  //         // echo "  Value 2: $second_value\n";
+
+  //         $details[] = [
+  //             'Limit' => $first_value,
+  //             'Ded' => $second_value,
+  //         ];
+  //     }
+  // }
+  $keys = [19, 20, 21, 22, 23, 24]; // Predefined keys for Limit and Ded
+
+ // Initialize the details array
+
+if (preg_match_all($pattern, $content, $matches, PREG_SET_ORDER)) {
+    $keyIndex = 0; // To keep track of which key to use from the $keys array
+
+    foreach ($matches as $matchIndex => $match) {
+        $first_value = isset($match[1]) ? str_replace(',', '', $match[1]) : '0';
+        $second_value = isset($match[2]) ? str_replace(',', '', $match[2]) : $first_value;
+
+        // Convert values to integers
+        $first_value = $first_value;
+        $second_value = $second_value;
+
+        // Ensure that there are enough keys in $keys array
+        if (isset($keys[$keyIndex])) {
+            // Assign Limit value to the key from $keys
+            $details[$keys[$keyIndex]] = $first_value;
+            $keyIndex++; // Move to the next key in the $keys array
+
+            // Assign Ded value to the next unique key
+            if (isset($keys[$keyIndex])) {
+                $details[$keys[$keyIndex]] = $second_value;
+                $keyIndex++; // Move to the next key in the $keys array
+            }
+        } else {
+            break; // Stop if there are no more keys
+        }
+    }
+}
+    return $details;
+}
+
+
+
+
+
 
   public function download_certificate($file_name) {
     $file = $path = storage_path().'/app/public/uploads_shipper/' . $file_name;

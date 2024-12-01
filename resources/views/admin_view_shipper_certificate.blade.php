@@ -89,9 +89,13 @@ $navbarHideToggle = false;
                                       </td>
 
                                       <td>
-                                          <a href="{{route('admin.download.certificate',$sc->path) }}" class="custom-button rounded-pill">
-                                            <i class="fa-solid fa-download"></i>&nbsp;
-                                              Download {{ $sc->id }}
+                                          <a href="{{route('admin.view.certificate',$sc->path) }}" class="custom-button rounded-pill" target="_blank">
+                                            <i class="fa-solid fa-eye"></i>&nbsp;
+                                              View Certificate {{ $sc->id }}
+                                          </a>
+                                          <a href="{{route('get.value', ['path' => $sc->path, 'user_id' => $sc->user_id]) }}" class="custom-button rounded-pill" target="_blank">
+                                            <i class="fa-solid fa-eye"></i>&nbsp;
+                                              Get Value  {{ $sc->id }}
                                           </a>
                                       </td>
                                   </tr>
