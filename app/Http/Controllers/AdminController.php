@@ -756,11 +756,11 @@ public function req_shipper_limits($id) {
   $shiper_info = ShipperInfos::where('user_id', $id)->first();
 
 
- // Prepare data for the email view
+  // Prepare data for the email view
   $data = [
     'id' => $id,
     'email' => $user->email,
-    'message' => 'Please insert your limit to continue using our services.',
+    'custom_message' => 'Please insert your limit to continue using our services.', // Renamed
     'shiper_info' => $shiper_info->name,
   ];
 

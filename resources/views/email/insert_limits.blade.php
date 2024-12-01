@@ -7,7 +7,7 @@
     
     <p>Dear {{ $shiper_info }},</p>
     
-    <p> {{ $message }} </p>
+    <p>{{ $custom_message }}</p>
     
     <p>Thank you,<br>Your Service Team</p>
 </body>
