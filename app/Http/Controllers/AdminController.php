@@ -755,17 +755,17 @@ public function req_shipper_limits($id) {
 
 
  // Prepare data for the email view
-  // $data = [
-  //   'id' => $id,
-  //   'email' => $user->email,
-  //   'message' => 'Please insert your limit to continue using our services.'
-  // ];
+  $data = [
+    'id' => $id,
+    'email' => $user->email,
+    'message' => 'Please insert your limit to continue using our services.'
+  ];
 
-  // // Send the email
-  // Mail::send('email.insert_limits', $data, function ($message) use ($user) {
-  //   $message->to($user->email)
-  //           ->subject('Request to Insert Your Limits');
-  // });
+  // Send the email
+  Mail::send('email.insert_limits', $data, function ($message) use ($user) {
+    $message->to($user->email)
+            ->subject('Request to Insert Your Limits');
+  });
 
   Notice::create([
     'to' => $id,
