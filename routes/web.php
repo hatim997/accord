@@ -91,7 +91,7 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
 });
 
 Route::get('view-certificate/{path}', [AdminController::class, 'viewCertificate'])->name('admin.view.certificate');
-Route::get('admin/get-value/{path}', [AdminController::class, 'getPdfValue'])
+Route::get('admin/get-value/{path}/{user_id}', [AdminController::class, 'getPdfValue'])
     ->name('get.value');
 
 Route::post('/mark-read/{id}', [AdminController::class, 'markAsRead'])->name('mark-read');

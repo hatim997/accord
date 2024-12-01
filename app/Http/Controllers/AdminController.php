@@ -521,8 +521,24 @@ public function updateNoticeStatus($id)
     return abort(404);
 }
 
-public function getPdfValue($path)
+public function getPdfValue($path, $user_id)
 {
+
+  // $shipperLimt = ShipperLimit::where('shipper_id', $user_id)
+  // ->join('policy_limits', 'shipper_limits.policy_limit_id','=','policy_limits.id')
+  // ->join('policy_types','policy_limits.policy_type_id','=','policy_types.id')
+  // ->select('type_name', 'coverage_item','policy_amount')
+  // ->get();
+  $shipperLimt = ShipperLimit::where('shipper_id', $user_id)
+  ->join('policy_limits', 'shipper_limits.policy_limit_id','=','policy_limits.id')
+  ->join('policy_types','policy_limits.policy_type_id','=','policy_types.id')
+  ->select('type_name', 'coverage_item', 'policy_limit_id', 'policy_amount')
+  ->orderByRaw("FIELD(shipper_limits.policy_type_id, 2, 1, 9, 5, 4, 3, 6, 7, 8)")
+  ->get()
+  ->groupBy('type_name'); // Group by policy type name
+
+
+  //  dd($shipperLimt->toArray());
     // Resolve the correct file path
     $filePath = storage_path('app/public/uploads_shipper/' . $path);
 
@@ -544,10 +560,10 @@ public function getPdfValue($path)
 
         // Extract details
         $pdfDetails = $this->extractPdfDetails($text);
-        dd($pdfDetails);
+        // dd($pdfDetails);
 
         // Return the extracted text in a view or as JSON
-        return view('admin.pdf-content', ['content' => $text]);
+        return view('pdf-content', compact('pdfDetails', 'shipperLimt'));
 
     } catch (\Exception $e) {
         return response()->json(['error' => $e->getMessage()], 500);
@@ -576,56 +592,56 @@ public function extractPdfDetails($content)
     $content = preg_replace('/\s+/', ' ', $content);  // Replace multiple spaces with a single space
     $content = str_replace("\u{A0}", ' ', $content);  // Replace non-breaking space with regular space
 
-      // GENERAL LIABILITY
+    // GENERAL LIABILITY
     $pattern = '/EACH\s+OCCURRENCE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
     if (preg_match($pattern, $content, $matches)) {
-        $details['each_occurrence1'] = $matches[1];
+        $details['5'] = $matches[1];
     }
     $pattern = '/DAMAGE\s+TO\s+RENTED\s+PREMISES[\s\xA0]*\(\s*EA\s*Occurence\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
     if (preg_match($pattern, $content, $matches)) {
-        $details['damage_premises2'] = $matches[1];
+        $details['6'] = $matches[1];
     }
 
     $pattern = '/MED\s+EXP\s*\(\s*Any\s+one\s+person\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
     if (preg_match($pattern, $content, $matches)) {
-        $details['med_exp_any_one_person3'] = $matches[1];
+        $details['7'] = $matches[1];
     }
 
     $pattern = '/PERSONAL\s*&\s*ADV\s*INJURY[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';  // Corrected regex
 
     if (preg_match($pattern, $content, $matches)) {
-        $details['personal_injury4'] = $matches[1];
+        $details['8'] = $matches[1];
     }
 
     $pattern = '/GENERAL\s+AGGREGATE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
     if (preg_match($pattern, $content, $matches)) {
-        $details['general_aggregate5'] = $matches[1];
+        $details['9'] = $matches[1];
     }
 
     $pattern = '/PRODUCTS\s*-\s*COMP\/OP\s*AGG[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
     if (preg_match($pattern, $content, $matches)) {
-        $details['products_comp_op_agg6'] = $matches[1];
+        $details['10'] = $matches[1];
     }
 
     // AUTO LIABILITY
     $pattern = '/COMBINED\s+SINGLE\s+LIMIT\s*\(\s*EA\s+accident\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
     if (preg_match($pattern, $content, $matches)) {
-        $details['combined_single_limit_ea_accident(2a)'] = $matches[1]; // Extracted value
+        $details['1'] = $matches[1]; // Extracted value
     }
 
     $pattern = '/BODILY\s+INJURY\s*\(\s*Per\s+person\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})?/i';
     if (preg_match($pattern, $content, $matches)) {
-        $details['bodily_injury_per_person(2b)'] = $matches[1] ?? '0.00'; // Extracted value or 0.00 if not present
+        $details['2'] = $matches[1] ?? '0.00'; // Extracted value or 0.00 if not present
     }
 
     $pattern = '/BODILY\s+INJURY\s*\(\s*Per\s+accident\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})?/i';
     if (preg_match($pattern, $content, $matches)) {
-        $details['bodily_injury_per_accident(2c)'] = $matches[1] ?? '0.00'; // Extracted value or 0.00 if not present
+        $details['3'] = $matches[1] ?? '0.00'; // Extracted value or 0.00 if not present
     }
 
     $pattern = '/PROPERTY\s+DAMAGE\s*\(\s*Per\s+accident\s*\)[\s\xA0]*\$\s*([\d,]+\.\d{2})?/i';
     if (preg_match($pattern, $content, $matches)) {
-        $details['property_damage_per_accident(2e)'] = $matches[1] ?? '0.00'; // Extracted value or 0.00 if not present
+        $details['4'] = $matches[1] ?? '0.00'; // Extracted value or 0.00 if not present
     }
 
     // $pattern = '/EACH\s+OCCURRENCE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
@@ -633,80 +649,102 @@ public function extractPdfDetails($content)
     //     $details['each_occurrence(2f)'] = $matches[1]; // Extracted value
     // }
 
-    // $pattern = '/EACH\s+OCCURRENCE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
-    // preg_match_all($pattern, $content, $matches);
-    // if (!empty($matches[1])) {
-    //     // Save all occurrences into an array
-    //     foreach ($matches[1] as $index => $value) {
-    //         $details['each_occurrence_' . ($index + 1)] = $value;
-    //     }
-    // }
+    $pattern = '/EACH\s+OCCURRENCE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    preg_match_all($pattern, $content, $matches);
+    if (!empty($matches[1])) {
+      $customKeys = [5, 25];
+        foreach ($matches[1] as $index => $value) {
+          $details[$customKeys[$index]] = $value;
+      }
+    }
 
     $pattern = '/AGGREGATE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
     if (preg_match($pattern, $content, $matches)) {
-        $details['aggregate(6a)'] = $matches[1] ?? '0.00'; // Extracted value
+        $details['26'] = $matches[1] ?? '0.00'; // Extracted value
     }
 
     $pattern = '/E\.L\.\s*EACH\s*ACCIDENT[\s]*\$\s*([\d,]+\.\d{2})/i';  // Handle flexible spaces
 
     if (preg_match($pattern, $content, $matches)) {
-        $details['el_each_accident1'] = $matches[1] ?? '0.00'; // Extracted value or default to '0.00'
+        $details['15'] = $matches[1] ?? '0.00'; // Extracted value or default to '0.00'
     }
 
-    // $content = str_replace("\xA0", ' ', $content);
-
-// Pattern for "E.L. DISEASE - EA EMPLOYEE $"
-$pattern = '/E\.L\.\s*DISEASE\s*-\s*EA\s*EMPLOYEE[\s]*\$\s*([\d,]*\.?\d{0,2})?/i';
-
-
-// Try to match the pattern
-if (preg_match($pattern, $content, $matches)) {
-    // If a match is found, assign the extracted value
-    $details['el_disease_ea_employee2'] = $matches[1];
-}
+    $pattern = '/E\.L\.\s*DISEASE\s*-\s*EA\s*EMPLOYEE[\s]*\$\s*([\d,]*\.?\d{0,2})?/i';
+    if (preg_match($pattern, $content, $matches)) {
+    $details['16'] = $matches[1];
+    }
 
 $pattern = '/E\.L\.\s*DISEASE\s*-\s*POLICY\s*LIMIT[\s]*\$\s*([\d,]*\.?\d{0,2})?/i';
 
 if (preg_match($pattern, $content, $matches)) {
   // Extract and store the value, or default to '0.00'
-  $details['el_disease_policy_limit'] = $matches[1];
+  $details['17'] = $matches[1];
 }
 
 
 $pattern = '/Limit\/\s*Trailer[\s]*([\d,]*\.?\d{0,2})/i';
 
 if (preg_match($pattern, $content, $matches)) {
-    $details['limit_trailer_value'] = $matches[1] ?? '0.00';
+    $details['12'] = $matches[1] ?? '0.00';
 }
 
 
     $pattern = '/LIMIT\s*PER\s*VEHICLE[\s\xA0]*([\d,]+\.\d{2})/i';
 
     if (preg_match($pattern, $content, $matches)) {
-        $details['limit_per_vehicle'] = $matches[1] ?? '0.00';
+        $details['11'] = $matches[1] ?? '0.00';
     }
 
 
     $pattern = '/Limit\/Ded\s*([\d,\.]+)?\s*(?:\/\s*([\d,\.]+))?/i';
 
-    if (preg_match_all($pattern, $content, $matches, PREG_SET_ORDER)) {
-      foreach ($matches as $matchIndex => $match) {
-          // echo "Match Set $matchIndex:\n";
+  //   if (preg_match_all($pattern, $content, $matches, PREG_SET_ORDER)) {
+  //     foreach ($matches as $matchIndex => $match) {
+  //         // echo "Match Set $matchIndex:\n";
 
-          $first_value = isset($match[1]) ? $match[1] : '0.00';
-          $second_value = isset($match[2]) ? $match[2] : $first_value;
+  //         $first_value = isset($match[1]) ? $match[1] : '0.00';
+  //         $second_value = isset($match[2]) ? $match[2] : $first_value;
 
-          // echo "  Value 1: $first_value\n";
-          // echo "  Value 2: $second_value\n";
+  //         // echo "  Value 1: $first_value\n";
+  //         // echo "  Value 2: $second_value\n";
 
-          $details[] = [
-              'limit_ded_value1' => $first_value,
-              'limit_ded_value2' => $second_value,
-          ];
-      }
-  }
+  //         $details[] = [
+  //             'Limit' => $first_value,
+  //             'Ded' => $second_value,
+  //         ];
+  //     }
+  // }
+  $keys = [19, 20, 21, 22, 23, 24]; // Predefined keys for Limit and Ded
 
+ // Initialize the details array
 
+if (preg_match_all($pattern, $content, $matches, PREG_SET_ORDER)) {
+    $keyIndex = 0; // To keep track of which key to use from the $keys array
+
+    foreach ($matches as $matchIndex => $match) {
+        $first_value = isset($match[1]) ? str_replace(',', '', $match[1]) : '0';
+        $second_value = isset($match[2]) ? str_replace(',', '', $match[2]) : $first_value;
+
+        // Convert values to integers
+        $first_value = $first_value;
+        $second_value = $second_value;
+
+        // Ensure that there are enough keys in $keys array
+        if (isset($keys[$keyIndex])) {
+            // Assign Limit value to the key from $keys
+            $details[$keys[$keyIndex]] = $first_value;
+            $keyIndex++; // Move to the next key in the $keys array
+
+            // Assign Ded value to the next unique key
+            if (isset($keys[$keyIndex])) {
+                $details[$keys[$keyIndex]] = $second_value;
+                $keyIndex++; // Move to the next key in the $keys array
+            }
+        } else {
+            break; // Stop if there are no more keys
+        }
+    }
+}
     return $details;
 }
 

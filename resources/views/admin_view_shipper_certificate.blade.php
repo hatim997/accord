@@ -93,7 +93,7 @@ $navbarHideToggle = false;
                                             <i class="fa-solid fa-eye"></i>&nbsp;
                                               View Certificate {{ $sc->id }}
                                           </a>
-                                          <a href="{{route('get.value',$sc->path) }}" class="custom-button rounded-pill" target="_blank">
+                                          <a href="{{route('get.value', ['path' => $sc->path, 'user_id' => $sc->user_id]) }}" class="custom-button rounded-pill" target="_blank">
                                             <i class="fa-solid fa-eye"></i>&nbsp;
                                               Get Value  {{ $sc->id }}
                                           </a>
