@@ -753,12 +753,15 @@ if (preg_match_all($pattern, $content, $matches, PREG_SET_ORDER)) {
 public function req_shipper_limits($id) {
   $user = User::find($id);
 
+  $shiper_info = ShipperInfos::where('user_id', $id)->first();
+
 
  // Prepare data for the email view
   $data = [
     'id' => $id,
     'email' => $user->email,
-    'message' => 'Please insert your limit to continue using our services.'
+    'message' => 'Please insert your limit to continue using our services.',
+    'shiper_info' => $shiper_info->name,
   ];
 
   // Send the email
@@ -771,7 +774,7 @@ public function req_shipper_limits($id) {
     'to' => $id,
     'from' => 1,
     'name' => "you have not entered your certificate limit, please insert your certificate limit",
-    'status' => 0,
+    // 'status' => 0,
   ]);
 
 return back()->with([ 'success' => 'Order placed successfully.']);
