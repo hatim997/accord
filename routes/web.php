@@ -86,6 +86,7 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
   Route::get('/admin/user-view/{id}', [AdminController::class, 'userview'])->name('user.view');
   Route::get('/admin/user-list', [AdminController::class, 'userlist'])->name('user.list');
 
+  Route::get('/admin/req/shipper-limt/{id}', [AdminController::class, 'req_shipper_limits'])->name('req.shipper.limit');
 
   // Route::post('/admin/filter-users', [AdminController::class, 'filterUsers'])->name('filterUsers');
 });

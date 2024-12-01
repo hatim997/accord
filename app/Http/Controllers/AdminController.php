@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Smalot\PdfParser\Parser;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -537,7 +538,7 @@ public function getPdfValue($path, $user_id)
   ->get()
   ->groupBy('type_name'); // Group by policy type name
 
-
+  $user_id;
   //  dd($shipperLimt->toArray());
     // Resolve the correct file path
     $filePath = storage_path('app/public/uploads_shipper/' . $path);
@@ -563,7 +564,7 @@ public function getPdfValue($path, $user_id)
         // dd($pdfDetails);
 
         // Return the extracted text in a view or as JSON
-        return view('pdf-content', compact('pdfDetails', 'shipperLimt'));
+        return view('pdf-content', compact('pdfDetails','user_id', 'shipperLimt'));
 
     } catch (\Exception $e) {
         return response()->json(['error' => $e->getMessage()], 500);
@@ -746,6 +747,36 @@ if (preg_match_all($pattern, $content, $matches, PREG_SET_ORDER)) {
     }
 }
     return $details;
+}
+
+
+public function req_shipper_limits($id) {
+  $user = User::find($id);
+
+
+ // Prepare data for the email view
+  // $data = [
+  //   'id' => $id,
+  //   'email' => $user->email,
+  //   'message' => 'Please insert your limit to continue using our services.'
+  // ];
+
+  // // Send the email
+  // Mail::send('email.insert_limits', $data, function ($message) use ($user) {
+  //   $message->to($user->email)
+  //           ->subject('Request to Insert Your Limits');
+  // });
+
+  Notice::create([
+    'to' => $id,
+    'from' => 1,
+    'name' => "you have not entered your certificate limit, please insert your certificate limit",
+    'status' => 0,
+  ]);
+
+return back()->with([ 'success' => 'Order placed successfully.']);
+
+
 }
 
 
