@@ -659,7 +659,8 @@ public function extractPdfDetails($content)
       }
     }
 
-    $pattern = '/AGGREGATE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    // $pattern = '/AGGREGATE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
+    $pattern = '/(?<!GENERAL\s)AGGREGATE[\s\xA0]*\$\s*([\d,]+\.\d{2})/i';
     if (preg_match($pattern, $content, $matches)) {
         $details['26'] = $matches[1] ?? '0.00'; // Extracted value
     }
