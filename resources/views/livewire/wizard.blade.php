@@ -121,7 +121,7 @@
 
 
                     <div class="form-group py-3">
-                      <label for="country">Country Name:</label>
+                      <label for="country">Company Country:</label>
                       <select wire:model="country" class="form-control" id="country">
                           <option value="">Select a Country</option>
                           <option value="USA">United States</option>
