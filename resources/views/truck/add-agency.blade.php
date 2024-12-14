@@ -139,12 +139,31 @@ font-weight: bold !important;
         <label for="Address21"> Address 2</label>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-6">
+      <div class="form-floating form-floating-outline mb-3">
+          <select class="form-control" name="country" id="country" aria-label="Country" aria-describedby="country" placeholder="">
+              <option value="">Select a Country</option>
+              <option value="USA">United States</option>
+              <option value="Canada">Canada</option>
+          </select>
+          <label for="country">Country</label>
+      </div>
+  </div>
+
+  <div class="col-6">
+    <div class="form-floating form-floating-outline mb-3">
+        <select class="form-control" name="state" id="state" aria-label="State" aria-describedby="state" placeholder="">
+            <option value="">Select a State</option>
+        </select>
+        <label for="state">State</label>
+    </div>
+</div>
+    {{-- <div class="col-4">
       <div class="form-floating form-floating-outline mb-3">
         <input type="text" class="form-control" name="state" id="state1" placeholder="" />
         <label for="state1">state</label>
       </div>
-    </div>
+    </div> --}}
 
     <div class="col-4">
       <div class="form-floating form-floating-outline mb-3">
@@ -170,8 +189,105 @@ font-weight: bold !important;
 
 
 
-  
+
 </div>
 </form>
 
+
+@push('body-scripts')
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const states = {
+          USA: [
+              { value: 'AL', name: 'Alabama' },
+              { value: 'AK', name: 'Alaska' },
+              { value: 'AZ', name: 'Arizona' },
+              { value: 'AR', name: 'Arkansas' },
+              { value: 'CA', name: 'California' },
+              { value: 'CO', name: 'Colorado' },
+              { value: 'CT', name: 'Connecticut' },
+              { value: 'DE', name: 'Delaware' },
+              { value: 'DC', name: 'District of Columbia' },
+              { value: 'FL', name: 'Florida' },
+              { value: 'GA', name: 'Georgia' },
+              { value: 'HI', name: 'Hawaii' },
+              { value: 'ID', name: 'Idaho' },
+              { value: 'IL', name: 'Illinois' },
+              { value: 'IN', name: 'Indiana' },
+              { value: 'IA', name: 'Iowa' },
+              { value: 'KS', name: 'Kansas' },
+              { value: 'KY', name: 'Kentucky' },
+              { value: 'LA', name: 'Louisiana' },
+              { value: 'ME', name: 'Maine' },
+              { value: 'MD', name: 'Maryland' },
+              { value: 'MA', name: 'Massachusetts' },
+              { value: 'MI', name: 'Michigan' },
+              { value: 'MN', name: 'Minnesota' },
+              { value: 'MS', name: 'Mississippi' },
+              { value: 'MO', name: 'Missouri' },
+              { value: 'MT', name: 'Montana' },
+              { value: 'NE', name: 'Nebraska' },
+              { value: 'NV', name: 'Nevada' },
+              { value: 'NH', name: 'New Hampshire' },
+              { value: 'NJ', name: 'New Jersey' },
+              { value: 'NM', name: 'New Mexico' },
+              { value: 'NY', name: 'New York' },
+              { value: 'NC', name: 'North Carolina' },
+              { value: 'ND', name: 'North Dakota' },
+              { value: 'OH', name: 'Ohio' },
+              { value: 'OK', name: 'Oklahoma' },
+              { value: 'OR', name: 'Oregon' },
+              { value: 'PA', name: 'Pennsylvania' },
+              { value: 'RI', name: 'Rhode Island' },
+              { value: 'SC', name: 'South Carolina' },
+              { value: 'SD', name: 'South Dakota' },
+              { value: 'TN', name: 'Tennessee' },
+              { value: 'TX', name: 'Texas' },
+              { value: 'UT', name: 'Utah' },
+              { value: 'VT', name: 'Vermont' },
+              { value: 'VA', name: 'Virginia' },
+              { value: 'WA', name: 'Washington' },
+              { value: 'WV', name: 'West Virginia' },
+              { value: 'WI', name: 'Wisconsin' },
+              { value: 'WY', name: 'Wyoming' },
+          ],
+          Canada: [
+              { value: 'AB', name: 'Alberta' },
+              { value: 'BC', name: 'British Columbia' },
+              { value: 'MB', name: 'Manitoba' },
+              { value: 'NB', name: 'New Brunswick' },
+              { value: 'NL', name: 'Newfoundland and Labrador' },
+              { value: 'NS', name: 'Nova Scotia' },
+              { value: 'ON', name: 'Ontario' },
+              { value: 'PE', name: 'Prince Edward Island' },
+              { value: 'QC', name: 'Quebec' },
+              { value: 'SK', name: 'Saskatchewan' },
+              { value: 'NT', name: 'Northwest Territories' },
+              { value: 'NU', name: 'Nunavut' },
+              { value: 'YT', name: 'Yukon' },
+          ],
+      };
+
+      const countrySelect = document.getElementById('country');
+      const stateSelect = document.getElementById('state');
+
+      countrySelect.addEventListener('change', function () {
+          const country = this.value;
+
+          // Clear the state dropdown
+          stateSelect.innerHTML = `<option value="">Select a State</option>`;
+
+          if (states[country]) {
+              states[country].forEach(state => {
+                  const option = document.createElement('option');
+                  option.value = state.value;
+                  option.textContent = state.name;
+                  stateSelect.appendChild(option);
+              });
+          }
+      });
+  });
+</script>
+
+@endpush
 @endsection

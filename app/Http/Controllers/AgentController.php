@@ -760,18 +760,18 @@ $r=0;
     $validatedDataa = Validator::make($request->all(), [
       'name' => 'sometimes',
       'fname' => 'required',
-      'mname' => 'sometimes',
+      // 'mname' => 'sometimes',
       'lname' => 'required',
-      'suffix' => 'required',
-      'salutation' => 'required',
-      'prefix' => 'required',
-      'websit' => 'sometimes',
-      'tax' => 'required',
-      'password1' => 'required',
+      // 'suffix' => 'required',
+      // 'salutation' => 'required',
+      // 'prefix' => 'required',
+      // 'websit' => 'sometimes',
+      // 'tax' => 'required',
+      // 'password1' => 'required',
       'email' => 'required|email|unique:users',
       'Addss' => 'sometimes',
       'Addss2' => 'sometimes',
-      'fullname' => 'sometimes',
+      // 'fullname' => 'sometimes',
       'city' => 'required',
       'state' => 'sometimes',
       'zip' => 'sometimes',
@@ -792,17 +792,17 @@ $r=0;
     $randomNumber = rand(100000, 999999);
     $names = $validatedData['fname'];
     $email = $validatedData['email'];
-    $password = $validatedData['password1'];
+    // $password = $validatedData['password1'];
 
     if ($validatedData['role'] == 'freight_driver') {
 
       $user = User::create([
         'name' => $validatedData['fname'],
         'email' => $validatedData['email'],
-        'password' =>   Crypt::encryptString($validatedData['password1']),
+        'password' =>   Crypt::encryptString('123'),
         'role' => 'freight_driver',
         'rememberToken' => 'FB' . $randomNumber,
-
+        'status' => '3',
       ]);
 
       $lastInsertedId = $user->id;
@@ -855,22 +855,22 @@ $r=0;
         'from' => $userId,
         'name' => "Freight Driver added by ".$driver[0]->name,
       ]);
-      Openrequest::create([
-        'to' => 1,
-        'from' => $userId,
-        'titel' => "$request->name {Freight} Driver added Request by ".$driver[0]->name,
-      ]);
-      Openrequest::create([
-        'to' => $lastInsertedId,
-        'from' => $userId,
-        'titel' => "$request->name Freight Driver added by ".$driver[0]->name,
-      ]);
+      // Openrequest::create([
+      //   'to' => 1,
+      //   'from' => $userId,
+      //   'titel' => "$request->name {Freight} Driver added Request by ".$driver[0]->name,
+      // ]);
+      // Openrequest::create([
+      //   'to' => $lastInsertedId,
+      //   'from' => $userId,
+      //   'titel' => "$request->name Freight Driver added by ".$driver[0]->name,
+      // ]);
 
-      Notice::create([
-        'to' => $lastInsertedId,
-        'from' => $userId,
-        'name' => "$request->name Freight Driver added by ".$driver[0]->name,
-      ]);
+      // Notice::create([
+      //   'to' => $lastInsertedId,
+      //   'from' => $userId,
+      //   'name' => "$request->name Freight Driver added by ".$driver[0]->name,
+      // ]);
 
       AgentDriver::create([
         'agent_id' => $userId,
@@ -878,14 +878,14 @@ $r=0;
         'relation_status' => 1
       ]);
 
-      $data = [
-           'code' => 'FB' . $randomNumber,
-    ];
+    //   $data = [
+    //        'code' => 'FB' . $randomNumber,
+    // ];
     $code ='FB' . $randomNumber;
-    Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
-      $message->to($email, $names)
-              ->subject('Register');
-    });
+    // Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
+    //   $message->to($email, $names)
+    //           ->subject('Register');
+    // });
 
     $admin = User::find(1);
 
@@ -896,6 +896,7 @@ $r=0;
         'addedBy' => $driver[0]->name,
         'addingUserCode' => Auth::user()->rememberToken
     ];
+    // dd($data);
 
     Mail::send('email.message', $data, function ($message) use ($admin, $code, $request, $driver) {
         $message->to($admin->email, $admin->name)
@@ -916,8 +917,10 @@ $r=0;
         'name' => $validatedData['name'],
         'email' => $validatedData['email'],
         'password' => Crypt::encryptString('123'),
+        // 'password' => 'null',
         'role' => 'truck_driver', // Assuming default role ID for 'user'
         'rememberToken' => 'MC' . $randomNumber,
+        'status' => '3',
       ]);
 
       $lastInsertedId = $user->id;
@@ -967,6 +970,7 @@ $r=0;
         'image_path' => $name,
         'fax' => $request->fax,
      ]);
+
      $driver = AgencyInfos::where('user_id' ,$userId)->get();
 
      Notice::create([
@@ -974,22 +978,23 @@ $r=0;
       'from' => $userId,
       'name' => "Freight Driver added by ".$driver[0]->name,
     ]);
-    Openrequest::create([
-      'to' => 1,
-      'from' => $userId,
-      'titel' => "$request->name {Freight} Driver added Request by ".$driver[0]->name,
-    ]);
-    Openrequest::create([
-      'to' => $lastInsertedId,
-      'from' => $userId,
-      'titel' => "$request->name Freight Driver added by ".$driver[0]->name,
-    ]);
 
-    Notice::create([
-      'to' => $lastInsertedId,
-      'from' => $userId,
-      'name' => "$request->name Freight Driver added by ".$driver[0]->name,
-    ]);
+    // Openrequest::create([
+    //   'to' => 1,
+    //   'from' => $userId,
+    //   'titel' => "$request->name {Freight} Driver added Request by ".$driver[0]->name,
+    // ]);
+    // Openrequest::create([
+    //   'to' => $lastInsertedId,
+    //   'from' => $userId,
+    //   'titel' => "$request->name Freight Driver added by ".$driver[0]->name,
+    // ]);
+
+    // Notice::create([
+    //   'to' => $lastInsertedId,
+    //   'from' => $userId,
+    //   'name' => "$request->name Freight Driver added by ".$driver[0]->name,
+    // ]);
 
       Subscription::create([
         'user_id' => $lastInsertedId,
@@ -1004,16 +1009,17 @@ $r=0;
         'driver_id' => $lastInsertedId,
         'relation_status' => 1
       ]);
-      $email = $request->email;
-      $code ='MC' . $randomNumber;
-      $data = [
-        'code' => $code,
-    ];
 
-    Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
-      $message->to($email, $names)
-              ->subject('Register');
-    });
+    //   $email = $request->email;
+      $code ='MC' . $randomNumber;
+    //   $data = [
+    //     'code' => $code,
+    //   ];
+
+    // Mail::send('email.register', $data, function ($message) use ($email, $names, $code) {
+    //   $message->to($email, $names)
+    //           ->subject('Register');
+    // });
 
     $admin = User::find(1);
 

@@ -211,3 +211,6 @@ If you want to Download [Free Admin Templates](https://themeselection.com/item/c
 - Instagram : [https://www.instagram.com/themeselection/](https://www.instagram.com/themeselection/)
 
 <!-- ALTER TABLE `subscription_plans` ADD `role` VARCHAR(255) NULL DEFAULT NULL AFTER `id`; -->
+
+<!-- ALTER TABLE `shipper_infos` ADD `country` VARCHAR(255) NULL AFTER `address2`; -->
+<!-- ALTER TABLE `agency_infos` ADD `country` VARCHAR(255) NULL AFTER `address2`; -->

@@ -118,11 +118,26 @@
                         <input type="text" wire:model="address" class="form-control" id="productAmount" />
                         @error('address') <span class="error">{{ $message }}</span> @enderror
                     </div>
+
+
                     <div class="form-group py-3">
-                        <label for="description" class="required">City:</label>
-                        <input type="text" wire:model="city" class="form-control" id="productAmount" />
-                        @error('city') <span class="error">{{ $message }}</span> @enderror
-                    </div>
+                      <label for="country">Country:</label>
+                      <select wire:model="country" class="form-control" id="country">
+                          <option value="">Select a Country</option>
+                          <option value="USA">United States</option>
+                          <option value="Canada">Canada</option>
+                          <!-- Add more options as needed -->
+                      </select>
+                      @error('country') <span class="error text-danger">{{ $message }}</span> @enderror
+                  </div>
+
+
+                  <div class="form-group py-3">
+                    <label for="description"class="required">Email:</label>
+                    <input type="email" wire:model="email" class="form-control" id="productAmount" />
+                    @error('email') <span class="error">{{ $message }}</span> @enderror
+                </div>
+
                     <div class="form-group py-3">
                         <label for="description" class="required">Phone No:</label>
                         <input type="text" wire:model="phone" class="form-control" id="phone" />
@@ -142,75 +157,19 @@
                         <input type="text" wire:model="address2" class="form-control" id="productAmount" />
                         @error('address2') <span class="error">{{ $message }}</span> @enderror
                     </div>
+
+
+
+                    {{-- state --}}
                     <div class="form-group py-3">
-                        <label for="description"class="required">State:</label>
-                         @error('state') <span class="error">{{ $message }}</span> @enderror
-                         <select class="form-control" id="productAmount"  wire:model="state" >
+                      <label for="state" class="required">State:</label>
+                      <select wire:model="state" class="form-control" id="state">
+                          <option value="">Select a State</option>
+                          <!-- States will be dynamically populated -->
+                      </select>
+                      @error('state') <span class="error text-danger">{{ $message }}</span> @enderror
+                  </div>
 
-                            <option value='AL'>Alabama</option>
-                            <option value='AK'>Alaska</option>
-                            <option value='AZ'>Arizona</option>
-                            <option value='AR'>Arkansas</option>
-                            <option value='CA'>California</option>
-
-                            <option value='CO'>Colorado</option>
-                            <option value='CT'>Connecticut</option>
-                            <option value='DE'>Delaware</option>
-                            <option value='DC'>District of Columbia</option>
-                            <option value='FL'>Florida</option>
-
-                            <option value='GA'>Georgia</option>
-                            <option value='HI'>Hawaii</option>
-                            <option value='ID'>Idaho</option>
-                            <option value='IL'>Illinois</option>
-                            <option value='IN'>Indiana</option>
-
-                            <option value='IA'>Iowa</option>
-                            <option value='KS'>Kansas</option>
-                            <option value='KY'>Kentucky</option>
-                            <option value='LA'>Louisiana</option>
-                            <option value='ME'>Maine</option>
-
-                            <option value='MD'>Maryland</option>
-                            <option value='MA'>Massachusetts</option>
-                            <option value='MI'>Michigan</option>
-                            <option value='MN'>Minnesota</option>
-                            <option value='MS'>Mississippi</option>
-
-                            <option value='MO'>Missouri</option>
-                            <option value='MT'>Montana</option>
-                            <option value='NE'>Nebraska</option>
-                            <option value='NV'>Nevada</option>
-                            <option value='NH'>New Hampshire</option>
-
-                            <option value='NJ'>New Jersey</option>
-                            <option value='NM'>New Mexico</option>
-                            <option value='NY'>New York</option>
-                            <option value='NC'>North Carolina</option>
-                            <option value='ND'>North Dakota</option>
-
-                            <option value='OH'>Ohio</option>
-                            <option value='OK'>Oklahoma</option>
-                            <option value='OR'>Oregon</option>
-                            <option value='PA'>Pennsylvania</option>
-                            <option value='RI'>Rhode Island</option>
-
-                            <option value='SC'>South Carolina</option>
-                            <option value='SD'>South Dakota</option>
-                            <option value='TN'>Tennessee</option>
-                            <option value='TX'>Texas</option>
-                            <option value='UT'>Utah</option>
-
-                            <option value='VT'>Vermont</option>
-                            <option value='VA'>Virginia</option>
-                            <option value='WA'>Washington</option>
-                            <option value='WV'>West Virginia</option>
-                            <option value='WI'>Wisconsin</option>
-
-                            <option value='WY'>Wyoming</option>
-                          </select>
-
-                    </div>
                     <div class="form-group py-3">
                         <label for="description">Fax No:</label>
                         <input type="text" wire:model="fax" class="form-control" id="phone" />
@@ -228,16 +187,12 @@
                         @error('zip') <span class="error">{{ $message }}</span> @enderror
                     </div>
 
+
                     <div class="form-group py-3">
-                        <label for="description">Country:</label>
-                        <input type="text" wire:model="country" class="form-control" id="productAmount" />
-                        @error('country') <span class="error">{{ $message }}</span> @enderror
-                    </div>
-                    <div class="form-group py-3">
-                        <label for="description"class="required">Email:</label>
-                        <input type="email" wire:model="email" class="form-control" id="productAmount" />
-                        @error('email') <span class="error">{{ $message }}</span> @enderror
-                    </div>
+                      <label for="description" class="required">City:</label>
+                      <input type="text" wire:model="city" class="form-control" id="productAmount" />
+                      @error('city') <span class="error">{{ $message }}</span> @enderror
+                  </div>
 
                 </div>
             </div>
@@ -402,16 +357,16 @@
                 </div>
                             <div class="col-md-6 text-center">
 
-                 <canvas id="signature-pad" class="" 
-                        style="border: 1px dotted #9b9b9bcc; width: 200px; height: 100px; border-radius: 15px; background:#fff;" 
-                        width="200" 
+                 <canvas id="signature-pad" class=""
+                        style="border: 1px dotted #9b9b9bcc; width: 200px; height: 100px; border-radius: 15px; background:#fff;"
+                        width="200"
                         height="100">
-                    </canvas> </div>  
-                    <div class="col-md-6 text-center" style="display: flex; justify-content: center;"> 
-                    <div id="showimage"  width="200" 
+                    </canvas> </div>
+                    <div class="col-md-6 text-center" style="display: flex; justify-content: center;">
+                    <div id="showimage"  width="200"
                     height="100" style="border: 1px dotted #9b9b9bcc; width: 200px; height: 100px; border-radius: 15px;"></div> </div>
-                 
-                        
+
+
                         <div class="col-md-12 text-center" style="
                         display: flex;
                         justify-content: center;
@@ -419,11 +374,11 @@
                         align-items: center;
                     ">
                             <button class="btn" id="clear"><i class="mdi mdi-refresh"></i>
-                            </button> <button class="btn btn-primary d-grid  waves-effect waves-light" id="save">Upload</button> </div>  
+                            </button> <button class="btn btn-primary d-grid  waves-effect waves-light" id="save">Upload</button> </div>
                         <input type="hidden" wire:model="image" class="form-control" id="inputGroupFile01"
                             aria-describedby="defaultFormControlHelp">
                         @error('image') <span class="error">{{ $message }}</span> @enderror
-                       
+
                     </div>
                 </div>
                 <button class="btn btn-success btn-lg pull-right" wire:click="fithStepSubmit"
@@ -448,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const imageData = canvas.toDataURL('image/png');
         const hiddenInput = document.getElementById('inputGroupFile01');
         hiddenInput.value = imageData;
-        @this.set('image', imageData); 
+        @this.set('image', imageData);
         // Set the base64 image data to the hidden input field
        // Set the value of the hidden input
     //    Livewire.emit('fithStepSubmit', imageData);
@@ -458,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
         img.alt = 'Signature';
         img.style.maxWidth = '100%'; // Ensure responsive sizing
         img.style.height = 'auto';
-       
+
         // Append the image to the container with ID "showimage"
         const showImageContainer = document.getElementById('showimage');
         showImageContainer.innerHTML = ''; // Clear any existing content
@@ -510,11 +465,106 @@ document.addEventListener('DOMContentLoaded', () => {
     //         signaturePad.clear(); // Clears the canvas
     //         document.getElementById('showimage').innerHTML = ''; // Clears the image preview
     //     });
-    // }); 
+    // });
 
 
-                      
+
                     </script>
+
+<script>
+  document.getElementById('country').addEventListener('change', function () {
+      const states = {
+          USA: [
+              { value: 'AL', name: 'Alabama' },
+              { value: 'AK', name: 'Alaska' },
+              { value: 'AZ', name: 'Arizona' },
+              { value: 'AR', name: 'Arkansas' },
+              { value: 'CA', name: 'California' },
+              { value: 'CO', name: 'Colorado' },
+              { value: 'CT', name: 'Connecticut' },
+              { value: 'DE', name: 'Delaware' },
+              { value: 'DC', name: 'District of Columbia' },
+              { value: 'FL', name: 'Florida' },
+              { value: 'GA', name: 'Georgia' },
+              { value: 'HI', name: 'Hawaii' },
+              { value: 'ID', name: 'Idaho' },
+              { value: 'IL', name: 'Illinois' },
+              { value: 'IN', name: 'Indiana' },
+              { value: 'IA', name: 'Iowa' },
+              { value: 'KS', name: 'Kansas' },
+              { value: 'KY', name: 'Kentucky' },
+              { value: 'LA', name: 'Louisiana' },
+              { value: 'ME', name: 'Maine' },
+              { value: 'MD', name: 'Maryland' },
+              { value: 'MA', name: 'Massachusetts' },
+              { value: 'MI', name: 'Michigan' },
+              { value: 'MN', name: 'Minnesota' },
+              { value: 'MS', name: 'Mississippi' },
+              { value: 'MO', name: 'Missouri' },
+              { value: 'MT', name: 'Montana' },
+              { value: 'NE', name: 'Nebraska' },
+              { value: 'NV', name: 'Nevada' },
+              { value: 'NH', name: 'New Hampshire' },
+              { value: 'NJ', name: 'New Jersey' },
+              { value: 'NM', name: 'New Mexico' },
+              { value: 'NY', name: 'New York' },
+              { value: 'NC', name: 'North Carolina' },
+              { value: 'ND', name: 'North Dakota' },
+              { value: 'OH', name: 'Ohio' },
+              { value: 'OK', name: 'Oklahoma' },
+              { value: 'OR', name: 'Oregon' },
+              { value: 'PA', name: 'Pennsylvania' },
+              { value: 'RI', name: 'Rhode Island' },
+              { value: 'SC', name: 'South Carolina' },
+              { value: 'SD', name: 'South Dakota' },
+              { value: 'TN', name: 'Tennessee' },
+              { value: 'TX', name: 'Texas' },
+              { value: 'UT', name: 'Utah' },
+              { value: 'VT', name: 'Vermont' },
+              { value: 'VA', name: 'Virginia' },
+              { value: 'WA', name: 'Washington' },
+              { value: 'WV', name: 'West Virginia' },
+              { value: 'WI', name: 'Wisconsin' },
+              { value: 'WY', name: 'Wyoming' },
+          ],
+          Canada: [
+              { value: 'AB', name: 'Alberta' },
+              { value: 'BC', name: 'British Columbia' },
+              { value: 'MB', name: 'Manitoba' },
+              { value: 'NB', name: 'New Brunswick' },
+              { value: 'NL', name: 'Newfoundland and Labrador' },
+              { value: 'NS', name: 'Nova Scotia' },
+              { value: 'ON', name: 'Ontario' },
+              { value: 'PE', name: 'Prince Edward Island' },
+              { value: 'QC', name: 'Quebec' },
+              { value: 'SK', name: 'Saskatchewan' },
+              { value: 'NT', name: 'Northwest Territories' },
+              { value: 'NU', name: 'Nunavut' },
+              { value: 'YT', name: 'Yukon' },
+          ],
+      };
+
+      const country = this.value;
+      const stateSelect = document.getElementById('state');
+
+      // Clear existing state options
+      stateSelect.innerHTML = `<option value="">Select a State</option>`;
+
+      // Populate states based on the selected country
+      if (states[country]) {
+          states[country].forEach(state => {
+              const option = document.createElement('option');
+              option.value = state.value;
+              option.textContent = state.name;
+              stateSelect.appendChild(option);
+          });
+      }
+
+      // Trigger Livewire to update its state model
+      stateSelect.dispatchEvent(new Event('change'));
+  });
+</script>
+
             </div>
         </div>
     </div>

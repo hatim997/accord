@@ -16,6 +16,7 @@ class ShipperInfos extends Model
     'name',
     'address',
     'address2',
+    'country',
     'city',
     'state',
     'zip',

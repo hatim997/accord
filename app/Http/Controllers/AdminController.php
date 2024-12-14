@@ -51,11 +51,53 @@ class AdminController extends Controller
     $userCount = User::where('created_at', '>=', $oneWeekAgo)->count();
     $activeUserCount = User::where('status', '0')->count();
     $inactiveUserCount = User::where('status', '1')->count();
+    $agentclient = User::with('truckers')->where('status', '3')->get();
+    // dd($agentclient);
 
 
-
-    return view('admin_dash', compact('userCount','activeUserCount', 'inactiveUserCount', 'recently', 'activeUser', 'inactiveUser'));
+    return view('admin_dash', compact('userCount','activeUserCount', 'inactiveUserCount', 'recently', 'activeUser', 'inactiveUser', 'agentclient'));
     // return view('dash');
+  }
+
+  function updatepassword($id)
+  {
+    $data = $id;
+
+    return view('update_password', compact('data'));
+
+  }
+
+  function clientupdatepassword(Request $request, $id)
+  {
+    $request->validate(['password']);
+
+    $user = User::findOrFail($id);
+    $user_id = $user->id;
+    // dd($user_id);
+
+    $user->password = Crypt::encryptString($request->password);
+    $user->status = '1';
+    $user->save();
+
+    $details =  DriverDetail::where('user_id', $user_id)->get();
+    // dd($details[0]->name);
+    $code = $user->rememberToken;
+
+
+    $email = $user->email;
+    $names = $details[0]->name;
+
+    $data = [
+      'code' => $user->rememberToken, // Pass the code to the email template
+  ];
+
+  Mail::send('email.register', $data, function ($message) use ($email, $names) {
+      $message->to($email, $names)
+              ->subject('Register');
+  });
+
+    return redirect()->route('dashs');
+
   }
   public function markAsRead($id)
   {

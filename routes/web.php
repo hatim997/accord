@@ -69,6 +69,11 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
   Route::get('/admin/edit_user/{id}', [AdminController::class, 'edituser'])->name('edit_user');
   Route::get('/admin/delete_user/{id}', [AdminController::class, 'deleteuser'])->name('delete_user');
 
+  Route::get('/admin/updatepassword/{id}', [AdminController::class, 'updatepassword'])->name('update.password');
+
+  Route::post('/admin/clientupdatepassword/{id}', [AdminController::class, 'clientupdatepassword'])->name('client.password.update');
+
+
   Route::post('/admin/update_user/', [AdminController::class, 'updateuser'])->name('update_user');
   Route::post('/admin/add_sub/', [AdminController::class, 'add_sub'])->name('add_sub');
   Route::post('/admin/edit_sub/{id}', [AdminController::class, 'edit_sub'])->name('edit_sub');
@@ -97,7 +102,7 @@ Route::get('admin/get-value/{path}/{user_id}', [AdminController::class, 'getPdfV
 
 Route::post('/mark-read/{id}', [AdminController::class, 'markAsRead'])->name('mark-read');
 
-// remove /accord livewire
+// remove /accord/public livewire
 Livewire::setScriptRoute(function ($handle) {
   return Route::get('/public/livewire/livewire.js', $handle);
 });
@@ -123,6 +128,7 @@ Route::get('/insurSearch', [ssc::class, 'selectSearch'])->name('insurSearch');
 Route::get('/reg-agency', function () {
   return view('default');
 })->name('reg.trucker');
+
 Route::get('/truckform/{id}', [AuthController::class, 'form'])->name('truck.from');
 Route::get('reboot',function(){
   Artisan::call('view:clear');

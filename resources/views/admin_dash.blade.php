@@ -78,6 +78,24 @@
     <div class="row gy-4 ">
         <div class="col-md-12 col-lg-12">
             <div class="row gy-4 justify-content-center align-item-center">
+
+              <!-- password not set card -->
+              <div class="col-md-3 col-lg-3">
+                <div class="card open-modal-btn"
+                    style="background: rgb(42,132,254); background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);"
+                    data-modal="agentclient">
+                    <div class="card-body text-center" style="height: 220px;">
+                        <h4 class="mb-1 py-4 text-white">Agent Add Client</h4>
+                        <h2 class="py-3 text-white card-title" style="font-size: 72px">{{ count($agentclient) }}</h2>
+                    </div>
+                    <div fxlayout="row" fxlayoutalign="start center" class="total_box ng-tns-c246-95"
+                        style="flex-direction: row; box-sizing: border-box; display: flex; place-content: center flex-start; align-items: center;">
+                        <span class="ng-tns-c246-95">&nbsp;</span><span class="num red-fg ng-tns-c246-95">&nbsp;</span><span
+                            class="go-btn ng-tns-c246-95" tabindex="0">GO ></span>
+                    </div>
+                </div>
+            </div>
+
                 <!-- Congratulations card -->
                 <div class="col-md-3 col-lg-3">
                     <div class="card open-modal-btn"
@@ -137,6 +155,53 @@
 
         <!--/ Data Tables -->
     </div>
+
+    <!-- Modal For Recent Add User -->
+
+<div class="modal" id="agentclient" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+          <div class="modal-header justify-content-center align-items-center">
+              <h5 class="modal-title" id="exampleModalLabel">Recently Added Users</h5>
+          </div>
+          <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
+              <div class="container mt-2 px-2">
+                  <div class="table-responsive">
+                      <table class="table table-borderless">
+                          <thead>
+                              <tr class="bg-light text-center align-middle">
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Remember Token</th>
+                                <th>Status</th>
+                                <th>Update Password</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($agentclient as $item)
+                            <tr>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->email }}</td>
+                                <td>{{ $item->role }}</td>
+                                <td>{{ $item->rememberToken }}</td>
+                                <td><span class="text-danger">Pending</span></td>
+                                <td>
+                                  <a href="{{ route('update.password', $item->id) }}">Set Password</a>
+                                </td>
+                            </tr>
+                            @endforeach
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
 
 <!-- Modal For Recent Add User -->
 

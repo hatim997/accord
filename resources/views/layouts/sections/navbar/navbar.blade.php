@@ -472,10 +472,10 @@ margin-top: 1.7rem;
         </li>
         <li type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">          <a href="{{ route('agent.regs.add.form') }}" class="btn btn-light  ">Add Insured</a></li>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="{{ route('agent.regs.add.form') }}">Add Truckers </a></li>
+          <li><a class="dropdown-item" href="{{ route('agent.regs.add.form') }}">Add Carrier </a></li>
           <li>
             <hr class="dropdown-divider">
-          </li> <li><a class="dropdown-item" href="{{ route('agent.regs.add.brok.form') }}"> Add Freight/Broker </a></li>
+          </li> <li><a class="dropdown-item" href="{{ route('agent.regs.add.brok.form') }}"> Add Broker </a></li>
           <li>
             <hr class="dropdown-divider">
           </li>
@@ -484,10 +484,10 @@ margin-top: 1.7rem;
         </ul>
             <li type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">   <a class="btn btn-light" >Insured List </a></li>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{{ route('insur') }}"> Truckers List</a></li>
+              <li><a class="dropdown-item" href="{{ route('insur') }}"> Carrier List</a></li>
               <li>
                 <hr class="dropdown-divider">
-              </li> <li><a class="dropdown-item" href="{{ route('insurf') }}"> Freight/Broker List</a></li>
+              </li> <li><a class="dropdown-item" href="{{ route('insurf') }}"> Broker List</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>  <li><a class="dropdown-item disabled" href="javascript:void(0);">Add Business</a></li>

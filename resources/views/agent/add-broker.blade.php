@@ -110,26 +110,41 @@ font-weight: bold !important;
                         </div>
 
                         <div class="col-md-6">
-                          <div class="form-group p-3">
+                          <div class="form-group py-3">
+                            <label for="fname" class="required">First Name:</label>
+                            <input type="text" name="fname" class="form-control" id="fname" />
+                            @error('fname') <span class="error">{{ $message }}</span> @enderror
+                          </div>
+                          <div class="form-group py-3">
+                            <label for="lname" class="required">Last Name:</label>
+                            <input type="text" name="lname" class="form-control" id="lname" />
+                            @error('lname') <span class="error">{{ $message }}</span> @enderror
+                          </div>
+                          <div class="form-group py-3">
+                            <label for="email" class="required">Email:</label>
+                            <input type="email" name="email" class="form-control" id="email" />
+                            @error('email') <span class="error">{{ $message }}</span> @enderror
+                          </div>
+                          {{-- <div class="form-group p-3">
                             <label for="scac"  class="required">SCAC Code</label>
                             <input type="text" name="scac" maxlength="4" class="form-control" id="scac">
                             @error('scac') <span class="error">{{ $message }}</span> @enderror
 
-                          </div>
-                          <div class="form-group p-3">
+                          </div> --}}
+                          {{-- <div class="form-group p-3">
                             <label for="usdot"  class="required">US DOT #</label>
                             <input type="number" name="usdot" oninput="this.value=this.value.slice(0,8)" maxlength="8"
                               class="form-control" id="usdot" />
                             @error('usdot') <span class="error">{{ $message }}</span> @enderror
 
-                          </div>
+                          </div> --}}
 
-                          <div class="form-group p-3">
+                          {{-- <div class="form-group p-3">
                             <label for="websit">Company Website address:</label>
                             <input type="text" name="websit" class="form-control" id="websit" />
                             @error('websit') <span class="error">{{ $message }}</span> @enderror
+                          </div> --}}
 
-                          </div>
 
                         </div>
                       </div>
@@ -140,6 +155,11 @@ font-weight: bold !important;
 
                             <div class="col-md-6">
                               <div class="form-group py-3">
+                                <label for="address" class="required">Address 1:</label>
+                                <input type="text" name="address" class="form-control" id="address" />
+                                @error('address') <span class="error">{{ $message }}</span> @enderror
+                              </div>
+                              {{-- <div class="form-group py-3">
                                 <label for="prefix">Prefix</label>
                                 <select class="form-select" id="prefix" name="prefix"
                                   aria-label="Default select example">
@@ -148,9 +168,9 @@ font-weight: bold !important;
                                   <option value="2">Mrs</option>
                                   <option value="3">Ms</option>
                                 </select>
+                              </div> --}}
 
-                              </div>
-                              <div class="form-group py-3">
+                              {{-- <div class="form-group py-3">
                                 <label for="mname">Middle Name:</label>
                                 <input type="text" name="mname" class="form-control" id="mname" />
                                 @error('mname') <span class="error">{{ $message }}</span> @enderror
@@ -164,56 +184,36 @@ font-weight: bold !important;
                                 <label for="salutation" class="required">Salutation</label>
                                 <input type="text" name="salutation" class="form-control" id="salutation" />
                                 @error('salutation') <span class="error">{{ $message }}</span> @enderror
-                              </div>
+                              </div> --}}
 
                             </div>
-                            <div class="col-md-6">
-                              <div class="form-group py-3">
-                                <label for="fname" class="required">First Name:</label>
-                                <input type="text" name="fname" class="form-control" id="fname" />
-                                @error('fname') <span class="error">{{ $message }}</span> @enderror
-                              </div>
+                            {{-- <div class="col-md-6">
 
-                              <div class="form-group py-3">
-                                <label for="lname" class="required">Last Name:</label>
-                                <input type="text" name="lname" class="form-control" id="lname" />
-                                @error('lname') <span class="error">{{ $message }}</span> @enderror
-                              </div>
+
+
 
                               <div class="form-group py-3">
                                 <label for="title" class="required">Title:</label>
                                 <input type="text" name="title" class="form-control" id="title" />
                                 @error('title') <span class="error">{{ $message }}</span> @enderror
                               </div>
-                                                            <div class="form-group py-3">
+                              <div class="form-group py-3">
                                 <label for="cellphone" class="required">Phone No:</label>
                                 <input type="tel" name="cellphone" class="form-control" id="cellphone" />
                                 @error('cellphone') <span class="error">{{ $message }}</span> @enderror
                               </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="col-md-6">
-                              <div class="form-group py-3">
-                                <label for="email" class="required">Email:</label>
-                                <input type="email" name="email" class="form-control" id="email" />
-                                @error('email') <span class="error">{{ $message }}</span> @enderror
-                              </div>
-
+                            {{-- <div class="col-md-6">
                               <div class="form-group py-3">
                                 <label for="fax">Fax No:</label>
                                 <input type="tel" name="fax" class="form-control" id="fax" />
                                 @error('fax') <span class="error">{{ $message }}</span> @enderror
                               </div>
-
-
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-6">
-                              <div class="form-group py-3">
-                                <label for="address" class="required">Address:</label>
-                                <input type="text" name="address" class="form-control" id="address" />
-                                @error('address') <span class="error">{{ $message }}</span> @enderror
-                              </div>
+
                               <div class="form-group py-3">
                                 <label for="address2">Address 2:</label>
                                 <input type="text" name="address2" class="form-control" id="address2" />
@@ -223,11 +223,17 @@ font-weight: bold !important;
                             </div>
                             <div class="col-md-6">
                               <div class="form-group py-3">
-                                <label for="zip" class="required">Zip Code:</label>
-                                <input type="number" oninput="this.value=this.value.slice(0,5)" maxlength="5" name="zip"
-                                  class="form-control" id="zip" />
-                                @error('zip') <span class="error">{{ $message }}</span> @enderror
-                              </div>
+                                <label for="country">Country:</label>
+                                <select name="country" class="form-control" id="country">
+                                    <option value="">Select a Country</option>
+                                    <option value="USA">United States</option>
+                                    <option value="Canada">Canada</option>
+                                </select>
+                                @error('country')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
+
                               <div class="form-group py-3">
                                 <label for="city" class="required">City:</label>
                                 <input type="text" name="city" class="form-control" id="city" />
@@ -237,75 +243,18 @@ font-weight: bold !important;
                             <div class="col-md-6">
                               <div class="form-group py-3">
                                 <label for="state" class="required">State:</label>
-                                @error('state') <span class="error">{{ $message }}</span> @enderror
-                                <select class="form-control" id="state"  name="state"  >
-                                <option value='AL'>Alabama</option>
-                            <option value='AK'>Alaska</option>
-                            <option value='AZ'>Arizona</option>
-                            <option value='AR'>Arkansas</option>
-                            <option value='CA'>California</option>
-
-                            <option value='CO'>Colorado</option>
-                            <option value='CT'>Connecticut</option>
-                            <option value='DE'>Delaware</option>
-                            <option value='DC'>District of Columbia</option>
-                            <option value='FL'>Florida</option>
-
-                            <option value='GA'>Georgia</option>
-                            <option value='HI'>Hawaii</option>
-                            <option value='ID'>Idaho</option>
-                            <option value='IL'>Illinois</option>
-                            <option value='IN'>Indiana</option>
-
-                            <option value='IA'>Iowa</option>
-                            <option value='KS'>Kansas</option>
-                            <option value='KY'>Kentucky</option>
-                            <option value='LA'>Louisiana</option>
-                            <option value='ME'>Maine</option>
-
-                            <option value='MD'>Maryland</option>
-                            <option value='MA'>Massachusetts</option>
-                            <option value='MI'>Michigan</option>
-                            <option value='MN'>Minnesota</option>
-                            <option value='MS'>Mississippi</option>
-
-                            <option value='MO'>Missouri</option>
-                            <option value='MT'>Montana</option>
-                            <option value='NE'>Nebraska</option>
-                            <option value='NV'>Nevada</option>
-                            <option value='NH'>New Hampshire</option>
-
-                            <option value='NJ'>New Jersey</option>
-                            <option value='NM'>New Mexico</option>
-                            <option value='NY'>New York</option>
-                            <option value='NC'>North Carolina</option>
-                            <option value='ND'>North Dakota</option>
-
-                            <option value='OH'>Ohio</option>
-                            <option value='OK'>Oklahoma</option>
-                            <option value='OR'>Oregon</option>
-                            <option value='PA'>Pennsylvania</option>
-                            <option value='RI'>Rhode Island</option>
-
-                            <option value='SC'>South Carolina</option>
-                            <option value='SD'>South Dakota</option>
-                            <option value='TN'>Tennessee</option>
-                            <option value='TX'>Texas</option>
-                            <option value='UT'>Utah</option>
-
-                            <option value='VT'>Vermont</option>
-                            <option value='VA'>Virginia</option>
-                            <option value='WA'>Washington</option>
-                            <option value='WV'>West Virginia</option>
-                            <option value='WI'>Wisconsin</option>
-
-                            <option value='WY'>Wyoming</option>
-                            </select>
-                              </div>
+                                <select class="form-control" id="state" name="state">
+                                    <option value="">Select a State</option>
+                                </select>
+                                @error('state')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
                               <div class="form-group py-3">
-                                <label for="country">Country:</label>
-                                <input type="text" name="country" class="form-control" id="country" />
-                                @error('country') <span class="error">{{ $message }}</span> @enderror
+                                <label for="zip" class="required">Zip Code:</label>
+                                <input type="number" oninput="this.value=this.value.slice(0,5)" maxlength="5" name="zip"
+                                  class="form-control" id="zip" />
+                                @error('zip') <span class="error">{{ $message }}</span> @enderror
                               </div>
                             </div>
 
@@ -327,12 +276,12 @@ font-weight: bold !important;
                           </div>
 
                         </div>
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                           <div class="form-group py-3">
                             <label for="password"class="required">PASSWORD</label>
                             <input type="text" class="form-control" name="password1" id="password" placeholder="********" />
                           </div>
-                        </div>
+                        </div> --}}
               </div>
 
             </div>
@@ -357,4 +306,95 @@ font-weight: bold !important;
       });
   });
 </script>
+<script>
+  const states = {
+      USA: [
+          { value: 'AL', name: 'Alabama' },
+          { value: 'AK', name: 'Alaska' },
+          { value: 'AZ', name: 'Arizona' },
+          { value: 'AR', name: 'Arkansas' },
+          { value: 'CA', name: 'California' },
+          { value: 'CO', name: 'Colorado' },
+          { value: 'CT', name: 'Connecticut' },
+          { value: 'DE', name: 'Delaware' },
+          { value: 'DC', name: 'District of Columbia' },
+          { value: 'FL', name: 'Florida' },
+          { value: 'GA', name: 'Georgia' },
+          { value: 'HI', name: 'Hawaii' },
+          { value: 'ID', name: 'Idaho' },
+          { value: 'IL', name: 'Illinois' },
+          { value: 'IN', name: 'Indiana' },
+          { value: 'IA', name: 'Iowa' },
+          { value: 'KS', name: 'Kansas' },
+          { value: 'KY', name: 'Kentucky' },
+          { value: 'LA', name: 'Louisiana' },
+          { value: 'ME', name: 'Maine' },
+          { value: 'MD', name: 'Maryland' },
+          { value: 'MA', name: 'Massachusetts' },
+          { value: 'MI', name: 'Michigan' },
+          { value: 'MN', name: 'Minnesota' },
+          { value: 'MS', name: 'Mississippi' },
+          { value: 'MO', name: 'Missouri' },
+          { value: 'MT', name: 'Montana' },
+          { value: 'NE', name: 'Nebraska' },
+          { value: 'NV', name: 'Nevada' },
+          { value: 'NH', name: 'New Hampshire' },
+          { value: 'NJ', name: 'New Jersey' },
+          { value: 'NM', name: 'New Mexico' },
+          { value: 'NY', name: 'New York' },
+          { value: 'NC', name: 'North Carolina' },
+          { value: 'ND', name: 'North Dakota' },
+          { value: 'OH', name: 'Ohio' },
+          { value: 'OK', name: 'Oklahoma' },
+          { value: 'OR', name: 'Oregon' },
+          { value: 'PA', name: 'Pennsylvania' },
+          { value: 'RI', name: 'Rhode Island' },
+          { value: 'SC', name: 'South Carolina' },
+          { value: 'SD', name: 'South Dakota' },
+          { value: 'TN', name: 'Tennessee' },
+          { value: 'TX', name: 'Texas' },
+          { value: 'UT', name: 'Utah' },
+          { value: 'VT', name: 'Vermont' },
+          { value: 'VA', name: 'Virginia' },
+          { value: 'WA', name: 'Washington' },
+          { value: 'WV', name: 'West Virginia' },
+          { value: 'WI', name: 'Wisconsin' },
+          { value: 'WY', name: 'Wyoming' },
+      ],
+      Canada: [
+          { value: 'AB', name: 'Alberta' },
+          { value: 'BC', name: 'British Columbia' },
+          { value: 'MB', name: 'Manitoba' },
+          { value: 'NB', name: 'New Brunswick' },
+          { value: 'NL', name: 'Newfoundland and Labrador' },
+          { value: 'NS', name: 'Nova Scotia' },
+          { value: 'ON', name: 'Ontario' },
+          { value: 'PE', name: 'Prince Edward Island' },
+          { value: 'QC', name: 'Quebec' },
+          { value: 'SK', name: 'Saskatchewan' },
+          { value: 'NT', name: 'Northwest Territories' },
+          { value: 'NU', name: 'Nunavut' },
+          { value: 'YT', name: 'Yukon' },
+      ],
+  };
+
+  document.getElementById('country').addEventListener('change', function () {
+      const country = this.value;
+      const stateSelect = document.getElementById('state');
+
+      // Clear the state options
+      stateSelect.innerHTML = `<option value="">Select a State</option>`;
+
+      // Populate the states based on the selected country
+      if (states[country]) {
+          states[country].forEach(state => {
+              const option = document.createElement('option');
+              option.value = state.value;
+              option.textContent = state.name;
+              stateSelect.appendChild(option);
+          });
+      }
+  });
+</script>
+
 @endpush
