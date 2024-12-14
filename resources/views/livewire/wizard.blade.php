@@ -121,7 +121,7 @@
 
 
                     <div class="form-group py-3">
-                      <label for="country">Country:</label>
+                      <label for="country">Country Name:</label>
                       <select wire:model="country" class="form-control" id="country">
                           <option value="">Select a Country</option>
                           <option value="USA">United States</option>
@@ -162,7 +162,7 @@
 
                     {{-- state --}}
                     <div class="form-group py-3">
-                      <label for="state" class="required">State:</label>
+                      <label for="state" class="required">Company State / Province / County:</label>
                       <select wire:model="state" class="form-control" id="state">
                           <option value="">Select a State</option>
                           <!-- States will be dynamically populated -->
