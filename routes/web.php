@@ -258,6 +258,11 @@ Route::group(['middleware' => 'checkRole:shipper'], function () {
   Route::get('/shipper-fromdrop2', [ShipperController::class, 'choosePolicyTypes'])->name('shipper.fromdrop2');
   Route::post('/profile/updates', [ShipperController::class, 'proupd'])->name('shipper.proupd');
 
+  Route::post('/send/expire/mail', [ShipperController::class, 'SendExpireMail'])->name('send.expire.mail');
+
+
+
+
 });
 Route::get('/notice', [AdminController::class, 'notice'])->name('notice');
 Route::post('/notice/mark-all-as-read', [AdminController::class, 'markAllAsRead'])->name('notice.markAllAsRead');

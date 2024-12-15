@@ -179,6 +179,7 @@ $user->save();
               'policy_types.*'
           )
           ->get();
+          // dd($recordweeks);
       $brokersinfo  = Certificate::with('driver','user')->where('ch' ,$authUserId)->get();
 
       // Fetch all endorsements
@@ -188,16 +189,52 @@ $user->save();
       return view('shipper.dash', compact('endors', 'records', 'recordweeks','brokersinfo', 'activeUserCount','inactiveUserCount','activeUsers','inactiveUsers'));
   }
 
+  public function SendExpireMail(Request $request)
+{
+
+    $getuser = User::where('id', $request->client_user_id)->get();
+
+    $agent_user = Certificate::where('id', $request->certificate_id)->select('producer_user_id')->get();
+    // dd($agent_user[0]->producer_user_id);
+
+    $agent_email = User::where('id', $agent_user[0]->producer_user_id)->get();
+    // dd($agent_email[0]->email);
+
+    $agntemail = $agent_email[0]->email;
+    $data = [
+        'success' => 'Your policy email and notification have been sent to this client email: ' . $getuser[0]->email,  // Added space for readability
+    ];
+
+    Mail::send('emails.success_notice', $data, function ($message) use ($agntemail) {
+        $message->to($agntemail)
+                ->subject('Policy Success Notice');
+    });
+
+
+    Notice::create([
+      'to' => $request->client_user_id,
+      'from' => Auth::id(),
+      'name' => "Please Upgrade Your Policy",
+    ]);
+    $user_email = $getuser[0]->email;
+    $data = [
+        'expiry_message' => 'Your policy is about to expire. Please take action.',
+    ];
+    Mail::send('emails.expiry_notice', $data, function ($message) use ($user_email) {
+        $message->to($user_email)
+                ->subject('Policy Expiry Notice');
+    });
+    return redirect()->route('sdash');
+
+
+}
+
 
   public function endors(Request $request)
   {
    // dd ($request);
 
     $userId = Auth::user()->id;
-
-
-
-
 
     foreach ($request->endo_name as $item) {
       $user = new ShipperEndorsement();

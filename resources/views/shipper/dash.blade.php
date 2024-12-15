@@ -292,6 +292,7 @@
                                     <th scope="col" width="20%">Policy Number</th>
                                     <th scope="col" width="22%">Start Date</th>
                                     <th scope="col" width="22%">Expiry Date</th>
+                                    <th scope="col" width="22%">Send Email</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -302,6 +303,20 @@
                                             <td>{{ $policy->policy_number }}</td>
                                             <td>{{ $policy->start_date }}</td>
                                             <td>{{ $policy->expiry_date }}</td>
+                                            <td>
+                                              <form action="{{ route('send.expire.mail') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="main_id" value="{{ $policy->id }}" />
+                                                <input type="hidden" name="certificate_id" value="{{ $policy->certificate_id }}" />
+                                                <input type="hidden" name="client_user_id" value="{{ $policy->client_user_id }}" />
+                                                <input type="hidden" name="policy_type_id" value="{{ $policy->policy_type_id }}" />
+                                                <input type="hidden" name="policy_id" value="{{ $policy->policy_id }}" />
+                                                <input type="hidden" name="policy_type_id" value="{{ $policy->policy_type_id }}" />
+
+                                                <!-- Submit Button -->
+                                                <button class="btn btn-danger" type="submit">Submit</button>
+                                              </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
