@@ -205,7 +205,7 @@ $user->save();
         'success' => 'Your policy email and notification have been sent to this client email: ' . $getuser[0]->email,  // Added space for readability
     ];
 
-    Mail::send('emails.success_notice', $data, function ($message) use ($agntemail) {
+    Mail::send('email.success_notice', $data, function ($message) use ($agntemail) {
         $message->to($agntemail)
                 ->subject('Policy Success Notice');
     });
@@ -220,7 +220,7 @@ $user->save();
     $data = [
         'expiry_message' => 'Your policy is about to expire. Please take action.',
     ];
-    Mail::send('emails.expiry_notice', $data, function ($message) use ($user_email) {
+    Mail::send('email.expiry_notice', $data, function ($message) use ($user_email) {
         $message->to($user_email)
                 ->subject('Policy Expiry Notice');
     });
