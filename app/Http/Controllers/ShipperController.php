@@ -145,7 +145,7 @@ $user->save();
 
       // Fetch records based on certificate expiry date for the current month and year
       $currentDate = Carbon::now();
-      $previousMonth = $currentDate->subMonth();
+      $previousMonth = $currentDate->addMonth();
       $previousMonthNumber = $previousMonth->month;
       $previousYear = $previousMonth->year;
       
