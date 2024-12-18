@@ -108,8 +108,10 @@ return $certificates ;
                           ->where('id', $id)
                           ->get();
 
+
       // Retrieve the subscription with plan details
       $subscription = Subscription::with('subscriptionPlan')->where('user_id', $id)->first();
+      // dd($subscription);
 
       // Initialize progress and days remaining
       $progressPercentage = 0;

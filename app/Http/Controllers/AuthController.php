@@ -82,7 +82,7 @@ class AuthController extends Controller
             $message->to($adminemail)
               ->subject('User Subscription Expired');
           });
-        
+
         Session::put('userRole', $user->role);
         Session::put('userId', $user->id);
         $plans = Subscription_plan::where('role', $user->role)->where('id', '!=', 1)->get();
@@ -156,7 +156,7 @@ class AuthController extends Controller
             $message->to($adminemail)
               ->subject('User Subscription Expired');
           });
-        
+
         $plans = Subscription_plan::where('role', $user->role)->where('id', '!=', 1)->get();
         // dd($plans);
         $danger = 'Your subscription has expired.';
@@ -227,7 +227,7 @@ class AuthController extends Controller
             $message->to($adminemail)
               ->subject('User Subscription Expired');
           });
-        
+
         $plans = Subscription_plan::where('role', $user->role)->where('id', '!=', 1)->get();
         // dd($plans);
         $danger = 'Your subscription has expired.';
@@ -300,7 +300,7 @@ class AuthController extends Controller
             $message->to($adminemail)
               ->subject('User Subscription Expired');
           });
-        
+
         $plans = Subscription_plan::where('role', $user->role)->where('id', '!=', 1)->get();
         // dd($plans);
         $danger = 'Your subscription has expired.';
@@ -591,7 +591,7 @@ $user = User::find($user_id);
           'adminName' => $admin->name,  // Custom user name based on role
           'orderId' => $orderId,
           'adminEmail' => $admin->email,
-          'userEmail' => $user->email,        
+          'userEmail' => $user->email,
           'orderTime' => $orderTime,
           'orderInvoice' => $orderInvoice,
           'planName' => $subscriptionPlan->name,  // Plan name for the admin email

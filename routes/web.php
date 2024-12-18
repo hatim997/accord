@@ -260,6 +260,8 @@ Route::group(['middleware' => 'checkRole:shipper'], function () {
 
   Route::post('/send/expire/mail', [ShipperController::class, 'SendExpireMail'])->name('send.expire.mail');
 
+  Route::post('/send/agent/notification', [ShipperController::class, 'AgentNotification'])->name('agent.notification');
+  Route::post('/send/client/notification', [ShipperController::class, 'ClientNotification'])->name('client.notification');
 
 
 

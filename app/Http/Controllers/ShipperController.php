@@ -197,6 +197,8 @@ $user->save();
     $agent_user = Certificate::where('id', $request->certificate_id)->select('producer_user_id')->get();
     // dd($agent_user[0]->producer_user_id);
 
+
+
     $agent_email = User::where('id', $agent_user[0]->producer_user_id)->get();
     // dd($agent_email[0]->email);
 
@@ -225,9 +227,37 @@ $user->save();
                 ->subject('Policy Expiry Notice');
     });
     return redirect()->route('sdash');
-
-
 }
+
+  public function AgentNotification(Request $request)
+  {
+    // dd($agent_id);
+
+    // $company_name = DriverDetail::where('user_id', $request->client_user_id)->get();
+    // dd($company_name[0]->name);
+    Notice::create([
+      // 'to' => $agent_id,
+      'from' => Auth::id(),
+      'name' => "Please Upgrade Your Policy",
+    ]);
+
+    return redirect()->back();
+
+  }
+
+  public function ClientNotification(Request $request)
+  {
+    // dd($agent_id);
+
+    Notice::create([
+      // 'to' => $client_id,
+      'from' => Auth::id(),
+      'name' => "Please Upgrade Your Policy",
+    ]);
+
+    return redirect()->back();
+
+  }
 
 
   public function endors(Request $request)

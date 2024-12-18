@@ -287,7 +287,7 @@
                             <table class="table table-responsive table-borderless">
                                 <thead>
                                   <tr class="bg-light text-center align-middle">
-                                    <th scope="col" width="15%">Policy ID</th>
+                                    <th scope="col" width="15%">broker's / carrier's</th>
                                     <th scope="col" width="20%">Policy Name</th>
                                     <th scope="col" width="20%">Policy Number</th>
                                     <th scope="col" width="22%">Start Date</th>
@@ -298,14 +298,17 @@
                                 <tbody>
                                     @foreach ($recordweeks as $policy)
                                         <tr>
-                                            <td>{{ $policy->policy_id }}</td>
+                                          @php
+                                               $companyname = App\Models\DriverDetail::select('name')->where('user_id', $policy->client_user_id)->get();
+                                          @endphp
+                                            <td>{{  $companyname[0]->name }}</td>
                                             <td><span class="ms-1">{{ $policy->type_name }}</span></td>
                                             <td>{{ $policy->policy_number }}</td>
                                             <td>{{ $policy->start_date }}</td>
                                             <td>{{ $policy->expiry_date }}</td>
                                             <td>
-                                              <form action="{{ route('send.expire.mail') }}" method="POST">
-                                                @csrf
+                                              {{-- <form action="{{ route('send.expire.mail') }}" method="POST">
+                                                @csrf --}}
                                                 <input type="hidden" name="main_id" value="{{ $policy->id }}" />
                                                 <input type="hidden" name="certificate_id" value="{{ $policy->certificate_id }}" />
                                                 <input type="hidden" name="client_user_id" value="{{ $policy->client_user_id }}" />
@@ -314,8 +317,50 @@
                                                 <input type="hidden" name="policy_type_id" value="{{ $policy->policy_type_id }}" />
 
                                                 <!-- Submit Button -->
-                                                <button class="btn btn-danger" type="submit">Submit</button>
+                                                <form action="{{ route('agent.notification') }}" method="POST" style="display: inline;">
+                                                  @csrf
+                                                  <input type="hidden" name="main_id" value="{{ $policy->id }}" />
+                                                  <input type="hidden" name="certificate_id" value="{{ $policy->certificate_id }}" />
+                                                  <input type="hidden" name="client_user_id" value="{{ $policy->client_user_id }}" />
+                                                  <input type="hidden" name="policy_type_id" value="{{ $policy->policy_type_id }}" />
+                                                  <input type="hidden" name="policy_id" value="{{ $policy->policy_id }}" />
+                                                  <input type="hidden" name="policy_type_id" value="{{ $policy->policy_type_id }}" />
+                                                  <button type="submit"
+                                                          class="mdi mdi-account mdi-36px"
+                                                          style="font-size: 26px;
+                                                                 background: linear-gradient(180deg, rgba(42, 132, 254, 1) 0%, rgba(54, 197, 255, 1) 100%);
+                                                                 -webkit-background-clip: text;
+                                                                 -webkit-text-fill-color: transparent;
+                                                                 border: none;
+                                                                 background-color: transparent;
+                                                                 cursor: pointer;">
+                                                  </button>
                                               </form>
+                                              <p style="font-size: 12px; color: #89868d; padding: 0px; margin: 0px;">Agent</p>
+
+                                              <form action="{{ route('client.notification') }}" method="POST" style="display: inline;">
+                                                @csrf
+                                                <input type="hidden" name="main_id" value="{{ $policy->id }}" />
+                                                  <input type="hidden" name="certificate_id" value="{{ $policy->certificate_id }}" />
+                                                  <input type="hidden" name="client_user_id" value="{{ $policy->client_user_id }}" />
+                                                  <input type="hidden" name="policy_type_id" value="{{ $policy->policy_type_id }}" />
+                                                  <input type="hidden" name="policy_id" value="{{ $policy->policy_id }}" />
+                                                  <input type="hidden" name="policy_type_id" value="{{ $policy->policy_type_id }}" />
+                                                <button type="submit" class="mdi mdi-truck-fast mdi-36px"
+                                                        style="font-size: 26px;
+                                                               background: linear-gradient(180deg, rgba(42, 132, 254, 1) 0%, rgba(54, 197, 255, 1) 100%);
+                                                               -webkit-background-clip: text;
+                                                               -webkit-text-fill-color: transparent;
+                                                               border: none;
+                                                               background-color: transparent;
+                                                               cursor: pointer;">
+                                                </button>
+                                            </form>
+                                            <p style="padding: 0px; margin: 0px; font-size: 12px; color: #89868d;">Carrier</p>
+
+                                                {{-- <button class="btn btn-danger" type="submit">Submit</button> --}}
+
+                                              {{-- </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach

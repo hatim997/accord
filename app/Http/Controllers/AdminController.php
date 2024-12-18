@@ -452,7 +452,7 @@ return back()->with($message);
 
   public function subs()
   {
-  $sub = Subscription_plan::all();
+    $sub = Subscription_plan::all();
     return view('sub', compact('sub'));
   }
   public function add_sub (Request $request)
@@ -509,6 +509,7 @@ public function updateNoticeStatus($id)
 
   public function edit_sub (Request $request , int $id)
   {
+    // dd($request->all());
     $sub = Subscription_plan::all();
     $subs = Subscription_plan::find($request->id);
     $subs->update($request->all());
