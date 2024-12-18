@@ -154,8 +154,8 @@ $user->save();
           ->join('certificate_policies', 'certificates.id', '=', 'certificate_policies.certificate_id')
           ->join('policy_types', 'certificate_policies.policy_type_id', '=', 'policy_types.id')
           ->where('users.status', '=', '1')
-          ->whereMonth('certificate_policies.expiry_date', $previousMonthNumber)
-          ->whereYear('certificate_policies.expiry_date', $previousYear)
+          ->whereBetween('certificate_policies.expiry_date', [$currentDate, $previousMonth])
+          
           ->select(
               'users.*',
               'certificates.*',
