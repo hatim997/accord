@@ -210,7 +210,7 @@ $policy = PolicyType::find($request->policy_type_id);
 $camapony = AgencyInfos::where("user_id", $agent_user[0]->producer_user_id)->first();
     $agntemail = $agent_email[0]->email;
     $data = [
-        'success' => "An email and notification regarding the policy, " . $policy->type_name  . ", have been sent to the client's email: " . $getuser[0]->email ." where company name ".$camapony,  // Added space for readability
+        'success' => "An email and notification regarding the policy, " . $policy->type_name  . ", have been sent to the client's email: " . $getuser[0]->email ." where company name ".$camapony->name,  // Added space for readability
     ];
 
     Mail::send('email.success_notice', $data, function ($message) use ($agntemail) {
