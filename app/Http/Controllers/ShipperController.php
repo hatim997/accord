@@ -165,13 +165,14 @@ $user->save();
       // Fetch records for certificates expiring in the next week
       $today = Carbon::today();
       $nextWeek = Carbon::today()->addWeek();
-
+// return$nextWeek ;
+//           }
       $recordweeks = Certificate::where('certificates.ch', '=', $authUserId)
           ->join('users', 'certificates.client_user_id', '=', 'users.id')
           ->join('certificate_policies', 'certificates.id', '=', 'certificate_policies.certificate_id')
           ->join('policy_types', 'certificate_policies.policy_type_id', '=', 'policy_types.id')
           ->where('users.status', '=', '1')
-          ->whereBetween('certificate_policies.expiry_date', [$today, $nextWeek])
+           ->whereBetween('certificate_policies.expiry_date', [$today, $nextWeek])
           ->select(
               'users.*',
               'certificates.*',
@@ -179,7 +180,7 @@ $user->save();
               'policy_types.*'
           )
           ->get();
-          // dd($recordweeks);
+          //dd($recordweeks);
       $brokersinfo  = Certificate::with('driver','user')->where('ch' ,$authUserId)->get();
 
       // Fetch all endorsements
@@ -189,22 +190,27 @@ $user->save();
       return view('shipper.dash', compact('endors', 'records', 'recordweeks','brokersinfo', 'activeUserCount','inactiveUserCount','activeUsers','inactiveUsers'));
   }
 
-  public function SendExpireMail(Request $request)
-{
+ 
+  public function AgentNotification(Request $request)
+  {
+    // dd($agent_id);
+
+    // $company_name = DriverDetail::where('user_id', $request->client_user_id)->get();
+    // dd($company_name[0]->name);
 
     $getuser = User::where('id', $request->client_user_id)->get();
 
     $agent_user = Certificate::where('id', $request->certificate_id)->select('producer_user_id')->get();
     // dd($agent_user[0]->producer_user_id);
 
-
+$policy = PolicyType::find($request->policy_type_id);
 
     $agent_email = User::where('id', $agent_user[0]->producer_user_id)->get();
     // dd($agent_email[0]->email);
-
+$camapony = AgencyInfos::where("user_id", $agent_user[0]->producer_user_id)->first();
     $agntemail = $agent_email[0]->email;
     $data = [
-        'success' => 'Your policy email and notification have been sent to this client email: ' . $getuser[0]->email,  // Added space for readability
+        'success' => "An email and notification regarding the policy, " . $policy->type_name  . ", have been sent to the client's email: " . $getuser[0]->email ." where company name ".$camapony,  // Added space for readability
     ];
 
     Mail::send('email.success_notice', $data, function ($message) use ($agntemail) {
@@ -214,31 +220,14 @@ $user->save();
 
 
     Notice::create([
-      'to' => $request->client_user_id,
+      'to' => $agent_user[0]->producer_user_id,
       'from' => Auth::id(),
-      'name' => "Please Upgrade Your Policy",
+      'name' => "Please Upgrade Your ".$policy->type_name." Policy",
     ]);
-    $user_email = $getuser[0]->email;
-    $data = [
-        'expiry_message' => 'Your policy is about to expire. Please take action.',
-    ];
-    Mail::send('email.expiry_notice', $data, function ($message) use ($user_email) {
-        $message->to($user_email)
-                ->subject('Policy Expiry Notice');
-    });
-    return redirect()->route('sdash');
-}
-
-  public function AgentNotification(Request $request)
-  {
-    // dd($agent_id);
-
-    // $company_name = DriverDetail::where('user_id', $request->client_user_id)->get();
-    // dd($company_name[0]->name);
     Notice::create([
-      // 'to' => $agent_id,
+      'to' => Auth::id(),
       'from' => Auth::id(),
-      'name' => "Please Upgrade Your Policy",
+      'name' => "Notification has been sent to the Agent.",
     ]);
 
     return redirect()->back();
@@ -248,13 +237,30 @@ $user->save();
   public function ClientNotification(Request $request)
   {
     // dd($agent_id);
+    $getuser = User::where('id', $request->client_user_id)->get();
+    $policy = PolicyType::find($request->policy_type_id);
 
+    $user_email = $getuser[0]->email;
+    $data = [
+        'expiry_message' => 'Your '.$policy->type_name.' policy  is about to expire. Please take action.',
+    ];
+    Mail::send('email.expiry_notice', $data, function ($message) use ($user_email) {
+        $message->to($user_email)
+                ->subject('Policy Expiry Notice');
+    });
+
+
+  
     Notice::create([
-      // 'to' => $client_id,
+     'to' => $request->client_user_id,
       'from' => Auth::id(),
       'name' => "Please Upgrade Your Policy",
     ]);
-
+    Notice::create([
+      'to' => Auth::id(),
+      'from' => Auth::id(),
+      'name' => "Notification has been sent to the Carrier.",
+    ]);
     return redirect()->back();
 
   }
