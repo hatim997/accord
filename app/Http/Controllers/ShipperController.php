@@ -144,16 +144,18 @@ $user->save();
       ->get();
 
       // Fetch records based on certificate expiry date for the current month and year
-      $currentMonth = Carbon::now()->month;
-      $currentYear = Carbon::now()->year;
-
+      $currentDate = Carbon::now();
+      $previousMonth = $currentDate->subMonth();
+      $previousMonthNumber = $previousMonth->month;
+      $previousYear = $previousMonth->year;
+      
       $records = Certificate::where('certificates.ch', '=', $authUserId)
           ->join('users', 'certificates.client_user_id', '=', 'users.id')
           ->join('certificate_policies', 'certificates.id', '=', 'certificate_policies.certificate_id')
           ->join('policy_types', 'certificate_policies.policy_type_id', '=', 'policy_types.id')
           ->where('users.status', '=', '1')
-          ->whereMonth('certificate_policies.expiry_date', $currentMonth)
-          ->whereYear('certificate_policies.expiry_date', $currentYear)
+          ->whereMonth('certificate_policies.expiry_date', $previousMonthNumber)
+          ->whereYear('certificate_policies.expiry_date', $previousYear)
           ->select(
               'users.*',
               'certificates.*',
