@@ -78,15 +78,26 @@ $userRole = auth()->user()->role;
               <div class="pricing-card">
                 <h3 class="pricing-title">{{ $item->name }}</h3>
                 <p class="pricing-amount">{{ $item->price }} {{ $item->duration }}</p>
-                <p class="pricing-description">{{ $item->exdetail }}</p>
+                <hr class="my-4">
+                <ul class="pricing-features">
+               @php
+                $features = explode(",", $item->exdetail );
+                @endphp
+                @foreach($features as $feature)
+                <li class="feature-item">
+                  <i class="fa-solid fa-star"></i> {{ $feature }}
+                </li>
+              @endforeach
+            </ul>
+                {{-- <p class="pricing-description">{{ $item->exdetail }}</p> --}}
                 <hr class="my-4">
                 <ul class="pricing-features">
                   @php
-                  $features = explode(",", $item->description);
+                  $featuress = explode(",", $item->description);
                   @endphp
-                  @foreach($features as $feature)
+                  @foreach($featuress as $featured)
                     <li class="feature-item">
-                      <i class="fa-solid fa-star"></i> {{ $feature }}
+                      <i class="fa-solid fa-star"></i> {{ $featured }}
                     </li>
                   @endforeach
                 </ul>
