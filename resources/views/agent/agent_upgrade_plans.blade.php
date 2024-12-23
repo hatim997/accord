@@ -79,7 +79,7 @@ $userRole = auth()->user()->role;
                 <h3 class="pricing-title">{{ $item->name }}</h3>
                 <p class="pricing-amount">{{ $item->price }} {{ $item->duration }}</p>
                 <hr class="my-4">
-                <ul class="pricing-features flex flex-col gap-y-6 text-base font-semibold text-ColorBlack xl:px-[18px] ">
+                <ul class="pricing-features  ">
                @php
                 $features = explode(",", $item->exdetail );
                 @endphp
