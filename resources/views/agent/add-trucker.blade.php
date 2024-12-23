@@ -33,7 +33,7 @@
             font-weight: bold !important;
         }
     </style>
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Truckers Certificate of Insurance</h4>
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Carrier Certificate of Insurance</h4>
     <p>Please fill out the following information and press the submit button to request a certificate of insurance. Your
         request will be processed and sent to you as soon as possible. Certificates will only be issued upon verification of
         coverage.</p>
@@ -82,7 +82,7 @@
 
                                 <!-- Register title in the center -->
                                 <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">
-                                    Register</h4>
+                                    Register Carrier</h4>
 
                                 <!-- Save changes button on the right -->
                                 <div style="margin-left: auto; margin-right:7%;x">
@@ -126,8 +126,7 @@
                                                             @enderror
                                                         </div>
                                                         <div class="form-group p-3">
-                                                            <label for="tax"class="required">US Tax ID / Canadian
-                                                                Business Number</label>
+                                                            <label for="tax"class="">US Tax ID / Canadian Business Number</label>
                                                             <input type="text" name="tax" class="form-control"
                                                                 id="tax" />
                                                             @error('tax')
@@ -434,11 +433,11 @@
                                                         id="extra_email" placeholder="Extra Email" />
                                                 </div>
 
-                                                <div class="form-group py-3">
+                                                {{-- <div class="form-group py-3">
                                                     <label for="password">Upload License</label>
                                                     <input type="file" class="form-control" name="imagePath"
                                                         id="imagePath" placeholder="Choose License" />
-                                                </div>
+                                                </div> --}}
 
                                             </div>
                                             {{-- <div class="col-md-6">

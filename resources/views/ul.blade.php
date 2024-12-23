@@ -368,9 +368,14 @@
                                             data-id="{{ $item->id }}" data-bs-toggle="offcanvas"
                                             data-bs-target="#offcanvasAddUser"><i class="mdi mdi-eye"></i>
                                       </button>
+                                      <button
+    class="btn btn-sm btn-icon delete-record btn-text-secondary rounded-pill waves-effect"
+    data-id="{{ $item->id }}"
+    data-url="{{ route('delete_user', $item->id) }}"
+    onclick="deleteUser(this)">
+    <i class="mdi mdi-delete"></i>
+</button>
                                             <button
-                                            class="btn btn-sm btn-icon delete-record btn-text-secondary rounded-pill waves-effect"
-                                            data-id="257"><i class="mdi mdi-delete"></i></button><button
                                             class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow"
                                             data-bs-toggle="dropdown"><svg xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24">
@@ -382,13 +387,11 @@
                                             <div class="dropdown-menu dropdown-menu-end m-0">
                                               <a href="{{ route('user.view', $item->id) }}" class="dropdown-item">View</a>
                                               @if ($item->status == '0')
-                            <a href="{{ route('active' , ['id' => $item->id]) }} " class="dropdown-item">Active</a>
-                            @else
-                            <a href="{{ route('deactive', ['id' => $item->id]) }}" class="dropdown-item">InActive</a>
-                            @endif
-
-
-                                          </div>
+                                              <a href="{{ route('active' , ['id' => $item->id]) }} " class="dropdown-item">Active</a>
+                                              @else
+                                              <a href="{{ route('deactive', ['id' => $item->id]) }}" class="dropdown-item">InActive</a>
+                                              @endif
+                                            </div>
 
 
                                     </div>
@@ -926,6 +929,22 @@ document.addEventListener("DOMContentLoaded", function () {
           }
       };
   });
+</script>
+
+<script>
+  function deleteUser(button) {
+      // Get the user ID from the button's data-id attribute
+      var userId = button.getAttribute('data-id');
+
+      // Get the delete route URL from the button's data-url attribute
+      var url = button.getAttribute('data-url');
+
+      // Confirm the action with the user
+      if (confirm('Are you sure you want to delete this user?')) {
+          // Redirect to the delete route with the user ID
+          window.location.href = url;
+      }
+  }
 </script>
 
 

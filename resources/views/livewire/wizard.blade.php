@@ -91,7 +91,7 @@
                         @error('ialn') <span class="error">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group py-3">
-                        <label for="description" class="required">Suffix</label>
+                        <label for="description" class="">Suffix</label>
                         <input type="text" wire:model="suffix" class="form-control" id="productAmount" />
                         @error('suffix') <span class="error">{{ $message }}</span> @enderror
                     </div>

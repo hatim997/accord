@@ -79,6 +79,7 @@
     $navbarHideToggle = false;
 @endphp
 <!-- Name -->
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">Carrier Added By Carrier</h4>
 
 <form method="POST" action="{{ route('store.driverr') }}" enctype="multipart/form-data">
   @csrf
@@ -122,7 +123,7 @@
               </div>
 
               <!-- Register title in the center -->
-              <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">Register</h4>
+              <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">Register Carrier</h4>
 
               <!-- Save changes button on the right -->
               <div style="margin-left: auto; margin-right:7%;x">
@@ -151,13 +152,13 @@
                             @error('name') <span class="error">{{ $message }}</span> @enderror
                           </div>
                           <div class="form-group p-3">
-                            <label class="form-label required" for="mc_number">Federal Registration No. (MC Number)</label>
+                            <label class="form-label" for="mc_number">Federal Registration No. (MC Number)</label>
                             <input type="number" oninput="this.value=this.value.slice(0,8)" maxlength="8"
                               name="mc_number" class="form-control" id="mc_number" onblur="validate(2)" />
                             @error('mc_number') <span class="error">{{ $message }}</span> @enderror
                           </div>
                           <div class="form-group p-3">
-                            <label class="form-label required" for="tax">US Tax ID / Canadian Business Number</label>
+                            <label class="form-label" for="tax">US Tax ID / Canadian Business Number</label>
                             <input type="text" name="tax" class="form-control" id="tax" onblur="validate(5)"/>
                             @error('tax') <span class="error">{{ $message }}</span> @enderror
 
@@ -166,13 +167,13 @@
 
                         <div class="col-md-6">
                           <div class="form-group p-3">
-                            <label  class="form-label required" for="scac">SCAC Code</label>
+                            <label  class="form-label" for="scac">SCAC Code</label>
                             <input type="text" name="scac" maxlength="4" class="form-control" id="scac" onblur="validate(3)">
                             @error('scac') <span class="error">{{ $message }}</span> @enderror
 
                           </div>
                           <div class="form-group p-3">
-                            <label class="form-label required" for="usdot">US DOT #</label>
+                            <label class="form-label" for="usdot">US DOT #</label>
                             <input type="number" name="usdot" oninput="this.value=this.value.slice(0,8)" maxlength="8"
                               class="form-control" id="usdot" onblur="validate(4)"/>
                             @error('usdot') <span class="error">{{ $message }}</span> @enderror
@@ -213,7 +214,7 @@
                                 @error('mname') <span class="error">{{ $message }}</span> @enderror
                               </div>
                               <div class="form-group py-3">
-                                <label class="form-label required" for="suffix">Suffix</label>
+                                <label class="form-label" for="suffix">Suffix</label>
                                 <input type="text" name="suffix" class="form-control" id="suffix" onblur="validate(8)"/>
                                 @error('suffix') <span class="error">{{ $message }}</span> @enderror
                               </div>
@@ -233,7 +234,7 @@
                               </div>
 
                               <div class="form-group py-3">
-                                <label class="form-label required" for="title">Title:</label>
+                                <label class="form-label" for="title">Title</label>
                                 <input type="text" name="title" class="form-control" id="title" onblur="validate(9)"/>
                                 @error('title') <span class="error">{{ $message }}</span> @enderror
                               </div>
@@ -272,7 +273,7 @@
                                 @error('address2') <span class="error">{{ $message }}</span> @enderror
                               </div>
                               <div class="form-group py-3">
-                                <label class="form-label required" for="salutation">Salutation</label>
+                                <label class="form-label" for="salutation">Salutation</label>
                                 <input type="text" name="salutation" class="form-control" id="salutation" onblur="validate(13)"/>
                                 @error('salutation') <span class="error">{{ $message }}</span> @enderror
                               </div>
@@ -319,7 +320,7 @@
                             @error('license_type') <span class="error">{{ $message }}</span> @enderror
                           </div>
                           <div class="form-group py-3">
-                            <label class="form-label required" for="license_number">license_number :</label>
+                            <label class="form-label" for="license_number">license_number</label>
                             <input type="text" name="license_number" class="form-control" id="license_number" onblur="validate(17)" />
                             @error('license_number') <span class="error">{{ $message }}</span> @enderror
                           </div>
@@ -390,18 +391,18 @@
                             <input type="text" class="form-control" name="extra_email" id="extra_email" placeholder="Extra Email" />
                           </div>
 
-                          <div class="form-group py-3">
+                          {{-- <div class="form-group py-3">
                             <label for="password">Upload License</label>
                             <input type="file" class="form-control" name="imagePath" id="imagePath" placeholder="Choose License" />
-                          </div>
+                          </div> --}}
 
                         </div>
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                           <div class="form-group py-3">
                             <label class="form-label required" for="password">PASSWORD</label>
                             <input type="text" class="form-control" name="password" id="password" onblur="validate(18)" placeholder="********" />
                           </div>
-                        </div>
+                        </div> --}}
                       </div>
                     </div>
                 </div>

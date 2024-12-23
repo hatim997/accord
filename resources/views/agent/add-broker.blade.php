@@ -28,7 +28,7 @@ font-weight: bold !important;
 }
 
 </style>
-<h4 class="py-3 mb-4"><span class="text-muted fw-light">Freight/Broker Add By Agent</h4>
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">Broker Add By Agent</h4>
 
 <form method="POST" action="{{ route('agent.regs.store') }}" enctype="multipart/form-data">
   @csrf
@@ -68,7 +68,7 @@ font-weight: bold !important;
               </div>
 
               <!-- Register title in the center -->
-              <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">Register</h4>
+              <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">Register Broker</h4>
 
               <!-- Save changes button on the right -->
               <div style="margin-left: auto; margin-right:7%;x">
@@ -102,7 +102,7 @@ font-weight: bold !important;
                             @error('mc_number') <span class="error">{{ $message }}</span> @enderror
                           </div>
                           <div class="form-group p-3">
-                            <label for="tax"  class="required">US Tax ID / Canadian Business Number</label>
+                            <label for="tax"  class="">US Tax ID / Canadian Business Number</label>
                             <input type="text" name="tax" class="form-control" id="tax" />
                             @error('tax') <span class="error">{{ $message }}</span> @enderror
 
@@ -270,10 +270,10 @@ font-weight: bold !important;
                             <input type="text" class="form-control" name="extra_email" id="extra_email" placeholder="Extra Email" />
                           </div>
 
-                          <div class="form-group py-3">
+                          {{-- <div class="form-group py-3">
                             <label for="password">Upload License</label>
                             <input type="file" class="form-control" name="imagePath" id="imagePath" placeholder="Choose License" />
-                          </div>
+                          </div> --}}
 
                         </div>
                         {{-- <div class="col-md-6">

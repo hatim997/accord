@@ -28,7 +28,7 @@ font-weight: bold !important;
 }
 
 </style>
-<h4 class="py-3 mb-4"><span class="text-muted fw-light">Freight/Broker Add By Trucker</h4>
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">Broker Added By Carrier</h4>
 
 <form method="POST" action="{{ route('store.broker') }}" enctype="multipart/form-data">
   @csrf
@@ -67,7 +67,7 @@ font-weight: bold !important;
               </div>
 
               <!-- Register title in the center -->
-              <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">Register</h4>
+              <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">Register Broker</h4>
 
               <!-- Save changes button on the right -->
               <div style="margin-left: auto; margin-right:7%;x">
@@ -102,7 +102,7 @@ font-weight: bold !important;
                             @error('mc_number') <span class="error">{{ $message }}</span> @enderror
                           </div>
                           <div class="form-group p-3">
-                            <label class="form-label required" for="tax">US Tax ID / Canadian Business Number</label>
+                            <label class="form-label" for="tax">US Tax ID / Canadian Business Number</label>
                             <input type="text" name="tax" class="form-control" id="tax" />
                             @error('tax') <span class="error">{{ $message }}</span> @enderror
 
@@ -111,13 +111,13 @@ font-weight: bold !important;
 
                         <div class="col-md-6">
                           <div class="form-group p-3">
-                            <label class="form-label required" for="scac">SCAC Code</label>
+                            <label class="form-label" for="scac">SCAC Code</label>
                             <input type="text" name="scac" maxlength="4" class="form-control" id="scac">
                             @error('scac') <span class="error">{{ $message }}</span> @enderror
 
                           </div>
                           <div class="form-group p-3">
-                            <label class="form-label required" for="usdot">US DOT #</label>
+                            <label class="form-label" for="usdot">US DOT #</label>
                             <input type="number" name="usdot" oninput="this.value=this.value.slice(0,8)" maxlength="8"
                               class="form-control" id="usdot" />
                             @error('usdot') <span class="error">{{ $message }}</span> @enderror
@@ -142,7 +142,7 @@ font-weight: bold !important;
                         <!-- Column for Prefix, First Name, Middle Name, Last Name, and Title -->
                         <div class="col-md-4" style="margin-top:0.9%;">
                           <div class="form-group py-3">
-                            <label class="form-label required" for="prefix">Prefix</label>
+                            <label class="form-label" for="prefix">Prefix</label>
                             <select class="form-select" id="prefix" name="prefix">
                               <option selected>Open this select menu</option>
                               <option value="1">Mr</option>
@@ -170,7 +170,7 @@ font-weight: bold !important;
                           </div>
 
                           <div class="form-group py-3">
-                            <label class="form-label required" for="title">Title</label>
+                            <label class="form-label" for="title">Title</label>
                             <input type="text" name="title" class="form-control" id="title" />
                             @error('title') <span class="error">{{ $message }}</span> @enderror
                           </div>
@@ -243,18 +243,18 @@ font-weight: bold !important;
                             <input type="text" class="form-control" name="extra_email" id="extra_email" placeholder="Extra Email" />
                           </div>
 
-                          <div class="form-group py-3">
+                          {{-- <div class="form-group py-3">
                             <label for="password">Upload License</label>
                             <input type="file" class="form-control" name="imagePath" id="imagePath" placeholder="Choose License" />
-                          </div>
+                          </div> --}}
 
                         </div>
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                           <div class="form-group py-3">
                             <label class="form-label required" for="password">PASSWORD</label>
                             <input type="text" class="form-control" name="password" id="password" placeholder="********" />
                           </div>
-                        </div>
+                        </div> --}}
                       </div>
                     </div>
                 </div>

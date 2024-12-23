@@ -808,12 +808,12 @@ $r=0;
       ]);
 
       $lastInsertedId = $user->id;
-      $name = "";
-      if(!empty($request->file('imagePath'))){
-        $file  = $request->file('imagePath');
-        $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
-        $file->storeAs('public/uploads_agent_broker_license', $name);
-      }
+      // $name = "";
+      // if(!empty($request->file('imagePath'))){
+      //   $file  = $request->file('imagePath');
+      //   $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
+      //   $file->storeAs('public/uploads_agent_broker_license', $name);
+      // }
 
       DriverDetail::create([
         'user_id' =>$lastInsertedId ,
@@ -838,7 +838,7 @@ $r=0;
         'fname' => $request->fname,
         'mc_number' => $request->mc_number,
         'is_active' => "1",
-        'image_path' => $name,
+        // 'image_path' => $name,
         'fax' => $request->fax,
      ]);
     $driver = AgencyInfos::where('user_id' ,$userId)->get();
@@ -927,14 +927,14 @@ $r=0;
 
       $lastInsertedId = $user->id;
 
-      if(!empty($request->file('imagePath'))){
-        $file  = $request->file('imagePath');
-        $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
-        $file->storeAs('public/uploads_agent_trucker_license', $name);
-      }
-      else{
-        $name = "";
-      }
+      // if(!empty($request->file('imagePath'))){
+      //   $file  = $request->file('imagePath');
+      //   $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
+      //   $file->storeAs('public/uploads_agent_trucker_license', $name);
+      // }
+      // else{
+      //   $name = "";
+      // }
 
       DriverDetail::create([
         'user_id' =>$lastInsertedId ,
@@ -969,7 +969,7 @@ $r=0;
         'fname' => $request->fname,
         'mc_number' => $request->mc_number,
         'is_active' => "1",
-        'image_path' => $name,
+        // 'image_path' => $name,
         'fax' => $request->fax,
      ]);
 
@@ -1042,7 +1042,7 @@ $r=0;
     });
 
 
-    return redirect()->route('formlist');
+    return redirect()->route('dash');
   }
 }
 }

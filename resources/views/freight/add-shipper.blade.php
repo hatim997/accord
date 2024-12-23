@@ -77,7 +77,7 @@
     $isMenu = false;
     $navbarHideToggle = false;
 @endphp
-<h4 class="py-3 mb-4"><span class="text-muted fw-light">Freight/Broker Add By Trucker</h4>
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">Shipper Added By Broker</h4>
 
 {{-- <form method="POST" action="{{ route('store.broker') }}" enctype="multipart/form-data"> --}}
  <form method="POST" action="{{ route('store.shipper') }}" enctype="multipart/form-data">
@@ -117,7 +117,7 @@
               </div>
 
               <!-- Register title in the center -->
-              <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">Register</h4>
+              <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">Register Shipper</h4>
 
               <!-- Save changes button on the right -->
               <div style="margin-left: auto; margin-right:7%;x">
@@ -146,13 +146,13 @@
                             @error('name') <span class="error">{{ $message }}</span> @enderror
                           </div>
                           <div class="form-group p-3">
-                            <label class="form-label required" for="nominal_capital">Nominal Capital</label>
+                            <label class="form-label" for="nominal_capital">Nominal Capital</label>
                             <input type="number" oninput="this.value=this.value.slice(0,8)" maxlength="8"
                               name="nominal_capital" class="form-control" id="nominal_capital" onblur="validate(3)"/>
                             @error('nominal_capital') <span class="error">{{ $message }}</span> @enderror
                           </div>
                           <div class="form-group p-3">
-                            <label class="form-label required" for="tax">US Tax ID / Canadian Business Number</label>
+                            <label class="form-label" for="tax">US Tax ID / Canadian Business Number</label>
                             <input type="text" name="tax" class="form-control" id="tax" onblur="validate(5)"/>
                             @error('tax') <span class="error">{{ $message }}</span> @enderror
 
@@ -193,7 +193,7 @@
 
                             <div class="col-md-6">
                               <div class="form-group py-3">
-                                <label class="form-label required" for="prefix">Prefix</label>
+                                <label class="form-label" for="prefix">Prefix</label>
                                 <select class="form-select" id="prefix" name="prefix"
                                   aria-label="Default select example" >
                                   <option selected>Open this select menu</option>
@@ -236,7 +236,7 @@
                               </div>
 
                               <div class="form-group py-3">
-                                <label class="form-label required" for="cellphone">Phone No:</label>
+                                <label class="form-label" for="cellphone">Phone No:</label>
                                 <input type="tel" name="cellphone" class="form-control" id="cellphone" onblur="validate(11)"/>
                                 @error('cellphone') <span class="error">{{ $message }}</span> @enderror
                               </div>
@@ -296,17 +296,17 @@
                             <input type="text" class="form-control" name="extra_email" id="extra_email" placeholder="Extra Email" />
                           </div>
 
-                          <div class="form-group py-3">
+                          {{-- <div class="form-group py-3">
                             <label for="password">Upload License</label>
                             <input type="file" class="form-control" name="imagePath" id="imagePath" placeholder="Choose License" />
-                          </div>
+                          </div> --}}
 
                         </div>
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                           <div class="form-group py-3">
                             <label class="form-label required" for="password">PASSWORD</label>
                             <input type="text" class="form-control" name="password" id="password" placeholder="********" onblur="validate(15)"/>
-                          </div>
+                          </div> --}}
                         </div>
                       </div>
                     </div>
@@ -318,7 +318,7 @@
         </div>
         {{-- card end --}}
 
-  
+
       </div>
 </form>
 

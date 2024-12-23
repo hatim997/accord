@@ -28,8 +28,8 @@ font-weight: bold !important;
 }
 
 </style>
-<h4 class="py-3 mb-4"><span class="text-muted fw-light">Shipper Certificate of Insurance</h4>
-<p>Please fill out the following information and press the submit button to request a certificate of insurance. Your request will be processed and sent to you as soon as possible. Certificates will only be issued upon verification of coverage.</p>
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">Shipper Added By Carrier</h4>
+{{-- <p>Please fill out the following information and press the submit button to request a certificate of insurance. Your request will be processed and sent to you as soon as possible. Certificates will only be issued upon verification of coverage.</p> --}}
 
 
 <form method="POST" action="{{ route('reg.add') }}">
@@ -78,7 +78,7 @@ font-weight: bold !important;
           </div>
 
           <!-- Register title in the center -->
-          <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">Register</h4>
+          <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">Register Shipper</h4>
 
           <!-- Save changes button on the right -->
           <div style="margin-left: auto; margin-right:7%;x">

@@ -128,7 +128,7 @@
                             <div class="col-md-6">
 
                                 <div class="form-group py-3">
-                                  <label class="form-label required" for="description">Suffix</label>
+                                  <label class="form-label" for="description">Suffix</label>
                                   <input type="text" wire:model="suffix" class="form-control" id="productAmount" />
                                   @error('suffix') <span class="error">{{ $message }}</span> @enderror
                               </div>

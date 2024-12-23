@@ -57,14 +57,14 @@ class FreightController extends Controller
         ]);
 
         $lastInsertedId = $user->id;
-        $name = '';
+        // $name = '';
 
-        // Store uploaded image if available
-        if (!empty($request->file('imagePath'))) {
-            $file = $request->file('imagePath');
-            $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
-            $file->storeAs('public/uploads_broker_license', $name);
-        }
+        // // Store uploaded image if available
+        // if (!empty($request->file('imagePath'))) {
+        //     $file = $request->file('imagePath');
+        //     $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
+        //     $file->storeAs('public/uploads_broker_license', $name);
+        // }
 
         // Create shipper info
         ShipperInfos::create([
@@ -87,7 +87,7 @@ class FreightController extends Controller
             'fname' => $request->fname,
             'owner' => $request->owner,
             'is_active' => "1",
-            'image_path' => $name,
+            // 'image_path' => $name,
         ]);
 
         // Create subscription
@@ -191,25 +191,25 @@ class FreightController extends Controller
   {
     $validatedDataa = Validator::make($reqeust->all(), [
       'name' => 'required',
-      'scac' => 'required',
-      'mc_number' => 'required',
-      'usdot' => 'required',
-      'tax' => 'required',
-      'prefix' => 'required',
+      // 'scac' => 'required',
+      // 'mc_number' => 'required',
+      // 'usdot' => 'required',
+      // 'tax' => 'required',
+      // 'prefix' => 'required',
       'fname' => 'required',
       'mname' => 'sometimes',
       'lname' => 'required',
-      'suffix' => 'required',
+      // 'suffix' => 'required',
       'title' => 'required',
       'email' => 'required|email|unique:users',
       'address' => 'required',
       'cellphone' => 'required',
-      'salutation'=> 'required',
+      // 'salutation'=> 'required',
       'zip' => 'required',
       'state' => 'required',
       'city' => 'required',
-      'license_number'=> 'required',
-      'password' => 'required',
+      // 'license_number'=> 'required',
+      // 'password' => 'required',
     ]);
 
     if ($validatedDataa->fails())
@@ -232,13 +232,13 @@ class FreightController extends Controller
     ]);
 
     $lastInsertedId = $user->id;
-    $name = '';
+    // $name = ''
 
-    if(!empty($reqeust->file('imagePath'))){
-      $file  = $reqeust->file('imagePath');
-      $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
-      $file->storeAs('public/uploads_driver_license', $name);
-    }
+    // if(!empty($reqeust->file('imagePath'))){
+    //   $file  = $reqeust->file('imagePath');
+    //   $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
+    //   $file->storeAs('public/uploads_driver_license', $name);
+    // }
 
    DriverDetail::create([
       'parent_id' =>$parentId ,
@@ -273,7 +273,7 @@ class FreightController extends Controller
       'fname' => $reqeust->fname,
       'mc_number' => $reqeust->mc_number,
       'is_active' => "1",
-      'image_path' => $name,
+      // 'image_path' => $name,
       'fax' => $reqeust->fax,
    ]);
 

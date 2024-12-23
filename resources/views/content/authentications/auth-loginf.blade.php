@@ -48,7 +48,7 @@
 
                                             <div class="d-flex flex-col align-content-center justify-content-center" >
 
-                                                <a href="{{ route('landing') }}"
+                                                   <a href="https://insur.dboss.pk/wp/"
                                                 <span
                                                 class="app-brand-logo2 demo">@include('_partials.macross',["height"=>20,"withbg"=>'fill:
                                                 #fff;'])</span>

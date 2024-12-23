@@ -148,14 +148,14 @@ $user->save();
       $previousMonth = Carbon::today()->addMonth();
       $previousMonthNumber = $previousMonth->month;
       $previousYear = $previousMonth->year;
-      
+
       $records = Certificate::where('certificates.ch', '=', $authUserId)
           ->join('users', 'certificates.client_user_id', '=', 'users.id')
           ->join('certificate_policies', 'certificates.id', '=', 'certificate_policies.certificate_id')
           ->join('policy_types', 'certificate_policies.policy_type_id', '=', 'policy_types.id')
           ->where('users.status', '=', '1')
           ->whereBetween('certificate_policies.expiry_date', [$currentDate, $previousMonth])
-          
+
           ->select(
               'users.*',
               'certificates.*',
@@ -192,7 +192,7 @@ $user->save();
       return view('shipper.dash', compact('endors', 'records', 'recordweeks','brokersinfo', 'activeUserCount','inactiveUserCount','activeUsers','inactiveUsers'));
   }
 
- 
+
   public function AgentNotification(Request $request)
   {
     // dd($agent_id);
@@ -252,7 +252,7 @@ $camapony = AgencyInfos::where("user_id", $agent_user[0]->producer_user_id)->fir
     });
 
 
-  
+
     Notice::create([
      'to' => $request->client_user_id,
       'from' => Auth::id(),
@@ -485,13 +485,13 @@ $user->others = $request->other;}
     ]);
 
     $lastInsertedId = $user->id;
-    $name = '';
+    // $name = '';
 
-    if(!empty($reqeust->file('imagePath'))){
-      $file  = $reqeust->file('imagePath');
-      $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
-      $file->storeAs('public/uploads_driver_license', $name);
-    }
+    // if(!empty($reqeust->file('imagePath'))){
+    //   $file  = $reqeust->file('imagePath');
+    //   $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
+    //   $file->storeAs('public/uploads_driver_license', $name);
+    // }
 
    $driverdetail = DriverDetail::create([
       'parent_id' =>$parentId ,
@@ -516,7 +516,7 @@ $user->others = $request->other;}
       'fname' => $reqeust->fname,
       'mc_number' => $reqeust->mc_number,
       'is_active' => "1",
-      'image_path' => $name,
+      // 'image_path' => $name,
       'fax' => $reqeust->fax,
    ]);
     $subb = Subscription::create([
@@ -599,12 +599,12 @@ $agent =AgencyInfos::All();
       'status' => "1",
     ]);
     $lastInsertedId = $user->id;
-    $name = '';
-    if(!empty($reqeust->file('imagePath'))){
-      $file  = $reqeust->file('imagePath');
-      $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
-      $file->storeAs('public/uploads_driver_license', $name);
-    }
+    // $name = '';
+    // if(!empty($reqeust->file('imagePath'))){
+    //   $file  = $reqeust->file('imagePath');
+    //   $name = Carbon::now()->timestamp . '_' . $lastInsertedId . '.' . $file->extension();
+    //   $file->storeAs('public/uploads_driver_license', $name);
+    // }
    DriverDetail::create([
       'parent_id' =>$parentId ,
       'user_id' =>$lastInsertedId ,
@@ -628,7 +628,7 @@ $agent =AgencyInfos::All();
       'fname' => $reqeust->fname,
       'mc_number' => $reqeust->mc_number,
       'is_active' => "1",
-      'image_path' => $name,
+      // 'image_path' => $name,
       'fax' => $reqeust->fax,
    ]);
     $subb = Subscription::create([
