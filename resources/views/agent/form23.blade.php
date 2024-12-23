@@ -299,8 +299,8 @@ $navbarHideToggle = false;
                                                                                         {{ $driver->truckers[0]->state }}
                                                                                         {{ $driver->truckers[0]->zip }}</span><br
                                                                                         class="ng-tns-c268-42">
-                                                                                    <span class="insured-cellphone">Cell:
-                                                                                        {{ $driver->truckers[0]->cellphone }}</span>
+                                                                                    {{-- <span class="insured-cellphone">Cell:
+                                                                                        {{ $driver->truckers[0]->cellphone }}</span> --}}
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
@@ -2342,7 +2342,7 @@ $navbarHideToggle = false;
                                                                                                                     id="{{ $pl->coverage_item }}"
                                                                                                                     name="main_policy_coverage[{{ str_replace(' ', '_', $pt->id) }}][{{ $pl->id }}]"
                                                                                                                     placeholder=""
-                                                                                                                    value="@if (isset($certPolimit)) {{ $certPolimit->where('policy_limit_id', $pl->id)->first()->amount ?? 0 }} @endif"
+                                                                                                                    value="@if(isset($certPolimit)){{ $certPolimit->where('policy_limit_id',$pl->id)->first()->amount ?? 0 }}@endif"
                                                                                                                     aria-invalid="false"
                                                                                                                     aria-required="true"><span
                                                                                                                     class="mat-form-field-label-wrapper ng-tns-c70-70"></span>
@@ -2906,7 +2906,7 @@ $navbarHideToggle = false;
                                                                                                                     id="{{ $pl->coverage_item }}"
                                                                                                                     name="main_policy_coverage[{{ str_replace(' ', '_', $pt->id) }}][{{ $pl->id }}]"
                                                                                                                     placeholder=""
-                                                                                                                    value="@if (isset($certPolimit)) {{ $certPolimit->where('policy_limit_id', $pl->id)->first()->amount ?? 0 }} @endif"
+                                                                                                                    value="@if(isset($certPolimit)){{$certPolimit->where('policy_limit_id', $pl->id)->first()->amount ?? 0}}@endif"
                                                                                                                     aria-invalid="false"
                                                                                                                     aria-required="true"><span
                                                                                                                     class="mat-form-field-label-wrapper ng-tns-c70-70"></span>
