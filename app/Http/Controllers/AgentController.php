@@ -33,6 +33,7 @@ use Carbon\Carbon;
 use Mail;
 use Illuminate\Validation\ValidationException;
 
+
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class AgentController extends Controller
@@ -88,7 +89,7 @@ return view('agent.agency', compact('certificate'));
 
 
     //  dd($certificate);
-return $certificates ;
+    return $certificates ;
   }
   public function agentprofiles()
   {
@@ -1044,5 +1045,24 @@ $r=0;
 
     return redirect()->route('dash');
   }
-}
+  }
+
+  public function deleteCertificate($id)
+  {
+      DB::beginTransaction();
+      try {
+          // Delete related data
+          DB::table('certificate_policy_limits')->where('certificate_id', $id)->delete();
+          DB::table('certificate_policies')->where('certificate_id', $id)->delete();
+
+          // Delete the certificate
+          DB::table('certificates')->where('id', $id)->delete();
+
+          DB::commit(); // Commit transaction
+          return redirect()->back()->with('success', 'Certificate and its related data deleted successfully.');
+      } catch (\Exception $e) {
+          DB::rollBack(); // Rollback transaction on error
+          return redirect()->back()->with('error', 'Error occurred while deleting the certificate: ' . $e->getMessage());
+      }
+  }
 }

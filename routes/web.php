@@ -209,6 +209,8 @@ Route::group(['middleware' => 'checkRole:agent'], function () {
   Route::post('/password/update', [ac::class, 'checkpass'])->name('password.update');
   Route::post('/profile/update', [ac::class, 'proupd'])->name('agent.proupd');
 
+  Route::get('/delete_cert/{id}', [ac::class, 'deleteCertificate'])->name('delete_cert');
+
 });
 
 

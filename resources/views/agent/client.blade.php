@@ -222,6 +222,8 @@
                   style="width: 267px;" aria-label="customers: activate to sort column ascending">Add Certificate</th>
                 <th class="text-black" style="color: black !important;" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                   style="width: 147px;" aria-label="method: activate to sort column ascending">status</th>
+                  <th class="text-black" style="color: black !important;" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                  style="width: 147px;" aria-label="method: activate to sort column ascending">Delete</th>
 
               </tr>
             </thead>
@@ -387,8 +389,14 @@
                 <td>
                     <div class="d-flex align-items-center text-nowrap"><a target="_blank" href="cert_1st_step/${data.client_user_id}"><i class="mdi mdi-plus-box"></i></a></div>
                 </td>
-                <td>    <span class="badge px-2 rounded-pill ${        data.status === "0" ? 'bg-label-danger' : 'bg-label-success'
-    }" text-capitalized="">        ${data.status === "0" ? 'Inactive' : 'Active'}    </span></td>
+                <td> <span class="badge px-2 rounded-pill ${        data.status === "0" ? 'bg-label-danger' : 'bg-label-success'}" text-capitalized="">        ${data.status === "0" ? 'Inactive' : 'Active'}    </span></td>
+                <td>
+                  <div class="d-flex align-items-center text-nowrap">
+                      <a href="delete_cert/${data.id}" onclick="return confirm('Are you sure you want to delete this certificate?');">
+                          <i class="mdi mdi-delete"></i>
+                      </a>
+                  </div>
+              </td>
             </tr>
             <tr id="dropdown-${data.id}" class="dropdown-content" style="display: none;">
                 <td colspan="7">
