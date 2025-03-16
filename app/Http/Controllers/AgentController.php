@@ -54,6 +54,26 @@ return view('agent.agency', compact('certificate'));
   }
 
 
+  public function updatePolicy(Request $request)
+  {
+    $policy = CertificatePolicy::find($request->policy_id);
+    // dd($policy);
+    
+    if ($policy) {
+        $policy->start_date = now()->format('Y-m-d');
+        $policy->expiry_date = now()->addYear()->format('Y-m-d');
+        $policy->save();
+
+        return response()->json([
+            'success' => true,
+            'new_start_date' => $policy->start_date,
+            'new_expiry_date' => $policy->expiry_date
+        ]);
+    }
+
+    return response()->json(['success' => false]);
+  }
+
   public function getcert($id)
   {
     $certificates = Certificate::where('client_user_id', $id)

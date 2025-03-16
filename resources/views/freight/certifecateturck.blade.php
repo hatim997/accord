@@ -90,8 +90,9 @@
                                 <thead>
                                     <tr style="background: linear-gradient(180deg, rgba(42,132,254,1) 0%, rgba(54,197,255,1) 100%);">
                                         <th>Certificate Holders</th>
-                                        <th>Certificate for Drivers</th>
-                                        <th>Download Certificate</th>
+                                        <th>View / Edit COI</th>                                        
+                                        <th>View / Download Certificate</th>
+                                        <th>Send Email</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0 ">
@@ -113,15 +114,62 @@
                                             </td>
                                             <td>
                                                 <a href="{{ route('get_pdf', $cert->id) }}" class="custom-button rounded-pill">
+                                                    <i class="fa-solid fa-eye"></i>&nbsp;
+                                                    view 
+                                                </a>
+                                                <a href="{{ route('get_pdf', $cert->id) }}" class="custom-button rounded-pill">
                                                     <i class="fa-solid fa-download"></i>&nbsp;
                                                     Download
                                                 </a>
+                                            </td>
+                                            <td>
+                                                <button type="button"    data-id="{{$cert->id}}"  data-bs-toggle="modal" data-bs-target="#exampleModal"  class="custom-button eye-c">
+                                                    <i class="fas fa-envelope"></i> &nbsp;Send Mail
+                                                </button>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-sm" style="width: 40rem">
+                                                                <div class="modal-content">  <form action="{{route('mail')}}" method="POST"   >
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" id="recipient-id" name="ids">
+                                            <div class="mb-3">
+                                                <label for="emailTo" class="form-label">To</label>
+                                                <input type="email" name="email" class="form-control" id="emailTo" placeholder="Recipient's email" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="emailSubject" class="form-label">Subject</label>
+                                                <input type="text" name="sub" class="form-control" id="emailSubject" placeholder="Email subject" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="emailMessage" class="form-label">Message</label>
+                                                <textarea class="form-control" name="texted" id="emailMessage" rows="3" placeholder="Your message" required></textarea>
+                                            </div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Send</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
                     </div>
                 </div>
                 <!--/ Data Tables -->
@@ -132,6 +180,20 @@
 
 @push('body-scripts')
 <script>
+
+    const exampleModal = document.getElementById('exampleModal');
+    exampleModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        const button = event.relatedTarget;
+        // Extract `data-id` value
+        const recipientId = button.getAttribute('data-id');
+        
+        // Insert `id` into the modal (e.g., into an input field or span)
+        const modalInput = exampleModal.querySelector('#recipient-id');
+        modalInput.value = recipientId;
+    });
+
+
   document.addEventListener('DOMContentLoaded', function () {
       // Select only the download buttons
       const downloadButtons = document.querySelectorAll('.custom-button.rounded-pill');

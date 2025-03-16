@@ -82,7 +82,7 @@
 
                                 <!-- Register title in the center -->
                                 <h4 class="card-title mb-0 form-heading" id="cardCenterTitle" style="text-align: center;">
-                                    Register Carrier</h4>
+                                    Register Carrier  </h4>
 
                                 <!-- Save changes button on the right -->
                                 <div style="margin-left: auto; margin-right:7%;x">
@@ -103,11 +103,11 @@
                                         <div class="row p-2  bg-white">
 
                                         </div>
-                                        <div class="row p-3 setup-content " id="step-1">
-                                            <div class="col-xs-12">
+                                        <div class="row py-3 setup-content " id="step-1">
+                                          
                                                 <div class="row px-5">
                                                     <div class="col-md-6">
-                                                        <div class="form-group p-3">
+                                                        <div class="form-group py-3">
                                                             <label for="name" class="required">Company Name:</label>
                                                             <input type="text" name="name" class="form-control"
                                                                 id="name">
@@ -115,7 +115,7 @@
                                                                 <span class="error">{{ $message }}</span>
                                                             @enderror
                                                         </div>
-                                                        <div class="form-group p-3">
+                                                        <div class="form-group py-3">
                                                             <label for="mc_number"class="required">Federal Registration No.
                                                                 (MC Number)</label>
                                                             <input type="number" oninput="this.value=this.value.slice(0,8)"
@@ -125,7 +125,7 @@
                                                                 <span class="error">{{ $message }}</span>
                                                             @enderror
                                                         </div>
-                                                        <div class="form-group p-3">
+                                                        <div class="form-group py-3">
                                                             <label for="tax"class="">US Tax ID / Canadian Business Number</label>
                                                             <input type="text" name="tax" class="form-control"
                                                                 id="tax" />
@@ -163,90 +163,13 @@
                                                                 <span class="error">{{ $message }}</span>
                                                             @enderror
                                                         </div>
-                                                        {{-- <div class="form-group p-3">
-                            <label for="scac"class="required">SCAC Code</label>
-                            <input type="text" name="scac" maxlength="4" class="form-control" id="scac">
-                            @error('scac') <span class="error">{{ $message }}</span> @enderror
-
-                          </div> --}}
-                                                        {{-- <div class="form-group p-3">
-                            <label for="usdot"class="required">US DOT #</label>
-                            <input type="number" name="usdot" oninput="this.value=this.value.slice(0,8)" maxlength="8"
-                              class="form-control" id="usdot" />
-                            @error('usdot') <span class="error">{{ $message }}</span> @enderror
-
-                          </div> --}}
-
-                                                        {{-- <div class="form-group p-3">
-                            <label for="websit">Company Website address:</label>
-                            <input type="text" name="websit" class="form-control" id="websit" />
-                            @error('websit') <span class="error">{{ $message }}</span> @enderror
-
-                          </div> --}}
+                                         
 
                                                     </div>
-                                                </div>
+                                               
 
-                                            </div>
-                                        </div>
-                                        <div class="row p-3 setup-content " id="step-2">
-                                          <div class="col-xs-12">
-                                            <div class="row px-5"> {{-- <div class="col-md-6">
-
-                              <div class="form-group py-3">
-                                <label for="prefix">Prefix</label>
-                                <select class="form-select" id="prefix" name="prefix"
-                                  aria-label="Default select example">
-                                  <option selected>Open this select menu</option>
-                                  <option value="1">Mr</option>
-                                  <option value="2">Mrs</option>
-                                  <option value="3">Ms</option>
-                                </select>
-                              </div>
-
-                              <div class="form-group py-3">
-                                <label for="mname">Middle Name:</label>
-                                <input type="text" name="mname" class="form-control" id="mname" />
-                                @error('mname') <span class="error">{{ $message }}</span> @enderror
-                              </div>
-                              <div class="form-group py-3">
-                                <label for="suffix"class="required">Suffix</label>
-                                <input type="text" name="suffix" class="form-control" id="suffix" />
-                                @error('suffix') <span class="error">{{ $message }}</span> @enderror
-                              </div>
-                              <div class="form-group py-3">
-                                <label for="salutation"class="required">Salutation</label>
-                                <input type="text" name="salutation" class="form-control" id="salutation" />
-                                @error('salutation') <span class="error">{{ $message }}</span> @enderror
-                              </div>
-
-                            </div> --}}
-                                            {{-- <div class="col-md-6">
-
-
-                              <div class="form-group py-3">
-                                <label for="title"class="required">Title:</label>
-                                <input type="text" name="title" class="form-control" id="title" />
-                                @error('title') <span class="error">{{ $message }}</span> @enderror
-                              </div>
-                            </div> --}}
-
-
-                                            {{-- <div class="col-md-6">
-
-
-                              <div class="form-group py-3">
-                                <label for="cellphone"class="required">Phone No:</label>
-                                <input type="tel" name="cellphone" class="form-control" id="cellphone" />
-                                @error('cellphone') <span class="error">{{ $message }}</span> @enderror
-                              </div>
-                              <div class="form-group py-3">
-                                <label for="fax">Fax No:</label>
-                                <input type="tel" name="fax" class="form-control" id="fax" />
-                                @error('fax') <span class="error">{{ $message }}</span> @enderror
-                              </div>
-
-                            </div> --}}
+                                            
+                                      
 
                                             <div class="col-md-6">
 
@@ -316,76 +239,10 @@
                                               </div>
 
                                             </div>
-                                            <div class="col-md-6">
-
-
-
-                                            </div>
-                                        </div>
-                                      </div> </div>
-
-                                        <div class="row setup-content " id="step-3">
-                                          <div class="col-xs-12">
-                                            <div class="row px-5">
-                                            {{-- <div class="col-md-6">
-                                                <div class="form-group py-3">
-                                                    <label for="license_type"class="required">License Type:</label>
-                                                    <input type="text" name="license_type" class="form-control"
-                                                        id="license_type" />
-                                                    @error('license_type')
-                                                        <span class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                                <div class="form-group py-3">
-                                                    <label for="license_number"class="required">License Number :</label>
-                                                    <input type="text" name="license_number" class="form-control"
-                                                        id="license_number" />
-                                                    @error('license_number')
-                                                        <span class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="form-group py-3">
-                                                    <label for="license_expiry_date"class="required">License Expiry
-                                                        Date:</label>
-                                                    <input type="date" name="license_expiry_date" class="form-control"
-                                                        id="license_expiry_date" />
-                                                    @error('license_expiry_date')
-                                                        <span class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div> --}}
-                                            {{-- <div class="col-md-6">
-                                                <div class="form-group py-3">
-                                                    <label for="years_of_experience"class="required">Years Of
-                                                        Experience:</label>
-                                                    <input type="text" name="years_of_experience" class="form-control"
-                                                        id="years_of_experience" />
-                                                    @error('years_of_experience')
-                                                        <span class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="form-group py-3">
-                                                    <label for="vehicle_registration_number"class="required">Vehicle
-                                                        Registration Number:</label>
-                                                    <input type="text" name="vehicle_registration_number"
-                                                        class="form-control" id="vehicle_registration_number" />
-                                                    @error('vehicle_registration_number')
-                                                        <span class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="form-group py-3">
-                                                    <label for="vehicle_make"class="required">Vehicle Make:</label>
-                                                    <input type="text" name="vehicle_make" class="form-control"
-                                                        id="vehicle_make" />
-                                                    @error('vehicle_make')
-                                                        <span class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div> --}}
-
+                                           
+                                      
+                                      
+                                          
 
                                             <div class="col-md-6">
                                                 <div class="form-group py-3">
@@ -405,24 +262,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            {{-- <div class="col-md-6">
-                                                <div class="form-group py-3">
-                                                    <label for="vehicle_status"class="required">Vehicle Status :</label>
-                                                    <input type="text" name="vehicle_status" class="form-control"
-                                                        id="vehicle_status" />
-                                                    @error('vehicle_status')
-                                                        <span class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                                <div class="form-group py-3">
-                                                    <label for="vehicle_capacity"class="required">Vehicle Capacity:</label>
-                                                    <input type="text" name="vehicle_capacity" class="form-control"
-                                                        id="vehicle_capacity" />
-                                                    @error('vehicle_capacity')
-                                                        <span class="error">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div> --}}
+                                          
 
 
 
@@ -440,16 +280,10 @@
                                                 </div> --}}
 
                                             </div>
-                                            {{-- <div class="col-md-6">
-                                                <div class="form-group py-3">
-                                                    <label for="password"class="required">PASSWORD</label>
-                                                    <input type="text" class="form-control" name="password1"
-                                                        id="password" placeholder="********" />
-                                                </div>
-                                            </div> --}}
+                                        </div> 
                                         </div>
 
-                                      </div>
+                                      
                                     </div>
                                     </div>
                                 </div>

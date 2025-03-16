@@ -1418,7 +1418,9 @@ style="flex-direction: row; box-sizing: border-box; display: flex;">
         </td></tr>
       <tr  style="border:1px solid black; ">
 
-        <td class="lable_title" colspan="2"><label>&nbsp;&nbsp; EFFECTIVE DATE:</label>&nbsp;&nbsp;&nbsp;&nbsp;{{  date('m-d-Y', strtotime($cp->start_date)) }}  </td>
+        <td class="lable_title" colspan="2"><label>&nbsp;&nbsp; EFFECTIVE DATE:</label>&nbsp;&nbsp;&nbsp;&nbsp;
+          {{-- {{  date('m-d-Y', strtotime($cp->start_date)) }} --}}
+          </td>
 
       </tr>
     </tbody>

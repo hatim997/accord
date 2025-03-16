@@ -131,7 +131,13 @@ $weekExpolicies = collect($results);
     $ship = ShipperInfos::all();
     return view('truck.list-shipper', compact('ship'));
   }
+  public function mail(Request $request)
+  {
 
+    
+    return view('freight.certifecateturck', compact('certificate'));
+   
+  }
   public function trucks()
   {
     $truck = TruckDetail::all();

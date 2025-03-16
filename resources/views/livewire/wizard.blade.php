@@ -53,7 +53,8 @@
         <div class="col-xs-12">
             <div class="row px-5">
                 <div class="col-md-6">
-                    <div class="form-group py-3">
+                    {{-- prefix --}}
+                    {{-- <div class="form-group py-3">
                         <label for="exampleFormControlSelect1">Prefix</label>
                         <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
                             <option selected>Open this select menu</option>
@@ -61,45 +62,47 @@
                             <option value="2">Mrs</option>
                             <option value="3">Ms</option>
                         </select>
-                    </div>
+                    </div> --}}
                     <div class="form-group py-3">
                         <label for="description" class="required">First Name:</label>
                         <input type="text" wire:model="fname" class="form-control" id="productAmount" />
                         @error('fname') <span class="error">{{ $message }}</span> @enderror
                     </div>
-                    <div class="form-group py-3">
-                        <label for="description">Middle Name:</label>
-                        <input type="text" wire:model="mname" class="form-control" id="productAmount" />
-                        @error('mname') <span class="error">{{ $message }}</span> @enderror
-                    </div>
+                    
                     <div class="form-group py-3">
                         <label for="description"class="required">Last Name:</label>
                         <input type="text" wire:model="lname" class="form-control" id="productAmount" />
                         @error('lname') <span class="error">{{ $message }}</span> @enderror
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group p-3">
-                        <label for="title" class="required">Company Name:</label>
-                        <input type="text" wire:model="name" class="form-control" id="taskTitle">
-                        @error('name') <span class="error">{{ $message }}</span> @enderror
-                    </div>
-                    <div class="form-group p-3">
-                        <label for="description" class="required">
-                            Insurance Agency License Number</label>
-                        <input type="text" wire:model="ialn" class="form-control" id="productAmount" />
-                        @error('ialn') <span class="error">{{ $message }}</span> @enderror
-                    </div>
-                    <div class="form-group py-3">
-                        <label for="description" class="">Suffix</label>
-                        <input type="text" wire:model="suffix" class="form-control" id="productAmount" />
-                        @error('suffix') <span class="error">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group py-3">
                         <label for="description"class="required">Title:</label>
                         <input type="text" wire:model="title" class="form-control" id="productAmount" />
                         @error('title') <span class="error">{{ $message }}</span> @enderror
                     </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group py-3">
+                        <label for="description">Middle Name:</label>
+                        <input type="text" wire:model="mname" class="form-control" id="productAmount" />
+                        @error('mname') <span class="error">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="form-group py-3">
+                        <label for="title" class="required">Company Name:</label>
+                        <input type="text" wire:model="name" class="form-control" id="taskTitle">
+                        @error('name') <span class="error">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="form-group py-3">
+                        <label for="description" class="required">
+                            Insurance Agency License Number</label>
+                        <input type="text" wire:model="ialn" class="form-control" id="productAmount" />
+                        @error('ialn') <span class="error">{{ $message }}</span> @enderror
+                    </div>
+                    {{-- <div class="form-group py-3">
+                        <label for="description" class="">Suffix</label>
+                        <input type="text" wire:model="suffix" class="form-control" id="productAmount" />
+                        @error('suffix') <span class="error">{{ $message }}</span> @enderror
+                    </div> --}}
+                    
                 </div>
 
 

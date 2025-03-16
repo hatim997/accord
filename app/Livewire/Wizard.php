@@ -54,7 +54,7 @@ class Wizard extends Component
              'fname' => 'required',
              'lname' => 'required',
              'title' => 'required',
-             'suffix' => 'required',
+            //  'suffix' => 'required',
              'mname' => 'nullable',
              'websit' => 'nullable',
          ]);

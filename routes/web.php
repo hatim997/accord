@@ -191,6 +191,7 @@ Route::group(['middleware' => 'checkRole:agent'], function () {
   Route::post('/form2', [ac::class, 'create'])->name('form2');
   Route::get('/dash', [ac::class, 'dash'])->name('dash');
   Route::get('/insured', [ac::class, 'insured'])->name('insur');
+  Route::post('/update-policy', [ac::class, 'updatePolicy'])->name('update.policy');
   Route::get('/insur_broker', [ac::class, 'insurf'])->name('insurf');
   Route::post('/save_cert', [ac::class, 'store'])->name('save_cert');
   Route::get('/main_cert/{id}', [ac::class, 'MainCertificate'])->name('main_cert');
@@ -234,7 +235,9 @@ Route::group(['middleware' => 'checkRole:agent'], function () {
   Route::get('/add-broker', [TruckController::class, 'brokers'])->name('add.broker');
   Route::post('/store-broker', [TruckController::class, 'storeBroker'])->name('store.broker');
   Route::post('/profile/updatese', [TruckController::class, 'proupd'])->name('driver.proupd');
+  Route::post('/truck/mail', [TruckController::class, 'mail'])->name('mail');
 
+  
 });
 
 

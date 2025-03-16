@@ -15,7 +15,7 @@
         <li>
             Clicking the link below:
             <br>
-            <a href="https://insur.dboss.pk/public/email-validate" style="color: #1a73e8;">Verify Your Email</a>
+            <a href="{{ route('validated')}}" style="color: #1a73e8;">Verify Your Email</a>
         </li>
         <li>
             Or using the verification code below:
